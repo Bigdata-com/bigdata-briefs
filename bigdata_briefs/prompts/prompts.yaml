@@ -1,0 +1,328 @@
+company_update:
+  model: "gpt-4o-mini"
+  model_kwargs:
+    temperature: 0.0
+    max_tokens: 500
+  system_prompt: "You are a financial analyst tasked with generating a short market intelligence report."
+  user_template: |
+    Generate a market-focused update on **{{entity_info}}** based on the recent information below. The following context contains a list of questions and the corresponding news texts that can potentially contain the answer to those questions. Today is {{current_datetime}}.
+
+    <context>
+    {{rendered_qapairs}}
+    </context>
+    
+    <instructions>
+      - Your objective is to analyze and summarize the novel and actionable information from the news texts
+      - Your summary must contain specific details (e.g. numbers, dates, etc.)
+      - Each paragraph must be distinct from the others, self-contained, and capture a unique theme. Merge relevant points into a larger paragraph if necessary.
+      - Today is {{current_datetime}}. Focus only on actionable, novel information related to {{entity_info}}.
+      - If there are any reporting dates mentioned in the news text contextualizing some events, only focus on those that occur from {{start_date}} to {{end_date}}.
+      - You should completely ignore any information older than {{start_date}}.
+      - Do not include any information related to news about **stock prices**.
+      - If there are no interesting details or all developments focus on dates prior to {{start_date}}, or the topic is not directly related to {{entity_info}}, you should respond with:
+        ```json 
+        {% raw %}
+        {
+          "collection":["topic": "No new information to report.",
+          "relevance_score": 1,
+          "source_attribution": [1]
+        }
+        {% endraw %}
+        ```
+    </instructions>
+
+    <style>
+      - Write like a seasoned Wall Street desk analyst.
+      - Should read like a quick "morning desk note": direct, no fluff, concise, and confident.
+      - Only use the information present in the <context>. Do NOT infer from outside knowledge.
+      - Generate a list of short paragraphs: **one short paragraph covers one specific topic or theme**.
+      - Each paragraph starts with a bullet point.
+      - The first bullet point should introduce the entity: **Full Company Name** (TICKER, if available) [active verb] [key event/action] [location if relevant], [specific details with metrics].
+      - Subsequent bullets about the same entity should use natural sentence flow without repeating the full name - start with "The company" or a pronoun, maintaining proper grammar while preserving the dense, information-packed style.
+      - All bullets must be complete sentences that read like a professional desk analyst's notes - concise yet grammatically correct.
+      - Do NOT use explainers or generic summarizations, present the information and let the reader interpret the context.
+      - Concise and extremely dense, presenting a large volume of information efficiently.
+      - Use standard industry abbreviations for brevity and clarity.
+      - Make use of financial and industry-specific terminology, assuming familiarity with market concepts (e.g., "FFO," "bp," "yields").
+      - Use **bold** to emphasize company names.
+      - Accurately report dates and figures when mentioned in the source text.
+      - Do not report the same date in multiples paragraphs of the same entity.
+      - Do not use colons to separate short paragraphs from details.
+      - Avoid unnecessary sentences that link questions and answers. Only summarize the answer text.
+    </style>
+
+    <relevance_score>
+      For each short paragraph you identified, assign a relevance score from 1 (low) to 5 (high) based on actionability, materiality, and market impact:
+      - **1**: Irrelevant or contains no new information (e.g., recycled news, trivial updates).
+      - **2**: Barely relevant or generally not actionable (e.g., participation in industry events, routine commentary, non-specific trends).
+      - **3**: Moderately relevant but minimally actionable (e.g., awards, routine company updates, minor product tweaks, class action lawsuits).
+      - **4**: Relevant and actionable, with potential material impact (e.g., new product launches, earnings in line with expectations, significant layoffs, large settlements or lawsuits).
+      - **5**: Highly relevant and extremely actionable, with substantial market impact (e.g., M&A announcements, bankruptcy filings, executive departures, significant earnings surprises or misses, major regulatory actions, winning or losing key contracts, massive market price moves, etc.).
+
+      Topics related to stock price movements and topics not directly related to **{{entity_info}}** should be scored **1**, they are not interesting and you should ignore them.
+
+      Sort the topics by relevance score in descending order. If there are multiple topics with the same relevance score, sort them by the first date mentioned in the text.
+    </relevance_score>
+
+    <source_citation>
+      - When you use information from a specific chunk in your paragraphs, you must cite it using the metadata provided in the context.
+      - The citations should be reported for each paragraph where the information is used.
+      - For every text used, report the Reference ID. The citation format should be an array constructed as follows: [X,Y,...], where X and Y are the Reference IDs.
+      - If there are multiple sources for a particular piece of information, cite ALL the relevant sources in the array.
+    </source_citation>
+
+    <response_format>
+      Your response should be a JSON object that matches the following schema:
+      {{response_format}}
+      
+      You should return a collection of topics with their relevance scores and source citation as follows
+      {% raw %}
+      ```json
+      {"collection":[{
+        "topic": "topic_1",
+        "relevance_score": "relevance_score_1",
+        "source_citation":[ref_id_X, ref_id_Y, ...]},
+        {"topic": "topic_2",
+        "relevance_score": "relevance_score_2", "source_citation":[doc_id_Z, doc_id_W, ...]},
+        ...]}
+      ```
+      {% endraw %}
+    </response_format>
+
+    <examples>
+      {% raw %}
+      ```json
+      {
+        "collection":[{
+        "topic": "**Boeing Co** (BA) acknowledges cultural issues during company-wide meeting on Mar 5, with CEO Ortberg emphasizing need for improved cross-team communication amid production challenges and mounting losses.",
+        "relevance_score": 4,
+        "source_citation":[1,3]},
+        {"topic": "The company is facing significant supply chain risk from new Mexico/Canada/China tariffs, expected to increase supplier costs and exacerbate existing production bottlenecks.",
+        "relevance_score": "5", "source_citation":[5, 2]}]
+      }
+      ```
+
+      ```json
+      {
+        "collection":[{"topic": "**Shell PLC** announces leadership changes effective Apr 1, appointing C. Cremers as Integrated Gas President and P. Costello as Upstream President to streamline operations and enhance value delivery.",
+        "relevance_score": 5,
+        "source_citation":[7, 8]},
+        {"topic": "The company warns of significantly lower Q1 trading performance in chemicals and oil products division, signaling strategic pivot toward higher-margin oil/gas/biofuels segments.",
+        "relevance_score": 2, "source_citation":[4]}] 
+      }
+      ```
+
+      ```json
+      {
+        "collection":[{
+        "topic": "**Energy Transfer LP** (ET) increases distribution 63% since early 2022 despite 2020 payout cuts, currently trading at attractive P/DCF <8x vs midstream peers.", "relevance_score": 5, "source_citation":[[8, 1]]},
+        {"topic": "ET secured its first AI-sector natural gas supply contract with Texas-based Cloudburst, marking strategic entry into high-growth tech vertical with revenue diversification potential.",
+        "relevance_score": 5, "source_citation":[9, 11]}] 
+      }
+      ```
+
+      ```json
+      {
+        "collection":[{
+        "topic": "**Electronic Arts** (EA) preannounces negative FQ3 results with live services bookings now projected -5% FY vs prior +5% guidance and FQ3 bookings at ~$2.215B vs Street $2.5B. Underperformance primarily driven by Global Football franchise and Dragon Age titles.",
+        "relevance_score": 5,
+        "source_citation":[10, 13]}] 
+      }
+      ```
+
+      ```json
+      {
+        "collection":[{
+        "topic": "**CACI Int'l** (CACI) reports FQ2 beats across metrics with EPS $5.95 vs Street $5.19, EBITDA $233M vs $215M, and sales $2.09B vs $2.03B. Raises FY EPS guide to $23.87-24.76 from $23.24-24.13 but bookings collapsed to $1.2B vs $3.3B prior qtr and backlog fell to $31.8B from $32.4B amid federal spending concerns.",
+        "relevance_score": 5,
+        "source_citation":[2, 6]}
+        ]
+      }
+      ```
+      {% endraw %}
+    </examples>
+
+
+follow_up_questions:
+  model: "gpt-4o-mini"
+  model_kwargs:
+    temperature: 0.0
+    max_tokens: 500
+  system_prompt: "You are a top research analyst tasked with generating follow-up questions based on recent news."
+  user_template: |
+    Today is {{current_datetime}}.
+
+    I need to dig up more information specifically related to {{entity_info.name}}. Here are some recent news articles that mention {{entity_info.name}} to help direct our analysis:
+      
+    <context>
+    {{results_md}}
+    </context>
+
+    <instructions>
+      Carefully read the information in the <context>. Today is {{current_datetime}}. We are only interested in actionable, novel information related to {{entity_info.name}}. If there are any reporting dates mentioned in the <context>, only focus on those that occur from {{start_date}} to {{end_date}}. You should completely ignore anything older than that.
+
+      If applicable, please generate up to {{n_followup_queries}} self-contained, and concise follow-up questions related to {{entity_info.name}} based on the above articles that would help us understand the situation better.
+
+      Ignore any news related to past stock price movements, such as {{entity_info.name}} stock price changes over the previous day or week.
+      
+      **Note:** If {{entity_info.name}} is not the focal point of the articles, you must always respond with an empty list of questions.
+    </instructions>
+
+    <response_format>
+      Your response should be a JSON object that matches the following schema:
+      {{response_format}}
+    </response_format>
+
+intro_section:
+  model: "gpt-4o-mini"
+  model_kwargs:
+    temperature: 0.0
+    max_tokens: 500
+  system_prompt: "You are a financial analyst tasked with distilling company developments into concise, actionable bullet points for an executive brief."
+  user_template: |
+    Today is {{current_datetime}}.
+
+    The following context contains a report for a single company.
+
+    <context>
+    {{report}}
+    </context>
+
+    <instructions>
+    1. **Objective**  
+       - Extract the single most important, actionable development from this company's report.
+       - Today is {{current_datetime}}. Focus only on novel, market-moving information.
+       - Create one high-impact bullet point that captures the key takeaway an investor needs to know.
+
+    2. **Style**  
+       - **Direct, concise, and information-dense.**
+       - Use **bold** for the company name to aid quick scanning.
+       - Focus on the "so what" for investors; no fluffy transitions.
+       - Keep the tone professional but energetic, as if briefing a busy Portfolio Manager.
+       - Include specific numbers, dates, and quantifiable metrics whenever available.
+       - Use active voice and precise language.
+
+    3. **Content Requirements**
+       - Select the most significant developments from the company report.
+       - If multiple developments are mentioned, prioritize based on:
+         * Financial impact (revenue, margins, guidance changes)
+         * Strategic shifts (M&A, partnerships, pivots)
+         * Regulatory/legal developments
+         * Market position changes
+       - Avoid speculative implications unless explicitly stated in the source material.
+       - Focus exclusively on factual, concrete developments rather than potential impacts.
+
+    4. **Length**  
+       - Exactly one bullet point.
+       - Target 25-40 words for maximum impact and readability.
+       - Every word should add value - no filler.
+
+    5. **What to Avoid**  
+       - **No intros** or context-setting. Jump straight into the development.
+       - Overly formal language, obscure jargon, or unnecessary detail.
+       - **No generic observations** - the point must contain specific, actionable information.
+       - **No fluff**. Every word should serve a purpose.
+       - Avoid starting with phrases like "The company announced" or "According to the report"
+    </instructions>
+
+    <response_format>
+      Your response should be a JSON object that matches the following schema:
+      {{response_format}}
+
+      You should return a single bullet point as follows:
+      {% raw %}
+      ```json
+      {
+        "bullet_point": "* **Company Name** [specific development with quantifiable details]"
+      }
+      ```
+      {% endraw %}
+    </response_format>
+
+    <examples>
+      {% raw %}
+      ```json
+      {
+        "bullet_point": "* **BP PLC** dramatically resets green energy strategy, pivoting back to oil and gas with $10bn increased spending and $20bn asset divestment in response to activist pressure from Elliott."
+      }
+      ```
+      ```json
+      {
+        "bullet_point": "* **Tesla** faces potential 16% delivery shortfall in Q1 2025 and dramatic sales declines in Europe, with Germany sales plummeting by 76% in February."
+      }
+      ```
+      ```json
+      {
+        "bullet_point": "* **Amazon.com Inc.** accelerates margin expansion trajectory, projecting high-teen operating margins driven by AWS and Advertising segments with AI as rapidly growing multi-billion-dollar business."
+      }
+      ```
+      {% endraw %}
+    </examples>
+
+report_title:
+  model: "gpt-4o-mini"
+  model_kwargs:
+    temperature: 0.0
+    max_tokens: 100
+  system_prompt: "You are a financial analyst tasked with creating precise, professional titles for executive briefs."
+  user_template: |
+    Today is {{current_datetime}}.
+
+    Based on the following bullet point, create a concise, professional title for the executive brief:
+
+    <bullet_point>
+    {{first_bullet_point}}
+    </bullet_point>
+
+    <instructions>
+    1. **Objective**  
+       - Create a title that captures the essence of the most important development mentioned in the bullet point.
+       - Focus on the company name and the key action or development.
+       - The title should be between 6 and 8 words long.
+
+    2. **Style**  
+       - Be specific and insightful: ALWAYS mention the company name.
+       - Use the style of a seasoned Wall Street desk analyst reporting to their Portfolio Manager.
+       - AVOID use of generic company descriptors like "Titans", "Giants", "Movers", "Corporations" or similar.
+       - Do not include any other external information in the title.
+       - DO NOT create a generic title.
+
+    3. **What to Avoid**  
+       - Overly formal language or unnecessary detail.
+       - Generic observations or filler words.
+       - Starting with phrases like "Company announces" or "Report shows"
+    </instructions>
+
+    <response_format>
+      Your response should be a JSON object that matches the following schema:
+      {{response_format}}
+
+      You should return a title as follows:
+      {% raw %}
+      ```json
+      {
+        "report_title": "Company Name [Key Development/Action]"
+      }
+      ```
+      {% endraw %}
+    </response_format>
+
+    <examples>
+      {% raw %}
+      ```json
+      {
+        "report_title": "BP PLC Shifts Strategy, Returns to Oil Focus"
+      }
+      ```
+      ```json
+      {
+        "report_title": "Tesla Faces Potential 16% Delivery Shortfall"
+      }
+      ```
+      ```json
+      {
+        "report_title": "Amazon Accelerates Margin Expansion Trajectory"
+      }
+      ```
+      {% endraw %}
+    </examples>
