@@ -44,7 +44,7 @@ PROJECT_DIRECTORY = Path(__file__).parent.parent
 
 
 class Settings(BaseSettings):
-    WATCHLIST_ITEMS_LIMIT: int
+    WATCHLIST_ITEMS_LIMIT: int = 200
     SDK_SIMULTANEOUS_REQUESTS: int = 80.0
     TOPICS: dict = DEFAULT_TOPICS
     INTRO_SECTION_MIN_RELEVANCE_SCORE: int = 3
@@ -65,8 +65,7 @@ class Settings(BaseSettings):
     LLM_RETRIES: int = 3
     EMBEDDING_RETRIES: int = 3
     SDK_RETRIES: int = 3
-    BIGDATA_USER: str
-    BIGDATA_PASSWORD: str
+    BIGDATA_API_KEY: str
     DB_STRING: str = "sqlite:///briefs.db"
 
 

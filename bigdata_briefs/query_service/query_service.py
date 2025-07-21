@@ -70,10 +70,7 @@ class QueryService:
     def __init__(
         self,
     ):
-        self.client = Bigdata(
-            username=settings.BIGDATA_USER,
-            password=settings.BIGDATA_PASSWORD,
-        )
+        self.client = Bigdata(api_key=settings.BIGDATA_API_KEY)
         self.semaphore = Semaphore(
             value=settings.SDK_SIMULTANEOUS_REQUESTS
         )  # Max number of concurrent connections to the SDK
