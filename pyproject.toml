@@ -1,7 +1,7 @@
 [project]
 name = "bigdata_briefs"
-version = "0.2.0"
-description = ""
+version = "0.1.0"
+description = "Generate briefs based on finantially relevant information from Bigdata.com "
 authors = [{name = "jaldana", email = "jaldana@ravenpack.com"}]
 readme = "README.md"
 requires-python = ">=3.11,<3.12"
