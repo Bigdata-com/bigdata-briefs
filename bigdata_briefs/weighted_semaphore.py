@@ -19,3 +19,7 @@ class WeightedSemaphore:
             with self._condition:
                 self._weight_available += weight
                 self._condition.notify_all()
+
+    def weight_available(self) -> int:
+        with self._condition:
+            return self._weight_available
