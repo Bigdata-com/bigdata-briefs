@@ -72,7 +72,8 @@ class LLMClient:
             *args,
             messages=messages,
             model=model,
-            inferenceConfig={"maxTokens": max_tokens, **kwargs},
+            max_tokens=max_tokens,
+            **kwargs,
         )
 
         LLMMetrics.track_usage(
