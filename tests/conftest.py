@@ -8,6 +8,6 @@ os.environ.update(
         "BIGDATA_API_KEY": "fake-key",
         "OPENAI_API_KEY": "fake-key",
         "DB_STRING": TEST_DATABASE_DB_STRING,
-        "LOG_LEVEL": "CRITICAL",
+        "LOG_LEVEL": "ERROR",
     }
 )

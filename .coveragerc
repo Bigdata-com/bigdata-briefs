@@ -1,0 +1,17 @@
+[run]
+branch = True
+relative_files = True
+source = bigdata_briefs
+
+omit =
+    */tests/*
+    tests/*
+
+[report]
+#fail_under = 80
+exclude_lines =
+    # Add common test code patterns to exclude here if needed
+    if __name__ == '__main__':
+
+[xml]
+output = coverage-reports/coverage.xml

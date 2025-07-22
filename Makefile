@@ -1,7 +1,7 @@
 .PHONY: tests lint format
 
 tests:
-	@uv run -m pytest -s tests/*
+	@uv run -m pytest --cov --cov-config=.coveragerc  --cov-report term --cov-report xml:./coverage-reports/coverage.xml -s tests/*
 
 lint:
 	@uvx ruff check --extend-select I --fix bigdata_briefs/ tests/
