@@ -202,8 +202,8 @@ class BriefPipelineService:
                 entity=entity,
                 report_dates=report_dates,
                 executor=executor,
-                rp_logs_activate=True,
-                rp_logs_name="Exploratory search. All entities",
+                enable_metric=True,
+                metric_name="Exploratory search. All entities",
             )
         if not exploratory_search_results:
             logger.debug(f"No new information found for {entity}")
@@ -217,8 +217,8 @@ class BriefPipelineService:
             entity,
             report_dates,
             exploratory_search_results,
-            rp_logs_activate=True,
-            rp_logs_name="Generate follow up questions",
+            enable_metric=True,
+            metric_name="Generate follow up questions",
         )
         if not follow_up_questions:
             logger.debug(f"No follow-up questions generated for {entity}")
@@ -237,8 +237,8 @@ class BriefPipelineService:
                 follow_up_questions=follow_up_questions,
                 report_dates=report_dates,
                 executor=executor,
-                rp_logs_activate=True,
-                rp_logs_name="Run follow up questions",
+                enable_metric=True,
+                metric_name="Run follow up questions",
             )
         if not any(pair.answer for pair in qa_pairs.pairs):
             logger.debug(f"No qa-pairs generated for {entity}")
@@ -252,8 +252,8 @@ class BriefPipelineService:
             entity,
             qa_pairs,
             report_dates,
-            rp_logs_activate=True,
-            rp_logs_name="Generating report",
+            enable_metric=True,
+            metric_name="Generating report",
         )
         BulletPointMetrics.track_usage(
             BulletPointsUsage(
@@ -558,8 +558,8 @@ class BriefPipelineService:
             record_data.entities,
             record_data.watchlist,
             record_data.report_dates,
-            rp_logs_activate=True,
-            rp_logs_name="Execute watchlist report pipeline",
+            enable_metric=True,
+            metric_name="Execute watchlist report pipeline",
         )
 
         n_watchlist_items = len(record_data.entities)

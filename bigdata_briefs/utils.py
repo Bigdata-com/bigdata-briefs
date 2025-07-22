@@ -45,13 +45,13 @@ def log_return_value(func):
 def log_performance(func):
     @wraps(func)
     def wrapper(
-        *args, rp_logs_activate: bool = False, rp_logs_name: str = "Undefined", **kwargs
+        *args, enable_metric: bool = False, metric_name: str = "Undefined", **kwargs
     ):
         start = perf_counter()
         value = func(*args, **kwargs)
-        if rp_logs_activate:
+        if enable_metric:
             timing = datetime.now()
-            msg = f"{timing.strftime('%I:%M:%S')}.{timing.microsecond // 10000:02d} - {rp_logs_name} - {round(time.perf_counter() - start, 2)}"
+            msg = f"{timing.strftime('%I:%M:%S')}.{timing.microsecond // 10000:02d} - {metric_name} - {round(time.perf_counter() - start, 2)}"
             logger.debug(msg)
         return value
 

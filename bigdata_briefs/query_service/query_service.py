@@ -224,8 +224,8 @@ class QueryService:
                     topic=topic,
                     report_dates=report_dates,
                     config=config,
-                    rp_logs_activate=True,  # noqa
-                    rp_logs_name=f"Exploratory search. Entity {entity.id}",  # noqa
+                    enable_metric=True,  # noqa
+                    metric_name=f"Exploratory search. Entity {entity.id}",  # noqa
                 )
                 for similarity_text, topic in zip(
                     company_topics, settings.TOPICS.values()
@@ -238,8 +238,8 @@ class QueryService:
                     entity_id=entity.id,
                     report_dates=report_dates,
                     config=config,
-                    rp_logs_activate=True,  # noqa
-                    rp_logs_name=f"Exploratory search. Entity {entity.id}",  # noqa
+                    enable_metric=True,  # noqa
+                    metric_name=f"Exploratory search. Entity {entity.id}",  # noqa
                 )
             )
             # Remove duplicates and return as a list
@@ -252,8 +252,8 @@ class QueryService:
                 entity_id=entity.id,
                 report_dates=report_dates,
                 config=config,
-                rp_logs_activate=True,
-                rp_logs_name=f"Exploratory search. Entity {entity.id}",
+                enable_metric=True,
+                metric_name=f"Exploratory search. Entity {entity.id}",
             )
 
     def _run_follow_up_single_question(
