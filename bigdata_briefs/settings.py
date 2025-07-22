@@ -44,29 +44,41 @@ PROJECT_DIRECTORY = Path(__file__).parent.parent
 
 
 class Settings(BaseSettings):
+    # Required
+    BIGDATA_API_KEY: str
+    OPENAI_API_KEY: str
+
+    # Data storage configuration
+    DB_STRING: str = "sqlite:///briefs.db"
+
+    # General configuration
     WATCHLIST_ITEMS_LIMIT: int = 200
-    SDK_SIMULTANEOUS_REQUESTS: int = 80.0
     TOPICS: dict = DEFAULT_TOPICS
     INTRO_SECTION_MIN_RELEVANCE_SCORE: int = 3
     MAX_INTRO_SECTION_COMPANIES: int = 8
+
+    # Novelty configuration
     NOVELTY_ENABLED: bool = True
     NOVELTY_MODEL: str = "text-embedding-3-large"
     NOVELTY_THRESHOLD: float = 0.7
     NOVELTY_LOOKBACK_DAYS: int = 14
     NOVELTY_STORAGE_LOOKBACK_HOURS: int = 1
     NOVELTY_STORAGE_THRESHOLD: float = 0.8
-    SDK_DOCS_LIMIT_EXPLORATORY: int = 5
-    SDK_DOCS_LIMIT_FOLLOWUP: int = 5
-    SDK_RERANK_EXPLORATORY: float = 0.8
-    SDK_RERANK_FOLLOWUP: float = 0.9
-    LLM_FOLLOW_UP_QUESTIONS: int = 5
-    FOLLOWUP_SENTIMENT_THRESHOLD: float = 0.3
-    EXPLORATORY_SENTIMENT_THRESHOLD: float = 0.3
-    LLM_RETRIES: int = 3
     EMBEDDING_RETRIES: int = 3
+
+    # Search configuration
+    SDK_SIMULTANEOUS_REQUESTS: int = 80.0
+    SDK_DOCS_LIMIT_EXPLORATORY: int = 5
+    SDK_RERANK_EXPLORATORY: float = 0.8
+    EXPLORATORY_SENTIMENT_THRESHOLD: float = 0.3
+    SDK_DOCS_LIMIT_FOLLOWUP: int = 5
+    SDK_RERANK_FOLLOWUP: float = 0.9
+    FOLLOWUP_SENTIMENT_THRESHOLD: float = 0.3
     SDK_RETRIES: int = 3
-    BIGDATA_API_KEY: str
-    DB_STRING: str = "sqlite:///briefs.db"
+
+    # LLM configuration
+    LLM_FOLLOW_UP_QUESTIONS: int = 5
+    LLM_RETRIES: int = 3
 
 
 settings = Settings()
