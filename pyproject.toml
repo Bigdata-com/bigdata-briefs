@@ -4,6 +4,7 @@ version = "0.1.0"
 description = "Generate briefs based on finantially relevant information from Bigdata.com "
 authors = [{name = "jaldana", email = "jaldana@ravenpack.com"}]
 readme = "README.md"
+license-files = ["LICENSE"]
 requires-python = ">=3.11,<3.12"
 
 dependencies = [
