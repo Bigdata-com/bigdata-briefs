@@ -5,7 +5,7 @@ description = "Generate briefs based on finantially relevant information from Bi
 authors = [{name = "jaldana", email = "jaldana@ravenpack.com"}]
 readme = "README.md"
 license-files = ["LICENSE"]
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 
 dependencies = [
     "pydantic>=2.10.6",

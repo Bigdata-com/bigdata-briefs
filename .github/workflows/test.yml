@@ -15,7 +15,7 @@ jobs:
       - name: Install uv
         uses: astral-sh/setup-uv@v6
       - name: Lint the code
-        run: make lint
+        run: make lint-check
       - name: Format the code
         run: make format
   unit-tests:
