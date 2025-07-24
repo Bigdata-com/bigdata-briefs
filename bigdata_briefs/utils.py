@@ -63,7 +63,8 @@ def validate_and_repair_model(json_str: str, model: Type[BaseModel]) -> BaseMode
         response = model.model_validate_json(json_str)
         return response
     except ValidationError:
-        fixed_json_str = repair_json(json_str)
+        # With return_objects=False, it always returns a string, so ignore type checking error
+        fixed_json_str: str = repair_json(json_str, return_objects=False)  # type: ignore[invalid-assignment]
         try:
             response = model.model_validate_json(fixed_json_str)
             logger.debug(

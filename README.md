@@ -88,9 +88,10 @@ docker run -d \
 ```
 
 
-## Linting and formatting
-This project uses [ruff](https://docs.astral.sh/ruff/) for linting and black for formatting. To ensure your code adheres to the project's style guidelines, run the following commands before committing your changes:
+## Tooling
+This project uses [ruff](https://docs.astral.sh/ruff/) for linting and black for formatting and [ty](https://docs.astral.sh/ty/) for a type checker. To ensure your code adheres to the project's style guidelines, run the following commands before committing your changes:
 ```bash
+make type-check
 make lint
 make format
 ```

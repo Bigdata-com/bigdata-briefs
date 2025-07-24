@@ -11,8 +11,11 @@ from bigdata_briefs.sql_models import SQLBriefReport, SQLReportsSources
 def write_report_with_sources(
     pipeline_output: PipelineOutput,
     source_metadata: ReportSources,
-    session: Session,
+    session: Session | None,
 ):
+    if session is None:
+        logger.error("No database session provided, skipping report saving.")
+        return
     try:
         report = SQLBriefReport(
             watchlist_id=pipeline_output.watchlist_id,

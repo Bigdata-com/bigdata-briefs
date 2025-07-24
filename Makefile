@@ -11,3 +11,6 @@ lint-check:
 
 format:
 	@uvx ruff format bigdata_briefs/ tests/
+
+type-check:
+	@uvx ty check bigdata_briefs/ tests/

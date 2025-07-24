@@ -2,7 +2,8 @@ import itertools
 from concurrent.futures import as_completed
 from concurrent.futures.thread import ThreadPoolExecutor
 from threading import Semaphore
-from typing import Callable, Protocol
+from types import FunctionType
+from typing import Protocol
 
 import bigdata_client.query as Q
 from bigdata_client import Bigdata
@@ -105,7 +106,7 @@ class QueryService:
 
         return parsed_results
 
-    def _call_sdk_method(self, method: Callable, *args, **kwargs):
+    def _call_sdk_method(self, method: FunctionType, *args, **kwargs):
         e = None
         with self.semaphore:
             for attempt in range(settings.SDK_RETRIES):

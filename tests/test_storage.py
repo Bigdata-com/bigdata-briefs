@@ -80,5 +80,5 @@ def test_write_report_with_sources_db(in_memory_db, pipeline_output, source_meta
 
 def test_write_report_with_sources_fails_gracefully(capsys, in_memory_db):
     # No exception should be raised
-    write_report_with_sources(None, None, in_memory_db)
+    write_report_with_sources(None, None, in_memory_db)  # ty: ignore[invalid-argument-type]
     capsys.readouterr()  # Capture the logger to avoid cluttering the output

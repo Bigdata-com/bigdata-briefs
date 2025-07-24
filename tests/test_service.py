@@ -1,3 +1,4 @@
+from datetime import datetime
 from unittest.mock import MagicMock
 
 import pytest
@@ -33,7 +34,7 @@ def mock_service():
 
 @pytest.fixture
 def mock_entity():
-    entity = Entity(id="test", name="Test Entity", entity_type="COMP")
+    entity = Entity(id="test", name="Test Entity", entity_type="COMP", ticker="TEST")
     entity._raw = Company(
         id="test_id",
         name="Test Company",
@@ -43,7 +44,9 @@ def mock_entity():
 
 @pytest.fixture
 def mock_report_dates():
-    return ReportDates(start="2023-01-01", end="2023-01-31", novelty=True)
+    return ReportDates(
+        start=datetime(2023, 1, 1), end=datetime(2023, 1, 31), novelty=True
+    )
 
 
 @pytest.fixture
@@ -58,7 +61,7 @@ def mock_results():
             ts="2023-01-15T00:00:00Z",
             document_scope="Empty",
             language="en",
-            chunks=[
+            chunks=(
                 Chunk(
                     text="This is a test chunk from document 1.",
                     chunk=1,
@@ -70,8 +73,8 @@ def mock_results():
                             snum=1,
                         )
                     ],
-                )
-            ],
+                ),
+            ),
         ),
         Result(
             document_id="doc2",
@@ -82,7 +85,7 @@ def mock_results():
             ts="2023-01-20T00:00:00Z",
             document_scope="Empty",
             language="en",
-            chunks=[
+            chunks=(
                 Chunk(
                     text="This is a test chunk from document 2.",
                     chunk=1,
@@ -94,8 +97,8 @@ def mock_results():
                             snum=1,
                         )
                     ],
-                )
-            ],
+                ),
+            ),
         ),
     ]
 

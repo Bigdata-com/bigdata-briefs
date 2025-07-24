@@ -474,7 +474,7 @@ class BriefPipelineService:
 
             entity_reports: list[SingleEntityReport] = []
             # Aggregate and consolidate sources for all entities
-            source_metadata = ReportSources({})
+            source_metadata = ReportSources(root={})
             entity_reports_failed = []
             for future in as_completed(futures_to_entity):
                 entity = futures_to_entity[future]
@@ -547,7 +547,7 @@ class BriefPipelineService:
     def generate_brief(
         self,
         record: BriefCreationRequest,
-        db_session: Session = None,
+        db_session: Session | None = None,
     ) -> tuple[PipelineOutput, ReportSources]:
         record_data = self.parse_and_validate(record)
 

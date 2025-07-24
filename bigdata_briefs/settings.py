@@ -67,7 +67,7 @@ class Settings(BaseSettings):
     EMBEDDING_RETRIES: int = 3
 
     # Search configuration
-    SDK_SIMULTANEOUS_REQUESTS: int = 80.0
+    SDK_SIMULTANEOUS_REQUESTS: int = 80
     SDK_DOCS_LIMIT_EXPLORATORY: int = 5
     SDK_RERANK_EXPLORATORY: float = 0.8
     EXPLORATORY_SENTIMENT_THRESHOLD: float = 0.3
@@ -80,5 +80,9 @@ class Settings(BaseSettings):
     LLM_FOLLOW_UP_QUESTIONS: int = 5
     LLM_RETRIES: int = 3
 
+    @classmethod
+    def load_from_env(cls) -> "Settings":
+        return cls()
 
-settings = Settings()
+
+settings = Settings.load_from_env()

@@ -185,7 +185,7 @@ def consolidate_report_sources(
             consolidated_sources.set(source_id, new_doc_data)
         else:
             # If the document ID exists, consolidate the chunks
-            existing_doc_data = consolidated_sources[source_id]
+            existing_doc_data = consolidated_sources.get(source_id)
             # Sync valid status
             if new_doc_data.is_referenced():
                 existing_doc_data.mark_as_used()
