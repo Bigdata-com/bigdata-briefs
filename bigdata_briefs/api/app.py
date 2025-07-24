@@ -28,8 +28,7 @@ brief_service = BriefPipelineService.factory(
 )
 
 
-def create_db_and_tables(app: FastAPI):
-    logger.debug
+def create_db_and_tables():
     SQLModel.metadata.create_all(engine)
     yield
 
@@ -39,11 +38,22 @@ def get_session():
         yield session
 
 
+def lifespan(app: FastAPI):
+    query_service.send_trace(
+        event_name=query_service.TraceEventName.SERVICE_START,
+        trace={
+            "version": __version__,
+        },
+    )
+    create_db_and_tables()
+    yield
+
+
 app = FastAPI(
     title="Briefs service by Bigdata.com",
     description="API for generating timely briefs based on data from Bigdata.com",
     version=__version__,
-    lifespan=create_db_and_tables,
+    lifespan=lifespan,
 )
 
 

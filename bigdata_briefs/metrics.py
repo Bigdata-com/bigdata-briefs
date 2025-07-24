@@ -42,6 +42,23 @@ class CacheMetrics(Metrics):
             return sum(usages)
 
 
+class QueryUnitMetrics(Metrics):
+    metrics_queue = Queue()
+    lock = Lock()
+
+    @classmethod
+    def track_usage(cls, usage: int):
+        cls.metrics_queue.put(usage)
+
+    @classmethod
+    def get_total_usage(cls) -> int:
+        with cls.lock:
+            usages = cls.metrics_queue.queue
+            if not usages:
+                return 0
+            return sum(usages)
+
+
 class BulletPointMetrics(Metrics):
     metrics_queue = Queue()
     lock = Lock()

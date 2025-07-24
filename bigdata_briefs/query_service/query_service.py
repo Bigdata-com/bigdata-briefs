@@ -1,6 +1,8 @@
 import itertools
+import warnings
 from concurrent.futures import as_completed
 from concurrent.futures.thread import ThreadPoolExecutor
+from enum import StrEnum
 from threading import Semaphore
 from types import FunctionType
 from typing import Protocol
@@ -10,11 +12,13 @@ from bigdata_client import Bigdata
 from bigdata_client.daterange import AbsoluteDateRange
 from bigdata_client.models.search import DocumentType, SortBy
 from bigdata_client.models.watchlists import Watchlist
+from bigdata_client.tracking_services import TraceEvent
+from bigdata_client.tracking_services import send_trace as bigdata_send_trace
 from pydantic import BaseModel, ValidationError
 
 from bigdata_briefs import logger
 from bigdata_briefs.exceptions import TooManySDKRetriesError
-from bigdata_briefs.metrics import ContentMetrics
+from bigdata_briefs.metrics import ContentMetrics, QueryUnitMetrics
 from bigdata_briefs.models import (
     Entity,
     QAPairs,
@@ -94,6 +98,8 @@ class QueryService:
     ):
         search = self._call_sdk_method(self.client.search.new, *args, **kwargs)
         results = self._call_sdk_method(search.run, limit)
+
+        QueryUnitMetrics.track_usage(search.get_usage())
 
         parsed_results = []
         for result in results:
@@ -324,6 +330,19 @@ class QueryService:
                 )
 
         return QAPairs(pairs=qa_pairs)
+
+    class TraceEventName(StrEnum):
+        SERVICE_START = "onPremBriefServiceStart"
+        REPORT_GENERATED = "ReportGenerated"
+
+    def send_trace(self, event_name: TraceEventName, trace: dict):
+        try:
+            bigdata_send_trace(
+                bigdata_client=self.client,
+                trace=TraceEvent(event_name=event_name, properties=trace),
+            )
+        except Exception:
+            pass
 
 
 @log_args

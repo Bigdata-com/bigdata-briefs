@@ -1,5 +1,7 @@
 from concurrent.futures import as_completed
 from concurrent.futures.thread import ThreadPoolExecutor
+from datetime import datetime
+from importlib.metadata import version
 from threading import Lock
 
 from sqlmodel import Session
@@ -25,6 +27,7 @@ from bigdata_briefs.metrics import (
     ContentMetrics,
     EmbeddingsMetrics,
     LLMMetrics,
+    QueryUnitMetrics,
 )
 from bigdata_briefs.models import (
     BulletPointsUsage,
@@ -549,6 +552,7 @@ class BriefPipelineService:
         record: BriefCreationRequest,
         db_session: Session | None = None,
     ) -> tuple[PipelineOutput, ReportSources]:
+        workflow_execution_start = datetime.now()
         record_data = self.parse_and_validate(record)
 
         (
@@ -578,6 +582,9 @@ class BriefPipelineService:
             for k, v in content_metrics.items()
         }
 
+        total_chunks = sum(v.total_chunks for v in content_metrics.values())
+        total_documents = sum(v.total_documents for v in content_metrics.values())
+
         novelty_date_range = (
             record_data.report_dates.get_novelty_dates().get_lookback_days()
             if record_data.report_dates.novelty
@@ -600,6 +607,7 @@ class BriefPipelineService:
             brief_date_range=record_data.report_dates.get_lookback_days(),
             novelty_date_range=novelty_date_range,
             retrieved_from_cache=CacheMetrics.get_total_usage(),
+            query_units_consumed=QueryUnitMetrics.get_total_usage(),
             **document_aggregation,
             **chunk_aggregation,
         )
@@ -614,7 +622,23 @@ class BriefPipelineService:
 
         if pipeline_output.is_empty:
             logger.debug(f"No new news for {record_data.watchlist.id}.")
-
+        workflow_execution_end = datetime.now()
+        self.query_service.send_trace(
+            event_name=self.query_service.TraceEventName.REPORT_GENERATED,
+            trace={
+                "bigdataClientVersion": version("bigdata-client"),
+                "workflowUsage": QueryUnitMetrics.get_total_usage(),
+                "workflowStartDate": workflow_execution_start.isoformat(
+                    timespec="seconds"
+                ),
+                "workflowEndDate": workflow_execution_end.isoformat(timespec="seconds"),
+                "watchlistLength": len(record_data.entities),
+                "numberOfEntityReports": len(watchlist_report.entity_reports),
+                "numberOfNoInfoReports": n_no_info_reports,
+                "numberOfChunks": total_chunks,
+                "numberOfDocuments": total_documents,
+            },
+        )
         write_report_with_sources(pipeline_output, source_metadata, db_session)
         return pipeline_output, source_metadata
 
