@@ -5,7 +5,7 @@ from fastapi import Depends, FastAPI, Query
 from fastapi.responses import HTMLResponse
 from sqlmodel import Session, SQLModel, create_engine
 
-from bigdata_briefs import __version__, logger
+from bigdata_briefs import LOG_LEVEL, __version__, logger
 from bigdata_briefs.api.models import BriefCreationRequest
 from bigdata_briefs.metrics import (
     LLMMetrics,
@@ -19,7 +19,7 @@ from bigdata_briefs.service import BriefPipelineService
 from bigdata_briefs.settings import settings
 from bigdata_briefs.templates import loader
 
-engine = create_engine(settings.DB_STRING, echo=True)
+engine = create_engine(settings.DB_STRING, echo=LOG_LEVEL == "DEBUG")
 
 embedding_storage = SQLiteEmbeddingStorage(engine)
 query_service = QueryService()
