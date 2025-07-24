@@ -345,7 +345,7 @@ class QueryService:
 
     class TraceEventName(StrEnum):
         SERVICE_START = "onPremBriefServiceStart"
-        REPORT_GENERATED = "ReportGenerated"
+        REPORT_GENERATED = "onPremBriefReportGenerated"
 
     def send_trace(self, event_name: TraceEventName, trace: dict):
         try:

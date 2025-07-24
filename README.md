@@ -1,6 +1,7 @@
 # Briefs with Bigdata.com
 This repository contains a docker image for running a brief generating service using Bigdata.com SDK.
 
+![isometric-diagram](assets/isometric-diagram.png)
 
 ## Prerequisites
 - A [Bigdata.com](https://bigdata.com) account that supports programmatic access.
