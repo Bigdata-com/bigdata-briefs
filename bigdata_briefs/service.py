@@ -291,8 +291,6 @@ class BriefPipelineService:
                 "Skipping novelty filtering.",
                 entity_id=entity_report.entity_id,
                 dates_novelty=report_dates.novelty,
-                start_date=report_dates.get_novelty_dates().start,
-                end_date=report_dates.get_novelty_dates().end,
             )
 
         if len(entity_report.relevance_score) != len(entity_report.report_bulletpoints):
