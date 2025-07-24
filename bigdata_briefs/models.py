@@ -3,7 +3,6 @@ from datetime import datetime, timedelta
 from enum import StrEnum
 from typing import Annotated, Any
 
-import jinja2
 from jinja2 import Template
 from pydantic import (
     BaseModel,
@@ -18,7 +17,7 @@ from pydantic import (
 
 from bigdata_briefs import logger
 from bigdata_briefs.settings import settings
-from bigdata_briefs.templates import QA_TEMPLATE
+from bigdata_briefs.templates import loader
 
 MAX_CHUNKS_PER_DOCUMENT = 10
 REFERENCE_REGEX = re.compile(r"`:ref\[LIST:\[.*?\]\]`")
@@ -257,17 +256,18 @@ class QuestionAnswer(BaseModel):
     answer: list[Result] = []
 
     def render_md(self) -> str:
-        md_template = jinja2.Template(QA_TEMPLATE)
-        return md_template.render(question=self.question, answer=self.answer)
+        return self._get_template().render(question=self.question, answer=self.answer)
 
     def render_with_references(self, report_sources: ReportSources):
         """Render the Q&A using reference IDs instead of document IDs."""
-        md_template = jinja2.Template(QA_TEMPLATE)
-        return md_template.render(
+        return self._get_template().render(
             question=self.question,
             answer=self.answer,
             report_sources=report_sources.root,
         )
+
+    def _get_template(self) -> Template:
+        return loader.get_template("prompts/qa.md.jinja")
 
 
 class QAPairs(BaseModel):

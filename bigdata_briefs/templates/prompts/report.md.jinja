@@ -1,0 +1,13 @@
+## {{ report_title }}
+
+{{ report_date.strftime("%B %d, %Y") }}
+
+{% if introduction -%}
+### Overview
+{{ introduction }}
+{% endif -%}
+
+{% for report in company_reports %}
+---
+{{ report.render() }}
+{% endfor %}

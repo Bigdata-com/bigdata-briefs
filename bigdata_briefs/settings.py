@@ -50,6 +50,7 @@ class Settings(BaseSettings):
 
     # Data storage configuration
     DB_STRING: str = "sqlite:///briefs.db"
+    TEMPLATES_DIR: str = str(PROJECT_DIRECTORY / "bigdata_briefs" / "templates")
 
     # General configuration
     WATCHLIST_ITEMS_LIMIT: int = 200

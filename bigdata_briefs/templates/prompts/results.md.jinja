@@ -1,0 +1,8 @@
+{% for result in results %}
+#### {{ result.headline }}
+
+{% for chunk in result.chunks -%}
+* {{ chunk.text }}
+
+{% endfor -%}
+{% endfor -%}
