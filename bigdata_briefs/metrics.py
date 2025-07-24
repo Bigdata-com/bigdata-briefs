@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 from queue import Queue
 from threading import Lock
 
+from bigdata_briefs import logger
 from bigdata_briefs.models import (
     BulletPointsUsage,
     EmbeddingsUsage,
@@ -57,6 +58,25 @@ class QueryUnitMetrics(Metrics):
             if not usages:
                 return 0
             return sum(usages)
+
+
+class WarningsMetrics(Metrics):
+    metrics_queue = Queue()
+    warnings = set()
+    lock = Lock()
+
+    @classmethod
+    def track_usage(cls, warning_message: str):
+        with cls.lock:
+            # Avoid logging duplicate warnings
+            if warning_message not in cls.warnings:
+                logger.info("A warning have been suppressed", warning=warning_message)
+            cls.warnings.add(warning_message)
+
+    @classmethod
+    def get_total_usage(cls) -> set[str]:
+        with cls.lock:
+            return cls.warnings.copy()
 
 
 class BulletPointMetrics(Metrics):

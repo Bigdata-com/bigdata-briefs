@@ -18,7 +18,7 @@ from pydantic import BaseModel, ValidationError
 
 from bigdata_briefs import logger
 from bigdata_briefs.exceptions import TooManySDKRetriesError
-from bigdata_briefs.metrics import ContentMetrics, QueryUnitMetrics
+from bigdata_briefs.metrics import ContentMetrics, QueryUnitMetrics, WarningsMetrics
 from bigdata_briefs.models import (
     Entity,
     QAPairs,
@@ -117,7 +117,19 @@ class QueryService:
         with self.semaphore:
             for attempt in range(settings.SDK_RETRIES):
                 try:
-                    return method(*args, **kwargs)
+                    # Catch SDK warnings to better integrate them with the metric system and avoid cluttering the logs
+                    with warnings.catch_warnings(record=True) as catched_warnings:
+                        result = method(*args, **kwargs)
+
+                        if len(catched_warnings) > 0:
+                            for warning in set(
+                                warning.message for warning in catched_warnings
+                            ):
+                                WarningsMetrics.track_usage(
+                                    warning_message=str(warning)
+                                )
+
+                    return result
                 except Exception as e:
                     logger.warning(
                         f"Error calling SDK method {method.__name__}: {e}. Attempt {attempt + 1}"
