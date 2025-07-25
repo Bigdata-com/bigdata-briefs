@@ -12,6 +12,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Dockerfile now includes a health check to ensure the service is running correctly.
 - Removed setuid and setgid from all binaries in the Dockerfile to enhance security.
 
+### Fixed
+- Fixed database storage not being initialized when runned as a docker.
+
 ## [1.0.1] - 2025-07-25
 
 ### Fixed

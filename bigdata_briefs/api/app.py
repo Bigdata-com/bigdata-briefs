@@ -29,8 +29,8 @@ brief_service = BriefPipelineService.factory(
 
 
 def create_db_and_tables():
+    logger.info("Setting up data storage", db_string=settings.DB_STRING)
     SQLModel.metadata.create_all(engine)
-    yield
 
 
 def get_session():
@@ -39,6 +39,7 @@ def get_session():
 
 
 def lifespan(app: FastAPI):
+    logger.info("Starting Bigdata briefs service", version=__version__)
     query_service.send_trace(
         event_name=query_service.TraceEventName.SERVICE_START,
         trace={

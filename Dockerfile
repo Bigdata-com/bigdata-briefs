@@ -8,8 +8,8 @@ RUN RUN find / -perm +6000 -type f -exec chmod a-s {} \; || true
 
 # Set-up non-root user to run the application
 RUN adduser nonroot
-RUN mkdir /code
-RUN chown nonroot:nonroot /code
+RUN mkdir /code /data
+RUN chown nonroot:nonroot /code /data
 USER nonroot
 
 
@@ -25,5 +25,7 @@ RUN uv sync
 
 EXPOSE 8000
 HEALTHCHECK --interval=30s --timeout=3s CMD curl http://localhost:8000/health || exit 1
+
+ENV DB_STRING="sqlite:////data/bigdata_briefs.db"
 
 CMD ["uv", "run", "-m", "bigdata_briefs"]
