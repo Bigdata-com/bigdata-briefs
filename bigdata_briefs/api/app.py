@@ -72,6 +72,11 @@ async def log_requests(request, call_next):
     return response
 
 
+@app.get("/health")
+def health_check():
+    return {"status": "ok", "version": __version__}
+
+
 @app.get("/")
 async def sample_frontend():
     # Create an instance of BriefCreationRequest to get default values
