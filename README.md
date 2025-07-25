@@ -26,6 +26,7 @@ docker run -d \
 ```
 This will start the brief service locally on port 8000. You can then access the service @ `http://localhost:8000/` and the documentation for the API @ `http://localhost:8000/docs`.
 
+For a custom enterprise-ready solution, please contact us at [support@bigdata.com](mailto:support@bigdata.com)
 
 ## How to use? Generate a brief for your Bigdata.com watchlist
 
@@ -93,7 +94,7 @@ docker run -d \
 
 
 ## Tooling
-This project uses [ruff](https://docs.astral.sh/ruff/) for linting and black for formatting and [ty](https://docs.astral.sh/ty/) for a type checker. To ensure your code adheres to the project's style guidelines, run the following commands before committing your changes:
+This project uses [ruff](https://docs.astral.sh/ruff/) for linting and formatting and [ty](https://docs.astral.sh/ty/) for a type checker. To ensure your code adheres to the project's style guidelines, run the following commands before committing your changes:
 ```bash
 make type-check
 make lint
