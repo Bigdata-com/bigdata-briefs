@@ -53,7 +53,7 @@ For a custom enterprise-ready solution, please contact us at [support@bigdata.co
 
 ## Security Measures
 
-We perform a pre-release security scan on our container images to detect vulnerabilities in all components. Stay assured that all critical issues are addressed promptly.
+We perform a pre-release security scan on our container images to detect vulnerabilities in all components. 
 
 ## How to use? Generate a brief for your Bigdata.com watchlist
 
