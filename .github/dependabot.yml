@@ -1,0 +1,15 @@
+version: 2
+multi-ecosystem-groups:
+  infra:
+    schedule:
+      interval: "cron"
+      cronob: "0 8 * * 1" # "At 08:00 on Monday."
+    assignees: ["@data-science"]
+    labels: ["bug"]
+updates:
+  - package-ecosystem: "uv"
+    directory: "/"
+    multi-ecosystem-group: "infra"
+  - package-ecosystem: "docker"
+    directory: "/"
+    multi-ecosystem-group: "infra"
