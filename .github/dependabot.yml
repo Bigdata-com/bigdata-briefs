@@ -1,17 +1,17 @@
 version: 2
 multi-ecosystem-groups:
-  infra:
+  briefs-service:
     schedule:
       interval: "cron"
       cronob: "0 8 * * 1" # "At 08:00 on Monday."
-    assignees: ["@data-science"]
+    assignees: ["@Bigdata-com/data-science"]
     labels: ["bug"]
 updates:
   - package-ecosystem: "uv"
-    multi-ecosystem-group: "infra"
+    multi-ecosystem-group: "briefs-service"
     directory: "/"
-    patterns: ["*"]
+    patterns: ["bigdata-client"]
   - package-ecosystem: "docker"
-    multi-ecosystem-group: "infra"
+    multi-ecosystem-group: "briefs-service"
     directory: "/"
     patterns: ["*"]
