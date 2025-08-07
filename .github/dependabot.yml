@@ -4,13 +4,15 @@ multi-ecosystem-groups:
     schedule:
       interval: "cron"
       cronob: "0 8 * * 1" # "At 08:00 on Monday."
-    assignees: ["@Bigdata-com/data-science"]
+    assignees: ["@jfaldanam"]
     labels: ["bug"]
 updates:
   - package-ecosystem: "uv"
     multi-ecosystem-group: "briefs-service"
     directory: "/"
     patterns: ["bigdata-client"]
+    allow:
+      - dependency-name: "bigdata-client"
   - package-ecosystem: "docker"
     multi-ecosystem-group: "briefs-service"
     directory: "/"
