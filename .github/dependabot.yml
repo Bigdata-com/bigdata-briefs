@@ -8,8 +8,10 @@ multi-ecosystem-groups:
     labels: ["bug"]
 updates:
   - package-ecosystem: "uv"
-    directory: "/"
     multi-ecosystem-group: "infra"
+    directory: "/"
+    targets. ["*"]
   - package-ecosystem: "docker"
-    directory: "/"
     multi-ecosystem-group: "infra"
+    directory: "/"
+    targets. ["*"]
