@@ -10,8 +10,8 @@ updates:
   - package-ecosystem: "uv"
     multi-ecosystem-group: "infra"
     directory: "/"
-    targets: ["*"]
+    patterns: ["*"]
   - package-ecosystem: "docker"
     multi-ecosystem-group: "infra"
     directory: "/"
-    targets: ["*"]
+    patterns: ["*"]
