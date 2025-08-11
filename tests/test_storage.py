@@ -54,6 +54,7 @@ def pipeline_output(source_metadata):
         is_empty=False,
         start_date=datetime(2023, 1, 1).isoformat(),
         end_date=datetime(2023, 1, 31).isoformat(),
+        novelty=True,
         report_title="Test Report",
         introduction="This is a test report.",
         entity_reports=[
