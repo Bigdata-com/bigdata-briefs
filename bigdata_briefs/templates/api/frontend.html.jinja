@@ -11,21 +11,19 @@
       background: #f5f5f5;
       color: #333;
     }
-    input[type="text"],
-    input[type="date"],
-    select {
+    .input-field {
       width: 300px;
       padding: 8px;
       font-size: 16px;
       margin-bottom: 10px;
       display: block;
     }
-    button {
+    .btn {
       padding: 8px 12px;
       font-size: 16px;
       cursor: pointer;
     }
-    pre {
+    .output-pre {
       background-color: #272822;
       color: #f8f8f2;
       padding: 16px;
@@ -38,31 +36,138 @@
     .error {
       color: red;
     }
+    .table-main {
+      background: #fff;
+      border-radius: 6px;
+      box-shadow: 0 1px 4px #ccc;
+    }
+    .table-entity {
+      background: #fff;
+      border-radius: 6px;
+      box-shadow: 0 1px 4px #ccc;
+      width: 100%;
+    }
+    .modal-bg {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.5);
+    }
+    .modal-content {
+      background: #fff;
+      margin: 5vh auto;
+      padding: 20px;
+      border-radius: 8px;
+      width: 80vw;
+      max-width: 900px;
+      position: relative;
+    }
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 18px;
+    }
+    .modal-copy {
+      position: absolute;
+      top: 10px;
+      right: 50px;
+      font-size: 15px;
+      padding: 4px 10px;
+      cursor: pointer;
+    }
+    .mb-20 {
+      margin-bottom: 20px;
+    }
+    .mt-20 {
+      margin-top: 20px;
+    }
+    .mt-2em {
+      margin-top: 2em;
+    }
   </style>
 </head>
 <body>
   <h1>Generate a brief for your Bigdata.com watchlist</h1>
 
   <label for="watchlist_id">Watchlist ID:</label>
-  <input type="text" id="watchlist_id" placeholder="Enter watchlist ID" value="{{ watchlist_id }}" />
+  <input type="text" id="watchlist_id" class="input-field" placeholder="Enter watchlist ID" value="{{ watchlist_id }}" />
 
   <label for="report_start_date">Report Start Date:</label>
-  <input type="date" id="report_start_date" value="{{ default_start_date }}" />
+  <input type="date" id="report_start_date" class="input-field" value="{{ default_start_date }}" />
 
   <label for="report_end_date">Report End Date:</label>
-  <input type="date" id="report_end_date" value="{{ default_end_date }}" />
+  <input type="date" id="report_end_date" class="input-field" value="{{ default_end_date }}" />
 
   <label for="novelty">Novelty:</label>
-  <select id="novelty">
+  <select id="novelty" class="input-field">
     <option value="true" {% if novelty %}selected{% endif %}>true</option>
     <option value="false" {% if not novelty %}selected{% endif %}>false</option>
   </select>
 
-  <button onclick="fetchBrief()">Generate Brief</button>
+  <button onclick="fetchBrief()" class="btn mb-20">Generate Brief</button>
   <div id="spinner" style="display:none;">⏳ Loading...</div>
-  <pre id="output"></pre>
+  <button id="showJsonBtn" class="btn mb-20" style="display:none;">Show raw JSON</button>
+  <div id="output"></div>
+
+  <!-- Modal for JSON output -->
+  <div id="jsonModal" class="modal-bg">
+    <div class="modal-content">
+  <button onclick="copyJson()" class="modal-copy">Copy</button>
+  <button onclick="closeModal()" class="modal-close">&times;</button>
+      <h2>Raw JSON Output</h2>
+      <pre id="jsonContent" class="output-pre" style="max-height:60vh;"></pre>
+    </div>
+  </div>
 
   <script>
+    let lastJson = null;
+    function escapeHtml(text) {
+      if (!text) return '';
+      return text.replace(/&/g, "&amp;")
+                 .replace(/</g, "&lt;")
+                 .replace(/>/g, "&gt;")
+                 .replace(/\"/g, '&quot;')
+                 .replace(/'/g, '&#39;');
+    }
+
+    function renderBriefReport(data) {
+      if (!data || typeof data !== 'object') return '<span class="error">No data to display.</span>';
+      let html = '';
+
+      // Report overview
+      html += '<h2>General Report</h2>';
+  html += '<table border="1" cellpadding="6" cellspacing="0" class="table-main">';
+      html += '<tr><th>Watchlist</th><th>Title</th><th>Introduction</th><th>Start Date</th><th>End Date</th><th>Novelty</th></tr>';
+      html += `<tr><td>${escapeHtml(data.watchlist_name || data.watchlist_id)}</td><td>${escapeHtml(data.report_title)}</td><td>${escapeHtml(data.introduction)}</td><td>${escapeHtml(data.start_date)}</td><td>${escapeHtml(data.end_date)}</td><td>${data.novelty ? 'Yes' : 'No'}</td></tr>`;
+      html += '</table>';
+
+      // Entity reports table
+      if (Array.isArray(data.entity_reports) && data.entity_reports.length > 0) {
+  html += '<h2 class="mt-2em">Entity Reports</h2>';
+  html += '<table border="1" cellpadding="6" cellspacing="0" class="table-entity">';
+        html += '<tr><th>Entity</th><th>Bullet Point</th><th>Sources</th></tr>';
+        data.entity_reports.forEach(entity => {
+          const entityName = (entity.entity_info && (entity.entity_info.name || entity.entity_info.id)) ? escapeHtml(entity.entity_info.name || entity.entity_info.id) : escapeHtml(entity.entity_id);
+          if (Array.isArray(entity.content) && entity.content.length > 0) {
+            entity.content.forEach((bp, idx) => {
+              html += `<tr><td>${idx === 0 ? entityName : ''}</td><td>${escapeHtml(bp.bullet_point)}</td><td>${Array.isArray(bp.sources) ? bp.sources.map(escapeHtml).join(', ') : ''}</td></tr>`;
+            });
+          } else {
+            html += `<tr><td>${entityName}</td><td colspan="2"><em>No bullet points</em></td></tr>`;
+          }
+        });
+        html += '</table>';
+      } else {
+        html += '<p><em>No entity reports available.</em></p>';
+      }
+      return html;
+    }
+
     async function fetchBrief() {
         const watchlistId = document.getElementById('watchlist_id').value.trim();
         const startDate = document.getElementById('report_start_date').value;
@@ -70,12 +175,15 @@
         const novelty = document.getElementById('novelty').value;
         const output = document.getElementById('output');
         const spinner = document.getElementById('spinner');
+        const showJsonBtn = document.getElementById('showJsonBtn');
 
-        output.textContent = '';
+        output.innerHTML = '';
         output.classList.remove('error');
+        showJsonBtn.style.display = 'none';
+        lastJson = null;
 
         if (!watchlistId) {
-            output.textContent = '❌ Please enter a watchlist ID.';
+            output.innerHTML = '<span class="error">❌ Please enter a watchlist ID.</span>';
             output.classList.add('error');
             return;
         }
@@ -90,16 +198,63 @@
             if (!response.ok) {
                 throw new Error(`HTTP error ${response.status}`);
             }
-
             const data = await response.json();
-            output.textContent = JSON.stringify(data, null, 2);
+            lastJson = data;
+            output.innerHTML = renderBriefReport(data);
+            showJsonBtn.style.display = 'inline-block';
         } catch (err) {
-            output.textContent = `❌ Error: ${err.message}`;
+            output.innerHTML = `<span class="error">❌ Error: ${err.message}</span>`;
             output.classList.add('error');
         } finally {
             // Hide spinner after fetching
             spinner.style.display = 'none';
         }
+    }
+
+    document.getElementById('showJsonBtn').onclick = function() {
+      if (lastJson) {
+        document.getElementById('jsonContent').textContent = JSON.stringify(lastJson, null, 2);
+        document.getElementById('jsonModal').style.display = 'block';
+      }
+    };
+
+    function closeModal() {
+      document.getElementById('jsonModal').style.display = 'none';
+    }
+    window.closeModal = closeModal;
+    function copyJson() {
+      const jsonContent = document.getElementById('jsonContent');
+      if (!jsonContent) return;
+      const text = jsonContent.innerText || jsonContent.textContent;
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(() => {
+          const btn = document.querySelector('.modal-copy');
+          if (btn) {
+            const orig = btn.textContent;
+            btn.textContent = 'Copied!';
+            setTimeout(() => { btn.textContent = orig; }, 1200);
+          }
+        });
+      } else {
+        // fallback for older browsers
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.setAttribute('readonly', '');
+        textarea.style.position = 'absolute';
+        textarea.style.left = '-9999px';
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+          document.execCommand('copy');
+          const btn = document.querySelector('.modal-copy');
+          if (btn) {
+            const orig = btn.textContent;
+            btn.textContent = 'Copied!';
+            setTimeout(() => { btn.textContent = orig; }, 1200);
+          }
+        } catch (err) {}
+        document.body.removeChild(textarea);
+      }
     }
   </script>
 </body>
