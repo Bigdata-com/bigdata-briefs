@@ -4,12 +4,12 @@ import pytest
 from sqlmodel import Session, SQLModel, create_engine, select
 
 from bigdata_briefs.models import (
+    BriefReport,
     ChunkHighlight,
-    PipelineOutput,
-    ReportDates,
+    OutputEntityReport,
+    OutputReportBulletPoint,
     ReportSources,
     SourceChunkReference,
-    WatchlistReport,
 )
 from bigdata_briefs.sql_models import SQLBriefReport, SQLReportsSources
 from bigdata_briefs.storage import write_report_with_sources
@@ -21,25 +21,6 @@ def in_memory_db():
     SQLModel.metadata.create_all(engine)
     with Session(engine) as session:
         yield session
-
-
-@pytest.fixture
-def pipeline_output():
-    return PipelineOutput(
-        watchlist_id="1",
-        is_empty=False,
-        report_dates=ReportDates(
-            start=datetime(2023, 1, 1), end=datetime(2023, 1, 31), novelty=True
-        ),
-        watchlist_report=WatchlistReport(
-            watchlist_id="1",
-            watchlist_name="Test Watchlist",
-            report_title="Test Report",
-            report_date=datetime(2023, 1, 31),
-            introduction="This is a test report.",
-            entity_reports=[],
-        ),
-    )
 
 
 @pytest.fixture
@@ -65,8 +46,33 @@ def source_metadata():
     )
 
 
-def test_write_report_with_sources_db(in_memory_db, pipeline_output, source_metadata):
-    write_report_with_sources(pipeline_output, source_metadata, in_memory_db)
+@pytest.fixture
+def pipeline_output(source_metadata):
+    return BriefReport(
+        watchlist_id="1",
+        watchlist_name="Test Watchlist",
+        is_empty=False,
+        start_date=datetime(2023, 1, 1).isoformat(),
+        end_date=datetime(2023, 1, 31).isoformat(),
+        report_title="Test Report",
+        introduction="This is a test report.",
+        entity_reports=[
+            OutputEntityReport(
+                entity_id="entity1",
+                entity_info={},
+                content=[
+                    OutputReportBulletPoint(
+                        bullet_point="Test bullet point", sources=["1"]
+                    )
+                ],
+            )
+        ],
+        source_metadata=source_metadata,
+    )
+
+
+def test_write_report_with_sources_db(in_memory_db, pipeline_output):
+    write_report_with_sources(pipeline_output, in_memory_db)
     # Check report was written
     with in_memory_db:
         report = in_memory_db.exec(select(SQLBriefReport)).first()
@@ -80,5 +86,5 @@ def test_write_report_with_sources_db(in_memory_db, pipeline_output, source_meta
 
 def test_write_report_with_sources_fails_gracefully(capsys, in_memory_db):
     # No exception should be raised
-    write_report_with_sources(None, None, in_memory_db)  # ty: ignore[invalid-argument-type]
+    write_report_with_sources(None, in_memory_db)  # ty: ignore[invalid-argument-type]
     capsys.readouterr()  # Capture the logger to avoid cluttering the output

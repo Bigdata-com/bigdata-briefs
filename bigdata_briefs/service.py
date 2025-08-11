@@ -30,12 +30,12 @@ from bigdata_briefs.metrics import (
     QueryUnitMetrics,
 )
 from bigdata_briefs.models import (
+    BriefReport,
     BulletPointsUsage,
     Entity,
     FollowUpAnalysis,
     IntroSection,
     NoInfoReportGenerationStep,
-    PipelineOutput,
     QAPairs,
     ReportDates,
     ReportSources,
@@ -290,7 +290,7 @@ class BriefPipelineService:
             logger.info(
                 "Skipping novelty filtering.",
                 entity_id=entity_report.entity_id,
-                dates_novelty=report_dates.novelty,
+                is_enabled=report_dates.novelty,
             )
 
         if len(entity_report.relevance_score) != len(entity_report.report_bulletpoints):
@@ -549,7 +549,7 @@ class BriefPipelineService:
         self,
         record: BriefCreationRequest,
         db_session: Session | None = None,
-    ) -> tuple[PipelineOutput, ReportSources]:
+    ) -> BriefReport:
         workflow_execution_start = datetime.now()
         record_data = self.parse_and_validate(record)
 
@@ -610,12 +610,8 @@ class BriefPipelineService:
             **chunk_aggregation,
         )
 
-        pipeline_output = PipelineOutput(
-            watchlist_id=record_data.watchlist.id,
-            # Use this flag to determine if the report is empty. It will still be send and stored in database for future retrieval
-            is_empty=False if watchlist_report.entity_reports else True,
-            report_dates=record_data.report_dates,
-            watchlist_report=watchlist_report,
+        pipeline_output = BriefReport.from_watchlist_report(
+            watchlist_report, source_metadata
         )
 
         if pipeline_output.is_empty:
@@ -637,8 +633,8 @@ class BriefPipelineService:
                 "numberOfDocuments": total_documents,
             },
         )
-        write_report_with_sources(pipeline_output, source_metadata, db_session)
-        return pipeline_output, source_metadata
+        write_report_with_sources(pipeline_output, db_session)
+        return pipeline_output
 
     def parse_and_validate(self, record: BriefCreationRequest) -> ValidatedInput:
         logger.debug(record)

@@ -11,6 +11,7 @@ from bigdata_briefs.metrics import (
     LLMMetrics,
     Metrics,
 )
+from bigdata_briefs.models import BriefReport
 from bigdata_briefs.novelty.storage import SQLiteEmbeddingStorage
 from bigdata_briefs.query_service.query_service import (
     QueryService,
@@ -97,16 +98,16 @@ async def sample_frontend():
 async def create_brief(
     brief_config: Annotated[BriefCreationRequest, Query()],
     session: Session = Depends(get_session),
-):
+) -> BriefReport:
     """
     Endpoint to create a brief.
     This is a placeholder for the actual implementation.
     """
     [cls.reset_usage() for cls in Metrics.__subclasses__()]
     LLMMetrics.reset_usage()
-    response = brief_service.generate_brief(
+    report = brief_service.generate_brief(
         brief_config,
         db_session=session,
     )
 
-    return response
+    return report
