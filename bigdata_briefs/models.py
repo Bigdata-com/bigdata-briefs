@@ -497,6 +497,7 @@ class BriefReport(BaseModel):
     is_empty: bool
     start_date: str
     end_date: str
+    novelty: bool
     report_title: str
     introduction: str
     entity_reports: list[OutputEntityReport] = []
@@ -504,7 +505,7 @@ class BriefReport(BaseModel):
 
     @classmethod
     def from_watchlist_report(
-        cls, watchlist_report: WatchlistReport, sources: ReportSources
+        cls, watchlist_report: WatchlistReport, sources: ReportSources, novelty: bool
     ) -> "BriefReport":
         """Create a BriefReport from a WatchlistReport."""
         # Format entity reports
@@ -533,6 +534,7 @@ class BriefReport(BaseModel):
             is_empty=False if watchlist_report.entity_reports else True,
             start_date=watchlist_report.report_date.isoformat(),
             end_date=watchlist_report.report_date.isoformat(),
+            novelty=novelty,
             report_title=watchlist_report.report_title,
             introduction=watchlist_report.introduction,
             entity_reports=entity_reports,
