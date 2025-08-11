@@ -384,9 +384,10 @@ class SingleEntityReport(BaseModel):
             extracted_ids.extend(match)
         return cleaned_text.strip(), extracted_ids
 
-    @staticmethod
-    def extract_references(text: str) -> list[tuple[str, list[str]]]:
-        texts = text.removeprefix("* ").removesuffix(" \n").split("\n*")
+    def extract_bulletpoints_and_references(self) -> list[tuple[str, list[str]]]:
+        texts = (
+            self.clean_final_report.removeprefix("* ").removesuffix(" \n").split("\n*")
+        )
         return [SingleEntityReport._extract_references(t) for t in texts]
 
     def render(self) -> str:
@@ -511,9 +512,7 @@ class BriefReport(BaseModel):
         entity_reports = []
         for entity_report in watchlist_report.entity_reports:
             content = []
-            for text, references in SingleEntityReport.extract_references(
-                entity_report.clean_final_report
-            ):
+            for text, references in entity_report.extract_bulletpoints_and_references():
                 content.append(
                     OutputReportBulletPoint(
                         bullet_point=text,
