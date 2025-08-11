@@ -20,6 +20,7 @@ def write_report_with_sources(
             is_empty=pipeline_output.is_empty,
             report_period_start=datetime.fromisoformat(pipeline_output.start_date),
             report_period_end=datetime.fromisoformat(pipeline_output.end_date),
+            novelty_enabled=pipeline_output.novelty,
             brief_report=[
                 report.model_dump() for report in pipeline_output.entity_reports
             ],

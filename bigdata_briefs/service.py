@@ -611,7 +611,9 @@ class BriefPipelineService:
         )
 
         pipeline_output = BriefReport.from_watchlist_report(
-            watchlist_report, source_metadata
+            watchlist_report,
+            source_metadata,
+            novelty=record_data.report_dates.novelty,
         )
 
         if pipeline_output.is_empty:
