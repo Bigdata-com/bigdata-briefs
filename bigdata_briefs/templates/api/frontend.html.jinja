@@ -141,15 +141,15 @@
 
       // Report overview
       html += '<h2>General Report</h2>';
-  html += '<table border="1" cellpadding="6" cellspacing="0" class="table-main">';
+      html += '<table border="1" cellpadding="6" cellspacing="0" class="table-main">';
       html += '<tr><th>Watchlist</th><th>Title</th><th>Introduction</th><th>Start Date</th><th>End Date</th><th>Novelty</th></tr>';
       html += `<tr><td>${escapeHtml(data.watchlist_name || data.watchlist_id)}</td><td>${escapeHtml(data.report_title)}</td><td>${escapeHtml(data.introduction)}</td><td>${escapeHtml(data.start_date)}</td><td>${escapeHtml(data.end_date)}</td><td>${data.novelty ? 'Yes' : 'No'}</td></tr>`;
       html += '</table>';
 
       // Entity reports table
       if (Array.isArray(data.entity_reports) && data.entity_reports.length > 0) {
-  html += '<h2 class="mt-2em">Entity Reports</h2>';
-  html += '<table border="1" cellpadding="6" cellspacing="0" class="table-entity">';
+        html += '<h2 class="mt-2em">Entity Reports</h2>';
+        html += '<table border="1" cellpadding="6" cellspacing="0" class="table-entity">';
         html += '<tr><th>Entity</th><th>Bullet Point</th><th>Sources</th></tr>';
         data.entity_reports.forEach(entity => {
           const entityName = (entity.entity_info && (entity.entity_info.name || entity.entity_info.id)) ? escapeHtml(entity.entity_info.name || entity.entity_info.id) : escapeHtml(entity.entity_id);
