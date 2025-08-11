@@ -357,6 +357,38 @@ class SingleEntityReport(BaseModel):
         """
         return REFERENCE_REGEX.sub("", text)
 
+    @staticmethod
+    def _extract_references(text: str) -> tuple[str, list[str]]:
+        """
+        Extracts inline source attributions in the format `:ref[LIST[...]]` from text.
+
+        Returns a tuple of (cleaned_text, list_of_references).
+
+        >>> SingleEntityReport.extract_references("This is a test `:ref[LIST[1]]`")
+        ('This is a test ', [':ref[LIST[1]]'])
+
+        >>> SingleEntityReport.extract_references("Text `:ref[LIST[1]]` and `:ref[LIST[2]]` more text")
+        ('Text  and  more text', [':ref[LIST[1]]', ':ref[LIST[2]]'])
+
+        >>> SingleEntityReport.extract_references("This is a second test")
+        ('This is a second test', [])
+        """
+        references = REFERENCE_REGEX.findall(text)
+        cleaned_text = REFERENCE_REGEX.sub("", text)
+
+        REFERENCE_ID_REGEX = re.compile(r"\[CQS:([A-Z0-9\-]+)\]")
+        # Extract IDs into single list
+        extracted_ids = []
+        for ref in references:
+            match = REFERENCE_ID_REGEX.findall(ref)
+            extracted_ids.extend(match)
+        return cleaned_text.strip(), extracted_ids
+
+    @staticmethod
+    def extract_references(text: str) -> list[tuple[str, list[str]]]:
+        texts = text.removeprefix("* ").removesuffix(" \n").split("\n*")
+        return [SingleEntityReport._extract_references(t) for t in texts]
+
     def render(self) -> str:
         entity_str = self.entity_info["name"]
         if "ticker" in self.entity_info and self.entity_info["ticker"]:
@@ -443,11 +475,70 @@ class WatchlistReport(BaseModel):
     entity_reports: list[SingleEntityReport]
 
 
-class PipelineOutput(BaseModel):
+class OutputReportBulletPoint(BaseModel):
+    """A single bullet point for the output report."""
+
+    bullet_point: str
+    sources: list[str]
+
+
+class OutputEntityReport(BaseModel):
+    """A single entity report."""
+
+    entity_id: str
+    entity_info: dict
+    content: list[OutputReportBulletPoint]
+
+
+class BriefReport(BaseModel):
     watchlist_id: str
+    watchlist_name: str
     is_empty: bool
-    report_dates: ReportDates
-    watchlist_report: WatchlistReport
+    start_date: str
+    end_date: str
+    report_title: str
+    introduction: str
+    entity_reports: list[OutputEntityReport] = []
+    source_metadata: ReportSources
+
+    @classmethod
+    def from_watchlist_report(
+        cls, watchlist_report: WatchlistReport, sources: ReportSources
+    ) -> "BriefReport":
+        """Create a BriefReport from a WatchlistReport."""
+        # Format entity reports
+
+        entity_reports = []
+        for entity_report in watchlist_report.entity_reports:
+            content = []
+            for text, references in SingleEntityReport.extract_references(
+                entity_report.clean_final_report
+            ):
+                content.append(
+                    OutputReportBulletPoint(
+                        bullet_point=text,
+                        sources=references,
+                    )
+                )
+            entity_reports.append(
+                OutputEntityReport(
+                    entity_id=entity_report.entity_id,
+                    entity_info=entity_report.entity_info,
+                    content=content,
+                )
+            )
+
+        return cls(
+            watchlist_id=watchlist_report.watchlist_id,
+            watchlist_name=watchlist_report.watchlist_name,
+            is_empty=False if watchlist_report.entity_reports else True,
+            start_date=watchlist_report.report_date.isoformat(),
+            end_date=watchlist_report.report_date.isoformat(),
+            report_title=watchlist_report.report_title,
+            introduction=watchlist_report.introduction,
+            entity_reports=entity_reports,
+            source_metadata=sources,
+        )
 
 
 class PromptConfig(BaseModel):
