@@ -4,8 +4,6 @@ multi-ecosystem-groups:
     schedule:
       interval: "cron"
       cronob: "0 8 * * 1" # "At 08:00 on Monday."
-    assignees: ["@jfaldanam"]
-    labels: ["bug"]
 updates:
   - package-ecosystem: "uv"
     multi-ecosystem-group: "briefs-service"
