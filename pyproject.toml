@@ -18,7 +18,7 @@ dependencies = [
     "structlog>=25.4.0",
     "fastapi>=0.116.1",
     "uvicorn>=0.35.0",
-    "bigdata-client==2.18.0",
+    "bigdata-client==2.18.1",
     "sqlmodel>=0.0.24",
 ]
 
