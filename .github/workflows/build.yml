@@ -24,12 +24,27 @@ jobs:
         registry: ghcr.io
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
-    - name: Build and push the Docker image
+    - name: Build and label Docker image
+      uses: docker/build-push-action@v6
+      with:
+        context: .
+        file: ./Dockerfile
+        push: false
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+        tags: ghcr.io/bigdata-com/bigdata-briefs:latest,ghcr.io/bigdata-com/bigdata-briefs:${{ github.event.release.tag_name }}
+    - name: Run security scan
+      uses: Bigdata-com/security-scan-containers@master
+      with:
+        image_name: ghcr.io/bigdata-com/bigdata-briefs:latest
+        falcon_client_id: ${{ secrets.FALCON_CLIENT_ID }}
+        falcon_client_secret: ${{ secrets.FALCON_CLIENT_SECRET }}
+        falcon_region: ${{ secrets.FALCON_REGION }}
+        fcs_version: "2.0.2"
+    - name: Push Docker image
       uses: docker/build-push-action@v6
       with:
         context: .
         file: ./Dockerfile
         push: true
-        cache-from: type=gha
-        cache-to: type=gha,mode=max
         tags: ghcr.io/bigdata-com/bigdata-briefs:latest,ghcr.io/bigdata-com/bigdata-briefs:${{ github.event.release.tag_name }}
