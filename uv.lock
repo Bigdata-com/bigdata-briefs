@@ -152,7 +152,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "bigdata-client", specifier = "==2.18.1" },
+    { name = "bigdata-client", specifier = "==2.18.2" },
     { name = "fastapi", specifier = ">=0.116.1" },
     { name = "jinja2", specifier = "==3.1.6" },
     { name = "json-repair", specifier = ">=0.40.0" },
@@ -175,7 +175,7 @@ dev = [
 
 [[package]]
 name = "bigdata-client"
-version = "2.18.1"
+version = "2.18.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "aiohttp" },
@@ -186,9 +186,9 @@ dependencies = [
     { name = "requests" },
     { name = "websockets" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/33/c2/d25b2c102f340182efe77aeb7f1ff74f50e6f87d5291e140415018b74a6a/bigdata_client-2.18.1.tar.gz", hash = "sha256:d6f606150064ea41fef892cc8b3ab3bc18b00acf0a647deb3f1575ce167dc35c", size = 64078, upload-time = "2025-08-11T15:40:45.124Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/39/77/be279de2ae26092675528dddd6cdfd3a6fd48e33258b8af29d1dd9e4f308/bigdata_client-2.18.2.tar.gz", hash = "sha256:3bd4f7d815225c1bbe99af094edb9660f5faa3185e4eb0070eea5a3af76d6a51", size = 64192, upload-time = "2025-09-01T11:14:12.43Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/90/f6/197709d37d9c4bf2900a96a18caf8635d9067c6593dfa7d6eb5beb6a87c0/bigdata_client-2.18.1-py3-none-any.whl", hash = "sha256:fe5aa5ae5a1d87f6e694e2f6bb1d36c68b94716c3bb39efa47d4b6c91168834e", size = 86462, upload-time = "2025-08-11T15:40:43.665Z" },
+    { url = "https://files.pythonhosted.org/packages/9c/46/b83f055ffdbd19bd3fd8a00cbe7630c1468399bff2a3466709dff9826dea/bigdata_client-2.18.2-py3-none-any.whl", hash = "sha256:32a30a5d048e2e2a030f50aa43bfe58bdef21b094c5f24d6344be93e8b1518f5", size = 86518, upload-time = "2025-09-01T11:14:11.317Z" },
 ]
 
 [[package]]
