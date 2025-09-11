@@ -168,6 +168,12 @@
       return html;
     }
 
+    // Helper to get URL param
+    function getUrlParam(name) {
+      const url = new URL(window.location.href);
+      return url.searchParams.get(name);
+    }
+
     async function fetchBrief() {
         const watchlistId = document.getElementById('watchlist_id').value.trim();
         const startDate = document.getElementById('report_start_date').value;
@@ -191,7 +197,18 @@
         // Show spinner while fetching
         spinner.style.display = 'block';
 
-        const url = `/briefs/create?watchlist_id=${encodeURIComponent(watchlistId)}&report_start_date=${encodeURIComponent(startDate)}&report_end_date=${encodeURIComponent(endDate)}&novelty=${encodeURIComponent(novelty)}`;
+        // Add token from URL param if present
+        const params = new URLSearchParams();
+        const token = getUrlParam('token');
+        if (token) {
+          params.append("token", token);
+        }
+        params.append("watchlist_id", watchlistId);
+        params.append("report_start_date", startDate);
+        params.append("report_end_date", endDate);
+        params.append("novelty", novelty);
+
+        const url = `/briefs/create?${params}`;
 
         try {
             const response = await fetch(url);

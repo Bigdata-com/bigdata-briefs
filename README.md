@@ -76,6 +76,27 @@ curl -X 'GET' \
 
 For more details on the parameters, refer to the API documentation @ `http://localhost:8000/docs`.
 
+## Enable access token security
+You can optionally protect the API endpoints using an access token. To enable this feature, set the `ACCESS_TOKEN` environment variable when running the Docker container. For example:
+
+```bash
+docker run -d \
+  --name bigdata_briefs \
+  -p 8000:8000 \
+  -e BIGDATA_API_KEY=<bigdata-api-key-here> \
+  -e OPENAI_API_KEY=<openai-apikey-here> \
+  -e ACCESS_TOKEN=<access-token-here> \
+  ghcr.io/bigdata-com/bigdata_briefs:latest
+```
+
+Then all API requests must include a `token` query parameter with the correct value to be authorized. For example:
+
+```bash
+curl -X 'GET' \
+  'http://localhost:8000/briefs/create?watchlist_id=db8478c9-34db-4975-8e44-b1ff764098ac&report_start_date=2024-01-01&report_end_date=2024-01-31&novelty=true&token=<access-token-here>' \
+  -H 'accept: application/json'
+```
+
 # Install and for development locally
 ```bash
 uv sync --dev

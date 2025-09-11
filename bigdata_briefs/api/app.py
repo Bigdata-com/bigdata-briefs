@@ -1,12 +1,13 @@
 import time
 from typing import Annotated
 
-from fastapi import Depends, FastAPI, Query
+from fastapi import Depends, FastAPI, Query, Security
 from fastapi.responses import HTMLResponse
 from sqlmodel import Session, SQLModel, create_engine
 
 from bigdata_briefs import LOG_LEVEL, __version__, logger
 from bigdata_briefs.api.models import BriefCreationRequest
+from bigdata_briefs.api.secure import query_scheme
 from bigdata_briefs.metrics import (
     LLMMetrics,
     Metrics,
@@ -80,7 +81,7 @@ def health_check():
 
 
 @app.get("/")
-async def sample_frontend():
+async def sample_frontend(_: str = Security(query_scheme)):
     # Create an instance of BriefCreationRequest to get default values
     default_request = BriefCreationRequest()
 
@@ -98,6 +99,7 @@ async def sample_frontend():
 async def create_brief(
     brief_config: Annotated[BriefCreationRequest, Query()],
     session: Session = Depends(get_session),
+    _: str = Security(query_scheme),
 ) -> BriefReport:
     """
     Endpoint to create a brief.
