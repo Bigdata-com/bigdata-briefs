@@ -42,7 +42,7 @@ class Entity(BaseModel):
     entity_type: str
     ticker: Annotated[str | None, Field(default=None, validation_alias="metadata_1")]
 
-    _raw = Any  # Field used to keep the original response from SDK
+    _raw: Any = None  # Field used to keep the original response from SDK
 
     @classmethod
     def from_sdk(cls, sdk_entity):
