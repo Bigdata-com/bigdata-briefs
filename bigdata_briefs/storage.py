@@ -1,5 +1,5 @@
-import uuid
 from datetime import datetime
+from uuid import UUID
 
 from sqlmodel import Session, select
 
@@ -9,7 +9,7 @@ from bigdata_briefs.sql_models import SQLBriefReport
 
 
 def write_report_with_sources(
-    request_id: str,
+    request_id: UUID,
     pipeline_output: BriefReport,
     session: Session | None,
 ):
@@ -18,7 +18,7 @@ def write_report_with_sources(
         return
     try:
         report = SQLBriefReport(
-            id=uuid.UUID(request_id),
+            id=request_id,
             watchlist_id=pipeline_output.watchlist_id,
             is_empty=pipeline_output.is_empty,
             report_period_start=datetime.fromisoformat(pipeline_output.start_date),
@@ -36,7 +36,7 @@ def write_report_with_sources(
 
 
 def get_report_with_sources(
-    request_id: str,
+    request_id: UUID,
     session: Session | None,
 ) -> BriefReport | None:
     if session is None:
@@ -44,7 +44,7 @@ def get_report_with_sources(
         return None
 
     report = session.exec(
-        select(SQLBriefReport).where(SQLBriefReport.id == uuid.UUID(request_id))
+        select(SQLBriefReport).where(SQLBriefReport.id == request_id)
     ).first()
     if report is None:
         return None

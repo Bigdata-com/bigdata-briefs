@@ -3,6 +3,7 @@ from concurrent.futures.thread import ThreadPoolExecutor
 from datetime import datetime
 from importlib.metadata import version
 from threading import Lock
+from uuid import UUID
 
 from bigdata_briefs import logger
 from bigdata_briefs.api.models import BriefCreationRequest, WorkflowStatus
@@ -460,7 +461,7 @@ class BriefPipelineService:
         entities: list[Entity],
         watchlist: Watchlist,
         report_dates: ReportDates,
-        request_id: str,
+        request_id: UUID,
         storage_manager: StorageManager,
     ) -> tuple[WatchlistReport, RetrievedSources]:
         storage_manager.log_message(request_id, "Generating report per entity")
@@ -554,7 +555,7 @@ class BriefPipelineService:
     def generate_brief(
         self,
         record: BriefCreationRequest,
-        request_id: str,
+        request_id: UUID,
         storage_manager: StorageManager,
     ) -> BriefReport:
         try:

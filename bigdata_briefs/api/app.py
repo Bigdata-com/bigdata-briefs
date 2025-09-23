@@ -1,7 +1,7 @@
 import time
 from functools import partial
 from typing import Annotated
-from uuid import uuid4
+from uuid import UUID, uuid4
 
 from fastapi import BackgroundTasks, Body, Depends, FastAPI, HTTPException, Security
 from fastapi.responses import HTMLResponse, JSONResponse
@@ -133,7 +133,7 @@ async def create_brief(
     [cls.reset_usage() for cls in Metrics.__subclasses__()]
     LLMMetrics.reset_usage()
 
-    request_id = str(uuid4())
+    request_id = uuid4()
     storage_manager.update_status(request_id, WorkflowStatus.QUEUED)
 
     background_tasks.add_task(
@@ -148,7 +148,7 @@ async def create_brief(
     return JSONResponse(
         status_code=202,
         content=BriefAcceptedResponse(
-            request_id=request_id, status=WorkflowStatus.QUEUED
+            request_id=str(request_id), status=WorkflowStatus.QUEUED
         ).model_dump(),
     )
 
@@ -158,7 +158,7 @@ async def create_brief(
     summary="Get the status of a brief report",
 )
 def get_status(
-    request_id: str,
+    request_id: UUID,
     storage_manager: StorageManager = Depends(get_storage_manager),
     _: str = Security(query_scheme),
 ) -> BriefStatusResponse:

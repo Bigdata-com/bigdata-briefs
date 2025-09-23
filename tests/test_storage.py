@@ -74,7 +74,7 @@ def pipeline_output(source_metadata):
 
 
 def test_write_report_with_sources_db(in_memory_db, pipeline_output):
-    write_report_with_sources(uuid.uuid4().hex, pipeline_output, in_memory_db)
+    write_report_with_sources(uuid.uuid4(), pipeline_output, in_memory_db)
     # Check report was written
     with in_memory_db:
         report = in_memory_db.exec(select(SQLBriefReport)).first()
