@@ -1,18 +1,25 @@
 import time
+from functools import partial
 from typing import Annotated
+from uuid import uuid4
 
-from fastapi import Depends, FastAPI, Query, Security
-from fastapi.responses import HTMLResponse
+from fastapi import BackgroundTasks, Body, Depends, FastAPI, HTTPException, Security
+from fastapi.responses import HTMLResponse, JSONResponse
 from sqlmodel import Session, SQLModel, create_engine
 
 from bigdata_briefs import LOG_LEVEL, __version__, logger
-from bigdata_briefs.api.models import BriefCreationRequest
+from bigdata_briefs.api.models import (
+    BriefAcceptedResponse,
+    BriefCreationRequest,
+    BriefStatusResponse,
+    WorkflowStatus,
+)
 from bigdata_briefs.api.secure import query_scheme
+from bigdata_briefs.api.storage import StorageManager
 from bigdata_briefs.metrics import (
     LLMMetrics,
     Metrics,
 )
-from bigdata_briefs.models import BriefReport
 from bigdata_briefs.novelty.storage import SQLiteEmbeddingStorage
 from bigdata_briefs.query_service.query_service import (
     QueryService,
@@ -38,6 +45,10 @@ def create_db_and_tables():
 def get_session():
     with Session(engine) as session:
         yield session
+
+
+def get_storage_manager(session: Session = Depends(get_session)) -> StorageManager:
+    return StorageManager(session)
 
 
 def lifespan(app: FastAPI):
@@ -75,13 +86,20 @@ async def log_requests(request, call_next):
     return response
 
 
-@app.get("/health")
+@app.get(
+    "/health",
+    summary="Health check endpoint",
+)
 def health_check():
     return {"status": "ok", "version": __version__}
 
 
-@app.get("/")
-async def sample_frontend(_: str = Security(query_scheme)):
+@app.get(
+    "/",
+    summary="Example frontend for testing the thematic screener.",
+    response_class=HTMLResponse,
+)
+async def sample_frontend(_: str = Security(query_scheme)) -> HTMLResponse:
     # Create an instance of BriefCreationRequest to get default values
     default_request = BriefCreationRequest()
 
@@ -91,25 +109,63 @@ async def sample_frontend(_: str = Security(query_scheme)):
             novelty=default_request.novelty,
             default_start_date=default_request.report_start_date.strftime("%Y-%m-%d"),
             default_end_date=default_request.report_end_date.strftime("%Y-%m-%d"),
-        )
+        ),
+        media_type="text/html",
     )
 
 
-@app.get("/briefs/create")
+@app.post(
+    "/briefs/create",
+    summary="Create a brief based on the provided configuration.",
+    response_model=BriefAcceptedResponse,
+)
 async def create_brief(
-    brief_config: Annotated[BriefCreationRequest, Query()],
+    brief_config: Annotated[BriefCreationRequest, Body()],
+    background_tasks: BackgroundTasks,
     session: Session = Depends(get_session),
+    storage_manager: StorageManager = Depends(get_storage_manager),
     _: str = Security(query_scheme),
-) -> BriefReport:
+) -> JSONResponse:
     """
     Endpoint to create a brief.
     This is a placeholder for the actual implementation.
     """
     [cls.reset_usage() for cls in Metrics.__subclasses__()]
     LLMMetrics.reset_usage()
-    report = brief_service.generate_brief(
-        brief_config,
-        db_session=session,
+
+    request_id = str(uuid4())
+    storage_manager.update_status(request_id, WorkflowStatus.QUEUED)
+
+    background_tasks.add_task(
+        partial(
+            brief_service.generate_brief,
+            brief_config,
+            request_id=request_id,
+            storage_manager=storage_manager,
+        )
     )
 
+    return JSONResponse(
+        status_code=202,
+        content=BriefAcceptedResponse(
+            request_id=request_id, status=WorkflowStatus.QUEUED
+        ).model_dump(),
+    )
+
+
+@app.get(
+    "/briefs/status/{request_id}",
+    summary="Get the status of a brief report",
+)
+def get_status(
+    request_id: str,
+    storage_manager: StorageManager = Depends(get_storage_manager),
+    _: str = Security(query_scheme),
+) -> BriefStatusResponse:
+    """Get the status of a brief report by its request_id. If the report is still running,
+    you will get the current status and logs. If the report is completed, you will also get the
+    complete report"""
+    report = storage_manager.get_report(request_id)
+    if report is None:
+        raise HTTPException(status_code=404, detail="Request ID not found")
     return report

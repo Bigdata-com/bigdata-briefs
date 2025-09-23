@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.0] - Unreleased
+
+### Added
+- Added new models to separate `RetrievedSources` from `ReportedSources`, allowing to keep track of all retrieved sources while only including the used ones in the final report.
+
+### Changed
+- Changed endpoints to be asynchronous. `/briefs/create` will now return a `request_id` immediately, and progress updated and the result can be fetched later using `/briefs/status/{request_id}`.
+- Changed `/briefs/create` endpoint from `GET` to `POST`, receiving the parameters in the request body as JSON.
+- Simplified the tables for the source metadata into the main report. If you have a previous database, it is recommended to delete it and start fresh.
+
+
 ## [2.1.0] - 2025-09-11
 
 ### Added

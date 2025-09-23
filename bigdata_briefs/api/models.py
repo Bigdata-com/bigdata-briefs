@@ -1,6 +1,16 @@
 from datetime import datetime, timedelta
+from enum import StrEnum
 
 from pydantic import BaseModel, Field
+
+from bigdata_briefs.models import BriefReport
+
+
+class WorkflowStatus(StrEnum):
+    QUEUED = "queued"
+    IN_PROGRESS = "in_progress"
+    COMPLETED = "completed"
+    FAILED = "failed"
 
 
 class BriefCreationRequest(BaseModel):
@@ -20,3 +30,16 @@ class BriefCreationRequest(BaseModel):
         True,
         description="Whether to only include novel information in the report.",
     )
+
+
+class BriefAcceptedResponse(BaseModel):
+    request_id: str
+    status: WorkflowStatus
+
+
+class BriefStatusResponse(BaseModel):
+    request_id: str
+    last_updated: datetime
+    status: WorkflowStatus
+    logs: list[str] = Field(default_factory=list)
+    report: BriefReport | None = None

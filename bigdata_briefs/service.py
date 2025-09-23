@@ -4,10 +4,9 @@ from datetime import datetime
 from importlib.metadata import version
 from threading import Lock
 
-from sqlmodel import Session
-
 from bigdata_briefs import logger
-from bigdata_briefs.api.models import BriefCreationRequest
+from bigdata_briefs.api.models import BriefCreationRequest, WorkflowStatus
+from bigdata_briefs.api.storage import StorageManager
 from bigdata_briefs.attribution.sources import (
     consolidate_report_sources,
     create_sources_for_report,
@@ -38,9 +37,9 @@ from bigdata_briefs.models import (
     NoInfoReportGenerationStep,
     QAPairs,
     ReportDates,
-    ReportSources,
     ReportTitle,
     Result,
+    RetrievedSources,
     SingleBulletPoint,
     SingleEntityReport,
     TopicCollection,
@@ -182,7 +181,7 @@ class BriefPipelineService:
         entity: Entity,
         report_dates: ReportDates,
         executor: ThreadPoolExecutor,
-    ) -> tuple[SingleEntityReport, ReportSources]:
+    ) -> tuple[SingleEntityReport, RetrievedSources]:
         logger.debug(f"Starting report on {entity}")
 
         # Quick initial search to check if there are any results
@@ -461,7 +460,10 @@ class BriefPipelineService:
         entities: list[Entity],
         watchlist: Watchlist,
         report_dates: ReportDates,
-    ) -> tuple[WatchlistReport, ReportSources]:
+        request_id: str,
+        storage_manager: StorageManager,
+    ) -> tuple[WatchlistReport, RetrievedSources]:
+        storage_manager.log_message(request_id, "Generating report per entity")
         with ThreadPoolExecutor(max_workers=EXECUTOR_WORKERS) as executor:
             futures_to_entity = {
                 executor.submit(
@@ -475,7 +477,7 @@ class BriefPipelineService:
 
             entity_reports: list[SingleEntityReport] = []
             # Aggregate and consolidate sources for all entities
-            source_metadata = ReportSources(root={})
+            source_metadata = RetrievedSources(root={})
             entity_reports_failed = []
             for future in as_completed(futures_to_entity):
                 entity = futures_to_entity[future]
@@ -510,13 +512,17 @@ class BriefPipelineService:
                 key=lambda report: calculate_relevance_score(report.relevance_score),
                 reverse=True,
             )
-
+            storage_manager.log_message(
+                request_id,
+                f"Generated reports for {len(entities)} entities, {len(entity_reports_with_info)} with information, {len(self.no_info_reports)} without information and {len(entity_reports_failed)} failed.",
+            )
+            storage_manager.log_message(request_id, "Generating introduction section")
             intro_section = self.generate_intro_section_and_title(
                 actionable_company_reports=entity_reports_with_info,
                 report_dates=report_dates,
                 executor=executor,
             )
-
+            storage_manager.log_message(request_id, "Introduction section generated")
         # Construct the final WatchlistReport
         return (
             WatchlistReport(
@@ -548,95 +554,111 @@ class BriefPipelineService:
     def generate_brief(
         self,
         record: BriefCreationRequest,
-        db_session: Session | None = None,
+        request_id: str,
+        storage_manager: StorageManager,
     ) -> BriefReport:
-        workflow_execution_start = datetime.now()
-        record_data = self.parse_and_validate(record)
+        try:
+            storage_manager.update_status(request_id, WorkflowStatus.IN_PROGRESS)
+            workflow_execution_start = datetime.now()
+            storage_manager.log_message(request_id, "Validating input parameters")
+            record_data = self.parse_and_validate(record)
 
-        (
-            watchlist_report,
-            source_metadata,
-        ) = self.execute_watchlist_report_pipeline(
-            record_data.entities,
-            record_data.watchlist,
-            record_data.report_dates,
-            enable_metric=True,
-            metric_name="Execute watchlist report pipeline",
-        )
+            (
+                watchlist_report,
+                source_metadata,
+            ) = self.execute_watchlist_report_pipeline(
+                record_data.entities,
+                record_data.watchlist,
+                record_data.report_dates,
+                enable_metric=True,
+                metric_name="Execute watchlist report pipeline",
+                request_id=request_id,
+                storage_manager=storage_manager,
+            )
 
-        n_watchlist_items = len(record_data.entities)
-        n_no_info_reports = len(self.no_info_reports)
-        llm_metrics = LLMMetrics.get_total_usage()
-        bp_metrics = BulletPointMetrics.get_total_usage()
-        embedding_metrics = EmbeddingsMetrics.get_total_usage()
-        content_metrics = ContentMetrics.get_total_usage()
+            n_watchlist_items = len(record_data.entities)
+            n_no_info_reports = len(self.no_info_reports)
+            llm_metrics = LLMMetrics.get_total_usage()
+            bp_metrics = BulletPointMetrics.get_total_usage()
+            embedding_metrics = EmbeddingsMetrics.get_total_usage()
+            content_metrics = ContentMetrics.get_total_usage()
 
-        document_aggregation = {
-            f"documents_for_topic_{k.replace(' ', '_')}": v.total_documents
-            for k, v in content_metrics.items()
-        }
-        chunk_aggregation = {
-            f"chunks_for_topic_{k.replace(' ', '_')}": v.total_chunks
-            for k, v in content_metrics.items()
-        }
+            document_aggregation = {
+                f"documents_for_topic_{k.replace(' ', '_')}": v.total_documents
+                for k, v in content_metrics.items()
+            }
+            chunk_aggregation = {
+                f"chunks_for_topic_{k.replace(' ', '_')}": v.total_chunks
+                for k, v in content_metrics.items()
+            }
 
-        total_chunks = sum(v.total_chunks for v in content_metrics.values())
-        total_documents = sum(v.total_documents for v in content_metrics.values())
+            total_chunks = sum(v.total_chunks for v in content_metrics.values())
+            total_documents = sum(v.total_documents for v in content_metrics.values())
 
-        novelty_date_range = (
-            record_data.report_dates.get_novelty_dates().get_lookback_days()
-            if record_data.report_dates.novelty
-            else 0
-        )
-        logger.debug(
-            "Summary of metrics",
-            total_prompt_tokens=llm_metrics.prompt_tokens,
-            total_completion_tokens=llm_metrics.completion_tokens,
-            total_tokens=llm_metrics.total_tokens,
-            total_llm_calls=llm_metrics.n_calls,
-            total_embedding_tokens=embedding_metrics.tokens,
-            n_watchlist_items=n_watchlist_items,
-            n_entity_reports=n_watchlist_items - n_no_info_reports,
-            n_no_info_reports=n_no_info_reports,
-            no_info_reports=self.no_info_reports,
-            total_bp_before_novelty=bp_metrics.bullet_points_before_novelty,
-            total_bp_after_novelty=bp_metrics.bullet_points_after_novelty,
-            total_bp_stored=bp_metrics.bullet_points_stored,
-            brief_date_range=record_data.report_dates.get_lookback_days(),
-            novelty_date_range=novelty_date_range,
-            retrieved_from_cache=CacheMetrics.get_total_usage(),
-            query_units_consumed=QueryUnitMetrics.get_total_usage(),
-            **document_aggregation,
-            **chunk_aggregation,
-        )
+            novelty_date_range = (
+                record_data.report_dates.get_novelty_dates().get_lookback_days()
+                if record_data.report_dates.novelty
+                else 0
+            )
+            logger.debug(
+                "Summary of metrics",
+                total_prompt_tokens=llm_metrics.prompt_tokens,
+                total_completion_tokens=llm_metrics.completion_tokens,
+                total_tokens=llm_metrics.total_tokens,
+                total_llm_calls=llm_metrics.n_calls,
+                total_embedding_tokens=embedding_metrics.tokens,
+                n_watchlist_items=n_watchlist_items,
+                n_entity_reports=n_watchlist_items - n_no_info_reports,
+                n_no_info_reports=n_no_info_reports,
+                no_info_reports=self.no_info_reports,
+                total_bp_before_novelty=bp_metrics.bullet_points_before_novelty,
+                total_bp_after_novelty=bp_metrics.bullet_points_after_novelty,
+                total_bp_stored=bp_metrics.bullet_points_stored,
+                brief_date_range=record_data.report_dates.get_lookback_days(),
+                novelty_date_range=novelty_date_range,
+                retrieved_from_cache=CacheMetrics.get_total_usage(),
+                query_units_consumed=QueryUnitMetrics.get_total_usage(),
+                **document_aggregation,
+                **chunk_aggregation,
+            )
 
-        pipeline_output = BriefReport.from_watchlist_report(
-            watchlist_report,
-            source_metadata,
-            novelty=record_data.report_dates.novelty,
-        )
+            pipeline_output = BriefReport.from_watchlist_report(
+                watchlist_report,
+                source_metadata,
+                novelty=record_data.report_dates.novelty,
+            )
 
-        if pipeline_output.is_empty:
-            logger.debug(f"No new news for {record_data.watchlist.id}.")
-        workflow_execution_end = datetime.now()
-        self.query_service.send_trace(
-            event_name=self.query_service.TraceEventName.REPORT_GENERATED,
-            trace={
-                "bigdataClientVersion": version("bigdata-client"),
-                "workflowUsage": QueryUnitMetrics.get_total_usage(),
-                "workflowStartDate": workflow_execution_start.isoformat(
-                    timespec="seconds"
-                ),
-                "workflowEndDate": workflow_execution_end.isoformat(timespec="seconds"),
-                "watchlistLength": len(record_data.entities),
-                "numberOfEntityReports": len(watchlist_report.entity_reports),
-                "numberOfNoInfoReports": n_no_info_reports,
-                "numberOfChunks": total_chunks,
-                "numberOfDocuments": total_documents,
-            },
-        )
-        write_report_with_sources(pipeline_output, db_session)
-        return pipeline_output
+            if pipeline_output.is_empty:
+                logger.debug(f"No new news for {record_data.watchlist.id}.")
+            workflow_execution_end = datetime.now()
+            self.query_service.send_trace(
+                event_name=self.query_service.TraceEventName.REPORT_GENERATED,
+                trace={
+                    "bigdataClientVersion": version("bigdata-client"),
+                    "workflowUsage": QueryUnitMetrics.get_total_usage(),
+                    "workflowStartDate": workflow_execution_start.isoformat(
+                        timespec="seconds"
+                    ),
+                    "workflowEndDate": workflow_execution_end.isoformat(
+                        timespec="seconds"
+                    ),
+                    "watchlistLength": len(record_data.entities),
+                    "numberOfEntityReports": len(watchlist_report.entity_reports),
+                    "numberOfNoInfoReports": n_no_info_reports,
+                    "numberOfChunks": total_chunks,
+                    "numberOfDocuments": total_documents,
+                },
+            )
+            storage_manager.log_message(request_id, "Storing output report")
+            write_report_with_sources(
+                request_id, pipeline_output, storage_manager.db_session
+            )
+            storage_manager.update_status(request_id, WorkflowStatus.COMPLETED)
+            return pipeline_output
+        except Exception as e:
+            storage_manager.update_status(request_id, WorkflowStatus.FAILED)
+            storage_manager.log_message(request_id, str(e))
+            raise
 
     def parse_and_validate(self, record: BriefCreationRequest) -> ValidatedInput:
         logger.debug(record)
