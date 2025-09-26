@@ -43,6 +43,11 @@ def mock_entity():
 
 
 @pytest.fixture
+def mock_topics() -> list[str]:
+    return ["topic1", "topic2", "topic3"]
+
+
+@pytest.fixture
 def mock_report_dates():
     return ReportDates(
         start=datetime(2023, 1, 1), end=datetime(2023, 1, 31), novelty=True
@@ -116,7 +121,7 @@ def mock_qa_pairs(mock_results):
 
 
 def test_generate_follow_up_questions(
-    mock_service, mock_entity, mock_report_dates, mock_results
+    mock_service, mock_topics, mock_entity, mock_report_dates, mock_results
 ):
     service, llm_client, _, _ = mock_service
     # Mock the LLM client response
@@ -125,7 +130,7 @@ def test_generate_follow_up_questions(
     )
 
     questions = service.generate_follow_up_questions(
-        mock_entity, mock_report_dates, mock_results
+        mock_entity, mock_topics, mock_report_dates, mock_results
     )
     assert questions == ["Q1", "Q2"]
     llm_client.call_with_response_format.assert_called()

@@ -4,6 +4,7 @@ from enum import StrEnum
 from pydantic import BaseModel, Field
 
 from bigdata_briefs.models import BriefReport
+from bigdata_briefs.settings import settings
 
 
 class WorkflowStatus(StrEnum):
@@ -29,6 +30,11 @@ class BriefCreationRequest(BaseModel):
     novelty: bool = Field(
         True,
         description="Whether to only include novel information in the report.",
+    )
+    topics: list[str] | None = Field(
+        None,
+        description="A list of topics to focus on in the report. A set of handpicked topics focussing on financial relevance will be used if not provided.",
+        examples=[settings.TOPICS],
     )
 
 
