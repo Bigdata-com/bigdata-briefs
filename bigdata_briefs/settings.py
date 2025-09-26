@@ -58,6 +58,9 @@ class Settings(BaseSettings):
     DB_STRING: str = "sqlite:///briefs.db"
     TEMPLATES_DIR: str = str(PROJECT_DIRECTORY / "bigdata_briefs" / "templates")
 
+    # Static dir configuration
+    STATIC_DIR: str = str(PROJECT_DIRECTORY / "bigdata_briefs" / "static")    
+
     # General configuration
     WATCHLIST_ITEMS_LIMIT: int = 200
     TOPICS: dict = DEFAULT_TOPICS
