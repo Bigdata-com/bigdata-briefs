@@ -226,15 +226,14 @@ class QueryService:
     def run_exploratory_search(
         self,
         entity: Entity,
+        topics: list[str],
         report_dates: ReportDates,
         executor: ThreadPoolExecutor,
         config: ExploratorySearchConfig = ExploratorySearchConfig(),
     ) -> list[Result]:
         if config.use_topics:
             # TODO use jinja2
-            company_topics = [
-                t.format(company=entity.name) for t in settings.TOPICS.values()
-            ]
+            company_topics = [t.format(company=entity.name) for t in topics]
             futures = [
                 executor.submit(
                     self._run_single_exploratory_search,
@@ -246,9 +245,7 @@ class QueryService:
                     enable_metric=True,  # noqa
                     metric_name=f"Exploratory search. Entity {entity.id}",  # noqa
                 )
-                for similarity_text, topic in zip(
-                    company_topics, settings.TOPICS.values()
-                )
+                for similarity_text, topic in zip(company_topics, topics)
             ]
             # In addition to searching by topics, query with just the entity
             futures.append(

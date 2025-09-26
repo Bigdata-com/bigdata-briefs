@@ -70,7 +70,6 @@ MIN_TOPICS_FOR_INTRO = 1
 # We just want a number big enough to handle all connections, the limit is applied by SDK
 # and by the Weighed semaphore
 EXECUTOR_WORKERS = 10_000
-N_EXPLORATORY_SEARCH_QUERIES = len(settings.TOPICS) + 1
 
 
 class BriefPipelineService:
@@ -91,6 +90,7 @@ class BriefPipelineService:
     def generate_follow_up_questions(
         self,
         entity: Entity,
+        topics: list[str],
         report_dates: ReportDates,
         results: list[Result],
     ) -> list[str]:
@@ -100,6 +100,7 @@ class BriefPipelineService:
             results=results,
             report_dates=report_dates,
             user_template=prompt_keys.user_template,
+            topics=topics,
             response_format=f"{FollowUpAnalysis.model_json_schema()}",
         )
         # user_prompt += f"\n\nYour response should be a JSON object that matches the following schema:\n\n{FollowUpAnalysis.model_json_schema()}"
@@ -180,6 +181,7 @@ class BriefPipelineService:
     def execute_entity_report_pipeline(
         self,
         entity: Entity,
+        topics: list[str],
         report_dates: ReportDates,
         executor: ThreadPoolExecutor,
     ) -> tuple[SingleEntityReport, RetrievedSources]:
@@ -200,9 +202,10 @@ class BriefPipelineService:
             )
 
         # If we found results, proceed with full exploratory search
-        with self.weighted_semaphore(N_EXPLORATORY_SEARCH_QUERIES):
+        with self.weighted_semaphore(len(topics) + 1):
             exploratory_search_results = self.query_service.run_exploratory_search(
                 entity=entity,
+                topics=topics,
                 report_dates=report_dates,
                 executor=executor,
                 enable_metric=True,
@@ -218,6 +221,7 @@ class BriefPipelineService:
 
         follow_up_questions = self.generate_follow_up_questions(
             entity,
+            topics,
             report_dates,
             exploratory_search_results,
             enable_metric=True,
@@ -460,6 +464,7 @@ class BriefPipelineService:
         self,
         entities: list[Entity],
         watchlist: Watchlist,
+        topics: list[str],
         report_dates: ReportDates,
         request_id: UUID,
         storage_manager: StorageManager,
@@ -470,6 +475,7 @@ class BriefPipelineService:
                 executor.submit(
                     self.execute_entity_report_pipeline,
                     entity,
+                    topics,
                     report_dates,
                     executor,
                 ): entity
@@ -570,6 +576,7 @@ class BriefPipelineService:
             ) = self.execute_watchlist_report_pipeline(
                 record_data.entities,
                 record_data.watchlist,
+                record_data.topics,
                 record_data.report_dates,
                 enable_metric=True,
                 metric_name="Execute watchlist report pipeline",
@@ -693,6 +700,7 @@ class BriefPipelineService:
                 name=watchlist.name,
             ),
             entities=entities,
+            topics=record.topics or settings.TOPICS,
             report_dates=ReportDates(
                 start=record.report_start_date,
                 end=record.report_end_date,
