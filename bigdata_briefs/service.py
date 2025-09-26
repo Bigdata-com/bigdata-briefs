@@ -672,6 +672,16 @@ class BriefPipelineService:
         logger.debug(record)
         watchlist_id = record.watchlist_id
         logger.info("Processing watchlist", watchlist_id=watchlist_id)
+
+        # Ensure all topics include the placeholder {company}
+        topics = record.topics or settings.TOPICS
+
+        for topic in topics:
+            if "{company}" not in topic:
+                raise ValueError(
+                    f"Invalid topic '{topic}'. Topics must include '{{company}}'."
+                )
+
         watchlist = self.query_service.get_watchlist(watchlist_id=watchlist_id)
         if not watchlist.items:
             raise EmtpyWatchlistError(
@@ -693,14 +703,6 @@ class BriefPipelineService:
             raise EmtpyWatchlistError(
                 f"Validation failed after removing non-companies {watchlist.id}"
             )
-
-        topics = record.topics or settings.TOPICS
-
-        for topic in topics:
-            if "{company}" not in topic:
-                raise ValueError(
-                    f"Invalid topic '{topic}'. Topics must include '{{company}}'."
-                )
 
         return ValidatedInput(
             watchlist=Watchlist(

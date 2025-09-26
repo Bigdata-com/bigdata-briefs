@@ -4,6 +4,7 @@ from unittest.mock import MagicMock
 import pytest
 from bigdata_client.models.entities import Company
 
+from bigdata_briefs.api.models import BriefCreationRequest
 from bigdata_briefs.models import (
     Chunk,
     ChunkHighlight,
@@ -175,3 +176,27 @@ def test_create_no_info_report(mock_service, mock_entity):
     assert report.is_no_info_report
     assert sources == {}
     assert (mock_entity, generation_step) in service.no_info_reports
+
+
+def test_correctly_checks_for_company_placeholder_in_topics(mock_service):
+    service, _, _, _ = mock_service
+
+    invalid_topics = [
+        "What is the latest news about the market?",
+        "How is the economy performing financially?",
+        "Are there any recent developments regarding technology?",
+    ]
+
+    request = BriefCreationRequest(
+        watchlist_id="test_watchlist",
+        report_start_date=datetime(2023, 1, 1),
+        report_end_date=datetime(2023, 1, 31),
+        novelty=True,
+        topics=invalid_topics,
+    )
+
+    with pytest.raises(ValueError) as exc_info:
+        service.parse_and_validate(request)
+
+    assert "Invalid topic" in str(exc_info.value)
+    assert "'{company}'" in str(exc_info.value)
