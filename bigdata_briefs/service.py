@@ -694,13 +694,21 @@ class BriefPipelineService:
                 f"Validation failed after removing non-companies {watchlist.id}"
             )
 
+        topics = record.topics or settings.TOPICS
+
+        for topic in topics:
+            if "{company}" not in topic:
+                raise ValueError(
+                    f"Invalid topic '{topic}'. Topics must include '{{company}}'."
+                )
+
         return ValidatedInput(
             watchlist=Watchlist(
                 id=watchlist.id,
                 name=watchlist.name,
             ),
             entities=entities,
-            topics=record.topics or settings.TOPICS,
+            topics=topics,
             report_dates=ReportDates(
                 start=record.report_start_date,
                 end=record.report_end_date,
