@@ -11,7 +11,6 @@ from bigdata_briefs.models import (
     RetrievedSources,
     SingleEntityReport,
 )
-from bigdata_briefs.settings import settings
 from bigdata_briefs.templates import loader
 
 
@@ -22,14 +21,13 @@ def get_followup_questions_user_prompt(
     report_dates: ReportDates,
     response_format: str,
     user_template: Template,
+    topics: list[str],
     config: FollowUpQuestionsPromptDefaults = FollowUpQuestionsPromptDefaults(),
 ) -> str:
     results_md = (
         loader.get_template("prompts/results.md.jinja").render(results=results).strip()
     )
-    topics_md = "\n".join(
-        f"* {t.format(company=entity.name)}" for t in settings.TOPICS.values()
-    )
+    topics_md = "\n".join(f"* {t.format(company=entity.name)}" for t in topics)
 
     return user_template.render(
         entity_info=entity,

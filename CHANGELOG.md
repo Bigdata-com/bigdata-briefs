@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Added new models to separate `RetrievedSources` from `ReportedSources`, allowing to keep track of all retrieved sources while only including the used ones in the final report.
+- Allow `topics` guiding the brief generation to be specified as part of the input JSON payload to `/briefs/create`. The default topics are still configurable via the `TOPICS` environment variable, however they are now a list of strings instead of a dictionary (Keys where never used previously).
 
 ### Changed
 - Changed endpoints to be asynchronous. `/briefs/create` will now return a `request_id` immediately, and progress updated and the result can be fetched later using `/briefs/status/{request_id}`.

@@ -178,6 +178,7 @@ class ReportDates(StartEndDate):
 class ValidatedInput(BaseModel):
     watchlist: Watchlist
     entities: list[Entity]
+    topics: list[str]
     report_dates: ReportDates
 
 
