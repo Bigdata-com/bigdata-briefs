@@ -1,5 +1,6 @@
 from datetime import datetime
 from unittest.mock import MagicMock
+from uuid import UUID
 
 import pytest
 from bigdata_client.models.entities import Company
@@ -196,7 +197,9 @@ def test_correctly_checks_for_company_placeholder_in_topics(mock_service):
     )
 
     with pytest.raises(ValueError) as exc_info:
-        service.parse_and_validate(request)
+        service.parse_and_validate(
+            request, UUID("12345678-1234-5678-1234-567812345678"), None
+        )
 
     assert "Invalid topic" in str(exc_info.value)
     assert "'{company}'" in str(exc_info.value)

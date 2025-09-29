@@ -569,7 +569,7 @@ class BriefPipelineService:
             storage_manager.update_status(request_id, WorkflowStatus.IN_PROGRESS)
             workflow_execution_start = datetime.now()
             storage_manager.log_message(request_id, "Validating input parameters")
-            record_data = self.parse_and_validate(record)
+            record_data = self.parse_and_validate(record, request_id, storage_manager)
 
             (
                 watchlist_report,
@@ -669,7 +669,12 @@ class BriefPipelineService:
             storage_manager.log_message(request_id, str(e))
             raise
 
-    def parse_and_validate(self, record: BriefCreationRequest) -> ValidatedInput:
+    def parse_and_validate(
+        self,
+        record: BriefCreationRequest,
+        request_id: UUID,
+        storage_manager: StorageManager,
+    ) -> ValidatedInput:
         logger.debug(record)
 
         # Ensure all topics include the placeholder {company}
@@ -692,9 +697,9 @@ class BriefPipelineService:
                 watchlist.items = set(
                     list(watchlist.items)[: settings.WATCHLIST_ITEMS_LIMIT]
                 )
-                logger.debug(
-                    f"Watchlist {watchlist.id} has too many items: {len(watchlist.items)} Taking the first {settings.WATCHLIST_ITEMS_LIMIT}"
-                )
+                company_limit_msg = f"Watchlist {watchlist.id} has too many items: {len(watchlist.items)} Taking the first {settings.WATCHLIST_ITEMS_LIMIT}"
+                logger.debug(company_limit_msg)
+                storage_manager.log_message(request_id, company_limit_msg)
 
             entity_ids = list(watchlist.items)
         elif isinstance(record.companies, list):
