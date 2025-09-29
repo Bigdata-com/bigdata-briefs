@@ -17,8 +17,8 @@ class WorkflowStatus(StrEnum):
 class BriefCreationRequest(BaseModel):
     companies: list[str] | str = Field(
         "db8478c9-34db-4975-8e44-b1ff764098ac",
-        description="List of RavenPack entity IDs  or a watchlist ID representing the companies to screen.",
-        example="db8478c9-34db-4975-8e44-b1ff764098ac",
+        description="List of RavenPack entity IDs  or a watchlist ID representing the companies to track in the generated brief.",
+        examples=["db8478c9-34db-4975-8e44-b1ff764098ac"],
     )
     report_start_date: datetime = Field(
         datetime.now().replace(minute=0, second=0, microsecond=0) - timedelta(days=7),
