@@ -1,6 +1,7 @@
 from concurrent.futures import as_completed
 from concurrent.futures.thread import ThreadPoolExecutor
 from datetime import datetime
+from hashlib import sha256
 from importlib.metadata import version
 from threading import Lock
 from uuid import UUID
@@ -670,8 +671,6 @@ class BriefPipelineService:
 
     def parse_and_validate(self, record: BriefCreationRequest) -> ValidatedInput:
         logger.debug(record)
-        watchlist_id = record.watchlist_id
-        logger.info("Processing watchlist", watchlist_id=watchlist_id)
 
         # Ensure all topics include the placeholder {company}
         topics = record.topics or settings.TOPICS
@@ -682,21 +681,44 @@ class BriefPipelineService:
                     f"Invalid topic '{topic}'. Topics must include '{{company}}'."
                 )
 
-        watchlist = self.query_service.get_watchlist(watchlist_id=watchlist_id)
-        if not watchlist.items:
-            raise EmtpyWatchlistError(
-                f"Validation failed before removing non-companies {watchlist.id}"
+        if isinstance(record.companies, str):
+            watchlist = self.query_service.get_watchlist(watchlist_id=record.companies)
+            if not watchlist.items:
+                raise EmtpyWatchlistError(
+                    f"Validation failed before removing non-companies {watchlist.id}"
+                )
+
+            if len(watchlist.items) > settings.WATCHLIST_ITEMS_LIMIT:
+                watchlist.items = set(
+                    list(watchlist.items)[: settings.WATCHLIST_ITEMS_LIMIT]
+                )
+                logger.debug(
+                    f"Watchlist {watchlist.id} has too many items: {len(watchlist.items)} Taking the first {settings.WATCHLIST_ITEMS_LIMIT}"
+                )
+
+            entity_ids = list(watchlist.items)
+        elif isinstance(record.companies, list):
+            entity_ids = record.companies
+            # Use a dummy watchlist as the whole workflow expects a watchlist ID and name
+            watchlist = Watchlist(
+                id=f"custom_{sha256(str(record.companies)).hexdigest()}",
+                name="Custom set of entities",
+            )
+        else:
+            raise ValueError(
+                "Companies must be either a list of RP entity IDs or a string representing a watchlist ID."
             )
 
-        if len(watchlist.items) > settings.WATCHLIST_ITEMS_LIMIT:
-            watchlist.items = set(
-                list(watchlist.items)[: settings.WATCHLIST_ITEMS_LIMIT]
-            )
-            logger.debug(
-                f"Watchlist {watchlist.id} has too many items: {len(watchlist.items)} Taking the first {settings.WATCHLIST_ITEMS_LIMIT}"
-            )
+        # Ensure there is entities, there is no duplicates and all entities are companies
+        entities = self.query_service.get_entities(entity_ids)
 
-        entities = self.query_service.get_entities(list(watchlist.items))
+        dedupped_entities = {c.id: c for c in entities}
+
+        entities = list(dedupped_entities.values())
+
+        if len(entities) == 0:
+            raise ValueError("No entities found in the provided universe or watchlist.")
+
         logger.debug("Entities recovered")
         entities = remove_non_companies(entities=entities)
         if len(entities) == 0:
