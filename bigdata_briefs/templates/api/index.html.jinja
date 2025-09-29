@@ -56,7 +56,7 @@
           </label>
           <textarea id="topics"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2"
-            placeholder="Include the topics you want"></textarea>
+            placeholder="Include the topics you want (must contain {company} placeholder)"></textarea>
         </div>
 
           <div class="mb-5">
@@ -171,6 +171,7 @@
   const infoContents = {
     main_theme: `<b>Main Theme</b>:<br>The overarching risk scenario you want to analyze. It can be specified as a single word or as a short sentence. The risk analyzer will generate a list of sub-themes representing individual, self contained components of the main risk. It can contain multiple core concepts, but we recommend not adding too many core concepts in the same run.<br><i>Examples: "US Import Tariffs against China", "Energy Transition", "Regulatory Changes in AI"</i>`,
     focus: `<b>Focus</b>:<br>Use this parameter to pass additional, custom instructions to the LLM when breaking down the theme into sub-risks. Guide the mindmap creation and customize it to your needs, inject your domain knowledge, and ensure the mindmap covers all required risk dimensions.`,
+    topics: `<b>Topics</b>:<br>Specify the topics you want to analyze. Each topic must include the <code>{company}</code> placeholder which will be replaced with actual company names during analysis. You can specify multiple topics, one per line.<br><i>Examples: "How will {company} be affected by trade wars?", "{company} exposure to supply chain disruptions"</i>`,
     companies: `<b>Company Universe</b>:<br>The portfolio of companies you want to screen for exposure, you have several input options:<br><ul class="list-disc pl-6"><li>Select one of the public watchlists using the dropdown menu</li><li>Write list of RavenPack entity IDs (e.g., <code>4A6F00, D8442A</code>)</li><li>Input a watchlist ID (e.g., <code>44118802-9104-4265-b97a-2e6d88d74893</code> )</li></ul><br>Watchlists can be created programmatically using the <a href='https://docs.bigdata.com/getting-started/watchlist_management' target='_blank'>Bigdata.com SDK</a> or through the <a href='https://app.bigdata.com/watchlists' target='_blank'>Bigdata app</a>.`,
     control_entities: `<b>Control Entities</b>:<br>A dict of entities to be co-mentioned with the sentence, companies, and keywords. Specify companies, places, people, concepts, etc. <a href='https://docs.bigdata.com/getting-started/knowledge_graph/find_companies#using-filters' target='_blank'>Learn more</a>.`,
     start_date: `<b>Start/End Date</b>:<br>The start and end of the time sample during which you want to screen your portfolio for thematic exposure. Format: <code>YYYY-MM-DD</code>.`,
@@ -350,13 +351,39 @@
     // Build request payload
     let payload = {
     };
-    const topics = document.getElementById('topics').value.trim();
+    let topics = document.getElementById('topics').value.trim();
+    if (topics) {
+        let topicsArray;
+        if (topics.includes('\n')) {
+            topicsArray = topics.split('\n').map(t => t.trim()).filter(Boolean);
+        } else {
+            topicsArray = [topics];
+        }
+        
+        // Validate that ALL topics contain the {company} placeholder
+        const topicsWithoutPlaceholder = topicsArray.filter(topic => !topic.includes('{company}'));
+        if (topicsWithoutPlaceholder.length > 0) {
+            const failingTopicsList = topicsWithoutPlaceholder.map(topic => `• ${escapeHtml(topic)}`).join('<br>');
+            output.innerHTML = `<span class="error">❌ Error: The following topics are missing the {company} placeholder:<br>${failingTopicsList}</span>`;
+            output.classList.add('error');
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Analyze Risk';
+            return;
+        }
+        
+        payload.topics = topicsArray;
+    } 
     const novelty = document.getElementById('novelty').value === 'true';
     let sources = document.getElementById('sources').value.trim();
+    if (sources) {
     if (sources.includes(',')) {
           payload.sources = sources.split(',').map(s => s.trim()).filter(Boolean);
           // A single RP Entity ID
         }
+    else {
+          payload.sources = [sources];
+        }
+    }
 
     // A list of companies
     if (companies.includes(',')) {
@@ -371,6 +398,7 @@
 
     if (start_date) payload.report_start_date = start_date;
     if (end_date) payload.report_end_date = end_date;
+    if (novelty) payload.novelty = novelty;
 
     // Add token from URL param if present
     const params = new URLSearchParams();
@@ -380,7 +408,7 @@
     }
 
     try {
-      const response = await fetch(`/risk-analysis?${params}`, {
+      const response = await fetch(`/briefs/create?${params}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)

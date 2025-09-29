@@ -108,7 +108,7 @@ async def sample_frontend(_: str = Security(query_scheme)) -> HTMLResponse:
 
     return HTMLResponse(
         content=loader.get_template("api/index.html.jinja").render(
-            watchlist_id=default_request.watchlist_id,
+            companies=default_request.companies,
             novelty=default_request.novelty,
             default_start_date=default_request.report_start_date.strftime("%Y-%m-%d"),
             default_end_date=default_request.report_end_date.strftime("%Y-%m-%d"),
