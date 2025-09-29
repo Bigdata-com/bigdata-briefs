@@ -451,7 +451,7 @@
             if (statusData.status === 'completed' || statusData.status === 'failed') {
               polling = false;
               if (statusData.status === 'completed') {
-                output.innerHTML = renderRiskReport(statusData.report)
+                output.innerHTML = renderBriefReport(statusData.report)
                 showJsonBtn.style.display = 'inline-block';
                 lastReport = statusData.report;
               }
@@ -485,91 +485,38 @@
     }
   };
 
-  function renderRiskReport(data) {
+  function renderBriefReport(data) {
     if (!data || typeof data !== 'object') return '<span class="error">No data to display.</span>';
-    let html = '<h2 class="text-3xl font-bold text-white mb-4">Risk Analysis Result</h2>';
+    let html = '<h2 class="text-3xl font-bold text-white mb-4">General Report</h2>';
+    // Report overview
+    html += '<div class="max-h-[500px] overflow-y-auto">'
+    html += '<table class="table-auto text-sm">';
+    html += '<tr><th class="sticky top-0 z-10 bg-zinc-900">Watchlist</th><th class="sticky top-0 z-10 bg-zinc-900">Title</th><th class="sticky top-0 z-10 bg-zinc-900">Introduction</th><th class="sticky top-0 z-10 bg-zinc-900">Start Date</th><th class="sticky top-0 z-10 bg-zinc-900">End Date</th><th class="sticky top-0 z-10 bg-zinc-900">Novelty</th></tr>';
+    html += `<tr class="divide-y divide-white"><td>${escapeHtml(data.watchlist_name || data.watchlist_id)}</td><td>${escapeHtml(data.report_title)}</td><td>${escapeHtml(data.introduction)}</td><td>${escapeHtml(data.start_date)}</td><td>${escapeHtml(data.end_date)}</td><td>${data.novelty ? 'Yes' : 'No'}</td></tr>`;
+    html += '</table>';
 
-    // Render risk_scoring (dict of ticker -> CompanyScoring)
-    if (data.risk_scoring) {
-      html += '<h3 class="text-2xl font-bold text-white mb-2">Risk Scoring</h3>';
+    // Entity reports table
+    if (Array.isArray(data.entity_reports) && data.entity_reports.length > 0) {
+      html += '<h2 class="text-3xl font-bold text-white mb-4">Entity Reports</h2>';
       html += '<div class="max-h-[500px] overflow-y-auto">'
       html += '<table class="table-auto text-sm">';
-      html += '<tr>';
-
-      html += '<th class="sticky top-0 z-10 bg-zinc-900">Ticker</th><th class="sticky top-0 z-10 bg-zinc-900">Sector</th><th class="sticky top-0 z-10 bg-zinc-900">Industry</th><th class="sticky top-0 z-10 bg-zinc-900">Composite Score</th><th class="sticky top-0 z-10 bg-zinc-900" style="width:30%">Motivation</th><th class="sticky top-0 z-10 bg-zinc-900">Risks</th>';
-      html += '</tr>';
-      for (const [ticker, scoring] of Object.entries(data.risk_scoring)) {
-        html += '<tr class="divide-y divide-white">';
-        html += `<td>${escapeHtml(scoring.ticker)}</td>`;
-        html += `<td>${escapeHtml(scoring.sector)}</td>`;
-        html += `<td>${escapeHtml(scoring.industry)}</td>`;
-        html += `<td>${escapeHtml(scoring.composite_score)}</td>`;
-        html += `<td>${escapeHtml(scoring.motivation || '')}</td>`;
-        // Risks (dict)
-        if (scoring.risks) {
-          let risksStr = Object.entries(scoring.risks).map(([risk, val]) => `${escapeHtml(risk)}: ${escapeHtml(val)}`).join('<br>');
-          html += `<td>${risksStr}</td>`;
+      html += '<tr class="divide-y divide-white"><th class="sticky top-0 z-10 bg-zinc-900">Entity</th><th class="sticky top-0 z-10 bg-zinc-900">Bullet Point</th><th class="sticky top-0 z-10 bg-zinc-900">Sources</th></tr>';
+      data.entity_reports.forEach(entity => {
+        const entityName = (entity.entity_info && (entity.entity_info.name || entity.entity_info.id)) ? escapeHtml(entity.entity_info.name || entity.entity_info.id) : escapeHtml(entity.entity_id);
+        if (Array.isArray(entity.content) && entity.content.length > 0) {
+          entity.content.forEach((bp, idx) => {
+            html += `<tr class="divide-y divide-white"><td>${idx === 0 ? entityName : ''}</td><td>${escapeHtml(bp.bullet_point)}</td><td>${Array.isArray(bp.sources) ? bp.sources.map(escapeHtml).join(', ') : ''}</td></tr>`;
+          });
         } else {
-          html += '<td></td>';
+          html += `<tr class="divide-y divide-white"><td>${entityName}</td><td colspan="2"><em>No bullet points</em></td></tr>`;
         }
-        html += '</tr>';
-      }
+      });
       html += '</table>';
-      html += '</div>'
-    }
-
-    // Render risk_taxonomy (tree)
-    function renderTaxonomy(node, depth = 0) {
-      if (!node) return '';
-      let pad = '&nbsp;'.repeat(depth * 4);
-      let html = `${pad}<b>${escapeHtml(node.label)}</b> (Node: ${escapeHtml(node.node)})`;
-      if (node.summary) html += ` - ${escapeHtml(node.summary)}`;
-      if (node.keywords && node.keywords.length)
-        html += `<br>${pad}<i>Keywords:</i> ${escapeHtml(node.keywords.join(', '))}`;
-      if (node.children && node.children.length) {
-        html += '<ul>';
-        for (const child of node.children) {
-          html += '<li>' + renderTaxonomy(child, depth + 1) + '</li>';
-        }
-        html += '</ul>';
-      }
-      return html;
-    }
-    if (data.risk_taxonomy) {
-      html += '<h3 class="text-2xl font-bold text-white mb-2">Risk Taxonomy</h3>';
-      html += '<div class="table-main p-4">' + renderTaxonomy(data.risk_taxonomy) + '</div>';
-    }
-
-    // Render content (list of LabeledChunk)
-    if (data.content && Array.isArray(data.content) && data.content.length) {
-      html += '<h3 class="text-2xl font-bold text-white mb-2">Labeled Content</h3>';
-      html += '<div class="max-h-[500px] overflow-y-auto">'
-      html += '<table class="table-auto text-sm">';
-      html += '<tr>';
-      html += '<th class="sticky top-0 z-10 bg-zinc-900">Date</th><th class="sticky top-0 z-10 bg-zinc-900">Company</th><th class="sticky top-0 z-10 bg-zinc-900">Sector</th><th class="sticky top-0 z-10 bg-zinc-900">Industry</th><th class="sticky top-0 z-10 bg-zinc-900">Country</th><th class="sticky top-0 z-10 bg-zinc-900">Ticker</th><th class="sticky top-0 z-10 bg-zinc-900"><span>Headline</span><span><button type="button" class="text-blue-500 text-sm" onclick=showInfoModal(\'headline_comment\') title="Info">ⓘ</button></span></th><th class="sticky top-0 z-10 bg-zinc-900">Quote</th><th class="sticky top-0 z-10 bg-zinc-900">Motivation</th><th class="sticky top-0 z-10 bg-zinc-900">Sub Scenarios</th><th class="sticky top-0 z-10 bg-zinc-900">Risk Channel</th><th class="sticky top-0 z-10 bg-zinc-900">Risk Factor</th><th class="sticky top-0 z-10 bg-zinc-900">Highlights</th>';
-      html += '</tr>';
-      for (const chunk of data.content) {
-        html += '<tr class="divide-y divide-white">';
-        html += `<td>${escapeHtml(chunk.date)}</td>`;
-        html += `<td>${escapeHtml(chunk.company)}</td>`;
-        html += `<td>${escapeHtml(chunk.sector)}</td>`;
-        html += `<td>${escapeHtml(chunk.industry)}</td>`;
-        html += `<td>${escapeHtml(chunk.country)}</td>`;
-        html += `<td>${escapeHtml(chunk.ticker)}</td>`;
-        html += `<td onclick="showDocumentModal('${chunk.document_id}')">${escapeHtml(chunk.headline)}</td>`;
-        html += `<td>${escapeHtml(chunk.quote)}</td>`;
-        html += `<td>${escapeHtml(chunk.motivation)}</td>`;
-        html += `<td>${escapeHtml(chunk.sub_scenario)}</td>`;
-        html += `<td>${escapeHtml(chunk.risk_channel)}</td>`;
-        html += `<td>${escapeHtml(chunk.risk_factor)}</td>`;
-        html += `<td>${chunk.highlights && chunk.highlights.length ? escapeHtml(chunk.highlights.join('; ')) : ''}</td>`;
-        html += '</tr>';
-      }
-      html += '</table>';
-      html += '</div>'
+    } else {
+      html += '<p><em>No entity reports available.</em></p>';
     }
     return html;
-  };
+  }  
 
   function closeModal() {
     document.getElementById('jsonModal').style.display = 'none';
