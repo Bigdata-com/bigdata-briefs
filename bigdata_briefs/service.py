@@ -60,6 +60,8 @@ from bigdata_briefs.prompts.user_prompts import (
     get_single_bullet_user_prompt,
 )
 from bigdata_briefs.query_service.query_service import (
+    CheckIfThereAreResultsSearchConfig,
+    ExploratorySearchConfig,
     QueryService,
 )
 from bigdata_briefs.settings import settings
@@ -183,15 +185,27 @@ class BriefPipelineService:
         self,
         entity: Entity,
         topics: list[str],
+        source_filter: list[str] | None,
         report_dates: ReportDates,
         executor: ThreadPoolExecutor,
     ) -> tuple[SingleEntityReport, RetrievedSources]:
         logger.debug(f"Starting report on {entity}")
 
+        if source_filter:
+            any_result_search_config = CheckIfThereAreResultsSearchConfig(
+                source_filter=source_filter
+            )
+            exploratory_search_config = ExploratorySearchConfig(
+                source_filter=source_filter
+            )
+        else:
+            any_result_search_config = CheckIfThereAreResultsSearchConfig()
+            exploratory_search_config = ExploratorySearchConfig()
         # Quick initial search to check if there are any results
         initial_results = self.query_service.check_if_entity_has_results(
             entity_id=entity.id,
             report_dates=report_dates,
+            config=any_result_search_config,
         )
 
         if not initial_results:
@@ -211,6 +225,7 @@ class BriefPipelineService:
                 executor=executor,
                 enable_metric=True,
                 metric_name="Exploratory search. All entities",
+                config=exploratory_search_config,
             )
         if not exploratory_search_results:
             logger.debug(f"No new information found for {entity}")
@@ -247,6 +262,7 @@ class BriefPipelineService:
                 executor=executor,
                 enable_metric=True,
                 metric_name="Run follow up questions",
+                source_filter=source_filter,
             )
         if not any(pair.answer for pair in qa_pairs.pairs):
             logger.debug(f"No qa-pairs generated for {entity}")
@@ -466,6 +482,7 @@ class BriefPipelineService:
         entities: list[Entity],
         watchlist: Watchlist,
         topics: list[str],
+        source_filter: list[str] | None,
         report_dates: ReportDates,
         request_id: UUID,
         storage_manager: StorageManager,
@@ -579,6 +596,7 @@ class BriefPipelineService:
                 record_data.watchlist,
                 record_data.topics,
                 record_data.report_dates,
+                record_data.sources_filter,
                 enable_metric=True,
                 metric_name="Execute watchlist report pipeline",
                 request_id=request_id,
@@ -738,6 +756,7 @@ class BriefPipelineService:
             ),
             entities=entities,
             topics=topics,
+            sources_filter=record.sources,
             report_dates=ReportDates(
                 start=record.report_start_date,
                 end=record.report_end_date,

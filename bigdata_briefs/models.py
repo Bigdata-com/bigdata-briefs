@@ -180,6 +180,7 @@ class ValidatedInput(BaseModel):
     entities: list[Entity]
     topics: list[str]
     report_dates: ReportDates
+    sources_filter: list[str] | None
 
 
 class FollowUpAnalysis(BaseModel):
