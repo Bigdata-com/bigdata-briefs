@@ -37,7 +37,6 @@ class BriefCreationRequest(BaseModel):
         description="List of RavenPack entity IDs to filter the sources by.",
         example=["9D69F1", "B5235B"],
     )
-
     topics: list[str] | None = Field(
         None,
         description="A list of topics to focus on in the report. A set of handpicked topics focussing on financial relevance will be used if not provided.",

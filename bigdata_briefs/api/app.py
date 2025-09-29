@@ -125,7 +125,6 @@ async def sample_frontend(_: str = Security(query_scheme)) -> HTMLResponse:
 async def create_brief(
     brief_config: Annotated[BriefCreationRequest, Body()],
     background_tasks: BackgroundTasks,
-    session: Session = Depends(get_session),
     storage_manager: StorageManager = Depends(get_storage_manager),
     _: str = Security(query_scheme),
 ) -> JSONResponse:
