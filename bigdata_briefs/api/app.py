@@ -5,6 +5,7 @@ from uuid import UUID, uuid4
 
 from fastapi import BackgroundTasks, Body, Depends, FastAPI, HTTPException, Security
 from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.staticfiles import StaticFiles
 from sqlmodel import Session, SQLModel, create_engine
 
 from bigdata_briefs import LOG_LEVEL, __version__, logger
@@ -70,6 +71,8 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+app.mount("/static", StaticFiles(directory=settings.STATIC_DIR), name="static")
+
 
 @app.middleware("http")
 async def log_requests(request, call_next):
@@ -104,8 +107,8 @@ async def sample_frontend(_: str = Security(query_scheme)) -> HTMLResponse:
     default_request = BriefCreationRequest()
 
     return HTMLResponse(
-        content=loader.get_template("api/frontend.html.jinja").render(
-            watchlist_id=default_request.watchlist_id,
+        content=loader.get_template("api/index.html.jinja").render(
+            companies=default_request.companies,
             novelty=default_request.novelty,
             default_start_date=default_request.report_start_date.strftime("%Y-%m-%d"),
             default_end_date=default_request.report_end_date.strftime("%Y-%m-%d"),

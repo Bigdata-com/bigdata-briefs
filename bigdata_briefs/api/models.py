@@ -15,9 +15,10 @@ class WorkflowStatus(StrEnum):
 
 
 class BriefCreationRequest(BaseModel):
-    watchlist_id: str = Field(
+    companies: list[str] | str = Field(
         "db8478c9-34db-4975-8e44-b1ff764098ac",
-        description="The ID of the watchlist for which the brief is being created.",
+        description="List of RavenPack entity IDs  or a watchlist ID representing the companies to screen.",
+        example="db8478c9-34db-4975-8e44-b1ff764098ac",
     )
     report_start_date: datetime = Field(
         datetime.now().replace(minute=0, second=0, microsecond=0) - timedelta(days=7),
@@ -30,6 +31,11 @@ class BriefCreationRequest(BaseModel):
     novelty: bool = Field(
         True,
         description="Whether to only include novel information in the report.",
+    )
+    sources: list[str] | None = Field(
+        None,
+        description="List of RavenPack entity IDs to filter the sources by.",
+        example=["9D69F1", "B5235B"],
     )
     topics: list[str] | None = Field(
         None,
