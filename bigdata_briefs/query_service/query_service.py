@@ -40,13 +40,13 @@ from bigdata_briefs.utils import (
 class SearchConfig(Protocol):
     sentiment_threshold: float | None
     document_limit: int
-    source_list_exploration: list[str] | None = None
+    source_filter: list[str] | None = None
     rerank_threshold: float
     max_source_rank_allowed: int | None = None
 
 
 class CheckIfThereAreResultsSearchConfig(BaseModel):
-    source_list_exploration: list[str] | None = None
+    source_filter: list[str] | None = None
     sentiment_threshold: float | None = None
     document_limit: int = 1
     use_topics: bool = False
@@ -55,7 +55,7 @@ class CheckIfThereAreResultsSearchConfig(BaseModel):
 
 
 class ExploratorySearchConfig(BaseModel):
-    source_list_exploration: list[str] | None = None
+    source_filter: list[str] | None = None
     sentiment_threshold: float | None = settings.EXPLORATORY_SENTIMENT_THRESHOLD
     document_limit: int = settings.SDK_DOCS_LIMIT_EXPLORATORY
     use_topics: bool = True
@@ -64,7 +64,7 @@ class ExploratorySearchConfig(BaseModel):
 
 
 class FollowUpQuestionsSearchConfig(BaseModel):
-    source_list_exploration: list[str] | None = None
+    source_filter: list[str] | None = None
     sentiment_threshold: float | None = settings.FOLLOWUP_SENTIMENT_THRESHOLD
     document_limit: int = settings.SDK_DOCS_LIMIT_FOLLOWUP
     rerank_threshold: float = settings.SDK_RERANK_FOLLOWUP
@@ -146,7 +146,6 @@ class QueryService:
         entity_id: str,
         report_dates: ReportDates,
         config: CheckIfThereAreResultsSearchConfig = CheckIfThereAreResultsSearchConfig(),
-        max_source_rank_allowed: int | None = None,
         similarity_text: str | None = None,
     ) -> list[Result]:
         """
@@ -187,7 +186,6 @@ class QueryService:
         entity_id: str,
         report_dates: ReportDates,
         config: ExploratorySearchConfig,
-        max_source_rank_allowed: int | None = None,
         similarity_text: str | None = None,
         topic: str | None = None,
     ):
@@ -277,7 +275,6 @@ class QueryService:
         entity_id: str,
         question: str | None,
         report_dates: ReportDates,
-        max_source_rank_allowed: int | None = None,
         config: FollowUpQuestionsSearchConfig = FollowUpQuestionsSearchConfig(),
     ):
         query = build_query(
@@ -313,14 +310,20 @@ class QueryService:
         entity: Entity,
         follow_up_questions: list[str],
         report_dates: ReportDates,
+        source_filter: list[str] | None,
         executor: ThreadPoolExecutor,
     ) -> QAPairs:
+        if source_filter:
+            search_config = FollowUpQuestionsSearchConfig(source_filter=source_filter)
+        else:
+            search_config = FollowUpQuestionsSearchConfig()
         future_to_question = {
             executor.submit(
                 self._run_follow_up_single_question,
                 entity_id=entity.id,
                 question=question,
                 report_dates=report_dates,
+                config=search_config,
             ): question
             for question in follow_up_questions
         }
@@ -380,7 +383,7 @@ def build_query(
         ) | Q.SentimentRange((-1, -config.sentiment_threshold))
 
     # Use high-quality sources if desired
-    if config.source_list_exploration is not None:
-        search_criteria &= Q.Source(*config.source_list_exploration)
+    if config.source_filter is not None:
+        search_criteria &= Q.Source(*config.source_filter)
 
     return search_criteria
