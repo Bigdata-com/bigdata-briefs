@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added new models to separate `RetrievedSources` from `ReportedSources`, allowing to keep track of all retrieved sources while only including the used ones in the final report.
 - Allow `topics` guiding the brief generation to be specified as part of the input JSON payload to `/briefs/create`. The default topics are still configurable via the `TOPICS` environment variable, however they are now a list of strings instead of a dictionary (Keys where never used previously).
 - Allow brief reports to be generated for a specific list of entities provided as a list of entity IDs in the request payload to `/briefs/create`. This is done by providing a list of entity IDs in the `companies` field instead of a watchlist ID. The `companies` field can now accept either a watchlist ID (string) or a list of entity IDs.
+-- Allow the parameter `sources` to specify a whitelist of sources to be used for the brief generation. They need to be provided as a list of RavenPack source IDs, to find more information about how to get the source IDs please refer to the [Bigdata.com documentation on how to find sources](https://docs.bigdata.com/how-to-guides/search_with_specific_sources) that match your requirements or pick a handmade list of your trusted resources.
 
 ### Changed
 - Changed endpoints to be asynchronous. `/briefs/create` will now return a `request_id` immediately, and progress updated and the result can be fetched later using `/briefs/status/{request_id}`.
