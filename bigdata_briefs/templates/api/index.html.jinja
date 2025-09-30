@@ -21,7 +21,7 @@
               class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2.5 h-[42px] z-10"
               onchange="this.previousElementSibling.value=this.options[this.selectedIndex].text;"
               >
-              <!-- Options are added in a javascript-->
+              <!-- Options and default are added in a javascript-->
             </select>
           </div>
         </div>
@@ -56,10 +56,10 @@
           </label>
           <textarea id="topics"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2"
-            placeholder="Include the topics you want (must contain {company} placeholder)"></textarea>
+            placeholder="Include the topics you want (must contain {company} placeholder)">{{ topics }}</textarea>
         </div>
-
-          <div class="mb-5">
+          <!-- Hidden novelty by default -->
+          <div class="hidden mb-5">
             <label for="novelty" class="block mb-2 font-bold text-md text-white">
               <span>Novelty:</span>
               <button type="button" class="text-blue-500 text-sm" onclick="showInfoModal('novelty')"
@@ -81,6 +81,7 @@
             <input id="sources"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2"
               placeholder="Insert your sources separated by commas"
+              value="{{ sources}}"
               />
           </div>
 
@@ -172,15 +173,7 @@
 
   };
 
-  const watchlists = [
-    { "watchlist_id": "9ab396cf-a2bb-4c91-b9bf-ed737905803e", "name": "Point 72 Holdings" },
-    { "watchlist_id": "beda15f2-b3ba-44dd-80c6-79d8a1bba764", "name": "Militarization" },
-    { "watchlist_id": "44118802-9104-4265-b97a-2e6d88d74893", "name": "US Large Cap 100" },
-    { "watchlist_id": "f7801965-ed54-4ff1-b524-b4ecee3bc858", "name": "High Finance" },
-    { "watchlist_id": "ec300f6f-64f0-4897-9f63-82e8d60a7e5a", "name": "Third Point Holdings" },
-    { "watchlist_id": "ccfe5dc2-0c92-42d7-861c-1d8ee74a9e02", "name": "The Street Index" },
-    { "watchlist_id": "db8478c9-34db-4975-8e44-b1ff764098ac", "name": "AI Szn" }
-  ];
+  const watchlists = {{ example_watchlists | tojson }};
 
   // Calculate dates for start_date and end_date
   const today = new Date();
@@ -250,7 +243,7 @@
   const comp_select = document.getElementById('companies');
   const comp_text = document.getElementById('companies_text');
   watchlists.forEach((watchlist, index) => {
-    if (index === 0) {
+    if (watchlist.id === "{{ companies }}") {
       comp_text.value = watchlist.name;
     }
     const option = document.createElement('option');
