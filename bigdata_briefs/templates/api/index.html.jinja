@@ -4,7 +4,7 @@
 <div id="infoModalsContainer"></div>
 <div class="flex flex-row w-full min-h-[500px]">
   <!-- Left: Form -->
-  <div class="w-1/6 min-w-[250px] pr-6 bg-zinc-800 pl-2 rounded-l-lg pt-2 pb-2 text-sm">
+  <div id="sidebar" class="min-w-[150px] max-w-[600px] w-[300px] pr-6 bg-zinc-800 pl-2 rounded-l-lg pt-2 pb-2 text-sm transition-all duration-100 ease-in-out">
     <div class="overflow-y-auto">
       <form id="briefForm" autocomplete="off" class="sticky top-0 z-10">
 
@@ -102,8 +102,10 @@
     <div id="spinner" class="hidden p-2.5">⏳ Running...</div>
 
   </div>
+  <!-- Drag bar -->
+  <div id="dragbar" class="w-2 cursor-ew-resize bg-zinc-700 hover:bg-blue-500 transition-colors duration-100 ease-in-out z-20" style="position: relative;"></div>
   <!-- Right: Output -->
-  <div class="w-5/6 min-w-[300px] bg-zinc-900 p-8 rounded-r-lg">
+  <div id="outputarea" class="flex-1 min-w-[300px] bg-zinc-900 p-8 rounded-r-lg transition-all duration-100 ease-in-out">
     <button id="showJsonBtn"
       class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md w-full sm:w-auto px-5 py-2.5 text-center mb-4"
       style="display:none;">Show raw JSON</button>
@@ -161,6 +163,37 @@
   </div>
 </div>
 
+<script> // Resizable sidebar logic
+document.addEventListener('DOMContentLoaded', function() {
+  const dragbar = document.getElementById('dragbar');
+  const sidebar = document.getElementById('sidebar');
+  const outputarea = document.getElementById('outputarea');
+  let dragging = false;
+
+  dragbar.addEventListener('mousedown', function(e) {
+    dragging = true;
+    document.body.classList.add('cursor-ew-resize');
+    document.body.style.userSelect = 'none';
+  });
+
+  document.addEventListener('mousemove', function(e) {
+    if (!dragging) return;
+    const minSidebar = 250;
+    const maxSidebar = 600;
+    let newWidth = Math.min(Math.max(e.clientX - sidebar.getBoundingClientRect().left, minSidebar), maxSidebar);
+    sidebar.style.width = newWidth + 'px';
+    // outputarea will flex to fill remaining space
+  });
+
+  document.addEventListener('mouseup', function(e) {
+    if (dragging) {
+      dragging = false;
+      document.body.classList.remove('cursor-ew-resize');
+      document.body.style.userSelect = '';
+    }
+  });
+});
+</script>
 <script>
   // Info modal content for each label
   const infoContents = {
