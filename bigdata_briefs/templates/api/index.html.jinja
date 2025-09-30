@@ -56,7 +56,7 @@
           </label>
           <textarea id="topics"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2"
-            placeholder="Include the topics you want (must contain {company} placeholder)">{{ topics }}</textarea>
+            placeholder="Include the topics you want (must contain {company} placeholder)">{{ "\n".join(topics) }}</textarea>
         </div>
           <!-- Hidden novelty by default -->
           <div class="hidden mb-5">
@@ -80,8 +80,7 @@
             </label>
             <input id="sources"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2"
-              placeholder="Insert your sources separated by commas"
-              value="{{ sources}}"
+              placeholder="{{ ",".join(sources) }}"
               />
           </div>
 
@@ -169,7 +168,7 @@
     companies: `<b>Company Universe</b>:<br>The portfolio of companies you want to create the brief for. You have several input options:<br><ul class="list-disc pl-6"><li>Select one of the public watchlists using the dropdown menu</li><li>Write list of RavenPack entity IDs (e.g., <code>4A6F00, D8442A</code>)</li><li>Input a watchlist ID (e.g., <code>44118802-9104-4265-b97a-2e6d88d74893</code> )</li></ul><br>Watchlists can be created programmatically using the <a href='https://docs.bigdata.com/getting-started/watchlist_management' target='_blank'>Bigdata.com SDK</a> or through the <a href='https://app.bigdata.com/watchlists' target='_blank'>Bigdata app</a>.`,
     start_date: `<b>Start/End Date</b>:<br>The start and end of the time sample during which you want to generate the brief. Format: <code>YYYY-MM-DD</code>.`,
     novelty: '<b>Novelty</b>:<br>If set to true, the analysis will focus on novel events that have not been widely reported before, helping to identify emerging risks. If false, all relevant events will be considered, including those that have been frequently reported.',
-    sources: `<b>Sources</b>:<br>Optionally, you can filter the analysis to include only events from specific sources. You can provide a list of RavenPack entity IDs separated by commas (e.g., <code>4A6F00, D8442A</code>). If left empty, events from all sources will be considered.`,
+    sources: `<b>Sources</b>:<br>Optionally, you can filter the analysis to include only events from specific sources. You can provide a list of RavenPack entity IDs separated by commas (e.g., <code>9D69F1, B5235B</code>). If left empty, events from all sources will be considered.`,
 
   };
 
