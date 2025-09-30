@@ -494,6 +494,7 @@ class BriefPipelineService:
                     self.execute_entity_report_pipeline,
                     entity,
                     topics,
+                    source_filter,
                     report_dates,
                     executor,
                 ): entity
@@ -595,8 +596,8 @@ class BriefPipelineService:
                 record_data.entities,
                 record_data.watchlist,
                 record_data.topics,
-                record_data.report_dates,
                 record_data.sources_filter,
+                record_data.report_dates,
                 enable_metric=True,
                 metric_name="Execute watchlist report pipeline",
                 request_id=request_id,
