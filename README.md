@@ -66,11 +66,23 @@ Set your watchlist ID, the relevant dates for your report and whether you want t
 only to novel information based on previously generated briefs and click on the "Generate Brief" button.
 
 ### Programmatically
-You can generate a brief by sending a POST request to the `/briefs/create` endpoint with the required
-parameters. For example, using `curl`:
+You can generate a brief by sending a POST request to the `/briefs/create` endpoint with the required parameters. For example, using `curl`:
 ```bash
-curl -X 'GET' \
-  'http://localhost:8000/briefs/create?watchlist_id=db8478c9-34db-4975-8e44-b1ff764098ac&report_start_date=2024-01-01&report_end_date=2024-01-31&novelty=true' \
+curl -X 'POST' \
+  'http://127.0.0.1:8000/briefs/create' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "companies": "db8478c9-34db-4975-8e44-b1ff764098ac",
+  "report_start_date": "2025-09-23T15:00:00",
+  "report_end_date": "2025-09-30T15:00:00"
+}'
+```
+
+The response will include a `request_id`. You can check the status and get your brief with:
+```bash
+curl -X GET \
+  'http://localhost:8000/briefs/status/<request_id>' \
   -H 'accept: application/json'
 ```
 
@@ -92,10 +104,17 @@ docker run -d \
 Then all API requests must include a `token` query parameter with the correct value to be authorized. For example:
 
 ```bash
-curl -X 'GET' \
-  'http://localhost:8000/briefs/create?watchlist_id=db8478c9-34db-4975-8e44-b1ff764098ac&report_start_date=2024-01-01&report_end_date=2024-01-31&novelty=true&token=<access-token-here>' \
-  -H 'accept: application/json'
+curl -X POST \
+  'http://localhost:8000/briefs/create?token=<access-token-here>' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "companies": "db8478c9-34db-4975-8e44-b1ff764098ac",
+  "report_start_date": "2025-09-23T15:00:00",
+  "report_end_date": "2025-09-30T15:00:00"
+}'
 ```
+
 
 # Install and for development locally
 ```bash
