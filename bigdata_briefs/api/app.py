@@ -13,10 +13,12 @@ from bigdata_briefs.api.models import (
     BriefAcceptedResponse,
     BriefCreationRequest,
     BriefStatusResponse,
+    ExampleWatchlists,
     WorkflowStatus,
 )
 from bigdata_briefs.api.secure import query_scheme
 from bigdata_briefs.api.storage import StorageManager
+from bigdata_briefs.api.utils import get_example_values_from_schema
 from bigdata_briefs.metrics import (
     LLMMetrics,
     Metrics,
@@ -103,15 +105,18 @@ def health_check():
     response_class=HTMLResponse,
 )
 async def sample_frontend(_: str = Security(query_scheme)) -> HTMLResponse:
-    # Create an instance of BriefCreationRequest to get default values
-    default_request = BriefCreationRequest()
+    # Get example values from the schema for all fields
+    example_values = get_example_values_from_schema(BriefCreationRequest)
 
     return HTMLResponse(
         content=loader.get_template("api/index.html.jinja").render(
-            companies=default_request.companies,
-            novelty=default_request.novelty,
-            default_start_date=default_request.report_start_date.strftime("%Y-%m-%d"),
-            default_end_date=default_request.report_end_date.strftime("%Y-%m-%d"),
+            companies=example_values["companies"],
+            novelty=example_values["novelty"],
+            default_start_date=example_values["report_start_date"].strftime("%Y-%m-%d"),
+            default_end_date=example_values["report_end_date"].strftime("%Y-%m-%d"),
+            topics="\n".join(example_values["topics"]),
+            sources=",".join(example_values["sources"]),
+            example_watchlists=list(dict(ExampleWatchlists).values()),
         ),
         media_type="text/html",
     )
