@@ -178,7 +178,9 @@ class ReportDates(StartEndDate):
 class ValidatedInput(BaseModel):
     watchlist: Watchlist
     entities: list[Entity]
+    topics: list[str]
     report_dates: ReportDates
+    sources_filter: list[str] | None
 
 
 class FollowUpAnalysis(BaseModel):
@@ -212,7 +214,13 @@ class SourceChunkReference(BaseModel):
         self._is_referenced = True
 
 
-class ReportSources(RootModel):
+class ReportedSources(RootModel):
+    root: dict[
+        str, SourceChunkReference
+    ]  # The key is the reference ID and the value includes everything needed to reference the source
+
+
+class RetrievedSources(ReportedSources):
     root: dict[
         str, SourceChunkReference
     ]  # The key is the reference ID and the value includes everything needed to reference the source
@@ -258,7 +266,7 @@ class QuestionAnswer(BaseModel):
     def render_md(self) -> str:
         return self._get_template().render(question=self.question, answer=self.answer)
 
-    def render_with_references(self, report_sources: ReportSources):
+    def render_with_references(self, report_sources: RetrievedSources):
         """Render the Q&A using reference IDs instead of document IDs."""
         return self._get_template().render(
             question=self.question,
@@ -287,7 +295,7 @@ class QAPairs(BaseModel):
             else "No new information to report."
         )
 
-    def render_md_with_references(self, report_sources: ReportSources):
+    def render_md_with_references(self, report_sources: RetrievedSources):
         """Render all Q&A pairs with reference IDs."""
         if not self.pairs:
             return "No new information to report."
@@ -501,11 +509,11 @@ class BriefReport(BaseModel):
     report_title: str
     introduction: str
     entity_reports: list[OutputEntityReport] = []
-    source_metadata: ReportSources
+    source_metadata: ReportedSources
 
     @classmethod
     def from_watchlist_report(
-        cls, watchlist_report: WatchlistReport, sources: ReportSources, novelty: bool
+        cls, watchlist_report: WatchlistReport, sources: RetrievedSources, novelty: bool
     ) -> "BriefReport":
         """Create a BriefReport from a WatchlistReport."""
         # Format entity reports
@@ -538,7 +546,8 @@ class BriefReport(BaseModel):
             report_title=watchlist_report.report_title,
             introduction=watchlist_report.introduction,
             entity_reports=entity_reports,
-            source_metadata=sources,
+            # Convert RetrievedSources to ReportedSources by serializing only used references
+            source_metadata=ReportedSources(root=sources.model_dump()),
         )
 
 

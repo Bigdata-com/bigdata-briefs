@@ -13,9 +13,3 @@ class SQLBriefReport(SQLModel, table=True):
     report_period_end: datetime
     novelty_enabled: bool = Field(default=True)
     brief_report: dict = Field(sa_column=Column(JSON))
-
-
-class SQLReportsSources(SQLModel, table=True):
-    id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
-    brief_id: uuid.UUID = Field(index=True, foreign_key="sqlbriefreport.id")
-    report_sources: dict = Field(sa_column=Column(JSON))

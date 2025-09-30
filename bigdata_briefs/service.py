@@ -1,13 +1,14 @@
 from concurrent.futures import as_completed
 from concurrent.futures.thread import ThreadPoolExecutor
 from datetime import datetime
+from hashlib import sha256
 from importlib.metadata import version
 from threading import Lock
-
-from sqlmodel import Session
+from uuid import UUID
 
 from bigdata_briefs import logger
-from bigdata_briefs.api.models import BriefCreationRequest
+from bigdata_briefs.api.models import BriefCreationRequest, WorkflowStatus
+from bigdata_briefs.api.storage import StorageManager
 from bigdata_briefs.attribution.sources import (
     consolidate_report_sources,
     create_sources_for_report,
@@ -38,9 +39,9 @@ from bigdata_briefs.models import (
     NoInfoReportGenerationStep,
     QAPairs,
     ReportDates,
-    ReportSources,
     ReportTitle,
     Result,
+    RetrievedSources,
     SingleBulletPoint,
     SingleEntityReport,
     TopicCollection,
@@ -59,6 +60,8 @@ from bigdata_briefs.prompts.user_prompts import (
     get_single_bullet_user_prompt,
 )
 from bigdata_briefs.query_service.query_service import (
+    CheckIfThereAreResultsSearchConfig,
+    ExploratorySearchConfig,
     QueryService,
 )
 from bigdata_briefs.settings import settings
@@ -70,7 +73,6 @@ MIN_TOPICS_FOR_INTRO = 1
 # We just want a number big enough to handle all connections, the limit is applied by SDK
 # and by the Weighed semaphore
 EXECUTOR_WORKERS = 10_000
-N_EXPLORATORY_SEARCH_QUERIES = len(settings.TOPICS) + 1
 
 
 class BriefPipelineService:
@@ -91,6 +93,7 @@ class BriefPipelineService:
     def generate_follow_up_questions(
         self,
         entity: Entity,
+        topics: list[str],
         report_dates: ReportDates,
         results: list[Result],
     ) -> list[str]:
@@ -100,6 +103,7 @@ class BriefPipelineService:
             results=results,
             report_dates=report_dates,
             user_template=prompt_keys.user_template,
+            topics=topics,
             response_format=f"{FollowUpAnalysis.model_json_schema()}",
         )
         # user_prompt += f"\n\nYour response should be a JSON object that matches the following schema:\n\n{FollowUpAnalysis.model_json_schema()}"
@@ -180,15 +184,28 @@ class BriefPipelineService:
     def execute_entity_report_pipeline(
         self,
         entity: Entity,
+        topics: list[str],
+        source_filter: list[str] | None,
         report_dates: ReportDates,
         executor: ThreadPoolExecutor,
-    ) -> tuple[SingleEntityReport, ReportSources]:
+    ) -> tuple[SingleEntityReport, RetrievedSources]:
         logger.debug(f"Starting report on {entity}")
 
+        if source_filter:
+            any_result_search_config = CheckIfThereAreResultsSearchConfig(
+                source_filter=source_filter
+            )
+            exploratory_search_config = ExploratorySearchConfig(
+                source_filter=source_filter
+            )
+        else:
+            any_result_search_config = CheckIfThereAreResultsSearchConfig()
+            exploratory_search_config = ExploratorySearchConfig()
         # Quick initial search to check if there are any results
         initial_results = self.query_service.check_if_entity_has_results(
             entity_id=entity.id,
             report_dates=report_dates,
+            config=any_result_search_config,
         )
 
         if not initial_results:
@@ -200,13 +217,15 @@ class BriefPipelineService:
             )
 
         # If we found results, proceed with full exploratory search
-        with self.weighted_semaphore(N_EXPLORATORY_SEARCH_QUERIES):
+        with self.weighted_semaphore(len(topics) + 1):
             exploratory_search_results = self.query_service.run_exploratory_search(
                 entity=entity,
+                topics=topics,
                 report_dates=report_dates,
                 executor=executor,
                 enable_metric=True,
                 metric_name="Exploratory search. All entities",
+                config=exploratory_search_config,
             )
         if not exploratory_search_results:
             logger.debug(f"No new information found for {entity}")
@@ -218,6 +237,7 @@ class BriefPipelineService:
 
         follow_up_questions = self.generate_follow_up_questions(
             entity,
+            topics,
             report_dates,
             exploratory_search_results,
             enable_metric=True,
@@ -242,6 +262,7 @@ class BriefPipelineService:
                 executor=executor,
                 enable_metric=True,
                 metric_name="Run follow up questions",
+                source_filter=source_filter,
             )
         if not any(pair.answer for pair in qa_pairs.pairs):
             logger.debug(f"No qa-pairs generated for {entity}")
@@ -460,13 +481,20 @@ class BriefPipelineService:
         self,
         entities: list[Entity],
         watchlist: Watchlist,
+        topics: list[str],
+        source_filter: list[str] | None,
         report_dates: ReportDates,
-    ) -> tuple[WatchlistReport, ReportSources]:
+        request_id: UUID,
+        storage_manager: StorageManager,
+    ) -> tuple[WatchlistReport, RetrievedSources]:
+        storage_manager.log_message(request_id, "Generating report per entity")
         with ThreadPoolExecutor(max_workers=EXECUTOR_WORKERS) as executor:
             futures_to_entity = {
                 executor.submit(
                     self.execute_entity_report_pipeline,
                     entity,
+                    topics,
+                    source_filter,
                     report_dates,
                     executor,
                 ): entity
@@ -475,7 +503,7 @@ class BriefPipelineService:
 
             entity_reports: list[SingleEntityReport] = []
             # Aggregate and consolidate sources for all entities
-            source_metadata = ReportSources(root={})
+            source_metadata = RetrievedSources(root={})
             entity_reports_failed = []
             for future in as_completed(futures_to_entity):
                 entity = futures_to_entity[future]
@@ -510,13 +538,17 @@ class BriefPipelineService:
                 key=lambda report: calculate_relevance_score(report.relevance_score),
                 reverse=True,
             )
-
+            storage_manager.log_message(
+                request_id,
+                f"Generated reports for {len(entities)} entities, {len(entity_reports_with_info)} with information, {len(self.no_info_reports)} without information and {len(entity_reports_failed)} failed.",
+            )
+            storage_manager.log_message(request_id, "Generating introduction section")
             intro_section = self.generate_intro_section_and_title(
                 actionable_company_reports=entity_reports_with_info,
                 report_dates=report_dates,
                 executor=executor,
             )
-
+            storage_manager.log_message(request_id, "Introduction section generated")
         # Construct the final WatchlistReport
         return (
             WatchlistReport(
@@ -548,115 +580,169 @@ class BriefPipelineService:
     def generate_brief(
         self,
         record: BriefCreationRequest,
-        db_session: Session | None = None,
+        request_id: UUID,
+        storage_manager: StorageManager,
     ) -> BriefReport:
-        workflow_execution_start = datetime.now()
-        record_data = self.parse_and_validate(record)
+        try:
+            storage_manager.update_status(request_id, WorkflowStatus.IN_PROGRESS)
+            workflow_execution_start = datetime.now()
+            storage_manager.log_message(request_id, "Validating input parameters")
+            record_data = self.parse_and_validate(record, request_id, storage_manager)
 
-        (
-            watchlist_report,
-            source_metadata,
-        ) = self.execute_watchlist_report_pipeline(
-            record_data.entities,
-            record_data.watchlist,
-            record_data.report_dates,
-            enable_metric=True,
-            metric_name="Execute watchlist report pipeline",
-        )
-
-        n_watchlist_items = len(record_data.entities)
-        n_no_info_reports = len(self.no_info_reports)
-        llm_metrics = LLMMetrics.get_total_usage()
-        bp_metrics = BulletPointMetrics.get_total_usage()
-        embedding_metrics = EmbeddingsMetrics.get_total_usage()
-        content_metrics = ContentMetrics.get_total_usage()
-
-        document_aggregation = {
-            f"documents_for_topic_{k.replace(' ', '_')}": v.total_documents
-            for k, v in content_metrics.items()
-        }
-        chunk_aggregation = {
-            f"chunks_for_topic_{k.replace(' ', '_')}": v.total_chunks
-            for k, v in content_metrics.items()
-        }
-
-        total_chunks = sum(v.total_chunks for v in content_metrics.values())
-        total_documents = sum(v.total_documents for v in content_metrics.values())
-
-        novelty_date_range = (
-            record_data.report_dates.get_novelty_dates().get_lookback_days()
-            if record_data.report_dates.novelty
-            else 0
-        )
-        logger.debug(
-            "Summary of metrics",
-            total_prompt_tokens=llm_metrics.prompt_tokens,
-            total_completion_tokens=llm_metrics.completion_tokens,
-            total_tokens=llm_metrics.total_tokens,
-            total_llm_calls=llm_metrics.n_calls,
-            total_embedding_tokens=embedding_metrics.tokens,
-            n_watchlist_items=n_watchlist_items,
-            n_entity_reports=n_watchlist_items - n_no_info_reports,
-            n_no_info_reports=n_no_info_reports,
-            no_info_reports=self.no_info_reports,
-            total_bp_before_novelty=bp_metrics.bullet_points_before_novelty,
-            total_bp_after_novelty=bp_metrics.bullet_points_after_novelty,
-            total_bp_stored=bp_metrics.bullet_points_stored,
-            brief_date_range=record_data.report_dates.get_lookback_days(),
-            novelty_date_range=novelty_date_range,
-            retrieved_from_cache=CacheMetrics.get_total_usage(),
-            query_units_consumed=QueryUnitMetrics.get_total_usage(),
-            **document_aggregation,
-            **chunk_aggregation,
-        )
-
-        pipeline_output = BriefReport.from_watchlist_report(
-            watchlist_report,
-            source_metadata,
-            novelty=record_data.report_dates.novelty,
-        )
-
-        if pipeline_output.is_empty:
-            logger.debug(f"No new news for {record_data.watchlist.id}.")
-        workflow_execution_end = datetime.now()
-        self.query_service.send_trace(
-            event_name=self.query_service.TraceEventName.REPORT_GENERATED,
-            trace={
-                "bigdataClientVersion": version("bigdata-client"),
-                "workflowUsage": QueryUnitMetrics.get_total_usage(),
-                "workflowStartDate": workflow_execution_start.isoformat(
-                    timespec="seconds"
-                ),
-                "workflowEndDate": workflow_execution_end.isoformat(timespec="seconds"),
-                "watchlistLength": len(record_data.entities),
-                "numberOfEntityReports": len(watchlist_report.entity_reports),
-                "numberOfNoInfoReports": n_no_info_reports,
-                "numberOfChunks": total_chunks,
-                "numberOfDocuments": total_documents,
-            },
-        )
-        write_report_with_sources(pipeline_output, db_session)
-        return pipeline_output
-
-    def parse_and_validate(self, record: BriefCreationRequest) -> ValidatedInput:
-        logger.debug(record)
-        watchlist_id = record.watchlist_id
-        logger.info("Processing watchlist", watchlist_id=watchlist_id)
-        watchlist = self.query_service.get_watchlist(watchlist_id=watchlist_id)
-        if not watchlist.items:
-            raise EmtpyWatchlistError(
-                f"Validation failed before removing non-companies {watchlist.id}"
+            (
+                watchlist_report,
+                source_metadata,
+            ) = self.execute_watchlist_report_pipeline(
+                record_data.entities,
+                record_data.watchlist,
+                record_data.topics,
+                record_data.sources_filter,
+                record_data.report_dates,
+                enable_metric=True,
+                metric_name="Execute watchlist report pipeline",
+                request_id=request_id,
+                storage_manager=storage_manager,
             )
 
-        if len(watchlist.items) > settings.WATCHLIST_ITEMS_LIMIT:
-            watchlist.items = set(
-                list(watchlist.items)[: settings.WATCHLIST_ITEMS_LIMIT]
+            n_watchlist_items = len(record_data.entities)
+            n_no_info_reports = len(self.no_info_reports)
+            llm_metrics = LLMMetrics.get_total_usage()
+            bp_metrics = BulletPointMetrics.get_total_usage()
+            embedding_metrics = EmbeddingsMetrics.get_total_usage()
+            content_metrics = ContentMetrics.get_total_usage()
+
+            document_aggregation = {
+                f"documents_for_topic_{k.replace(' ', '_')}": v.total_documents
+                for k, v in content_metrics.items()
+            }
+            chunk_aggregation = {
+                f"chunks_for_topic_{k.replace(' ', '_')}": v.total_chunks
+                for k, v in content_metrics.items()
+            }
+
+            total_chunks = sum(v.total_chunks for v in content_metrics.values())
+            total_documents = sum(v.total_documents for v in content_metrics.values())
+
+            novelty_date_range = (
+                record_data.report_dates.get_novelty_dates().get_lookback_days()
+                if record_data.report_dates.novelty
+                else 0
             )
             logger.debug(
-                f"Watchlist {watchlist.id} has too many items: {len(watchlist.items)} Taking the first {settings.WATCHLIST_ITEMS_LIMIT}"
+                "Summary of metrics",
+                total_prompt_tokens=llm_metrics.prompt_tokens,
+                total_completion_tokens=llm_metrics.completion_tokens,
+                total_tokens=llm_metrics.total_tokens,
+                total_llm_calls=llm_metrics.n_calls,
+                total_embedding_tokens=embedding_metrics.tokens,
+                n_watchlist_items=n_watchlist_items,
+                n_entity_reports=n_watchlist_items - n_no_info_reports,
+                n_no_info_reports=n_no_info_reports,
+                no_info_reports=self.no_info_reports,
+                total_bp_before_novelty=bp_metrics.bullet_points_before_novelty,
+                total_bp_after_novelty=bp_metrics.bullet_points_after_novelty,
+                total_bp_stored=bp_metrics.bullet_points_stored,
+                brief_date_range=record_data.report_dates.get_lookback_days(),
+                novelty_date_range=novelty_date_range,
+                retrieved_from_cache=CacheMetrics.get_total_usage(),
+                query_units_consumed=QueryUnitMetrics.get_total_usage(),
+                **document_aggregation,
+                **chunk_aggregation,
             )
 
-        entities = self.query_service.get_entities(list(watchlist.items))
+            pipeline_output = BriefReport.from_watchlist_report(
+                watchlist_report,
+                source_metadata,
+                novelty=record_data.report_dates.novelty,
+            )
+
+            if pipeline_output.is_empty:
+                logger.debug(f"No new news for {record_data.watchlist.id}.")
+            workflow_execution_end = datetime.now()
+            self.query_service.send_trace(
+                event_name=self.query_service.TraceEventName.REPORT_GENERATED,
+                trace={
+                    "bigdataClientVersion": version("bigdata-client"),
+                    "workflowUsage": QueryUnitMetrics.get_total_usage(),
+                    "workflowStartDate": workflow_execution_start.isoformat(
+                        timespec="seconds"
+                    ),
+                    "workflowEndDate": workflow_execution_end.isoformat(
+                        timespec="seconds"
+                    ),
+                    "watchlistLength": len(record_data.entities),
+                    "numberOfEntityReports": len(watchlist_report.entity_reports),
+                    "numberOfNoInfoReports": n_no_info_reports,
+                    "numberOfChunks": total_chunks,
+                    "numberOfDocuments": total_documents,
+                },
+            )
+            storage_manager.log_message(request_id, "Storing output report")
+            write_report_with_sources(
+                request_id, pipeline_output, storage_manager.db_session
+            )
+            storage_manager.update_status(request_id, WorkflowStatus.COMPLETED)
+            return pipeline_output
+        except Exception as e:
+            storage_manager.update_status(request_id, WorkflowStatus.FAILED)
+            storage_manager.log_message(request_id, str(e))
+            raise
+
+    def parse_and_validate(
+        self,
+        record: BriefCreationRequest,
+        request_id: UUID,
+        storage_manager: StorageManager,
+    ) -> ValidatedInput:
+        logger.debug(record)
+
+        # Ensure all topics include the placeholder {company}
+        topics = record.topics or settings.TOPICS
+
+        for topic in topics:
+            if "{company}" not in topic:
+                raise ValueError(
+                    f"Invalid topic '{topic}'. Topics must include '{{company}}'."
+                )
+
+        if isinstance(record.companies, str):
+            watchlist = self.query_service.get_watchlist(watchlist_id=record.companies)
+            if not watchlist.items:
+                raise EmtpyWatchlistError(
+                    f"Validation failed before removing non-companies {watchlist.id}"
+                )
+
+            if len(watchlist.items) > settings.WATCHLIST_ITEMS_LIMIT:
+                watchlist.items = set(
+                    list(watchlist.items)[: settings.WATCHLIST_ITEMS_LIMIT]
+                )
+                company_limit_msg = f"Watchlist {watchlist.id} has too many items: {len(watchlist.items)} Taking the first {settings.WATCHLIST_ITEMS_LIMIT}"
+                logger.debug(company_limit_msg)
+                storage_manager.log_message(request_id, company_limit_msg)
+
+            entity_ids = list(watchlist.items)
+        elif isinstance(record.companies, list):
+            entity_ids = record.companies
+            # Use a dummy watchlist as the whole workflow expects a watchlist ID and name
+            watchlist = Watchlist(
+                id=f"custom_{sha256(str(record.companies)).hexdigest()}",
+                name="Custom set of entities",
+            )
+        else:
+            raise ValueError(
+                "Companies must be either a list of RP entity IDs or a string representing a watchlist ID."
+            )
+
+        # Ensure there is entities, there is no duplicates and all entities are companies
+        entities = self.query_service.get_entities(entity_ids)
+
+        dedupped_entities = {c.id: c for c in entities}
+
+        entities = list(dedupped_entities.values())
+
+        if len(entities) == 0:
+            raise ValueError("No entities found in the provided universe or watchlist.")
+
         logger.debug("Entities recovered")
         entities = remove_non_companies(entities=entities)
         if len(entities) == 0:
@@ -670,6 +756,8 @@ class BriefPipelineService:
                 name=watchlist.name,
             ),
             entities=entities,
+            topics=topics,
+            sources_filter=record.sources,
             report_dates=ReportDates(
                 start=record.report_start_date,
                 end=record.report_end_date,

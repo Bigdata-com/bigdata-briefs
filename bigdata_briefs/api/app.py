@@ -1,18 +1,28 @@
 import time
+from functools import partial
 from typing import Annotated
+from uuid import UUID, uuid4
 
-from fastapi import Depends, FastAPI, Query, Security
-from fastapi.responses import HTMLResponse
+from fastapi import BackgroundTasks, Body, Depends, FastAPI, HTTPException, Security
+from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.staticfiles import StaticFiles
 from sqlmodel import Session, SQLModel, create_engine
 
 from bigdata_briefs import LOG_LEVEL, __version__, logger
-from bigdata_briefs.api.models import BriefCreationRequest
+from bigdata_briefs.api.models import (
+    BriefAcceptedResponse,
+    BriefCreationRequest,
+    BriefStatusResponse,
+    ExampleWatchlists,
+    WorkflowStatus,
+)
 from bigdata_briefs.api.secure import query_scheme
+from bigdata_briefs.api.storage import StorageManager
+from bigdata_briefs.api.utils import get_example_values_from_schema
 from bigdata_briefs.metrics import (
     LLMMetrics,
     Metrics,
 )
-from bigdata_briefs.models import BriefReport
 from bigdata_briefs.novelty.storage import SQLiteEmbeddingStorage
 from bigdata_briefs.query_service.query_service import (
     QueryService,
@@ -40,6 +50,10 @@ def get_session():
         yield session
 
 
+def get_storage_manager(session: Session = Depends(get_session)) -> StorageManager:
+    return StorageManager(session)
+
+
 def lifespan(app: FastAPI):
     logger.info("Starting Bigdata briefs service", version=__version__)
     query_service.send_trace(
@@ -59,6 +73,8 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+app.mount("/static", StaticFiles(directory=settings.STATIC_DIR), name="static")
+
 
 @app.middleware("http")
 async def log_requests(request, call_next):
@@ -75,41 +91,88 @@ async def log_requests(request, call_next):
     return response
 
 
-@app.get("/health")
+@app.get(
+    "/health",
+    summary="Health check endpoint",
+)
 def health_check():
     return {"status": "ok", "version": __version__}
 
 
-@app.get("/")
-async def sample_frontend(_: str = Security(query_scheme)):
-    # Create an instance of BriefCreationRequest to get default values
-    default_request = BriefCreationRequest()
+@app.get(
+    "/",
+    summary="Example frontend for testing the thematic screener.",
+    response_class=HTMLResponse,
+)
+async def sample_frontend(_: str = Security(query_scheme)) -> HTMLResponse:
+    # Get example values from the schema for all fields
+    example_values = get_example_values_from_schema(BriefCreationRequest)
 
     return HTMLResponse(
-        content=loader.get_template("api/frontend.html.jinja").render(
-            watchlist_id=default_request.watchlist_id,
-            novelty=default_request.novelty,
-            default_start_date=default_request.report_start_date.strftime("%Y-%m-%d"),
-            default_end_date=default_request.report_end_date.strftime("%Y-%m-%d"),
-        )
+        content=loader.get_template("api/index.html.jinja").render(
+            companies=example_values["companies"],
+            novelty=example_values["novelty"],
+            default_start_date=example_values["report_start_date"].isoformat(),
+            default_end_date=example_values["report_end_date"].isoformat(),
+            topics=example_values["topics"],
+            sources=example_values["sources"],
+            example_watchlists=list(dict(ExampleWatchlists).values()),
+        ),
+        media_type="text/html",
     )
 
 
-@app.get("/briefs/create")
+@app.post(
+    "/briefs/create",
+    summary="Create a brief based on the provided configuration.",
+    response_model=BriefAcceptedResponse,
+)
 async def create_brief(
-    brief_config: Annotated[BriefCreationRequest, Query()],
-    session: Session = Depends(get_session),
+    brief_config: Annotated[BriefCreationRequest, Body()],
+    background_tasks: BackgroundTasks,
+    storage_manager: StorageManager = Depends(get_storage_manager),
     _: str = Security(query_scheme),
-) -> BriefReport:
+) -> JSONResponse:
     """
     Endpoint to create a brief.
     This is a placeholder for the actual implementation.
     """
     [cls.reset_usage() for cls in Metrics.__subclasses__()]
     LLMMetrics.reset_usage()
-    report = brief_service.generate_brief(
-        brief_config,
-        db_session=session,
+
+    request_id = uuid4()
+    storage_manager.update_status(request_id, WorkflowStatus.QUEUED)
+
+    background_tasks.add_task(
+        partial(
+            brief_service.generate_brief,
+            brief_config,
+            request_id=request_id,
+            storage_manager=storage_manager,
+        )
     )
 
+    return JSONResponse(
+        status_code=202,
+        content=BriefAcceptedResponse(
+            request_id=str(request_id), status=WorkflowStatus.QUEUED
+        ).model_dump(),
+    )
+
+
+@app.get(
+    "/briefs/status/{request_id}",
+    summary="Get the status of a brief report",
+)
+def get_status(
+    request_id: UUID,
+    storage_manager: StorageManager = Depends(get_storage_manager),
+    _: str = Security(query_scheme),
+) -> BriefStatusResponse:
+    """Get the status of a brief report by its request_id. If the report is still running,
+    you will get the current status and logs. If the report is completed, you will also get the
+    complete report"""
+    report = storage_manager.get_report(request_id)
+    if report is None:
+        raise HTTPException(status_code=404, detail="Request ID not found")
     return report

@@ -1,9 +1,11 @@
 from datetime import datetime
 from unittest.mock import MagicMock
+from uuid import UUID
 
 import pytest
 from bigdata_client.models.entities import Company
 
+from bigdata_briefs.api.models import BriefCreationRequest
 from bigdata_briefs.models import (
     Chunk,
     ChunkHighlight,
@@ -40,6 +42,11 @@ def mock_entity():
         name="Test Company",
     )
     return entity
+
+
+@pytest.fixture
+def mock_topics() -> list[str]:
+    return ["topic1", "topic2", "topic3"]
 
 
 @pytest.fixture
@@ -116,7 +123,7 @@ def mock_qa_pairs(mock_results):
 
 
 def test_generate_follow_up_questions(
-    mock_service, mock_entity, mock_report_dates, mock_results
+    mock_service, mock_topics, mock_entity, mock_report_dates, mock_results
 ):
     service, llm_client, _, _ = mock_service
     # Mock the LLM client response
@@ -125,7 +132,7 @@ def test_generate_follow_up_questions(
     )
 
     questions = service.generate_follow_up_questions(
-        mock_entity, mock_report_dates, mock_results
+        mock_entity, mock_topics, mock_report_dates, mock_results
     )
     assert questions == ["Q1", "Q2"]
     llm_client.call_with_response_format.assert_called()
@@ -170,3 +177,29 @@ def test_create_no_info_report(mock_service, mock_entity):
     assert report.is_no_info_report
     assert sources == {}
     assert (mock_entity, generation_step) in service.no_info_reports
+
+
+def test_correctly_checks_for_company_placeholder_in_topics(mock_service):
+    service, _, _, _ = mock_service
+
+    invalid_topics = [
+        "What is the latest news about the market?",
+        "How is the economy performing financially?",
+        "Are there any recent developments regarding technology?",
+    ]
+
+    request = BriefCreationRequest(
+        companies="test_watchlist",
+        report_start_date=datetime(2023, 1, 1),
+        report_end_date=datetime(2023, 1, 31),
+        novelty=True,
+        topics=invalid_topics,
+    )
+
+    with pytest.raises(ValueError) as exc_info:
+        service.parse_and_validate(
+            request, UUID("12345678-1234-5678-1234-567812345678"), None
+        )
+
+    assert "Invalid topic" in str(exc_info.value)
+    assert "'{company}'" in str(exc_info.value)

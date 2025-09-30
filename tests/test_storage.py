@@ -1,3 +1,4 @@
+import uuid
 from datetime import datetime
 
 import pytest
@@ -8,10 +9,10 @@ from bigdata_briefs.models import (
     ChunkHighlight,
     OutputEntityReport,
     OutputReportBulletPoint,
-    ReportSources,
+    RetrievedSources,
     SourceChunkReference,
 )
-from bigdata_briefs.sql_models import SQLBriefReport, SQLReportsSources
+from bigdata_briefs.sql_models import SQLBriefReport
 from bigdata_briefs.storage import write_report_with_sources
 
 
@@ -25,7 +26,7 @@ def in_memory_db():
 
 @pytest.fixture
 def source_metadata():
-    return ReportSources(
+    return RetrievedSources(
         root={
             "id": SourceChunkReference(
                 ref_id=1,
@@ -73,19 +74,15 @@ def pipeline_output(source_metadata):
 
 
 def test_write_report_with_sources_db(in_memory_db, pipeline_output):
-    write_report_with_sources(pipeline_output, in_memory_db)
+    write_report_with_sources(uuid.uuid4(), pipeline_output, in_memory_db)
     # Check report was written
     with in_memory_db:
         report = in_memory_db.exec(select(SQLBriefReport)).first()
         assert report is not None
         assert report.watchlist_id == pipeline_output.watchlist_id
-        # Check sources was written
-        sources = in_memory_db.exec(select(SQLReportsSources)).first()
-        assert sources is not None
-        assert sources.brief_id == report.id
 
 
 def test_write_report_with_sources_fails_gracefully(capsys, in_memory_db):
     # No exception should be raised
-    write_report_with_sources(None, in_memory_db)  # ty: ignore[invalid-argument-type]
+    write_report_with_sources("fake_id", None, in_memory_db)  # ty: ignore[invalid-argument-type]
     capsys.readouterr()  # Capture the logger to avoid cluttering the output

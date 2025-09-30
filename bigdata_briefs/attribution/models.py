@@ -1,7 +1,7 @@
 from pydantic import RootModel
 
 
-class ReportSourcesReverseMap(RootModel):
+class RetrievedSourcesReverseMap(RootModel):
     root: dict[int, str]  # Maps ref_id to document_id and chunk mappings
 
     def keys(self):

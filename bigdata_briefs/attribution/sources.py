@@ -1,9 +1,9 @@
 from bigdata_briefs import logger
-from bigdata_briefs.attribution.models import ReportSourcesReverseMap
+from bigdata_briefs.attribution.models import RetrievedSourcesReverseMap
 from bigdata_briefs.models import (
     AnalysisResponse,
     QAPairs,
-    ReportSources,
+    RetrievedSources,
     SourceChunkReference,
     TopicCollection,
     TopicMetadata,
@@ -12,7 +12,7 @@ from bigdata_briefs.models import (
 
 def create_sources_for_report(
     qa_pairs: QAPairs,
-) -> tuple[ReportSources, ReportSourcesReverseMap]:
+) -> tuple[RetrievedSources, RetrievedSourcesReverseMap]:
     """
     Create a mapping of document IDs to reference IDs and metadata, including chunks.
 
@@ -53,12 +53,14 @@ def create_sources_for_report(
 
                 ref_counter += 1
 
-    return ReportSources(root=report_sources), ReportSourcesReverseMap(root=reverse_map)
+    return RetrievedSources(root=report_sources), RetrievedSourcesReverseMap(
+        root=reverse_map
+    )
 
 
 def replace_references_in_topic_metadata(
     input_metadata: TopicMetadata,
-    reverse_map: ReportSourcesReverseMap,
+    reverse_map: RetrievedSourcesReverseMap,
     entity,
 ) -> TopicMetadata:
     """
@@ -85,7 +87,7 @@ def replace_references_in_topic_metadata(
 
 def replace_references_in_topic_collection(
     input_collection: TopicCollection,
-    reverse_map: ReportSourcesReverseMap,
+    reverse_map: RetrievedSourcesReverseMap,
     entity,
 ) -> TopicCollection:
     """
@@ -94,7 +96,7 @@ def replace_references_in_topic_collection(
 
     Args:
         input_collection (TopicCollection): The TopicCollection object to process.
-        reverse_map (ReportSourcesReverseMap): A Pydantic model containing a nested mapping of reference IDs
+        reverse_map (RetrievedSourcesReverseMap): A Pydantic model containing a nested mapping of reference IDs
                                 to document IDs and chunk mappings.
 
     Returns:
@@ -108,7 +110,7 @@ def replace_references_in_topic_collection(
 
 
 def process_topic_collection(
-    topic_collection: TopicCollection, report_sources: ReportSources
+    topic_collection: TopicCollection, report_sources: RetrievedSources
 ):
     """
     Processes a TopicCollection object to generate the topics and relevance_score lists
@@ -116,7 +118,7 @@ def process_topic_collection(
 
     Args:
         topic_collection (TopicCollection): The parsed response.
-        report_sources (ReportSources): A mapping of document IDs to metadata.
+        report_sources (RetrievedSources): A mapping of document IDs to metadata.
 
     Returns:
         AnalysisResponse: An object containing:
@@ -169,14 +171,14 @@ def process_topic_collection(
 
 
 def consolidate_report_sources(
-    consolidated_sources: ReportSources, new_sources: ReportSources
+    consolidated_sources: RetrievedSources, new_sources: RetrievedSources
 ):
     """
-    Consolidates a new ReportSources into the existing consolidated map.
+    Consolidates a new RetrievedSources into the existing consolidated map.
 
     Args:
-        consolidated_sources (ReportSources): The consolidated set of sources for all entities.
-        new_sources (ReportSources): The new sources to merge.
+        consolidated_sources (RetrievedSources): The consolidated set of sources for all entities.
+        new_sources (RetrievedSources): The new sources to merge.
     """
 
     for source_id, new_doc_data in new_sources.items():
