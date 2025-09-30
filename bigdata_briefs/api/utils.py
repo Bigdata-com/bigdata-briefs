@@ -20,8 +20,6 @@ def get_example_values_from_schema(schema_model: Type[BaseModel]) -> dict:
             example = None
 
         if example is not None:
-            if isinstance(example, list) and len(example) == 1:
-                example = example[0]
             example_values[field_name] = example
         else:
             example_values[field_name] = field.default

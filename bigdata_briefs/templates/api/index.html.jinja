@@ -246,7 +246,7 @@
       comp_text.value = watchlist.name;
     }
     const option = document.createElement('option');
-    option.value = watchlist.watchlist_id;
+    option.value = watchlist.id;
     option.textContent = watchlist.name;
     comp_select.appendChild(option);
   });
@@ -312,7 +312,7 @@
     let companies = document.getElementById('companies_text').value.trim();
     const foundWatchlist = watchlists.find(w => w.name === companies);
     if (foundWatchlist) {
-      companies = foundWatchlist.watchlist_id;
+      companies = foundWatchlist.id;
     }
     else if (!companies) {
       output.innerHTML = `<span class="error">❌ Error: Company Universe is required.</span>`;
@@ -403,7 +403,7 @@
         async function pollStatus() {
 
           try {
-            const statusResp = await fetch(`/status/${requestId}?${params}`);
+            const statusResp = await fetch(`/briefs/status/${requestId}?${params}`);
             if (!statusResp.ok) {
               throw new Error(`Status HTTP error ${statusResp.status}`);
             }
