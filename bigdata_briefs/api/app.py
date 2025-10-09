@@ -140,17 +140,19 @@ async def create_brief(
     [cls.reset_usage() for cls in Metrics.__subclasses__()]
     LLMMetrics.reset_usage()
 
-    request_id = uuid4()
-    storage_manager.update_status(request_id, WorkflowStatus.QUEUED)
+    request_id = UUID('8e80f92b5f364c75ab585a9e18d3eb8a')
+    if False:
+        request_id = uuid4()
+        storage_manager.update_status(request_id, WorkflowStatus.QUEUED)
 
-    background_tasks.add_task(
-        partial(
-            brief_service.generate_brief,
-            brief_config,
-            request_id=request_id,
-            storage_manager=storage_manager,
+        background_tasks.add_task(
+            partial(
+                brief_service.generate_brief,
+                brief_config,
+                request_id=request_id,
+                storage_manager=storage_manager,
+            )
         )
-    )
 
     return JSONResponse(
         status_code=202,
