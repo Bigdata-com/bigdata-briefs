@@ -2,29 +2,31 @@
 {% block content %}
 
 <div id="infoModalsContainer"></div>
-<div class="flex flex-row w-full min-h-[500px]">
-  <!-- Left: Form -->
-  <div id="sidebar" class="min-w-[150px] max-w-[600px] w-[300px] pr-6 bg-zinc-800 pl-2 rounded-l-lg pt-2 pb-2 text-sm transition-all duration-100 ease-in-out">
-    <div class="overflow-y-auto">
-      <form id="briefForm" autocomplete="off" class="sticky top-0 z-10">
+<div class="flex flex-col w-full h-screen">
+  <!-- Top section with left form and right output -->
+  <div class="flex flex-row w-full flex-1 min-h-0 mb-10">
+    <!-- Left: Form -->
+    <div id="sidebar"
+      class="min-w-[150px] max-w-[600px] w-[350px] pr-6 bg-zinc-800 pl-2 rounded-l-lg pt-2 pb-2 text-sm transition-all duration-100 ease-in-out h-full overflow-y-auto">
+      <div class="h-full">
+        <form id="briefForm" autocomplete="off" class="h-full">
 
-        <div class="mb-5">
-          <label for="companies" class="block mb-2 font-bold text-md text-white">
-            <span>Company Universe:</span>
-            <button type="button" class="text-blue-500 text-sm" onclick="showInfoModal('companies')"
-              title="Info about Company Universe">ⓘ</button>
-          </label>
-          <div class="relative"> <!-- dropdown -->
-            <input id="companies_text" type="text"
-              class="absolute w-[calc(100%-20px)] bg-gray-50 text-gray-900 text-md rounded-lg block p-2.5 h-[42px]" />
-            <select id="companies"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2.5 h-[42px] z-10"
-              onchange="this.previousElementSibling.value=this.options[this.selectedIndex].text;"
-              >
-              <!-- Options and default are added in a javascript-->
-            </select>
+          <div class="mb-5">
+            <label for="companies" class="block mb-2 font-bold text-md text-white">
+              <span>Company Universe:</span>
+              <button type="button" class="text-blue-500 text-sm" onclick="showInfoModal('companies')"
+                title="Info about Company Universe">ⓘ</button>
+            </label>
+            <div class="relative"> <!-- dropdown -->
+              <input id="companies_text" type="text"
+                class="absolute w-[calc(100%-20px)] bg-gray-50 text-gray-900 text-md rounded-lg block p-2.5 h-[42px]" />
+              <select id="companies"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2.5 h-[42px] z-10"
+                onchange="this.previousElementSibling.value=this.options[this.selectedIndex].text;">
+                <!-- Options and default are added in a javascript-->
+              </select>
+            </div>
           </div>
-        </div>
 
           <div class="mb-5">
             <label for="start_date" class="block mb-2 font-bold text-md text-white">
@@ -48,16 +50,6 @@
               placeholder="{{ default_end_date }}" required value="{{ default_end_date }}" />
           </div>
 
-        <div class="mb-5">
-          <label for="topics" class="block mb-2 font-bold text-md text-white">
-            <span>Topics:</span>
-            <button type="button" class="text-blue-500 text-sm" onclick="showInfoModal('topics')"
-              title="Info about Topics">ⓘ</button>
-          </label>
-          <textarea id="topics"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2"
-            placeholder="Include the topics you want (must contain {company} placeholder)">{{ "\n".join(topics) }}</textarea>
-        </div>
           <!-- Hidden novelty by default -->
           <div class="hidden mb-5">
             <label for="novelty" class="block mb-2 font-bold text-md text-white">
@@ -80,8 +72,35 @@
             </label>
             <input id="sources"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2"
-              placeholder="{{ ",".join(sources) }}"
-              />
+              placeholder="{% if sources %}{{ ','.join(sources) }}{% endif %}" />
+          </div>
+
+          <button type="button" onclick="toggleAdvancedOptions()" id="advancedOptionsBtn"
+            class="flex items-center gap-2 text-white bg-gray-600 hover:bg-gray-700 font-medium rounded-lg text-sm px-3 py-0.5 mb-6 transition-colors duration-200">
+            <span id="advancedOptionsIcon" class="text-m font-bold">+</span>
+            <span>Topics list</span>
+          </button>
+
+          <div id="advanced-options" class="hidden mt-4">
+            <!-- Topics selector -->
+            <div class="mb-5">
+              <label for="topics" class="block mb-2 font-bold text-md text-white">
+                <span>Topics:</span>
+                <button type="button" class="text-blue-500 text-sm" onclick="showInfoModal('topics')"
+                  title="Info about Topics">ⓘ</button>
+              </label>
+              <div id="add-form" class="flex gap-3 mb-6">
+                <input type="text" id="new-sentence-input" placeholder="Add new topic"
+                  class="flex-grow p-3 border border-gray-300 text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <button id="add-button" type="button"
+                  class="bg-blue-600 text-white font-semibold px-8 py-3 rounded-md hover:bg-blue-700 transition-colors">
+                  Add
+                </button>
+              </div>
+
+              <div id="sentence-list" class="space-y-3">
+              </div>
+            </div>
           </div>
 
           <div class="mb-5 hidden">
@@ -94,61 +113,86 @@
               class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2.5"
               placeholder="{{ llm_model }}" value="{{ llm_model }}" />
           </div>
+          <button type="submit"
+            class="max-w-[140px] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md w-full sm:w-auto px-5 py-2.5 text-center mb-2">Generate
+            Brief</button>
+          <div>
+            <button type="button" id="loadExampleBtn"
+              class="text-white max-w-[140px] bg-green-600 hover:bg-green-800 font-medium rounded-lg text-md w-full sm:w-auto px-5 py-2.5 text-center">See
+              Example</button>
+            <button type="button" class="text-blue-500 text-sm" onclick="showInfoModal('load_example')"
+              title="Info about Load Example">ⓘ</button>
+          </div>
+        </form>
+      </div>
+      <div id="spinner" class="hidden p-2.5">⏳ Running...</div>
 
-        <button type="submit"
-          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md w-full sm:w-auto px-5 py-2.5 text-center">Generate Brief</button>
-      </form>
     </div>
-    <div id="spinner" class="hidden p-2.5">⏳ Running...</div>
+    <!-- Drag bar -->
+    <div id="dragbar"
+      class="w-2 cursor-ew-resize bg-zinc-700 hover:bg-blue-500 transition-colors duration-100 ease-in-out z-20"
+      style="position: relative;"></div>
+    <!-- Right: Output -->
+    <div id="outputarea"
+      class="flex-1 min-w-[300px] bg-zinc-900 p-8 rounded-r-lg transition-all duration-100 ease-in-out h-full overflow-y-auto">
+      <button id="showJsonBtn"
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md w-full sm:w-auto px-5 py-2.5 text-center mb-4"
+        style="display:none;">Show raw JSON</button>
+      <div id="output" class="w-full">
+        <div class="flex flex-col h-full py-5">
+          <h1 class="text-3xl font-bold text-white mb-4">Brief Generation</h1>
+          <p class="mb-4">
+            Briefs are concise, automated reports generated by Bigdata's platform that help users stay informed about
+            their watchlists and areas of interest. They are personalized market updates that deliver only the most
+            relevant insights based on your watchlist, helping you stay informed without information overload.
+          </p>
 
-  </div>
-  <!-- Drag bar -->
-  <div id="dragbar" class="w-2 cursor-ew-resize bg-zinc-700 hover:bg-blue-500 transition-colors duration-100 ease-in-out z-20" style="position: relative;"></div>
-  <!-- Right: Output -->
-  <div id="outputarea" class="flex-1 min-w-[300px] bg-zinc-900 p-8 rounded-r-lg transition-all duration-100 ease-in-out">
-    <button id="showJsonBtn"
-      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md w-full sm:w-auto px-5 py-2.5 text-center mb-4"
-      style="display:none;">Show raw JSON</button>
-    <div id="output" class="w-full">
-      <div class="flex flex-col h-full py-5">
-        <h1 class="text-3xl font-bold text-white mb-4">Brief Generation</h1>
-        <p class="mb-4">
-        Briefs are concise, automated reports generated by Bigdata's platform that help users stay informed about their watchlists and areas of interest. They are personalized market updates that deliver only the most relevant insights based on your watchlist, helping you stay informed without information overload.
-        </p>
+          <h2 class="text-2xl font-bold text-white mb-4">HOW TO USE:</h2>
+          <h2 class="text-xl font-bold text-blue-100 mb-4 pl-4">Option 1: Quick Start</h2>
+          <ol class="list-decimal mb-4 pl-10">
+            <li>Click <strong>"See Example"</strong> to explore a pre-configured analysis with sample data</li>
+            <li>Perfect for first-time users to understand the tool's capabilities</li>
+          </ol>
+          <h2 class="text-xl font-bold text-blue-100 mb-4 pl-4">Option 2: Custom Analysis</h2>
+          <ol class="list-decimal mb-4 pl-10">
+            <li>Configure your brief parameters in the sidebar</li>
+            <li>Click <strong>"Generate Brief"</strong> to begin generation</li>
+            <li>Monitor the logs below to see the process working in the background</li>
+            <li>Results will appear below once processing is complete</li>
+          </ol>
 
-        <h2 class="text-2xl font-bold text-white mb-4">HOW TO USE:</h2>
-        <ol class="list-decimal mb-4 pl-6">
-          <li>Configure your brief parameters in the sidebar</li>
-          <li>Click <strong>"Generate Brief"</strong> to begin generation</li>
-          <li>Monitor the logs below to see the process working in the background</li>
-          <li>Results will appear below once processing is complete</li>
-        </ol>
+          <h2 class="text-2xl font-bold text-white mb-4">CURRENT LIMITATIONS:</h2>
+          <ul class="list-disc mb-4 pl-6">
+            <li>Processing may take a few minutes for complex queries</li>
+            <li>This is an experimental tool – results should be validated independently before making investment
+              decisions</li>
+          </ul>
 
-        <h2 class="text-2xl font-bold text-white mb-4">CURRENT LIMITATIONS:</h2>
-        <ul class="list-disc mb-4 pl-6">
-          <li>Processing may take a few minutes for complex queries</li>
-          <li>This is an experimental tool – results should be validated independently before making investment
-            decisions</li>
-        </ul>
-
-        <p class="">
-          Check our repo
-          <a href="https://github.com/Bigdata-com/bigdata-briefs" target="_blank"
-            class="font-bold hover:text-blue-200">
-            https://github.com/Bigdata-com/bigdata-briefs
-          </a> for the complete and customizable version.
-        </p>
+          <p><strong>New users</strong>: We recommend starting with <strong>"See Example"</strong> to see the screener
+            in
+            action before
+            running your own analysis.<br></p>
+          <p class="">
+            Check our repo
+            <a href="https://github.com/Bigdata-com/bigdata-briefs" target="_blank"
+              class="font-bold hover:text-blue-200">
+              https://github.com/Bigdata-com/bigdata-briefs
+            </a> for the complete and customizable version.
+          </p>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<!-- Logs below both -->
-<div class="my-8 bg-zinc-900 rounded-lg shadow-lg p-6 text-zinc-100" style="width: 100%;">
-  <h2 class="text-lg font-bold mb-4 text-sky-400">Process Logs</h2>
-  <div id="logViewer"
-    class="bg-zinc-800 border border-slate-700 rounded-md p-4 h-64 overflow-y-auto font-mono text-sm whitespace-pre-wrap break-words text-zinc-100">
+
+  <!-- Logs below both divs -->
+  <div class="bg-zinc-900 rounded-lg shadow-lg p-6 text-zinc-100 h-80 min-h-[200px]">
+    <h2 class="text-lg font-bold mb-4 text-sky-400">Process Logs</h2>
+    <div id="logViewer"
+      class="bg-zinc-800 border border-slate-700 rounded-md p-4 h-64 overflow-y-auto font-mono text-sm whitespace-pre-wrap break-words text-zinc-100">
+    </div>
   </div>
 </div>
+
 
 <!-- Modal for JSON output -->
 <div id="jsonModal" class="hidden fixed z-[1000] inset-0 w-screen h-screen bg-black/50">
@@ -163,113 +207,12 @@
   </div>
 </div>
 
-<script> // Resizable sidebar logic
-document.addEventListener('DOMContentLoaded', function() {
-  const dragbar = document.getElementById('dragbar');
-  const sidebar = document.getElementById('sidebar');
-  const outputarea = document.getElementById('outputarea');
-  let dragging = false;
-
-  dragbar.addEventListener('mousedown', function(e) {
-    dragging = true;
-    document.body.classList.add('cursor-ew-resize');
-    document.body.style.userSelect = 'none';
-  });
-
-  document.addEventListener('mousemove', function(e) {
-    if (!dragging) return;
-    const minSidebar = 250;
-    const maxSidebar = 600;
-    let newWidth = Math.min(Math.max(e.clientX - sidebar.getBoundingClientRect().left, minSidebar), maxSidebar);
-    sidebar.style.width = newWidth + 'px';
-    // outputarea will flex to fill remaining space
-  });
-
-  document.addEventListener('mouseup', function(e) {
-    if (dragging) {
-      dragging = false;
-      document.body.classList.remove('cursor-ew-resize');
-      document.body.style.userSelect = '';
-    }
-  });
-});
-</script>
 <script>
-  // Info modal content for each label
-  const infoContents = {
-    topics: `<b>Topics</b>:<br>Specify the topics you want to analyze. Each topic must include the <code>{company}</code> placeholder which will be replaced with actual company names during analysis. You can specify multiple topics, one per line.<br><i>Examples: "How will {company} be affected by trade wars?", "{company} exposure to supply chain disruptions"</i>`,
-    companies: `<b>Company Universe</b>:<br>The portfolio of companies you want to create the brief for. You have several input options:<br><ul class="list-disc pl-6"><li>Select one of the public watchlists using the dropdown menu</li><li>Write list of RavenPack entity IDs (e.g., <code>4A6F00, D8442A</code>)</li><li>Input a watchlist ID (e.g., <code>44118802-9104-4265-b97a-2e6d88d74893</code> )</li></ul><br>Watchlists can be created programmatically using the <a href='https://docs.bigdata.com/getting-started/watchlist_management' target='_blank'>Bigdata.com SDK</a> or through the <a href='https://app.bigdata.com/watchlists' target='_blank'>Bigdata app</a>.`,
-    start_date: `<b>Start/End Date</b>:<br>The start and end of the time sample during which you want to generate the brief. Format: <code>YYYY-MM-DD</code>.`,
-    novelty: '<b>Novelty</b>:<br>If set to true, the analysis will focus on novel events that have not been widely reported before, helping to identify emerging risks. If false, all relevant events will be considered, including those that have been frequently reported.',
-    sources: `<b>Sources</b>:<br>Optionally, you can filter the analysis to include only events from specific sources. You can provide a list of RavenPack entity IDs separated by commas (e.g., <code>9D69F1, B5235B</code>). If left empty, events from all sources will be considered.`,
 
-  };
+  let topic_sentences = {{ topics | tojson }};
+
 
   const watchlists = {{ example_watchlists | tojson }};
-
-  // Calculate dates for start_date and end_date
-  const today = new Date();
-  const sixMonthsAgo = new Date();
-  sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
-  sixMonthsAgo.setDate(1);
-
-  // Format a date as YYYY-MM-DD
-  function formatDate(date) {
-    const yyyy = date.getFullYear();
-    const mm = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-based
-    const dd = String(date.getDate()).padStart(2, '0');
-    return `${yyyy}-${mm}-${dd}`;
-  }
-
-  // Calculate maximum number of days based on frequency (maximum 4 times the frequency)
-  function calculateMaxDays(frequency) {
-    const frequencyToDays = {
-      // Here we tweak this values to get reasonable max ranges
-      'D': 14,     // 2 weeks
-      'W': 120,     // 4 months
-      'M': 180,    // Half a year
-      '3M': 365,   // Quarterly: 1 year
-      'Y': 1460    // 4 years
-    };
-
-    const baseDays = frequencyToDays[frequency] || 90; // Default to quarterly if unknown
-    return baseDays
-  }
-
-  // Validate date range based on frequency
-  function validateDateRange(startDate, endDate, frequency) {
-    if (!startDate || !endDate || !frequency) {
-      return { isValid: true, message: '' }; // Skip validation if any value is missing
-    }
-
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-    const diffTime = Math.abs(end - start);
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    const maxDays = calculateMaxDays(frequency);
-
-    if (diffDays > maxDays) {
-      const frequencyNames = {
-        'D': 'Daily',
-        'W': 'Weekly',
-        'M': 'Monthly',
-        '3M': 'Quarterly',
-        'Y': 'Yearly'
-      };
-      const frequencyName = frequencyNames[frequency] || frequency;
-
-      return {
-        isValid: false,
-        message: `Date range exceeds maximum allowed for ${frequencyName} frequency. <br>Maximum: ${maxDays} days.<br>Current range: ${diffDays} days.`
-      };
-    }
-
-    return { isValid: true, message: '' };
-  }
-
-  // Set dates
-  document.getElementById('start_date').value = formatDate(sixMonthsAgo);
-  document.getElementById('end_date').value = formatDate(today);
 
   // Populate the dropdown with watchlists
   const comp_select = document.getElementById('companies');
@@ -284,289 +227,17 @@ document.addEventListener('DOMContentLoaded', function() {
     comp_select.appendChild(option);
   });
 
-  function showInfoModal(label) {
-    let container = document.getElementById('infoModalsContainer');
-    container.innerHTML = `
-      <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50" onclick="if(event.target==this)this.style.display='none'">
-        <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl p-6 relative">
-          <button class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 text-xl font-bold" onclick="this.closest('.fixed').style.display='none'">&times;</button>
-          <div class="text-base text-black">${infoContents[label] || 'No info available.'}</div>
-          <div class="mt-4 text-sm text-black">For a complete list of parameters and their descriptions, refer to the <a href='http://localhost:8000/docs' target='_blank' class='text-blue-600 underline'>API documentation</a>.</div>
-        </div>
-      </div>
-    `;
-  }
 
-  function showDocumentModal(document_id) {
-    let container = document.getElementById('infoModalsContainer');
-    container.innerHTML = `
-      <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50" onclick="if(event.target==this)this.style.display='none'">
-        <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl p-6 relative">
-          <button class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 text-xl font-bold" onclick="this.closest('.fixed').style.display='none'">&times;</button>
-          <div class="text-base font-bold text-black">DOCUMENT ID</div>
-          <div class="text-base text-black">${document_id}</div>
-        </div>
-      </div>
-    `;
-  }
-
-  function escapeHtml(text) {
-    if (text === null || text === undefined) return '';
-    const str = String(text);
-    return str.replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/\"/g, '&quot;')
-      .replace(/'/g, '&#39;');
-  }
-
-  // Helper to get URL param
-  function getUrlParam(name) {
-    const url = new URL(window.location.href);
-    return url.searchParams.get(name);
-  }
-
-  document.getElementById('briefForm').onsubmit = async function (e) {
-    e.preventDefault();
-    const output = document.getElementById('output');
-    const spinner = document.getElementById('spinner');
-    const showJsonBtn = document.getElementById('showJsonBtn');
-    const submitBtn = document.querySelector('button[type="submit"]');
-    output.innerHTML = '';
-    output.classList.remove('error');
-    showJsonBtn.style.display = 'none';
-    lastReport = null;
-
-    // Disable the submit button
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Waiting for response...';
-
-    // Get companies and check if its available in the watchlists
-    let companies = document.getElementById('companies_text').value.trim();
-    const foundWatchlist = watchlists.find(w => w.name === companies);
-    if (foundWatchlist) {
-      companies = foundWatchlist.id;
-    }
-    else if (!companies) {
-      output.innerHTML = `<span class="error">❌ Error: Company Universe is required.</span>`;
-      output.classList.add('error');
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Generrate Brief';
-      return;
-    }
-    const start_date = document.getElementById('start_date').value;
-    const end_date = document.getElementById('end_date').value;
-
-    const llm_model = document.getElementById('llm_model').value.trim();
-
-    // Build request payload
-    let payload = {
-    };
-    let topics = document.getElementById('topics').value.trim();
-    if (topics) {
-        let topicsArray;
-        if (topics.includes('\n')) {
-            topicsArray = topics.split('\n').map(t => t.trim()).filter(Boolean);
-        } else {
-            topicsArray = [topics];
-        }
-        
-        // Validate that ALL topics contain the {company} placeholder
-        const topicsWithoutPlaceholder = topicsArray.filter(topic => !topic.includes('{company}'));
-        if (topicsWithoutPlaceholder.length > 0) {
-            const failingTopicsList = topicsWithoutPlaceholder.map(topic => `• ${escapeHtml(topic)}`).join('<br>');
-            output.innerHTML = `<span class="error">❌ Error: The following topics are missing the {company} placeholder:<br>${failingTopicsList}</span>`;
-            output.classList.add('error');
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Generrate Brief';
-            return;
-        }
-        
-        payload.topics = topicsArray;
-    } 
-    const novelty = document.getElementById('novelty').value === 'true';
-    let sources = document.getElementById('sources').value.trim();
-    if (sources) {
-    if (sources.includes(',')) {
-          payload.sources = sources.split(',').map(s => s.trim()).filter(Boolean);
-          // A single RP Entity ID
-        }
-    else {
-          payload.sources = [sources];
-        }
-    }
-
-    // A list of companies
-    if (companies.includes(',')) {
-      payload.companies = companies.split(',').map(s => s.trim()).filter(Boolean);
-      // A single RP Entity ID
-    } else if (companies.length === 6) {
-      payload.companies = [companies];
-      // A watchlist ID
-    } else if (companies.length > 6) {
-      payload.companies = companies;
-    }
-
-    if (start_date) payload.report_start_date = start_date;
-    if (end_date) payload.report_end_date = end_date;
-    if (novelty) payload.novelty = novelty;
-
-    // Add token from URL param if present
-    const params = new URLSearchParams();
-    const token = getUrlParam('token');
-    if (token) {
-      params.append("token", token);
-    }
-
-    try {
-      const response = await fetch(`/briefs/create?${params}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-      if (!response.ok) {
-        throw new Error(`HTTP error ${response.status}`);
-      }
-      const data = await response.json();
-      // Start polling status endpoint every 5 seconds using request_id
-      if (data && data.request_id) {
-        const requestId = data.request_id;
-        let polling = true;
-        const logViewer = document.getElementById('logViewer');
-        async function pollStatus() {
-
-          try {
-            const statusResp = await fetch(`/briefs/status/${requestId}?${params}`);
-            if (!statusResp.ok) {
-              throw new Error(`Status HTTP error ${statusResp.status}`);
-            }
-            const statusData = await statusResp.json();
-            spinner.style.display = 'block';
-            // Render logs if available
-            if (statusData.logs && Array.isArray(statusData.logs)) {
-              logViewer.innerHTML = statusData.logs.map(line => {
-                let base = 'mb-1';
-                let color = '';
-                if (line.toLowerCase().includes('error')) color = 'text-red-400';
-                else if (line.toLowerCase().includes('success')) color = 'text-green-400';
-                else if (line.toLowerCase().includes('info')) color = 'text-sky-400';
-                return `<div class='${base} ${color}'>${line}</div>`;
-              }).join('');
-              logViewer.scrollTop = logViewer.scrollHeight;
-            } else if (statusData.log) {
-              logViewer.textContent = statusData.log;
-            } else {
-              logViewer.textContent = 'No logs yet.';
-            }
-            // Stop polling if status is 'completed' or 'failed'
-            if (statusData.status === 'completed' || statusData.status === 'failed') {
-              polling = false;
-              if (statusData.status === 'completed') {
-                output.innerHTML = renderBriefReport(statusData.report)
-                showJsonBtn.style.display = 'inline-block';
-                lastReport = statusData.report;
-              }
-              spinner.style.display = 'none';
-              submitBtn.disabled = false;
-              submitBtn.textContent = 'Generrate Brief';
-              return;
-            }
-          } catch (err) {
-            logViewer.innerHTML = `<div class=\"log-line log-error\">❌ Status Error: ${err.message}</div>`;
-          }
-          if (polling) {
-            setTimeout(pollStatus, 5000);
-          }
-        }
-        pollStatus();
-      }
-    } catch (err) {
-      output.innerHTML = `<span class="error">❌ Error: ${err.message}</span>`;
-      output.classList.add('error');
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Generrate Brief';
-      spinner.style.display = 'none';
-    }
-  };
-
-  document.getElementById('showJsonBtn').onclick = function () {
-    if (lastReport) {
-      document.getElementById('jsonContent').textContent = JSON.stringify(lastReport, null, 2);
-      document.getElementById('jsonModal').style.display = 'block';
-    }
-  };
-
-  function renderBriefReport(data) {
-    if (!data || typeof data !== 'object') return '<span class="error">No data to display.</span>';
-    let html = '<h2 class="text-3xl font-bold text-white mb-4">General Report</h2>';
-    // Report overview
-    html += '<div class="max-h-[500px] overflow-y-auto">'
-    html += '<table class="table-auto text-sm">';
-    html += '<tr><th class="sticky top-0 z-10 bg-zinc-900">Watchlist</th><th class="sticky top-0 z-10 bg-zinc-900">Title</th><th class="sticky top-0 z-10 bg-zinc-900">Introduction</th><th class="sticky top-0 z-10 bg-zinc-900">Start Date</th><th class="sticky top-0 z-10 bg-zinc-900">End Date</th><th class="sticky top-0 z-10 bg-zinc-900">Novelty</th></tr>';
-    html += `<tr class="divide-y divide-white"><td>${escapeHtml(data.watchlist_name || data.watchlist_id)}</td><td>${escapeHtml(data.report_title)}</td><td>${escapeHtml(data.introduction)}</td><td>${escapeHtml(data.start_date)}</td><td>${escapeHtml(data.end_date)}</td><td>${data.novelty ? 'Yes' : 'No'}</td></tr>`;
-    html += '</table>';
-
-    // Entity reports table
-    if (Array.isArray(data.entity_reports) && data.entity_reports.length > 0) {
-      html += '<h2 class="text-3xl font-bold text-white mb-4">Entity Reports</h2>';
-      html += '<div class="max-h-[500px] overflow-y-auto">'
-      html += '<table class="table-auto text-sm">';
-      html += '<tr class="divide-y divide-white"><th class="sticky top-0 z-10 bg-zinc-900">Entity</th><th class="sticky top-0 z-10 bg-zinc-900">Bullet Point</th><th class="sticky top-0 z-10 bg-zinc-900">Sources</th></tr>';
-      data.entity_reports.forEach(entity => {
-        const entityName = (entity.entity_info && (entity.entity_info.name || entity.entity_info.id)) ? escapeHtml(entity.entity_info.name || entity.entity_info.id) : escapeHtml(entity.entity_id);
-        if (Array.isArray(entity.content) && entity.content.length > 0) {
-          entity.content.forEach((bp, idx) => {
-            html += `<tr class="divide-y divide-white"><td>${idx === 0 ? entityName : ''}</td><td>${escapeHtml(bp.bullet_point)}</td><td>${Array.isArray(bp.sources) ? bp.sources.map(escapeHtml).join(', ') : ''}</td></tr>`;
-          });
-        } else {
-          html += `<tr class="divide-y divide-white"><td>${entityName}</td><td colspan="2"><em>No bullet points</em></td></tr>`;
-        }
-      });
-      html += '</table>';
-    } else {
-      html += '<p><em>No entity reports available.</em></p>';
-    }
-    return html;
-  }  
-
-  function closeModal() {
-    document.getElementById('jsonModal').style.display = 'none';
-  }
   window.closeModal = closeModal;
-  function copyJson() {
-    const jsonContent = document.getElementById('jsonContent');
-    if (!jsonContent) return;
-    const text = jsonContent.innerText || jsonContent.textContent;
-    if (navigator.clipboard && window.isSecureContext) {
-      navigator.clipboard.writeText(text).then(() => {
-        const btn = document.getElementById('copyBtn');
-        if (btn) {
-          const orig = btn.textContent;
-          btn.textContent = 'Copied!';
-          setTimeout(() => { btn.textContent = orig; }, 1200);
-        }
-      });
-    } else {
-      // fallback for older browsers
-      const textarea = document.createElement('textarea');
-      textarea.value = text;
-      textarea.setAttribute('readonly', '');
-      textarea.style.position = 'absolute';
-      textarea.style.left = '-9999px';
-      document.body.appendChild(textarea);
-      textarea.select();
-      try {
-        document.execCommand('copy');
-        const btn = document.getElementById('copyBtn');
-        if (btn) {
-          const orig = btn.textContent;
-          btn.textContent = 'Copied!';
-          setTimeout(() => { btn.textContent = orig; }, 1200);
-        }
-      } catch (err) { }
-      document.body.removeChild(textarea);
-    }
-  };    
+
+  // Load Example button functionality
+  document.getElementById('loadExampleBtn').onclick = async function () {
+    const requestId = "{{ example_request_id }}";
+    await loadRequestId(requestId);
+  };
+
 </script>
+<script src="static/scripts/form.js"></script>
+<script src="static/scripts/load_example.js"></script>
 </form>
 {% endblock %}
