@@ -1,6 +1,6 @@
 [project]
 name = "bigdata_briefs"
-version = "3.0.0"
+version = "3.1.0"
 description = "Generate briefs based on finantially relevant information from Bigdata.com "
 authors = [{name = "jaldana", email = "jaldana@ravenpack.com"}]
 readme = "README.md"

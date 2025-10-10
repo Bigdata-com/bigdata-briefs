@@ -1,3 +1,4 @@
+import json
 from datetime import datetime
 from uuid import UUID
 
@@ -24,7 +25,7 @@ def write_report_with_sources(
             report_period_start=datetime.fromisoformat(pipeline_output.start_date),
             report_period_end=datetime.fromisoformat(pipeline_output.end_date),
             novelty_enabled=pipeline_output.novelty,
-            brief_report=pipeline_output.model_dump_json(),
+            brief_report=pipeline_output.model_dump(),
         )
 
         session.add(report)
@@ -50,7 +51,12 @@ def get_report_with_sources(
         return None
 
     try:
-        brief_report = BriefReport.model_validate_json(report.brief_report)
+        if isinstance(report.brief_report, str):
+            # Since SQLite can store json as JSON or string we keep this here for backwards compatibility
+            # since some users might have older versions of the database with the report column stored as string
+            # Remove in future versions when a breaking change is acceptable
+            report.brief_report = json.loads(report.brief_report)
+        brief_report = BriefReport(**report.brief_report)  # ty: ignore[missing-argument]
         return brief_report
     except Exception as e:
         logger.error(f"Error reconstructing BriefReport from database records: {e}")

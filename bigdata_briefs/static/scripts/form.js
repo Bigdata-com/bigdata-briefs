@@ -23,7 +23,7 @@ document.getElementById('briefForm').onsubmit = async function (e) {
         output.innerHTML = `<span class="error">❌ Error: Company Universe is required.</span>`;
         output.classList.add('error');
         submitBtn.disabled = false;
-        submitBtn.textContent = 'Generrate Brief';
+        submitBtn.textContent = 'Generate Brief';
         return;
     }
     const start_date = document.getElementById('start_date').value;
@@ -34,15 +34,14 @@ document.getElementById('briefForm').onsubmit = async function (e) {
     // Build request payload
     let payload = {
     };
-    let topics = document.getElementById('topics').value.trim();
-    if (topics) {
-        let topicsArray;
-        if (topics.includes('\n')) {
-            topicsArray = topics.split('\n').map(t => t.trim()).filter(Boolean);
-        } else {
-            topicsArray = [topics];
-        }
-
+    
+    // Use topic_sentences array if it exists and has content, otherwise fall back to topics input field
+    let topicsArray = [];
+    if (typeof topic_sentences !== 'undefined' && topic_sentences.length > 0) {
+        topicsArray = topic_sentences;
+    }
+    
+    if (topicsArray.length > 0) {
         // Validate that ALL topics contain the {company} placeholder
         const topicsWithoutPlaceholder = topicsArray.filter(topic => !topic.includes('{company}'));
         if (topicsWithoutPlaceholder.length > 0) {
@@ -50,7 +49,7 @@ document.getElementById('briefForm').onsubmit = async function (e) {
             output.innerHTML = `<span class="error">❌ Error: The following topics are missing the {company} placeholder:<br>${failingTopicsList}</span>`;
             output.classList.add('error');
             submitBtn.disabled = false;
-            submitBtn.textContent = 'Generrate Brief';
+            submitBtn.textContent = 'Generate Brief';
             return;
         }
 
@@ -140,7 +139,7 @@ document.getElementById('briefForm').onsubmit = async function (e) {
                         }
                         spinner.style.display = 'none';
                         submitBtn.disabled = false;
-                        submitBtn.textContent = 'Generrate Brief';
+                        submitBtn.textContent = 'Generate Brief';
                         return;
                     }
                 } catch (err) {
@@ -156,7 +155,7 @@ document.getElementById('briefForm').onsubmit = async function (e) {
         output.innerHTML = `<span class="error">❌ Error: ${err.message}</span>`;
         output.classList.add('error');
         submitBtn.disabled = false;
-        submitBtn.textContent = 'Generrate Brief';
+        submitBtn.textContent = 'Generate Brief';
         spinner.style.display = 'none';
     }
 };

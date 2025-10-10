@@ -2,157 +2,197 @@
 {% block content %}
 
 <div id="infoModalsContainer"></div>
-<div class="flex flex-row w-full min-h-[500px]">
-  <!-- Left: Form -->
-  <div id="sidebar"
-    class="min-w-[150px] max-w-[600px] w-[300px] pr-6 bg-zinc-800 pl-2 rounded-l-lg pt-2 pb-2 text-sm transition-all duration-100 ease-in-out">
-    <div class="overflow-y-auto">
-      <form id="briefForm" autocomplete="off" class="sticky top-0 z-10">
+<div class="flex flex-col w-full h-screen">
+  <!-- Top section with left form and right output -->
+  <div class="flex flex-row w-full flex-1 min-h-0 mb-10">
+    <!-- Left: Form -->
+    <div id="sidebar"
+      class="min-w-[150px] max-w-[600px] w-[350px] pr-6 bg-zinc-800 pl-2 rounded-l-lg pt-2 pb-2 text-sm transition-all duration-100 ease-in-out h-full overflow-y-auto">
+      <div class="h-full">
+        <form id="briefForm" autocomplete="off" class="h-full">
 
-        <div class="mb-5">
-          <label for="companies" class="block mb-2 font-bold text-md text-white">
-            <span>Company Universe:</span>
-            <button type="button" class="text-blue-500 text-sm" onclick="showInfoModal('companies')"
-              title="Info about Company Universe">ⓘ</button>
-          </label>
-          <div class="relative"> <!-- dropdown -->
-            <input id="companies_text" type="text"
-              class="absolute w-[calc(100%-20px)] bg-gray-50 text-gray-900 text-md rounded-lg block p-2.5 h-[42px]" />
-            <select id="companies"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2.5 h-[42px] z-10"
-              onchange="this.previousElementSibling.value=this.options[this.selectedIndex].text;">
-              <!-- Options and default are added in a javascript-->
+          <div class="mb-5">
+            <label for="companies" class="block mb-2 font-bold text-md text-white">
+              <span>Company Universe:</span>
+              <button type="button" class="text-blue-500 text-sm" onclick="showInfoModal('companies')"
+                title="Info about Company Universe">ⓘ</button>
+            </label>
+            <div class="relative"> <!-- dropdown -->
+              <input id="companies_text" type="text"
+                class="absolute w-[calc(100%-20px)] bg-gray-50 text-gray-900 text-md rounded-lg block p-2.5 h-[42px]" />
+              <select id="companies"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2.5 h-[42px] z-10"
+                onchange="this.previousElementSibling.value=this.options[this.selectedIndex].text;">
+                <!-- Options and default are added in a javascript-->
+              </select>
+            </div>
+          </div>
+
+          <div class="mb-5">
+            <label for="start_date" class="block mb-2 font-bold text-md text-white">
+              <span>Start Date:</span>
+              <button type="button" class="text-blue-500 text-sm" onclick="showInfoModal('start_date')"
+                title="Info about Start Date">ⓘ</button>
+            </label>
+            <input type="date" id="start_date"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2"
+              placeholder="{{ default_start_date }}" required value="{{ default_start_date }}" />
+          </div>
+
+          <div class="mb-5">
+            <label for="end_date" class="block mb-2 font-bold text-md text-white">
+              <span>End Date:</span>
+              <button type="button" class="text-blue-500 text-sm" onclick="showInfoModal('start_date')"
+                title="Info about End Date">ⓘ</button>
+            </label>
+            <input type="date" id="end_date"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2"
+              placeholder="{{ default_end_date }}" required value="{{ default_end_date }}" />
+          </div>
+
+          <!-- Hidden novelty by default -->
+          <div class="hidden mb-5">
+            <label for="novelty" class="block mb-2 font-bold text-md text-white">
+              <span>Novelty:</span>
+              <button type="button" class="text-blue-500 text-sm" onclick="showInfoModal('novelty')"
+                title="Info about Novelty">ⓘ</button>
+            </label>
+            <select id="novelty"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2.5">
+              <option value="true" {% if novelty %}selected{% endif %}>true</option>
+              <option value="false" {% if not novelty %}selected{% endif %}>false</option>
             </select>
           </div>
-        </div>
 
-        <div class="mb-5">
-          <label for="start_date" class="block mb-2 font-bold text-md text-white">
-            <span>Start Date:</span>
-            <button type="button" class="text-blue-500 text-sm" onclick="showInfoModal('start_date')"
-              title="Info about Start Date">ⓘ</button>
-          </label>
-          <input type="date" id="start_date"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2"
-            placeholder="{{ default_start_date }}" required value="{{ default_start_date }}" />
-        </div>
+          <div class="mb-5">
+            <label for="sources" class="block mb-2 font-bold text-md text-white">
+              <span>Sources:</span>
+              <button type="button" class="text-blue-500 text-sm" onclick="showInfoModal('sources')"
+                title="Info about Sources">ⓘ</button>
+            </label>
+            <input id="sources"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2"
+              placeholder="{% if sources %}{{ ','.join(sources) }}{% endif %}" />
+          </div>
 
-        <div class="mb-5">
-          <label for="end_date" class="block mb-2 font-bold text-md text-white">
-            <span>End Date:</span>
-            <button type="button" class="text-blue-500 text-sm" onclick="showInfoModal('start_date')"
-              title="Info about End Date">ⓘ</button>
-          </label>
-          <input type="date" id="end_date"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2"
-            placeholder="{{ default_end_date }}" required value="{{ default_end_date }}" />
-        </div>
+          <button type="button" onclick="toggleAdvancedOptions()" id="advancedOptionsBtn"
+            class="flex items-center gap-2 text-white bg-gray-600 hover:bg-gray-700 font-medium rounded-lg text-sm px-3 py-0.5 mb-6 transition-colors duration-200">
+            <span id="advancedOptionsIcon" class="text-m font-bold">+</span>
+            <span>Topics list</span>
+          </button>
 
-        <div class="mb-5">
-          <label for="topics" class="block mb-2 font-bold text-md text-white">
-            <span>Topics:</span>
-            <button type="button" class="text-blue-500 text-sm" onclick="showInfoModal('topics')"
-              title="Info about Topics">ⓘ</button>
-          </label>
-          <textarea id="topics"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2"
-            placeholder="Include the topics you want (must contain {company} placeholder)">{{ "\n".join(topics) }}</textarea>
-        </div>
-        <!-- Hidden novelty by default -->
-        <div class="hidden mb-5">
-          <label for="novelty" class="block mb-2 font-bold text-md text-white">
-            <span>Novelty:</span>
-            <button type="button" class="text-blue-500 text-sm" onclick="showInfoModal('novelty')"
-              title="Info about Novelty">ⓘ</button>
-          </label>
-          <select id="novelty"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2.5">
-            <option value="true" {% if novelty %}selected{% endif %}>true</option>
-            <option value="false" {% if not novelty %}selected{% endif %}>false</option>
-          </select>
-        </div>
+          <div id="advanced-options" class="hidden mt-4">
+            <!-- Topics selector -->
+            <div class="mb-5">
+              <label for="topics" class="block mb-2 font-bold text-md text-white">
+                <span>Topics:</span>
+                <button type="button" class="text-blue-500 text-sm" onclick="showInfoModal('topics')"
+                  title="Info about Topics">ⓘ</button>
+              </label>
+              <div id="add-form" class="flex gap-3 mb-6">
+                <input type="text" id="new-sentence-input" placeholder="Add new topic"
+                  class="flex-grow p-3 border border-gray-300 text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <button id="add-button" type="button"
+                  class="bg-blue-600 text-white font-semibold px-8 py-3 rounded-md hover:bg-blue-700 transition-colors">
+                  Add
+                </button>
+              </div>
 
-        <div class="mb-5">
-          <label for="sources" class="block mb-2 font-bold text-md text-white">
-            <span>Sources:</span>
-            <button type="button" class="text-blue-500 text-sm" onclick="showInfoModal('sources')"
-              title="Info about Sources">ⓘ</button>
-          </label>
-          <input id="sources"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2"
-            placeholder="{{ " ,".join(sources) }}" />
-        </div>
+              <div id="sentence-list" class="space-y-3">
+              </div>
+            </div>
+          </div>
 
-        <div class="mb-5 hidden">
-          <label for="llm_model" class="block mb-2 font-bold text-md text-white">
-            <span>LLM Model:</span>
-            <button type="button" class="text-blue-500 text-sm" onclick="showInfoModal('llm_model')"
-              title="Info about LLM Model">ⓘ</button>
-          </label>
-          <input type="text" id="llm_model"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2.5"
-            placeholder="{{ llm_model }}" value="{{ llm_model }}" />
-        </div>
+          <div class="mb-5 hidden">
+            <label for="llm_model" class="block mb-2 font-bold text-md text-white">
+              <span>LLM Model:</span>
+              <button type="button" class="text-blue-500 text-sm" onclick="showInfoModal('llm_model')"
+                title="Info about LLM Model">ⓘ</button>
+            </label>
+            <input type="text" id="llm_model"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2.5"
+              placeholder="{{ llm_model }}" value="{{ llm_model }}" />
+          </div>
+          <button type="submit"
+            class="max-w-[140px] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md w-full sm:w-auto px-5 py-2.5 text-center mb-2">Generate
+            Brief</button>
+          <div>
+            <button type="button" id="loadExampleBtn"
+              class="text-white max-w-[140px] bg-green-600 hover:bg-green-800 font-medium rounded-lg text-md w-full sm:w-auto px-5 py-2.5 text-center">See
+              Example</button>
+            <button type="button" class="text-blue-500 text-sm" onclick="showInfoModal('load_example')"
+              title="Info about Load Example">ⓘ</button>
+          </div>
+        </form>
+      </div>
+      <div id="spinner" class="hidden p-2.5">⏳ Running...</div>
 
-        <button type="submit"
-          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md w-full sm:w-auto px-5 py-2.5 text-center">Generate
-          Brief</button>
-      </form>
     </div>
-    <div id="spinner" class="hidden p-2.5">⏳ Running...</div>
+    <!-- Drag bar -->
+    <div id="dragbar"
+      class="w-2 cursor-ew-resize bg-zinc-700 hover:bg-blue-500 transition-colors duration-100 ease-in-out z-20"
+      style="position: relative;"></div>
+    <!-- Right: Output -->
+    <div id="outputarea"
+      class="flex-1 min-w-[300px] bg-zinc-900 p-8 rounded-r-lg transition-all duration-100 ease-in-out h-full overflow-y-auto">
+      <button id="showJsonBtn"
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md w-full sm:w-auto px-5 py-2.5 text-center mb-4"
+        style="display:none;">Show raw JSON</button>
+      <div id="output" class="w-full">
+        <div class="flex flex-col h-full py-5">
+          <h1 class="text-3xl font-bold text-white mb-4">Brief Generation</h1>
+          <p class="mb-4">
+            Briefs are concise, automated reports generated by Bigdata's platform that help users stay informed about
+            their watchlists and areas of interest. They are personalized market updates that deliver only the most
+            relevant insights based on your watchlist, helping you stay informed without information overload.
+          </p>
 
-  </div>
-  <!-- Drag bar -->
-  <div id="dragbar"
-    class="w-2 cursor-ew-resize bg-zinc-700 hover:bg-blue-500 transition-colors duration-100 ease-in-out z-20"
-    style="position: relative;"></div>
-  <!-- Right: Output -->
-  <div id="outputarea"
-    class="flex-1 min-w-[300px] bg-zinc-900 p-8 rounded-r-lg transition-all duration-100 ease-in-out">
-    <button id="showJsonBtn"
-      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md w-full sm:w-auto px-5 py-2.5 text-center mb-4"
-      style="display:none;">Show raw JSON</button>
-    <div id="output" class="w-full">
-      <div class="flex flex-col h-full py-5">
-        <h1 class="text-3xl font-bold text-white mb-4">Brief Generation</h1>
-        <p class="mb-4">
-          Briefs are concise, automated reports generated by Bigdata's platform that help users stay informed about
-          their watchlists and areas of interest. They are personalized market updates that deliver only the most
-          relevant insights based on your watchlist, helping you stay informed without information overload.
-        </p>
+          <h2 class="text-2xl font-bold text-white mb-4">HOW TO USE:</h2>
+          <h2 class="text-xl font-bold text-blue-100 mb-4 pl-4">Option 1: Quick Start</h2>
+          <ol class="list-decimal mb-4 pl-10">
+            <li>Click <strong>"See Example"</strong> to explore a pre-configured analysis with sample data</li>
+            <li>Perfect for first-time users to understand the tool's capabilities</li>
+          </ol>
+          <h2 class="text-xl font-bold text-blue-100 mb-4 pl-4">Option 2: Custom Analysis</h2>
+          <ol class="list-decimal mb-4 pl-10">
+            <li>Configure your brief parameters in the sidebar</li>
+            <li>Click <strong>"Generate Brief"</strong> to begin generation</li>
+            <li>Monitor the logs below to see the process working in the background</li>
+            <li>Results will appear below once processing is complete</li>
+          </ol>
 
-        <h2 class="text-2xl font-bold text-white mb-4">HOW TO USE:</h2>
-        <ol class="list-decimal mb-4 pl-6">
-          <li>Configure your brief parameters in the sidebar</li>
-          <li>Click <strong>"Generate Brief"</strong> to begin generation</li>
-          <li>Monitor the logs below to see the process working in the background</li>
-          <li>Results will appear below once processing is complete</li>
-        </ol>
+          <h2 class="text-2xl font-bold text-white mb-4">CURRENT LIMITATIONS:</h2>
+          <ul class="list-disc mb-4 pl-6">
+            <li>Processing may take a few minutes for complex queries</li>
+            <li>This is an experimental tool – results should be validated independently before making investment
+              decisions</li>
+          </ul>
 
-        <h2 class="text-2xl font-bold text-white mb-4">CURRENT LIMITATIONS:</h2>
-        <ul class="list-disc mb-4 pl-6">
-          <li>Processing may take a few minutes for complex queries</li>
-          <li>This is an experimental tool – results should be validated independently before making investment
-            decisions</li>
-        </ul>
-
-        <p class="">
-          Check our repo
-          <a href="https://github.com/Bigdata-com/bigdata-briefs" target="_blank" class="font-bold hover:text-blue-200">
-            https://github.com/Bigdata-com/bigdata-briefs
-          </a> for the complete and customizable version.
-        </p>
+          <p><strong>New users</strong>: We recommend starting with <strong>"See Example"</strong> to see the screener
+            in
+            action before
+            running your own analysis.<br></p>
+          <p class="">
+            Check our repo
+            <a href="https://github.com/Bigdata-com/bigdata-briefs" target="_blank"
+              class="font-bold hover:text-blue-200">
+              https://github.com/Bigdata-com/bigdata-briefs
+            </a> for the complete and customizable version.
+          </p>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<!-- Logs below both -->
-<div class="my-8 bg-zinc-900 rounded-lg shadow-lg p-6 text-zinc-100" style="width: 100%;">
-  <h2 class="text-lg font-bold mb-4 text-sky-400">Process Logs</h2>
-  <div id="logViewer"
-    class="bg-zinc-800 border border-slate-700 rounded-md p-4 h-64 overflow-y-auto font-mono text-sm whitespace-pre-wrap break-words text-zinc-100">
+
+  <!-- Logs below both divs -->
+  <div class="bg-zinc-900 rounded-lg shadow-lg p-6 text-zinc-100 h-80 min-h-[200px]">
+    <h2 class="text-lg font-bold mb-4 text-sky-400">Process Logs</h2>
+    <div id="logViewer"
+      class="bg-zinc-800 border border-slate-700 rounded-md p-4 h-64 overflow-y-auto font-mono text-sm whitespace-pre-wrap break-words text-zinc-100">
+    </div>
   </div>
 </div>
+
 
 <!-- Modal for JSON output -->
 <div id="jsonModal" class="hidden fixed z-[1000] inset-0 w-screen h-screen bg-black/50">
@@ -168,6 +208,8 @@
 </div>
 
 <script>
+
+  let topic_sentences = {{ topics | tojson }};
 
 
   const watchlists = {{ example_watchlists | tojson }};
@@ -187,6 +229,12 @@
 
 
   window.closeModal = closeModal;
+
+  // Load Example button functionality
+  document.getElementById('loadExampleBtn').onclick = async function () {
+    const requestId = "{{ example_request_id }}";
+    await loadRequestId(requestId);
+  };
 
 </script>
 <script src="static/scripts/form.js"></script>

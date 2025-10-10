@@ -6,6 +6,7 @@ from sqlmodel import Session, select
 
 from bigdata_briefs.api.models import BriefStatusResponse, WorkflowStatus
 from bigdata_briefs.api.sql_models import SQLWorkflowStatus
+from bigdata_briefs.api.utils import status_report_example_models
 from bigdata_briefs.storage import get_report_with_sources
 
 
@@ -81,3 +82,24 @@ class StorageManager:
                 logs=workflow_status.logs,
                 report=report,
             )
+
+    def initialize_with_example_data(self):
+        """Initialize the database with example data for testing and demonstration purposes.
+        This method adds a predefined workflow status and report to the database.
+        Only works if the database is empty.
+        """
+
+        with self.lock:
+            example_status, example_report = status_report_example_models()
+            # Check if the example id already exists in the database
+            existing_id = self.db_session.exec(
+                select(SQLWorkflowStatus).where(
+                    SQLWorkflowStatus.id == example_status.id
+                )
+            ).first()
+            if existing_id is not None:
+                return  # Database already initialized with example data
+
+            self.db_session.add(example_status)
+            self.db_session.add(example_report)
+            self.db_session.commit()

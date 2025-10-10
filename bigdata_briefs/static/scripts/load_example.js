@@ -18,7 +18,6 @@ async function loadRequestId(requestId) {
         throw new Error(`Status HTTP error ${statusResp.status}`);
     }
     const statusData = await statusResp.json();
-    spinner.style.display = 'block';
     // Render logs if available
     if (statusData.logs && Array.isArray(statusData.logs)) {
         logViewer.innerHTML = statusData.logs.map(line => {

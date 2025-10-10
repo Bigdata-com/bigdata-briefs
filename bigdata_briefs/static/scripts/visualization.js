@@ -1,11 +1,11 @@
 // Info modal content for each label
 const infoContents = {
-    topics: `<b>Topics</b>:<br>Specify the topics you want to analyze. Each topic must include the <code>{company}</code> placeholder which will be replaced with actual company names during analysis. You can specify multiple topics, one per line.<br><i>Examples: "How will {company} be affected by trade wars?", "{company} exposure to supply chain disruptions"</i>`,
+    topics: `<b>Topics</b>:<br>Specify the topics you want to analyze. Each topic must include the <code>{company}</code> placeholder which will be replaced with actual company names during analysis. You can specify multiple topics, one per line.<br><i>Examples: "What key takeaways emerged from {company}'s latest earnings report?"</i>`,
     companies: `<b>Company Universe</b>:<br>The portfolio of companies you want to create the brief for. You have several input options:<br><ul class="list-disc pl-6"><li>Select one of the public watchlists using the dropdown menu</li><li>Write list of RavenPack entity IDs (e.g., <code>4A6F00, D8442A</code>)</li><li>Input a watchlist ID (e.g., <code>44118802-9104-4265-b97a-2e6d88d74893</code> )</li></ul><br>Watchlists can be created programmatically using the <a href='https://docs.bigdata.com/getting-started/watchlist_management' target='_blank'>Bigdata.com SDK</a> or through the <a href='https://app.bigdata.com/watchlists' target='_blank'>Bigdata app</a>.`,
     start_date: `<b>Start/End Date</b>:<br>The start and end of the time sample during which you want to generate the brief. Format: <code>YYYY-MM-DD</code>.`,
     novelty: '<b>Novelty</b>:<br>If set to true, the analysis will focus on novel events that have not been widely reported before, helping to identify emerging risks. If false, all relevant events will be considered, including those that have been frequently reported.',
     sources: `<b>Sources</b>:<br>Optionally, you can filter the analysis to include only events from specific sources. You can provide a list of RavenPack entity IDs separated by commas (e.g., <code>9D69F1, B5235B</code>). If left empty, events from all sources will be considered.`,
-
+    load_example: `<b>Load Example</b>:<br>By clicking this button you will load an example output that is preloaded. By using it you can get an idea of the type of output you can expect from this workflow without waiting. The input data for the example is:<br><br><div><span class="font-bold">Start date:</span> 2025-10-01 00:00:00</div><div><span class="font-bold">End date:</span> 2025-10-07 00:00:00</div><div><span class="font-bold">Topics:</span> Default topics list</div>`,
 };
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -80,9 +80,19 @@ function getUrlParam(name) {
     return url.searchParams.get(name);
 }
 
-
-
-
+function toggleAdvancedOptions() {
+    var adv = document.getElementById('advanced-options');
+    var btnIcon = document.getElementById('advancedOptionsIcon');
+    if (adv.style.display === 'none' || adv.classList.contains('hidden')) {
+        adv.style.display = 'block';
+        adv.classList.remove('hidden');
+        btnIcon.textContent = '-';
+    } else {
+        adv.style.display = 'none';
+        adv.classList.add('hidden');
+        btnIcon.textContent = '+';
+    }
+}
 
 function closeModal() {
     document.getElementById('jsonModal').style.display = 'none';
@@ -121,4 +131,10 @@ function copyJson() {
         } catch (err) { }
         document.body.removeChild(textarea);
     }
-}; 
+};
+
+function renderBoldText(text) {
+    if (text === null || text === undefined) return '';
+    const str = String(text);
+    return str.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+};
