@@ -52,32 +52,32 @@ class BriefCreationRequest(BaseModel):
     companies: list[str] | str = Field(
         ...,
         description="List of RavenPack entity IDs  or a watchlist ID representing the companies to track in the generated brief.",
-        example=ExampleWatchlists.AI_SZN.value.id,
+        examples=[ExampleWatchlists.AI_SZN.value.id],
     )
     report_start_date: datetime = Field(
         ...,
         description="The start date for the report period.",
-        example=date.today() - timedelta(days=7),
+        examples=[date.today() - timedelta(days=7)],
     )
     report_end_date: datetime = Field(
         ...,
         description="The end date for the report period.",
-        example=date.today(),
+        examples=[date.today()],
     )
     novelty: bool = Field(
         True,
         description="Whether to only include novel information in the report.",
-        example=True,
+        examples=[True],
     )
     sources: list[str] | None = Field(
         None,
         description="List of RavenPack entity IDs to filter the sources by.",
-        example=None,
+        examples=None,
     )
     topics: list[str] | None = Field(
         None,
         description="A list of topics to focus on in the report. A set of handpicked topics focussing on financial relevance will be used if not provided.",
-        example=settings.TOPICS,
+        examples=[settings.TOPICS],
     )
 
 
