@@ -25,13 +25,15 @@ from bigdata_briefs.service import BriefPipelineService
 def mock_service():
     llm_client = MagicMock()
     query_service = MagicMock()
+    tracing_service = MagicMock()
     novelty_filter_service = MagicMock()
     service = BriefPipelineService(
         llm_client=llm_client,
         query_service=query_service,
+        tracing_service=tracing_service,
         novelty_filter_service=novelty_filter_service,
     )
-    return service, llm_client, query_service, novelty_filter_service
+    return service, llm_client, query_service, tracing_service, novelty_filter_service
 
 
 @pytest.fixture

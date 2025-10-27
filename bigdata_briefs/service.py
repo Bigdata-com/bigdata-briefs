@@ -59,13 +59,14 @@ from bigdata_briefs.prompts.user_prompts import (
     get_report_user_prompt,
     get_single_bullet_user_prompt,
 )
-from bigdata_briefs.query_service.query_service import (
+from bigdata_briefs.query_service.sdk import (
     CheckIfThereAreResultsSearchConfig,
     ExploratorySearchConfig,
     QueryService,
 )
 from bigdata_briefs.settings import settings
 from bigdata_briefs.storage import write_report_with_sources
+from bigdata_briefs.tracing.service import TraceEventName, TracingService
 from bigdata_briefs.utils import log_performance, log_time
 from bigdata_briefs.weighted_semaphore import WeightedSemaphore
 
@@ -80,12 +81,14 @@ class BriefPipelineService:
         self,
         llm_client: LLMClient,
         query_service: QueryService,
+        tracing_service: TracingService,
         novelty_filter_service: NoveltyFilteringService,
     ):
         self.novelty_filter_service = novelty_filter_service
         self.weighted_semaphore = WeightedSemaphore(settings.SDK_SIMULTANEOUS_REQUESTS)
         self.llm_client = llm_client
         self.query_service = query_service
+        self.tracing_service = tracing_service
         self.lock = Lock()
         self.no_info_reports = []
 
@@ -566,6 +569,7 @@ class BriefPipelineService:
     def factory(
         cls,
         query_service: QueryService,
+        tracing_service: TracingService,
         embedding_storage: EmbeddingStorage,
     ):
         embedding_storage = embedding_storage
@@ -574,7 +578,7 @@ class BriefPipelineService:
             embedding_client, embedding_storage
         )
         llm_client = LLMClient()
-        return cls(llm_client, query_service, novelty_filter_service)
+        return cls(llm_client, query_service, tracing_service, novelty_filter_service)
 
     @log_time
     def generate_brief(
@@ -659,8 +663,8 @@ class BriefPipelineService:
             if pipeline_output.is_empty:
                 logger.debug(f"No new news for {record_data.watchlist.id}.")
             workflow_execution_end = datetime.now()
-            self.query_service.send_trace(
-                event_name=self.query_service.TraceEventName.REPORT_GENERATED,
+            self.tracing_service.send_trace(
+                event_name=TraceEventName.REPORT_GENERATED,
                 trace={
                     "bigdataClientVersion": version("bigdata-client"),
                     "workflowUsage": QueryUnitMetrics.get_total_usage(),
