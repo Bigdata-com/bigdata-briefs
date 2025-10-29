@@ -102,9 +102,7 @@ class Chunk(BaseModel):
             text=api_chunk["text"],
             chunk=api_chunk["cnum"],
             relevance=api_chunk["relevance"],
-            sentiment=api_chunk.get(
-                "sentiment", 0.0
-            ),  # This is not required, there is currently a bug in the API
+            sentiment=api_chunk["sentiment"],
             highlights=[
                 ChunkHighlight(pnum=sentence["paragraph"], snum=sentence["sentence"])
                 for sentence in api_chunk.get("sentences", [])
