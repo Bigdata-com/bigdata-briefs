@@ -25,8 +25,8 @@ from bigdata_briefs.metrics import (
     Metrics,
 )
 from bigdata_briefs.novelty.storage import SQLiteEmbeddingStorage
-from bigdata_briefs.query_service.sdk import (
-    QueryService,
+from bigdata_briefs.query_service.api import (
+    APIQueryService,
 )
 from bigdata_briefs.service import BriefPipelineService
 from bigdata_briefs.settings import settings
@@ -36,7 +36,7 @@ from bigdata_briefs.tracing.service import TraceEventName, TracingService
 engine = create_engine(settings.DB_STRING, echo=LOG_LEVEL == "DEBUG")
 
 embedding_storage = SQLiteEmbeddingStorage(engine)
-query_service = QueryService()
+query_service = APIQueryService()
 tracing_service = TracingService()
 brief_service = BriefPipelineService.factory(
     query_service=query_service,
@@ -75,6 +75,7 @@ def lifespan(app: FastAPI):
         storage_manager.initialize_with_example_data()
 
     yield
+    query_service.cleanup()
 
 
 app = FastAPI(

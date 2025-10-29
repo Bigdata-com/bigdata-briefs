@@ -59,11 +59,7 @@ from bigdata_briefs.prompts.user_prompts import (
     get_report_user_prompt,
     get_single_bullet_user_prompt,
 )
-from bigdata_briefs.query_service.sdk import (
-    CheckIfThereAreResultsSearchConfig,
-    ExploratorySearchConfig,
-    QueryService,
-)
+from bigdata_briefs.query_service.base import BaseQueryService
 from bigdata_briefs.settings import settings
 from bigdata_briefs.storage import write_report_with_sources
 from bigdata_briefs.tracing.service import TraceEventName, TracingService
@@ -80,12 +76,12 @@ class BriefPipelineService:
     def __init__(
         self,
         llm_client: LLMClient,
-        query_service: QueryService,
+        query_service: BaseQueryService,
         tracing_service: TracingService,
         novelty_filter_service: NoveltyFilteringService,
     ):
         self.novelty_filter_service = novelty_filter_service
-        self.weighted_semaphore = WeightedSemaphore(settings.SDK_SIMULTANEOUS_REQUESTS)
+        self.weighted_semaphore = WeightedSemaphore(settings.API_SIMULTANEOUS_REQUESTS)
         self.llm_client = llm_client
         self.query_service = query_service
         self.tracing_service = tracing_service
@@ -194,21 +190,11 @@ class BriefPipelineService:
     ) -> tuple[SingleEntityReport, RetrievedSources]:
         logger.debug(f"Starting report on {entity}")
 
-        if source_filter:
-            any_result_search_config = CheckIfThereAreResultsSearchConfig(
-                source_filter=source_filter
-            )
-            exploratory_search_config = ExploratorySearchConfig(
-                source_filter=source_filter
-            )
-        else:
-            any_result_search_config = CheckIfThereAreResultsSearchConfig()
-            exploratory_search_config = ExploratorySearchConfig()
         # Quick initial search to check if there are any results
         initial_results = self.query_service.check_if_entity_has_results(
             entity_id=entity.id,
             report_dates=report_dates,
-            config=any_result_search_config,
+            source_filter=source_filter,
         )
 
         if not initial_results:
@@ -228,7 +214,7 @@ class BriefPipelineService:
                 executor=executor,
                 enable_metric=True,
                 metric_name="Exploratory search. All entities",
-                config=exploratory_search_config,
+                source_filter=source_filter,
             )
         if not exploratory_search_results:
             logger.debug(f"No new information found for {entity}")
@@ -568,7 +554,7 @@ class BriefPipelineService:
     @classmethod
     def factory(
         cls,
-        query_service: QueryService,
+        query_service: BaseQueryService,
         tracing_service: TracingService,
         embedding_storage: EmbeddingStorage,
     ):
@@ -717,8 +703,8 @@ class BriefPipelineService:
                 )
 
             if len(watchlist.items) > settings.WATCHLIST_ITEMS_LIMIT:
-                watchlist.items = set(
-                    list(watchlist.items)[: settings.WATCHLIST_ITEMS_LIMIT]
+                watchlist.items = list(
+                    set(list(watchlist.items)[: settings.WATCHLIST_ITEMS_LIMIT])
                 )
                 company_limit_msg = f"Watchlist {watchlist.id} has too many items: {len(watchlist.items)} Taking the first {settings.WATCHLIST_ITEMS_LIMIT}"
                 logger.debug(company_limit_msg)
@@ -772,7 +758,7 @@ class BriefPipelineService:
 
 def remove_non_companies(entities: list[Entity]):
     for item in entities[:]:
-        if item.entity_type != "COMP":
+        if item.entity_type != "companies":
             entities.remove(item)
 
     return entities
