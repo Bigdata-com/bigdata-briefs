@@ -45,9 +45,14 @@ class Entity(BaseModel):
     _raw: Any = None  # Field used to keep the original response from SDK
 
     @classmethod
-    def from_sdk(cls, sdk_entity):
-        raw = sdk_entity
-        instance = cls.model_validate(sdk_entity.model_dump())
+    def from_api(cls, api_entity):
+        raw = api_entity
+        instance = cls(
+            id=raw["id"],
+            name=raw["name"],
+            entity_type=raw["category"],
+            ticker=raw.get("ticker", None),
+        )
         instance._raw = raw
         return instance
 
@@ -59,19 +64,19 @@ class Entity(BaseModel):
         return EntityInfo(
             id=self.id,
             name=self.name,
-            description=raw.description,
-            entity_type=raw.entity_type,
-            company_type=raw.company_type,
-            country=raw.country,
-            sector=raw.sector,
-            industry_group=raw.industry_group,
-            industry=raw.industry,
-            ticker=raw.ticker,
-            webpage=raw.webpage,
-            isin_values=raw.isin_values,
-            cusip_values=raw.cusip_values,
-            sedol_values=raw.sedol_values,
-            listing_values=raw.listing_values,
+            description=raw["description"],
+            entity_type=raw["category"],
+            company_type=raw["type"],
+            country=raw["country"],
+            sector=raw["sector"],
+            industry_group=raw["industry_group"],
+            industry=raw["industry"],
+            ticker=raw.get("ticker", None),
+            webpage=raw["webpage"],
+            isin_values=raw["isin_values"],
+            cusip_values=raw["cusip_values"],
+            sedol_values=raw["sedol_values"],
+            listing_values=raw["listing_values"],
         )
 
 
@@ -92,16 +97,16 @@ class Chunk(BaseModel):
     model_config = ConfigDict(frozen=True)
 
     @classmethod
-    def from_sdk(cls, sdk_chunk):
+    def from_api(cls, api_chunk):
         return cls(
-            text=sdk_chunk.text,
-            chunk=sdk_chunk.chunk,
-            relevance=sdk_chunk.relevance,
-            sentiment=sdk_chunk.sentiment,
+            text=api_chunk["text"],
+            chunk=api_chunk["cnum"],
+            relevance=api_chunk["relevance"],
+            sentiment=api_chunk["sentiment"],
             highlights=[
-                ChunkHighlight(pnum=sentence.paragraph, snum=sentence.sentence)
-                for sentence in sdk_chunk.sentences
-            ],
+                ChunkHighlight(pnum=sentence["paragraph"], snum=sentence["sentence"])
+                for sentence in api_chunk.get("sentences", [])
+            ],  # Not being returned for now, will be empty until they are added to the API response
         )
 
     def __hash__(self) -> int:
@@ -136,19 +141,34 @@ class Result(BaseModel):
         return tuple(sorted(chunks[:MAX_CHUNKS_PER_DOCUMENT], key=lambda x: x.chunk))
 
     @classmethod
-    def from_sdk(cls, sdk_document):
+    def from_api(cls, api_document):
+        match api_document["source"]["rank"]:
+            case "RANK_1":
+                rank_int = 1
+            case "RANK_2":
+                rank_int = 2
+            case "RANK_3":
+                rank_int = 3
+            case "RANK_4":
+                rank_int = 4
+            case "RANK_5":
+                rank_int = 5
+            case _:
+                raise ValueError(
+                    f"Unknown source rank {api_document['source']['rank']} for document {api_document['id']}"
+                )
         return cls(
-            document_id=sdk_document.id,
-            headline=sdk_document.headline,
-            timestamp=sdk_document.timestamp.strftime("%Y-%m-%d %H:%M %Z"),
-            source_name=sdk_document.source.name,
-            source_key=sdk_document.source.key,
-            source_rank=sdk_document.source.rank,
-            url=sdk_document.url,
-            ts=sdk_document.timestamp.isoformat(),
-            document_scope=sdk_document.document_scope,
-            language=sdk_document.language,
-            chunks=[Chunk.from_sdk(sdk_chunk) for sdk_chunk in sdk_document.chunks],
+            document_id=api_document["id"],
+            headline=api_document["headline"],
+            timestamp=api_document["timestamp"],
+            source_name=api_document["source"]["name"],
+            source_key=api_document["source"]["id"],
+            source_rank=rank_int,
+            url=api_document.get("url", None),
+            ts=api_document["timestamp"],
+            document_scope=api_document.get("document_type", "Unknown"),
+            language=api_document.get("language", "Unknown"),
+            chunks=[Chunk.from_api(api_chunk) for api_chunk in api_document["chunks"]],
         )
 
 

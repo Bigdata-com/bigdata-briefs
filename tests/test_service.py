@@ -3,7 +3,6 @@ from unittest.mock import MagicMock
 from uuid import UUID
 
 import pytest
-from bigdata_client.models.entities import Company
 
 from bigdata_briefs.api.models import BriefCreationRequest
 from bigdata_briefs.models import (
@@ -25,22 +24,37 @@ from bigdata_briefs.service import BriefPipelineService
 def mock_service():
     llm_client = MagicMock()
     query_service = MagicMock()
+    tracing_service = MagicMock()
     novelty_filter_service = MagicMock()
     service = BriefPipelineService(
         llm_client=llm_client,
         query_service=query_service,
+        tracing_service=tracing_service,
         novelty_filter_service=novelty_filter_service,
     )
-    return service, llm_client, query_service, novelty_filter_service
+    return service, llm_client, query_service, tracing_service, novelty_filter_service
 
 
 @pytest.fixture
 def mock_entity():
     entity = Entity(id="test", name="Test Entity", entity_type="COMP", ticker="TEST")
-    entity._raw = Company(
-        id="test_id",
-        name="Test Company",
-    )
+    entity._raw = {
+        "id": "test",
+        "name": "Test Entity",
+        "description": "A test company",
+        "type": "Public",
+        "country": "US",
+        "sector": "Technology",
+        "industry_group": "Software",
+        "industry": "Application Software",
+        "ticker": "TEST",
+        "webpage": "https://www.test.com",
+        "isin_values": ["US1234567890"],
+        "cusip_values": ["123456789"],
+        "sedol_values": ["B0XXXX1"],
+        "listing_values": ["NASDAQ"],
+        "category": "Company",
+    }
     return entity
 
 
@@ -125,7 +139,7 @@ def mock_qa_pairs(mock_results):
 def test_generate_follow_up_questions(
     mock_service, mock_topics, mock_entity, mock_report_dates, mock_results
 ):
-    service, llm_client, _, _ = mock_service
+    service, llm_client, _, _, _ = mock_service
     # Mock the LLM client response
     llm_client.call_with_response_format.return_value = FollowUpAnalysis(
         questions=["Q1", "Q2"]
@@ -141,7 +155,7 @@ def test_generate_follow_up_questions(
 def test_generate_new_report(
     mock_service, mock_entity, mock_report_dates, mock_qa_pairs
 ):
-    service, llm_client, _, _ = mock_service
+    service, llm_client, _, _, _ = mock_service
     # Mock the LLM client response
     llm_client.call_with_response_format.return_value = TopicCollection(
         collection=[
@@ -164,7 +178,7 @@ def test_generate_new_report(
 
 
 def test_create_no_info_report(mock_service, mock_entity):
-    service, _, _, _ = mock_service
+    service, _, _, _, _ = mock_service
     message = "No info available"
     generation_step = "TEST_STEP"
     report, sources = service.create_no_info_report(
@@ -180,7 +194,7 @@ def test_create_no_info_report(mock_service, mock_entity):
 
 
 def test_correctly_checks_for_company_placeholder_in_topics(mock_service):
-    service, _, _, _ = mock_service
+    service, _, _, _, _ = mock_service
 
     invalid_topics = [
         "What is the latest news about the market?",

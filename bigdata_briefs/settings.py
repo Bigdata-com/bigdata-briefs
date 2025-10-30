@@ -70,14 +70,15 @@ class Settings(BaseSettings):
     EMBEDDING_RETRIES: int = 3
 
     # Search configuration
-    SDK_SIMULTANEOUS_REQUESTS: int = 80
-    SDK_DOCS_LIMIT_EXPLORATORY: int = 5
-    SDK_RERANK_EXPLORATORY: float = 0.8
+    API_SIMULTANEOUS_REQUESTS: int = 80
+    API_BASE_URL: str = "https://api.bigdata.com"
+    API_CHUNKS_LIMIT_EXPLORATORY: int = 15
+    API_RERANK_EXPLORATORY: float = 0.8
     EXPLORATORY_SENTIMENT_THRESHOLD: float = 0.3
-    SDK_DOCS_LIMIT_FOLLOWUP: int = 5
-    SDK_RERANK_FOLLOWUP: float = 0.9
+    API_CHUNK_LIMIT_FOLLOWUP: int = 15
+    API_RERANK_FOLLOWUP: float = 0.9
     FOLLOWUP_SENTIMENT_THRESHOLD: float = 0.3
-    SDK_RETRIES: int = 3
+    API_RETRIES: int = 3
 
     # LLM configuration
     LLM_FOLLOW_UP_QUESTIONS: int = 5

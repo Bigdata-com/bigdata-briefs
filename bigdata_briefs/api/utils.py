@@ -17,12 +17,15 @@ def get_example_values_from_schema(schema_model: Type[BaseModel]) -> dict:
     """
     example_values = {}
     for field_name, field in schema_model.model_fields.items():
+        example = None
         if isinstance(field.json_schema_extra, dict):
             if "example" in field.json_schema_extra:
                 example = field.json_schema_extra["example"]
-        else:
-            example = None
-
+        elif field.examples:
+            if field.examples:
+                example = field.examples[0]
+            else:
+                example = field.examples
         if example is not None:
             example_values[field_name] = example
         else:

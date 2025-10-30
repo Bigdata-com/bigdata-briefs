@@ -59,13 +59,10 @@ from bigdata_briefs.prompts.user_prompts import (
     get_report_user_prompt,
     get_single_bullet_user_prompt,
 )
-from bigdata_briefs.query_service.query_service import (
-    CheckIfThereAreResultsSearchConfig,
-    ExploratorySearchConfig,
-    QueryService,
-)
+from bigdata_briefs.query_service.base import BaseQueryService
 from bigdata_briefs.settings import settings
 from bigdata_briefs.storage import write_report_with_sources
+from bigdata_briefs.tracing.service import TraceEventName, TracingService
 from bigdata_briefs.utils import log_performance, log_time
 from bigdata_briefs.weighted_semaphore import WeightedSemaphore
 
@@ -79,13 +76,15 @@ class BriefPipelineService:
     def __init__(
         self,
         llm_client: LLMClient,
-        query_service: QueryService,
+        query_service: BaseQueryService,
+        tracing_service: TracingService,
         novelty_filter_service: NoveltyFilteringService,
     ):
         self.novelty_filter_service = novelty_filter_service
-        self.weighted_semaphore = WeightedSemaphore(settings.SDK_SIMULTANEOUS_REQUESTS)
+        self.weighted_semaphore = WeightedSemaphore(settings.API_SIMULTANEOUS_REQUESTS)
         self.llm_client = llm_client
         self.query_service = query_service
+        self.tracing_service = tracing_service
         self.lock = Lock()
         self.no_info_reports = []
 
@@ -191,21 +190,11 @@ class BriefPipelineService:
     ) -> tuple[SingleEntityReport, RetrievedSources]:
         logger.debug(f"Starting report on {entity}")
 
-        if source_filter:
-            any_result_search_config = CheckIfThereAreResultsSearchConfig(
-                source_filter=source_filter
-            )
-            exploratory_search_config = ExploratorySearchConfig(
-                source_filter=source_filter
-            )
-        else:
-            any_result_search_config = CheckIfThereAreResultsSearchConfig()
-            exploratory_search_config = ExploratorySearchConfig()
         # Quick initial search to check if there are any results
         initial_results = self.query_service.check_if_entity_has_results(
             entity_id=entity.id,
             report_dates=report_dates,
-            config=any_result_search_config,
+            source_filter=source_filter,
         )
 
         if not initial_results:
@@ -225,7 +214,7 @@ class BriefPipelineService:
                 executor=executor,
                 enable_metric=True,
                 metric_name="Exploratory search. All entities",
-                config=exploratory_search_config,
+                source_filter=source_filter,
             )
         if not exploratory_search_results:
             logger.debug(f"No new information found for {entity}")
@@ -565,7 +554,8 @@ class BriefPipelineService:
     @classmethod
     def factory(
         cls,
-        query_service: QueryService,
+        query_service: BaseQueryService,
+        tracing_service: TracingService,
         embedding_storage: EmbeddingStorage,
     ):
         embedding_storage = embedding_storage
@@ -574,7 +564,7 @@ class BriefPipelineService:
             embedding_client, embedding_storage
         )
         llm_client = LLMClient()
-        return cls(llm_client, query_service, novelty_filter_service)
+        return cls(llm_client, query_service, tracing_service, novelty_filter_service)
 
     @log_time
     def generate_brief(
@@ -659,8 +649,8 @@ class BriefPipelineService:
             if pipeline_output.is_empty:
                 logger.debug(f"No new news for {record_data.watchlist.id}.")
             workflow_execution_end = datetime.now()
-            self.query_service.send_trace(
-                event_name=self.query_service.TraceEventName.REPORT_GENERATED,
+            self.tracing_service.send_trace(
+                event_name=TraceEventName.REPORT_GENERATED,
                 trace={
                     "bigdataClientVersion": version("bigdata-client"),
                     "workflowUsage": QueryUnitMetrics.get_total_usage(),
@@ -713,8 +703,8 @@ class BriefPipelineService:
                 )
 
             if len(watchlist.items) > settings.WATCHLIST_ITEMS_LIMIT:
-                watchlist.items = set(
-                    list(watchlist.items)[: settings.WATCHLIST_ITEMS_LIMIT]
+                watchlist.items = list(
+                    set(list(watchlist.items)[: settings.WATCHLIST_ITEMS_LIMIT])
                 )
                 company_limit_msg = f"Watchlist {watchlist.id} has too many items: {len(watchlist.items)} Taking the first {settings.WATCHLIST_ITEMS_LIMIT}"
                 logger.debug(company_limit_msg)
@@ -768,7 +758,7 @@ class BriefPipelineService:
 
 def remove_non_companies(entities: list[Entity]):
     for item in entities[:]:
-        if item.entity_type != "COMP":
+        if item.entity_type != "companies":
             entities.remove(item)
 
     return entities
