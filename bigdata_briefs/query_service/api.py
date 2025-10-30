@@ -331,7 +331,7 @@ def build_query(
     rerank_threshold: float | None,
 ) -> dict:
     query: SearchAPIQueryDict = {
-        "auto_enrich_filters": False, # Our queries are tuned, avoid extra unexpected filters
+        "auto_enrich_filters": False,  # Our queries are tuned, avoid extra unexpected filters
         "filters": {
             "timestamp": {
                 "start": report_dates.start.isoformat(),

@@ -37,6 +37,7 @@ class RankingParams(TypedDict, total=False):
 
 
 class SearchAPIQueryDict(TypedDict, total=False):
+    auto_enrich_filters: bool
     filters: Filters
     ranking_params: RankingParams
     max_results: int
