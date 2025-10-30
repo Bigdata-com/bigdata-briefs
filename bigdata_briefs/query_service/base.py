@@ -55,6 +55,8 @@ class BaseQueryService(ABC):
         chunk_limit: int | None = None,
         use_topics: bool = True,
         rerank_threshold: float | None = None,
+        source_rank_boost: int | None,
+        freshness_boost: int | None,
     ): ...
 
     @abstractmethod
@@ -73,6 +75,8 @@ class BaseQueryService(ABC):
         chunk_limit: int | None = None,
         use_topics: bool = True,
         rerank_threshold: float | None = None,
+        source_rank_boost: int | None,
+        freshness_boost: int | None,
     ) -> list[Result]: ...
 
     @abstractmethod
@@ -86,6 +90,8 @@ class BaseQueryService(ABC):
         sentiment_threshold: float | None = None,
         chunk_limit: int | None = None,
         rerank_threshold: float | None = None,
+        source_rank_boost: int | None,
+        freshness_boost: int | None,
     ) -> list[Result]: ...
 
     @abstractmethod
@@ -97,4 +103,6 @@ class BaseQueryService(ABC):
         report_dates: ReportDates,
         source_filter: list[str] | None,
         executor: ThreadPoolExecutor,
+        source_rank_boost: int | None,
+        freshness_boost: int | None,
     ) -> QAPairs: ...

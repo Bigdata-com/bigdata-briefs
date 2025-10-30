@@ -72,12 +72,26 @@ class BriefCreationRequest(BaseModel):
     sources: list[str] | None = Field(
         None,
         description="List of RavenPack entity IDs to filter the sources by.",
-        examples=None,
+        examples=[None],
     )
     topics: list[str] | None = Field(
         None,
         description="A list of topics to focus on in the report. A set of handpicked topics focussing on financial relevance will be used if not provided.",
         examples=[settings.TOPICS],
+    )
+    source_rank_boost: int | None = Field(
+        None,
+        description="Controls how much the source rank influences relevance. 0 -> source rank has no effect. 10 -> maximum effect, boosting chunks from premium sources.",
+        ge=0,
+        le=10,
+        examples=[settings.API_SOURCE_RANK_BOOST],
+    )
+    freshness_boost: int | None = Field(
+        None,
+        description="Controls the influence of document timestamp on relevance. 0 -> publishing time is ignored (useful for point-in-time research). 10 -> most recent documents are heavily prioritized.",
+        ge=0,
+        le=10,
+        examples=[settings.API_FRESHNESS_BOOST],
     )
 
 
