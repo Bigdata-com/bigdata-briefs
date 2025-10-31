@@ -81,6 +81,7 @@ class Settings(BaseSettings):
     API_SOURCE_RANK_BOOST: int = 10
     API_FRESHNESS_BOOST: int = 8
     API_RETRIES: int = 3
+    API_TIMEOUT_SECONDS: int = 15
 
     # LLM configuration
     LLM_FOLLOW_UP_QUESTIONS: int = 5

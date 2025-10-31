@@ -40,7 +40,9 @@ class APIQueryService(BaseQueryService):
             value=settings.API_SIMULTANEOUS_REQUESTS
         )  # Max number of concurrent connections to the SDK
         self._client = httpx.Client(
-            base_url=settings.API_BASE_URL, headers=self.headers, timeout=15
+            base_url=settings.API_BASE_URL,
+            headers=self.headers,
+            timeout=settings.API_TIMEOUT_SECONDS,
         )
 
         # Watchlists are not available in the API client yet, so we use the SDK for that
