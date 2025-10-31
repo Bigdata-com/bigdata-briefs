@@ -28,6 +28,7 @@ class Filters(TypedDict, total=False):
 
 class RerankerParams(TypedDict):
     enabled: bool
+    threshold: NotRequired[float]
 
 
 class RankingParams(TypedDict, total=False):
