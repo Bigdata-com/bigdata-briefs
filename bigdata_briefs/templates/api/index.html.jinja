@@ -2,222 +2,431 @@
 {% block content %}
 
 <div id="infoModalsContainer"></div>
-<div class="flex flex-col w-full h-screen">
-  <!-- Top section with left form and right output -->
-  <div class="flex flex-row w-full flex-1 min-h-0 mb-10">
-    <!-- Left: Form -->
-    <div id="sidebar"
-      class="min-w-[150px] max-w-[600px] w-[350px] pr-6 bg-zinc-800 pl-2 rounded-l-lg pt-2 pb-2 text-sm transition-all duration-100 ease-in-out h-full overflow-y-auto">
-      <div class="h-full">
-        <form id="briefForm" autocomplete="off" class="h-full">
 
-          <div class="mb-5">
-            <label for="companies" class="block mb-2 font-bold text-md text-white">
-              <span>Company Universe:</span>
-              <button type="button" class="text-blue-500 text-sm" onclick="showInfoModal('companies')"
-                title="Info about Company Universe">ⓘ</button>
-            </label>
-            <div class="relative"> <!-- dropdown -->
-              <input id="companies_text" type="text"
-                class="absolute w-[calc(100%-20px)] bg-gray-50 text-gray-900 text-md rounded-lg block p-2.5 h-[42px]" />
-              <select id="companies"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2.5 h-[42px] z-10"
-                onchange="this.previousElementSibling.value=this.options[this.selectedIndex].text;">
-                <!-- Options and default are added in a javascript-->
-              </select>
-            </div>
-          </div>
-
-          <div class="mb-5">
-            <label for="start_date" class="block mb-2 font-bold text-md text-white">
-              <span>Start Date:</span>
-              <button type="button" class="text-blue-500 text-sm" onclick="showInfoModal('start_date')"
-                title="Info about Start Date">ⓘ</button>
-            </label>
-            <input type="date" id="start_date"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2"
-              placeholder="{{ default_start_date }}" required value="{{ default_start_date }}" />
-          </div>
-
-          <div class="mb-5">
-            <label for="end_date" class="block mb-2 font-bold text-md text-white">
-              <span>End Date:</span>
-              <button type="button" class="text-blue-500 text-sm" onclick="showInfoModal('start_date')"
-                title="Info about End Date">ⓘ</button>
-            </label>
-            <input type="date" id="end_date"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2"
-              placeholder="{{ default_end_date }}" required value="{{ default_end_date }}" />
-          </div>
-
-          <!-- Hidden novelty by default -->
-          <div class="hidden mb-5">
-            <label for="novelty" class="block mb-2 font-bold text-md text-white">
-              <span>Novelty:</span>
-              <button type="button" class="text-blue-500 text-sm" onclick="showInfoModal('novelty')"
-                title="Info about Novelty">ⓘ</button>
-            </label>
-            <select id="novelty"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2.5">
-              <option value="true" {% if novelty %}selected{% endif %}>true</option>
-              <option value="false" {% if not novelty %}selected{% endif %}>false</option>
-            </select>
-          </div>
-
-          <div class="mb-5">
-            <label for="sources" class="block mb-2 font-bold text-md text-white">
-              <span>Sources:</span>
-              <button type="button" class="text-blue-500 text-sm" onclick="showInfoModal('sources')"
-                title="Info about Sources">ⓘ</button>
-            </label>
-            <input id="sources"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2"
-              placeholder="{% if sources %}{{ ','.join(sources) }}{% endif %}" />
-          </div>
-
-          <button type="button" onclick="toggleAdvancedOptions()" id="advancedOptionsBtn"
-            class="flex items-center gap-2 text-white bg-gray-600 hover:bg-gray-700 font-medium rounded-lg text-sm px-3 py-0.5 mb-6 transition-colors duration-200">
-            <span id="advancedOptionsIcon" class="text-m font-bold">+</span>
-            <span>Topics list</span>
-          </button>
-
-          <div id="advanced-options" class="hidden mt-4">
-            <!-- Topics selector -->
-            <div class="mb-5">
-              <label for="topics" class="block mb-2 font-bold text-md text-white">
-                <span>Topics:</span>
-                <button type="button" class="text-blue-500 text-sm" onclick="showInfoModal('topics')"
-                  title="Info about Topics">ⓘ</button>
-              </label>
-              <div id="add-form" class="flex gap-3 mb-6">
-                <input type="text" id="new-sentence-input" placeholder="Add new topic"
-                  class="flex-grow p-3 border border-gray-300 text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <button id="add-button" type="button"
-                  class="bg-blue-600 text-white font-semibold px-8 py-3 rounded-md hover:bg-blue-700 transition-colors">
-                  Add
-                </button>
-              </div>
-
-              <div id="sentence-list" class="space-y-3">
-              </div>
-            </div>
-          </div>
-
-          <div class="mb-5 hidden">
-            <label for="llm_model" class="block mb-2 font-bold text-md text-white">
-              <span>LLM Model:</span>
-              <button type="button" class="text-blue-500 text-sm" onclick="showInfoModal('llm_model')"
-                title="Info about LLM Model">ⓘ</button>
-            </label>
-            <input type="text" id="llm_model"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2.5"
-              placeholder="{{ llm_model }}" value="{{ llm_model }}" />
-          </div>
-          <button type="submit"
-            class="w-[150px] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md px-5 py-2.5 text-center mb-2">Generate
-            Brief</button>
-          <div>
-            <button type="button" id="loadExampleBtn"
-              class="w-[150px] text-white bg-green-600 hover:bg-green-800 font-medium rounded-lg text-md px-5 py-2.5 text-center">See
-              Example</button>
-            <button type="button" class="text-blue-500 text-sm" onclick="showInfoModal('load_example')"
-              title="Info about Load Example">ⓘ</button>
-          </div>
-        </form>
+<!-- Empty State (shown when no analysis has been run) -->
+<div id="emptyState" class="py-16 text-center">
+  <div class="mb-8">
+    <h2 class="text-3xl font-bold text-white mb-4">Ready to generate your brief?</h2>
+    <p class="text-zinc-300 text-lg max-w-2xl mx-auto">
+      Select a pre-computed example to review existing briefs, or create a new one with personalized market updates tailored to your watchlist and interests.
+    </p>
+  </div>
+  
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-8">
+    <!-- Quick Start Card 1 -->
+    <div onclick="loadExample()" 
+      class="bg-gradient-to-br from-blue-900/30 to-blue-800/20 rounded-xl border border-blue-700/40 p-8 cursor-pointer hover:shadow-xl hover:border-blue-500/60 transition-all group">
+      <div class="w-16 h-16 bg-blue-500/20 rounded-lg flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+        <svg class="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+        </svg>
       </div>
-      <div id="spinner" class="hidden p-2.5">⏳ Running...</div>
-
+      <h3 class="text-xl font-bold text-white mb-2">See Example</h3>
+      <p class="text-zinc-400 text-sm">Explore a pre-configured brief with sample data</p>
     </div>
-    <!-- Drag bar -->
-    <div id="dragbar"
-      class="w-2 cursor-ew-resize bg-zinc-700 hover:bg-blue-500 transition-colors duration-100 ease-in-out z-20"
-      style="position: relative;"></div>
-    <!-- Right: Output -->
-    <div id="outputarea"
-      class="flex-1 min-w-[300px] bg-zinc-900 p-8 rounded-r-lg transition-all duration-100 ease-in-out h-full overflow-y-auto">
-      <button id="showJsonBtn"
-        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md w-full sm:w-auto px-5 py-2.5 text-center mb-4"
-        style="display:none;">Show raw JSON</button>
-      <div id="output" class="w-full">
-        <div class="flex flex-col h-full py-5">
-          <h1 class="text-3xl font-bold text-white mb-4">Brief Generation</h1>
-          <p class="mb-4">
-            Briefs are concise, automated reports generated by Bigdata's platform that help users stay informed about
-            their watchlists and areas of interest. They are personalized market updates that deliver only the most
-            relevant insights based on your watchlist, helping you stay informed without information overload.
-          </p>
+    
+    <!-- Quick Start Card 2 -->
+    <div onclick="toggleConfigPanel()" 
+      class="bg-gradient-to-br from-green-900/30 to-green-800/20 rounded-xl border border-green-700/40 p-8 cursor-pointer hover:shadow-xl hover:border-green-500/60 transition-all group">
+      <div class="w-16 h-16 bg-green-500/20 rounded-lg flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+        <svg class="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+        </svg>
+      </div>
+      <h3 class="text-xl font-bold text-white mb-2">New Brief</h3>
+      <p class="text-zinc-400 text-sm">Create a personalized brief for your watchlist</p>
+    </div>
+    
+    <!-- Quick Start Card 3 -->
+    <div onclick="window.open('https://github.com/Bigdata-com/bigdata-briefs', '_blank')" 
+      class="bg-gradient-to-br from-purple-900/30 to-purple-800/20 rounded-xl border border-purple-700/40 p-8 cursor-pointer hover:shadow-xl hover:border-purple-500/60 transition-all group">
+      <div class="w-16 h-16 bg-purple-500/20 rounded-lg flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+        <svg class="w-8 h-8 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+        </svg>
+      </div>
+      <h3 class="text-xl font-bold text-white mb-2">View Source</h3>
+      <p class="text-zinc-400 text-sm">Check out the complete codebase on GitHub</p>
+    </div>
+  </div>
+  
+  <div class="flex items-center justify-center gap-4">
+    <button onclick="toggleConfigPanel()" 
+      class="flex items-center gap-2 px-6 py-3 bg-zinc-700 hover:bg-zinc-600 text-white rounded-lg font-medium transition-colors">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
+      </svg>
+      New Brief
+    </button>
+  </div>
+</div>
 
-          <h2 class="text-2xl font-bold text-white mb-4">HOW TO USE:</h2>
-          <h2 class="text-xl font-bold text-blue-100 mb-4 pl-4">Option 1: Quick Start</h2>
-          <ol class="list-decimal mb-4 pl-10">
-            <li>Click <strong>"See Example"</strong> to explore a pre-configured analysis with sample data</li>
-            <li>Perfect for first-time users to understand the tool's capabilities</li>
-          </ol>
-          <h2 class="text-xl font-bold text-blue-100 mb-4 pl-4">Option 2: Custom Analysis</h2>
-          <ol class="list-decimal mb-4 pl-10">
-            <li>Configure your brief parameters in the sidebar</li>
-            <li>Click <strong>"Generate Brief"</strong> to begin generation</li>
-            <li>Monitor the logs below to see the process working in the background</li>
-            <li>Results will appear below once processing is complete</li>
-          </ol>
-
-          <h2 class="text-2xl font-bold text-white mb-4">CURRENT LIMITATIONS:</h2>
-          <ul class="list-disc mb-4 pl-6">
-            <li>Processing may take a few minutes for complex queries</li>
-            <li>This is an experimental tool – results should be validated independently before making investment
-              decisions</li>
-          </ul>
-
-          <p><strong>New users</strong>: We recommend starting with <strong>"See Example"</strong> to see the screener
-            in
-            action before
-            running your own analysis.<br></p>
-          <p class="">
-            Check our repo
-            <a href="https://github.com/Bigdata-com/bigdata-briefs" target="_blank"
-              class="font-bold hover:text-blue-200">
-              https://github.com/Bigdata-com/bigdata-briefs
-            </a> for the complete and customizable version.
-          </p>
+<!-- Dashboard Section (shown after analysis) -->
+<div id="dashboardSection" class="hidden">
+  <div id="resultsContainer" class="-mt-8">
+    <!-- Header 2: Brief Info -->
+    <div id="analysisHeader" class="bg-zinc-800/50 border-b border-zinc-700 px-6 py-4">
+      <div class="flex items-center justify-between">
+        <!-- Left: Brief Info -->
+        <div class="flex items-center gap-6">
+          <div class="flex items-center gap-3">
+            <span class="text-base font-semibold text-zinc-200">Date Range:</span>
+            <span class="text-lg font-bold text-white" id="currentDateRange">-</span>
+          </div>
+          <div class="w-px h-6 bg-zinc-500/60"></div>
+          <div class="flex items-center gap-3">
+            <span class="text-base font-semibold text-zinc-200">Companies:</span>
+            <span class="text-lg font-bold text-white" id="currentCompanies">-</span>
+          </div>
+        </div>
+        
+        <!-- Right: Action Buttons -->
+        <div class="flex items-center gap-4">
+          <button onclick="startNewAnalysis()" 
+                  class="flex items-center gap-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-medium transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+            </svg>
+            New Brief
+          </button>
         </div>
       </div>
     </div>
-  </div>
+    
+    <!-- Tab Navigation -->
+    <div class="bg-zinc-800/50 border-b border-zinc-700">
+      <div class="flex gap-1 p-2">
+        <button data-tab="overview" 
+          class="flex items-center gap-2 px-4 py-3 rounded-lg font-medium text-sm transition-all duration-200 border-b-2 border-blue-500 text-blue-400 bg-blue-500/10">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 16a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1H5a1 1 0 01-1-1v-3zM14 16a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1h-4a1 1 0 01-1-1v-3z"></path>
+          </svg>
+          Overview
+        </button>
+        <button data-tab="companies" 
+          class="flex items-center gap-2 px-4 py-3 rounded-lg font-medium text-sm transition-all duration-200 border-b-2 border-transparent text-zinc-400 hover:text-zinc-200">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+          </svg>
+          Company Reports
+        </button>
+      </div>
+    </div>
 
-  <!-- Logs below both divs -->
-  <div class="bg-zinc-900 rounded-lg shadow-lg p-6 text-zinc-100 h-80 min-h-[200px]">
-    <h2 class="text-lg font-bold mb-4 text-sky-400">Process Logs</h2>
-    <div id="logViewer"
-      class="bg-zinc-800 border border-slate-700 rounded-md p-4 h-64 overflow-y-auto font-mono text-sm whitespace-pre-wrap break-words text-zinc-100">
+    <!-- Tab Contents -->
+    <div class="bg-zinc-800/30 rounded-b-lg border border-zinc-700 border-t-0">
+      <!-- Overview Tab -->
+      <div data-tab-content="overview" class="p-6">
+        <div class="loading-indicator hidden">
+          <div class="flex items-center justify-center py-20">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+            <span class="ml-3 text-zinc-400">Loading overview...</span>
+          </div>
+        </div>
+        <div class="tab-actual-content"></div>
+      </div>
+
+      <!-- Company Reports Tab -->
+      <div data-tab-content="companies" class="hidden p-6">
+        <div class="loading-indicator hidden">
+          <div class="flex items-center justify-center py-20">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+            <span class="ml-3 text-zinc-400">Loading company reports...</span>
+          </div>
+        </div>
+        <div class="tab-actual-content"></div>
+      </div>
     </div>
   </div>
 </div>
 
+<!-- Configuration Panel (Slides in from right) -->
+<div id="configBackdrop" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-40 transition-opacity duration-300"></div>
+<div id="configPanel" class="fixed top-0 right-0 h-full w-full max-w-md bg-gradient-to-br from-zinc-800 to-zinc-900 shadow-2xl z-50 transform translate-x-full transition-transform duration-300 overflow-y-auto enhanced-scrollbar">
+  <div class="p-6">
+    <!-- Panel Header -->
+    <div class="flex items-center justify-between mb-6 pb-4 border-b border-zinc-700">
+      <div class="flex items-center gap-3">
+        <h2 class="text-2xl font-bold text-white">Configuration</h2>
+        <span class="text-xs text-zinc-400 bg-zinc-700/50 px-2 py-1 rounded">{{ version }}</span>
+      </div>
+      <button onclick="closeConfigPanel()" class="text-zinc-400 hover:text-white transition-colors">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+    
+    <!-- Quick Start Templates -->
+    <div class="mb-8">
+      <h3 class="text-sm font-semibold text-zinc-400 mb-1 uppercase tracking-wide">Quick Start</h3>
+      <p class="text-xs text-zinc-500 mb-3">Load an example brief to see how it works</p>
+      <div class="space-y-2">
+        <button onclick="loadExample()" 
+          class="w-full text-left px-4 py-3 bg-blue-600/20 hover:bg-blue-600/30 border border-blue-600/30 rounded-lg transition-colors">
+          <div class="font-medium text-white">See Example Brief</div>
+          <div class="text-xs text-zinc-400">AI Scene Stocks</div>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Custom Configuration Form -->
+    <form id="briefForm" autocomplete="off">
+      <h3 class="text-sm font-semibold text-zinc-400 mb-4 uppercase tracking-wide">Custom Configuration</h3>
+      
+      <!-- Company Universe -->
+      <div class="mb-4">
+        <label for="companies" class="block mb-2 font-medium text-sm text-white">
+          <span>Company Universe</span>
+          <button type="button" class="text-red-400 text-xs ml-1" onclick="showInfoModal('companies')" title="Info">ⓘ</button>
+        </label>
+        
+        <!-- Tabs for input method -->
+        <div class="flex gap-2 mb-3 border-b border-zinc-700">
+          <button type="button" id="method-watchlist" onclick="switchCompanyInputMethod('watchlist')" 
+            class="px-3 py-2 text-sm font-medium text-blue-400 border-b-2 border-blue-400">
+            Watchlist
+          </button>
+          <button type="button" id="method-csv" onclick="switchCompanyInputMethod('csv')" 
+            class="px-3 py-2 text-sm font-medium text-zinc-400 hover:text-zinc-200 border-b-2 border-transparent">
+            CSV Upload
+          </button>
+          <button type="button" id="method-manual" onclick="switchCompanyInputMethod('manual')" 
+            class="px-3 py-2 text-sm font-medium text-zinc-400 hover:text-zinc-200 border-b-2 border-transparent">
+            Manual
+          </button>
+        </div>
+        
+        <!-- Watchlist Input -->
+        <div id="input-watchlist" class="company-input-method">
+          <div class="relative">
+            <input id="companies_text" type="text"
+              class="absolute w-[calc(100%-20px)] bg-zinc-900 text-white text-sm rounded-lg block p-3 h-[46px] focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+            <select id="companies"
+              class="bg-zinc-900 border border-zinc-600 text-white text-sm rounded-lg block w-full p-3 h-[46px] z-10 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 cursor-pointer"
+              onchange="this.previousElementSibling.value=this.options[this.selectedIndex].text;">
+            </select>
+          </div>
+        </div>
+        
+        <!-- CSV Upload Input -->
+        <div id="input-csv" class="company-input-method hidden">
+          <input type="file" id="csvFile" accept=".csv" 
+            class="hidden" onchange="handleCsvUpload(event)" />
+          <button type="button" onclick="document.getElementById('csvFile').click()"
+            class="w-full px-4 py-3 bg-zinc-700 hover:bg-zinc-600 text-white rounded-lg border border-zinc-600 transition-colors">
+            <svg class="w-5 h-5 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+            </svg>
+            Upload CSV File
+          </button>
+          <div id="csvPreview" class="mt-3 text-xs text-zinc-400 hidden">
+            <div class="mb-2">Uploaded: <span id="csvFileName"></span> (<span id="csvEntityCount"></span> entities)</div>
+            <div id="csvEntities" class="max-h-32 overflow-y-auto bg-zinc-900/50 rounded p-2 text-xs"></div>
+          </div>
+        </div>
+        
+        <!-- Manual Input -->
+        <div id="input-manual" class="company-input-method hidden">
+          <textarea id="companies_manual" rows="3"
+            class="bg-zinc-900 border border-zinc-600 text-white text-sm rounded-lg block w-full p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            placeholder="Enter RavenPack entity IDs separated by commas (e.g., 4A6F00, D8442A)"></textarea>
+        </div>
+      </div>
+
+      <!-- Date Range -->
+      <div class="grid grid-cols-2 gap-3 mb-4">
+        <div>
+          <label for="start_date" class="block mb-2 font-medium text-sm text-white">
+            <span>Start Date</span>
+            <button type="button" class="text-red-400 text-xs ml-1" onclick="showInfoModal('start_date')" title="Info">ⓘ</button>
+          </label>
+          <input type="date" id="start_date"
+            class="bg-zinc-900 border border-zinc-600 text-white text-sm rounded-lg block w-full p-2 focus:ring-2 focus:ring-blue-500"
+            value="{{ default_start_date }}" required />
+        </div>
+        <div>
+          <label for="end_date" class="block mb-2 font-medium text-sm text-white">
+            <span>End Date</span>
+            <button type="button" class="text-red-400 text-xs ml-1" onclick="showInfoModal('end_date')" title="Info">ⓘ</button>
+          </label>
+          <input type="date" id="end_date"
+            class="bg-zinc-900 border border-zinc-600 text-white text-sm rounded-lg block w-full p-2 focus:ring-2 focus:ring-blue-500"
+            value="{{ default_end_date }}" required />
+        </div>
+      </div>
+
+      <!-- Topic Presets -->
+      <div class="mb-4">
+        <label for="topicPreset" class="block mb-2 font-medium text-sm text-white">
+          <span>Topic Preset</span>
+          <button type="button" class="text-red-400 text-xs ml-1" onclick="showInfoModal('topics')" title="Info">ⓘ</button>
+        </label>
+        <select id="topicPreset" onchange="handleTopicPresetChange()"
+          class="bg-zinc-900 border border-zinc-600 text-white text-sm rounded-lg block w-full p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 cursor-pointer">
+          <option value="finance">Finance (Default)</option>
+          <option value="all">All {company}</option>
+          <option value="esg">ESG</option>
+          <option value="custom">Custom</option>
+        </select>
+      </div>
+
+      <!-- Topics List (Expandable) -->
+      <button type="button" onclick="toggleAdvancedOptions()" id="advancedOptionsBtn"
+        class="w-full flex items-center justify-between px-4 py-3 bg-zinc-700 hover:bg-zinc-600 rounded-lg transition-colors mb-4">
+        <span class="text-white font-medium text-sm">Topics List</span>
+        <svg id="advancedOptionsIcon" class="w-4 h-4 text-white transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        </svg>
+      </button>
+
+      <div id="advanced-options" class="hidden space-y-4 mb-6">
+        <!-- Topics selector -->
+        <div class="mb-5">
+          <label for="topics" class="block mb-2 font-medium text-sm text-white">
+            <span>Topics</span>
+          </label>
+          <div id="add-form" class="flex gap-3 mb-6">
+            <input type="text" id="new-sentence-input" placeholder="Add new topic (must include {company})"
+              class="flex-grow bg-zinc-900 border border-zinc-600 text-white text-sm rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <button id="add-button" type="button"
+              class="bg-blue-600 text-white font-semibold px-4 py-3 rounded-lg hover:bg-blue-700 transition-colors">
+              Add
+            </button>
+          </div>
+
+          <div id="sentence-list" class="space-y-3">
+          </div>
+        </div>
+
+        <!-- Sources -->
+        <div>
+          <label for="sources" class="block mb-2 font-medium text-sm text-white">
+            <span>Sources</span>
+            <button type="button" class="text-red-400 text-xs ml-1" onclick="showInfoModal('sources')" title="Info">ⓘ</button>
+          </label>
+          <input id="sources"
+            class="bg-zinc-900 border border-zinc-600 text-white text-sm rounded-lg block w-full p-3 focus:ring-2 focus:ring-blue-500"
+            placeholder="{% if sources %}{{ ','.join(sources) }}{% else %}Optional: Comma-separated entity IDs{% endif %}" />
+        </div>
+
+        <!-- Novelty -->
+        <div>
+          <label for="novelty" class="flex items-center gap-2 font-medium text-sm text-white">
+            <input type="checkbox" id="novelty" 
+              class="w-4 h-4 bg-zinc-900 border-zinc-600 rounded focus:ring-blue-500"
+              {% if novelty %}checked{% endif %} />
+            <span>Novelty Filter</span>
+            <button type="button" class="text-red-400 text-xs ml-1" onclick="showInfoModal('novelty')" title="Info">ⓘ</button>
+          </label>
+        </div>
+
+        <!-- Include Title and Summary -->
+        <div>
+          <label for="includeTitleSummary" class="flex items-center gap-2 font-medium text-sm text-white">
+            <input type="checkbox" id="includeTitleSummary" 
+              class="w-4 h-4 bg-zinc-900 border-zinc-600 rounded focus:ring-blue-500"
+              checked />
+            <span>Include Title and Summary</span>
+            <button type="button" class="text-red-400 text-xs ml-1" onclick="showInfoModal('includeTitleSummary')" title="Info">ⓘ</button>
+          </label>
+          <p class="text-xs text-zinc-400 mt-1 ml-6">Backend support coming soon</p>
+        </div>
+
+        <!-- Source Rank Boost -->
+        <div>
+          <label for="source_rank_boost" class="block mb-2 font-medium text-sm text-white">
+            <span>Source Rank Boost (0-10)</span>
+            <button type="button" class="text-red-400 text-xs ml-1" onclick="showInfoModal('source_rank_boost')" title="Info">ⓘ</button>
+          </label>
+          <input type="number" id="source_rank_boost" min="0" max="10"
+            class="bg-zinc-900 border border-zinc-600 text-white text-sm rounded-lg block w-full p-3 focus:ring-2 focus:ring-blue-500"
+            placeholder="Optional" />
+        </div>
+
+        <!-- Freshness Boost -->
+        <div>
+          <label for="freshness_boost" class="block mb-2 font-medium text-sm text-white">
+            <span>Freshness Boost (0-10)</span>
+            <button type="button" class="text-red-400 text-xs ml-1" onclick="showInfoModal('freshness_boost')" title="Info">ⓘ</button>
+          </label>
+          <input type="number" id="freshness_boost" min="0" max="10"
+            class="bg-zinc-900 border border-zinc-600 text-white text-sm rounded-lg block w-full p-3 focus:ring-2 focus:ring-blue-500"
+            placeholder="Optional" />
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="space-y-3 pt-4 border-t border-zinc-700">
+        <button type="submit"
+          class="w-full flex items-center justify-center gap-2 text-white bg-blue-600 hover:bg-blue-700 font-bold rounded-lg text-base px-6 py-4 transition-colors shadow-lg">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          Generate Brief
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Spinner -->
+<div id="spinner" class="hidden fixed top-4 right-4 bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 shadow-xl z-50">
+  <div class="flex items-center gap-3">
+    <div class="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-500"></div>
+    <span class="text-white font-medium">Running analysis...</span>
+  </div>
+</div>
+
+<!-- Logs below (Collapsible) -->
+<div class="my-8 bg-gradient-to-br from-zinc-900 to-zinc-800 rounded-lg shadow-2xl border border-zinc-700">
+  <button onclick="toggleProcessLogs()" 
+    class="w-full flex items-center justify-between px-6 py-4 hover:bg-zinc-800/50 transition-colors rounded-t-lg">
+    <h2 class="text-lg font-bold text-sky-400 flex items-center gap-2">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+        </path>
+      </svg>
+      Process Logs
+    </h2>
+    <svg id="logsIcon" class="w-5 h-5 text-zinc-400 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+    </svg>
+  </button>
+  <div id="logViewerContainer" class="hidden px-6 pb-6">
+    <div id="logViewer"
+      class="bg-black/30 border border-slate-600 rounded-lg p-4 h-64 overflow-y-auto font-mono text-sm whitespace-pre-wrap break-words text-zinc-100 shadow-inner enhanced-scrollbar">
+    </div>
+  </div>
+</div>
 
 <!-- Modal for JSON output -->
-<div id="jsonModal" class="hidden fixed z-[1000] inset-0 w-screen h-screen bg-black/50">
-  <div class="bg-white relative my-20 mx-auto p-5 rounded-lg w-4/5 max-w-[900px]">
+<div id="jsonModal" class="hidden fixed z-[1000] inset-0 w-screen h-screen bg-black/70 backdrop-blur-sm">
+  <div class="bg-white relative my-20 mx-auto p-6 rounded-xl w-4/5 max-w-[900px] shadow-2xl border border-gray-200">
     <button id="copyBtn" onclick="copyJson()"
-      class="absolute top-[10px] right-[50px] text-[15px] px-[10px] py-[4px] cursor-pointer text-gray-900">Copy</button>
-    <button onclick="closeModal()" class="absolute top-2.5 right-2.5 text-lg text-gray-900">&times;</button>
-    <h2 class="text-gray-900">Raw JSON Output</h2>
+      class="absolute top-4 right-14 text-sm px-4 py-2 cursor-pointer text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors font-medium">Copy</button>
+    <button onclick="closeModal()"
+      class="absolute top-4 right-4 text-2xl text-gray-600 hover:text-gray-900 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors">&times;</button>
+    <h2 class="text-gray-900 text-xl font-bold mb-4">Raw JSON Output</h2>
     <pre id="jsonContent"
-      class="bg-gray-900 text-gray-100 p-4 whitespace-pre-wrap break-words overflow-auto rounded-md mt-5"
+      class="bg-gray-900 text-gray-100 p-4 whitespace-pre-wrap break-words overflow-auto rounded-lg mt-2 border border-gray-700"
       style="max-height:60vh;"></pre>
   </div>
 </div>
 
 <script>
-
   let topic_sentences = {{ topics | tojson }};
-
-
   const watchlists = {{ example_watchlists | tojson }};
+  const example_request_id = "{{ example_request_id }}";
+  let currentCompanyInputMethod = 'watchlist';
+  window.csvEntities = [];
 
   // Populate the dropdown with watchlists
   const comp_select = document.getElementById('companies');
   const comp_text = document.getElementById('companies_text');
-  watchlists.forEach((watchlist, index) => {
+  watchlists.forEach((watchlist) => {
     if (watchlist.id === "{{ companies }}") {
       comp_text.value = watchlist.name;
     }
@@ -227,17 +436,92 @@
     comp_select.appendChild(option);
   });
 
+  // Load Example button functionality
+  function loadExample() {
+    if (window.loadRequestId) {
+      loadRequestId(example_request_id);
+    }
+  }
+  window.loadExample = loadExample;
+
+  // Company input method switching
+  function switchCompanyInputMethod(method) {
+    currentCompanyInputMethod = method;
+    // Update tab buttons
+    document.querySelectorAll('[id^="method-"]').forEach(btn => {
+      btn.classList.remove('text-blue-400', 'border-blue-400');
+      btn.classList.add('text-zinc-400', 'border-transparent');
+    });
+    document.getElementById(`method-${method}`).classList.remove('text-zinc-400', 'border-transparent');
+    document.getElementById(`method-${method}`).classList.add('text-blue-400', 'border-blue-400');
+    
+    // Show/hide input methods
+    document.querySelectorAll('.company-input-method').forEach(div => div.classList.add('hidden'));
+    document.getElementById(`input-${method}`).classList.remove('hidden');
+  }
+  window.switchCompanyInputMethod = switchCompanyInputMethod;
+
+  // CSV upload handler
+  function handleCsvUpload(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const text = e.target.result;
+      const lines = text.split('\n').map(l => l.trim()).filter(l => l);
+      window.csvEntities = lines;
+      
+      document.getElementById('csvFileName').textContent = file.name;
+      document.getElementById('csvEntityCount').textContent = window.csvEntities.length;
+      document.getElementById('csvEntities').textContent = window.csvEntities.slice(0, 10).join(', ') + (window.csvEntities.length > 10 ? '...' : '');
+      document.getElementById('csvPreview').classList.remove('hidden');
+    };
+    reader.readAsText(file);
+  }
+  window.handleCsvUpload = handleCsvUpload;
+
+  // Reset to start - clear results and show empty state
+  function resetToStart() {
+    const emptyState = document.getElementById('emptyState');
+    const dashboardSection = document.getElementById('dashboardSection');
+    
+    if (emptyState) emptyState.style.display = 'block';
+    if (dashboardSection) dashboardSection.classList.add('hidden');
+    
+    window.lastReport = null;
+    
+    if (window.tabController) {
+      window.tabController.reset();
+    }
+    
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  window.resetToStart = resetToStart;
+
+  function startNewAnalysis() {
+    resetToStart();
+    toggleConfigPanel();
+  }
+  window.startNewAnalysis = startNewAnalysis;
 
   window.closeModal = closeModal;
 
-  // Load Example button functionality
-  document.getElementById('loadExampleBtn').onclick = async function () {
-    const requestId = "{{ example_request_id }}";
-    await loadRequestId(requestId);
-  };
-
+  // Initialize tab controller when DOM is ready
+  document.addEventListener('DOMContentLoaded', function() {
+    if (window.tabController) {
+      window.tabController.init();
+    }
+  });
 </script>
-<script src="static/scripts/form.js"></script>
-<script src="static/scripts/load_example.js"></script>
-</form>
+<script src="static/scripts/visualization.js?version={{version}}"></script>
+<script src="static/scripts/config_panel.js?version={{version}}"></script>
+<script src="static/scripts/tab_controller.js?version={{version}}"></script>
+<script src="static/scripts/topics_selector.js?version={{version}}"></script>
+<script src="static/scripts/csv_upload.js?version={{version}}"></script>
+<script src="static/scripts/company_browser.js?version={{version}}"></script>
+<script src="static/scripts/report_renderer.js?version={{version}}"></script>
+<script src="static/scripts/form.js?version={{version}}"></script>
+<script src="static/scripts/load_example.js?version={{version}}"></script>
+
 {% endblock %}
