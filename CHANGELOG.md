@@ -13,6 +13,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Fixed Pydantic model field examples to use `examples` instead of `example` to avoid deprecation warnings.
 
+### Fixed
+- Fixed issue when input was a list of companies instead of a watchlist ID.
+
 ## [3.1.2] - 2025-10-21
 
 ### Fixed

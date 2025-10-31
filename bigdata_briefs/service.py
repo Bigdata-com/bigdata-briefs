@@ -727,7 +727,7 @@ class BriefPipelineService:
             entity_ids = record.companies
             # Use a dummy watchlist as the whole workflow expects a watchlist ID and name
             watchlist = Watchlist(
-                id=f"custom_{sha256(str(record.companies)).hexdigest()}",
+                id=f"custom_{sha256(str(record.companies).encode()).hexdigest()}",
                 name="Custom set of entities",
             )
         else:
