@@ -95,6 +95,10 @@ class Settings(BaseSettings):
     LLM_FOLLOW_UP_QUESTIONS: int = 5
     LLM_RETRIES: int = 3
 
+    # Server configuration
+    HOST: str = "0.0.0.0"
+    PORT: int = 8000
+
     @classmethod
     def load_from_env(cls) -> "Settings":
         return cls()
