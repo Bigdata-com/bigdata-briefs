@@ -21,6 +21,7 @@ from bigdata_briefs.models import (
 )
 from bigdata_briefs.query_service.base import BaseQueryService
 from bigdata_briefs.query_service.models import SearchAPIQueryDict
+from bigdata_briefs.query_service.rate_limit import RequestsPerMinuteController
 from bigdata_briefs.settings import settings
 from bigdata_briefs.utils import (
     log_args,
@@ -29,6 +30,10 @@ from bigdata_briefs.utils import (
     log_time,
     sleep_with_backoff,
 )
+
+MAX_REQUESTS_PER_MINUTE = 495  # Backend rate limit
+REFRESH_FREQUENCY_RATE_LIMIT = 5  # Time in seconds to pro-rate the rate limiter, lower values = smoother requests, more overhead
+TIME_BEFORE_RETRY_RATE_LIMITER = 1.0  # Time in seconds before retrying the request
 
 
 class APIQueryService(BaseQueryService):
@@ -43,6 +48,11 @@ class APIQueryService(BaseQueryService):
             base_url=settings.API_BASE_URL,
             headers=self.headers,
             timeout=settings.API_TIMEOUT_SECONDS,
+        )
+        self.rate_limit_controller = RequestsPerMinuteController(
+            max_requests_per_min=MAX_REQUESTS_PER_MINUTE,
+            rate_limit_refresh_frequency=REFRESH_FREQUENCY_RATE_LIMIT,
+            seconds_before_retry=TIME_BEFORE_RETRY_RATE_LIMITER,
         )
 
         # Watchlists are not available in the API client yet, so we use the SDK for that
@@ -93,8 +103,12 @@ class APIQueryService(BaseQueryService):
         with self.semaphore:
             for attempt in range(settings.API_RETRIES):
                 try:
-                    result = self._client.request(
-                        method=method, url=endpoint, json=payload, headers=headers
+                    result = self.rate_limit_controller(
+                        self._client.request,
+                        method=method,
+                        url=endpoint,
+                        json=payload,
+                        headers=headers,
                     )
                     result.raise_for_status()
                     return result.json()
