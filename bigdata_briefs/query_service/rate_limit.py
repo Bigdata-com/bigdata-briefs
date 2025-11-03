@@ -4,10 +4,13 @@ from math import floor
 from threading import Lock
 from time import perf_counter, sleep
 
+from bigdata_briefs import logger
 from bigdata_briefs.exceptions import TooManyAPIRetriesError
 
 # Define a high max retries to avoid infinite loops in rate limiter
 MAX_RETRIES_RATE_LIMITER = 10000
+LOG_WARNING_EVERY_N_RETRIES = 100
+RAISE_WARNING_EVERY_N_RETRIES = 1000
 
 
 class RequestsPerMinuteController:
@@ -43,7 +46,9 @@ class RequestsPerMinuteController:
         for idx in range(MAX_RETRIES_RATE_LIMITER):
             if self._allowed_by_rate_limit():
                 return func(*args, **kwargs)
-            if idx > 0 and idx % 10 == 0:
+            if idx > 0 and idx % LOG_WARNING_EVERY_N_RETRIES == 0:
+                logger.warning("Handling requests throttle.", retries_attempted=idx)
+            if idx > 0 and idx % RAISE_WARNING_EVERY_N_RETRIES == 0:
                 warnings.warn(
                     f"Handling requests throttle. Retries attempted: {idx}",
                     RuntimeWarning,
