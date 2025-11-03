@@ -2,8 +2,8 @@ class EmtpyWatchlistError(Exception):
     """EmtpyWatchlistError"""
 
 
-class TooManySDKRetriesError(Exception):
-    """TooManySDKRetriesError"""
+class TooManyAPIRetriesError(Exception):
+    """TooManyAPIRetriesError"""
 
 
 class FailedBriefGenerationError(Exception):

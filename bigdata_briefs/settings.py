@@ -78,7 +78,10 @@ class Settings(BaseSettings):
     API_CHUNK_LIMIT_FOLLOWUP: int = 15
     API_RERANK_FOLLOWUP: float = 0.9
     FOLLOWUP_SENTIMENT_THRESHOLD: float = 0.3
+    API_SOURCE_RANK_BOOST: int = 10
+    API_FRESHNESS_BOOST: int = 8
     API_RETRIES: int = 3
+    API_TIMEOUT_SECONDS: int = 15
 
     # LLM configuration
     LLM_FOLLOW_UP_QUESTIONS: int = 5

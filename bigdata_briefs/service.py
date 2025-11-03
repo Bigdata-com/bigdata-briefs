@@ -186,6 +186,8 @@ class BriefPipelineService:
         topics: list[str],
         source_filter: list[str] | None,
         report_dates: ReportDates,
+        source_rank_boost: int | None,
+        freshness_boost: int | None,
         executor: ThreadPoolExecutor,
     ) -> tuple[SingleEntityReport, RetrievedSources]:
         logger.debug(f"Starting report on {entity}")
@@ -215,6 +217,8 @@ class BriefPipelineService:
                 enable_metric=True,
                 metric_name="Exploratory search. All entities",
                 source_filter=source_filter,
+                source_rank_boost=source_rank_boost,
+                freshness_boost=freshness_boost,
             )
         if not exploratory_search_results:
             logger.debug(f"No new information found for {entity}")
@@ -252,6 +256,8 @@ class BriefPipelineService:
                 enable_metric=True,
                 metric_name="Run follow up questions",
                 source_filter=source_filter,
+                source_rank_boost=source_rank_boost,
+                freshness_boost=freshness_boost,
             )
         if not any(pair.answer for pair in qa_pairs.pairs):
             logger.debug(f"No qa-pairs generated for {entity}")
@@ -473,6 +479,8 @@ class BriefPipelineService:
         topics: list[str],
         source_filter: list[str] | None,
         report_dates: ReportDates,
+        source_rank_boost: int | None,
+        freshness_boost: int | None,
         request_id: UUID,
         storage_manager: StorageManager,
     ) -> tuple[WatchlistReport, RetrievedSources]:
@@ -485,6 +493,8 @@ class BriefPipelineService:
                     topics,
                     source_filter,
                     report_dates,
+                    source_rank_boost,
+                    freshness_boost,
                     executor,
                 ): entity
                 for entity in entities
@@ -588,6 +598,8 @@ class BriefPipelineService:
                 record_data.topics,
                 record_data.sources_filter,
                 record_data.report_dates,
+                record_data.source_rank_boost,
+                record_data.freshness_boost,
                 enable_metric=True,
                 metric_name="Execute watchlist report pipeline",
                 request_id=request_id,
@@ -715,7 +727,7 @@ class BriefPipelineService:
             entity_ids = record.companies
             # Use a dummy watchlist as the whole workflow expects a watchlist ID and name
             watchlist = Watchlist(
-                id=f"custom_{sha256(str(record.companies)).hexdigest()}",
+                id=f"custom_{sha256(str(record.companies).encode()).hexdigest()}",
                 name="Custom set of entities",
             )
         else:
@@ -753,6 +765,8 @@ class BriefPipelineService:
                 end=record.report_end_date,
                 novelty=record.novelty,
             ),
+            source_rank_boost=record.source_rank_boost,
+            freshness_boost=record.freshness_boost,
         )
 
 

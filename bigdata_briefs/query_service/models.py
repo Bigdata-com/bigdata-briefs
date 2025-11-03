@@ -28,6 +28,7 @@ class Filters(TypedDict, total=False):
 
 class RerankerParams(TypedDict):
     enabled: bool
+    threshold: NotRequired[float]
 
 
 class RankingParams(TypedDict, total=False):
@@ -40,5 +41,5 @@ class SearchAPIQueryDict(TypedDict, total=False):
     auto_enrich_filters: bool
     filters: Filters
     ranking_params: RankingParams
-    max_results: int
+    max_chunks: int
     text: NotRequired[str]

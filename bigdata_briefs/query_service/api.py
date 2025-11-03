@@ -9,7 +9,7 @@ from bigdata_client.models.watchlists import Watchlist
 from pydantic import ValidationError
 
 from bigdata_briefs import logger
-from bigdata_briefs.exceptions import TooManySDKRetriesError
+from bigdata_briefs.exceptions import TooManyAPIRetriesError
 from bigdata_briefs.metrics import ContentMetrics, QueryUnitMetrics
 from bigdata_briefs.models import (
     Entity,
@@ -40,7 +40,9 @@ class APIQueryService(BaseQueryService):
             value=settings.API_SIMULTANEOUS_REQUESTS
         )  # Max number of concurrent connections to the SDK
         self._client = httpx.Client(
-            base_url=settings.API_BASE_URL, headers=self.headers
+            base_url=settings.API_BASE_URL,
+            headers=self.headers,
+            timeout=settings.API_TIMEOUT_SECONDS,
         )
 
         # Watchlists are not available in the API client yet, so we use the SDK for that
@@ -87,7 +89,7 @@ class APIQueryService(BaseQueryService):
     def _call_api(
         self, endpoint: str, method: str, payload: dict, headers: dict
     ) -> dict:
-        e = None
+        last_exception: httpx.HTTPStatusError
         with self.semaphore:
             for attempt in range(settings.API_RETRIES):
                 try:
@@ -96,14 +98,15 @@ class APIQueryService(BaseQueryService):
                     )
                     result.raise_for_status()
                     return result.json()
-                except Exception as e:
+                except httpx.HTTPStatusError as e:
+                    last_exception = e
                     logger.warning(
                         f"Error calling API {method} at endpoint {endpoint}: {e}. Attempt {attempt + 1}"
                     )
                     sleep_with_backoff(attempt=attempt)
 
-        raise TooManySDKRetriesError(
-            f"Too many API retries for {method} at endpoint {endpoint}. Last error {e}"
+        raise TooManyAPIRetriesError(
+            f"Too many API retries for {method} at endpoint {endpoint}. Last error {last_exception}. Response body {last_exception.response.text}"
         )
 
     @log_performance
@@ -115,7 +118,7 @@ class APIQueryService(BaseQueryService):
         *,
         source_filter: list[str] | None = None,
         sentiment_threshold: float | None = None,
-        chunk_limit: int | None = None,
+        chunk_limit: int | None = 1,
         rerank_threshold: float | None = None,
     ) -> list[Result]:
         """
@@ -131,6 +134,8 @@ class APIQueryService(BaseQueryService):
             sentiment_threshold=sentiment_threshold,
             chunk_limit=chunk_limit,
             rerank_threshold=rerank_threshold,
+            source_rank_boost=None,
+            freshness_boost=None,
         )
         results = self.api_search(
             endpoint="/v1/search",
@@ -159,8 +164,10 @@ class APIQueryService(BaseQueryService):
         topic: str | None = None,
         source_filter: list[str] | None = None,
         sentiment_threshold: float | None = settings.EXPLORATORY_SENTIMENT_THRESHOLD,
-        chunk_limit: int | None = None,
+        chunk_limit: int | None = settings.API_CHUNKS_LIMIT_EXPLORATORY,
         rerank_threshold: float | None = settings.API_RERANK_EXPLORATORY,
+        source_rank_boost: int | None = settings.API_SOURCE_RANK_BOOST,
+        freshness_boost: int | None = settings.API_FRESHNESS_BOOST,
     ):
         query = build_query(
             entity_id=entity_id,
@@ -170,6 +177,8 @@ class APIQueryService(BaseQueryService):
             sentiment_threshold=sentiment_threshold,
             chunk_limit=chunk_limit,
             rerank_threshold=rerank_threshold,
+            source_rank_boost=source_rank_boost,
+            freshness_boost=freshness_boost,
         )
 
         results = self.api_search(
@@ -202,9 +211,11 @@ class APIQueryService(BaseQueryService):
         executor: ThreadPoolExecutor,
         source_filter: list[str] | None = None,
         sentiment_threshold: float | None = settings.EXPLORATORY_SENTIMENT_THRESHOLD,
-        chunk_limit: int | None = None,
+        chunk_limit: int | None = settings.API_CHUNKS_LIMIT_EXPLORATORY,
         use_topics: bool = True,
         rerank_threshold: float | None = settings.API_RERANK_EXPLORATORY,
+        source_rank_boost: int | None = settings.API_SOURCE_RANK_BOOST,
+        freshness_boost: int | None = settings.API_FRESHNESS_BOOST,
     ) -> list[Result]:
         if use_topics:
             # TODO use jinja2
@@ -216,6 +227,12 @@ class APIQueryService(BaseQueryService):
                     similarity_text=similarity_text,
                     topic=topic,
                     report_dates=report_dates,
+                    source_filter=source_filter,
+                    sentiment_threshold=sentiment_threshold,
+                    chunk_limit=chunk_limit,
+                    rerank_threshold=rerank_threshold,
+                    source_rank_boost=source_rank_boost,
+                    freshness_boost=freshness_boost,
                     enable_metric=True,
                     metric_name=f"Exploratory search. Entity {entity.id}",
                 )
@@ -252,8 +269,10 @@ class APIQueryService(BaseQueryService):
         *,
         source_filter: list[str] | None = None,
         sentiment_threshold: float | None = settings.FOLLOWUP_SENTIMENT_THRESHOLD,
-        chunk_limit: int | None = None,
+        chunk_limit: int | None = settings.API_CHUNK_LIMIT_FOLLOWUP,
         rerank_threshold: float | None = settings.API_RERANK_FOLLOWUP,
+        source_rank_boost: int | None = settings.API_SOURCE_RANK_BOOST,
+        freshness_boost: int | None = settings.API_FRESHNESS_BOOST,
     ):
         query = build_query(
             entity_id=entity_id,
@@ -263,6 +282,8 @@ class APIQueryService(BaseQueryService):
             sentiment_threshold=sentiment_threshold,
             chunk_limit=chunk_limit,
             rerank_threshold=rerank_threshold,
+            source_rank_boost=source_rank_boost,
+            freshness_boost=freshness_boost,
         )
 
         results = self.api_search(
@@ -291,6 +312,8 @@ class APIQueryService(BaseQueryService):
         report_dates: ReportDates,
         source_filter: list[str] | None,
         executor: ThreadPoolExecutor,
+        source_rank_boost: int | None = settings.API_SOURCE_RANK_BOOST,
+        freshness_boost: int | None = settings.API_FRESHNESS_BOOST,
     ) -> QAPairs:
         future_to_question = {
             executor.submit(
@@ -299,6 +322,8 @@ class APIQueryService(BaseQueryService):
                 question=question,
                 report_dates=report_dates,
                 source_filter=source_filter,
+                source_rank_boost=source_rank_boost,
+                freshness_boost=freshness_boost,
             ): question
             for question in follow_up_questions
         }
@@ -329,7 +354,13 @@ def build_query(
     sentiment_threshold: float | None,
     chunk_limit: int,
     rerank_threshold: float | None,
+    source_rank_boost: int | None,
+    freshness_boost: int | None,
 ) -> dict:
+    if source_rank_boost is None:
+        source_rank_boost = settings.API_SOURCE_RANK_BOOST
+    if freshness_boost is None:
+        freshness_boost = settings.API_FRESHNESS_BOOST
     query: SearchAPIQueryDict = {
         "auto_enrich_filters": False,  # Our queries are tuned, avoid extra unexpected filters
         "filters": {
@@ -339,10 +370,10 @@ def build_query(
             }
         },
         "ranking_params": {
-            "source_boost": 10,
-            "freshness_boost": 8,
+            "source_boost": source_rank_boost,
+            "freshness_boost": freshness_boost,
         },
-        "max_results": chunk_limit,
+        "max_chunks": chunk_limit,
     }
 
     if similarity_text:
@@ -368,11 +399,14 @@ def build_query(
     if rerank_threshold is None:
         query["ranking_params"]["reranker"] = {"enabled": False}
     else:
-        # No way to change the reranker now
-        pass
+        query["ranking_params"]["reranker"] = {
+            "enabled": True,
+            # No way to change the reranker yet, coming soon
+            # "threshold": rerank_threshold,
+        }
 
     # Use high-quality sources if desired
-    if source_filter is not None:
+    if source_filter:
         query["filters"]["source"] = {"mode": "INCLUDE", "values": source_filter}
 
     return {"query": query}
