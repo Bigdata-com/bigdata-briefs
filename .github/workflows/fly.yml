@@ -1,0 +1,35 @@
+name: Fly Deploy
+
+on:
+  workflow_run:
+    workflows:
+      - "Build Docker image and push to ghcr"
+    types:
+      - completed
+
+jobs:
+  deploy:
+    name: Deploy app
+    runs-on: ubuntu-latest
+    concurrency: deploy-group    # ensure only one action runs at a time
+    environment: fly
+    # Only run when the producing workflow completed successfully
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+
+      - name: Deploy using pre-built GHCR image
+        run: |
+          # Note that this requires the app to be already launched and secrets configured
+          flyctl deploy --remote-only --image ghcr.io/bigdata-com/bigdata-briefs:latest
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
