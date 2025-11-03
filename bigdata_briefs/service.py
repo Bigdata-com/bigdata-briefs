@@ -479,6 +479,7 @@ class BriefPipelineService:
         topics: list[str],
         source_filter: list[str] | None,
         report_dates: ReportDates,
+        disable_introduction: bool,
         source_rank_boost: int | None,
         freshness_boost: int | None,
         request_id: UUID,
@@ -541,12 +542,24 @@ class BriefPipelineService:
                 request_id,
                 f"Generated reports for {len(entities)} entities, {len(entity_reports_with_info)} with information, {len(self.no_info_reports)} without information and {len(entity_reports_failed)} failed.",
             )
-            storage_manager.log_message(request_id, "Generating introduction section")
-            intro_section = self.generate_intro_section_and_title(
-                actionable_company_reports=entity_reports_with_info,
-                report_dates=report_dates,
-                executor=executor,
-            )
+            if disable_introduction:
+                intro_section = IntroSection(
+                    intro_section=f"Generated reports for {len(entities)} entities, {len(self.no_info_reports) + len(entity_reports_failed)} without information. Read the individual reports for more details.",
+                    report_title=f"Brief report for {len(entities)} entities",
+                )
+                storage_manager.log_message(
+                    request_id,
+                    "Skipping introduction section generation.",
+                )
+            else:
+                storage_manager.log_message(
+                    request_id, "Generating introduction section"
+                )
+                intro_section = self.generate_intro_section_and_title(
+                    actionable_company_reports=entity_reports_with_info,
+                    report_dates=report_dates,
+                    executor=executor,
+                )
             storage_manager.log_message(request_id, "Introduction section generated")
         # Construct the final WatchlistReport
         return (
@@ -598,6 +611,7 @@ class BriefPipelineService:
                 record_data.topics,
                 record_data.sources_filter,
                 record_data.report_dates,
+                record_data.disable_introduction,
                 record_data.source_rank_boost,
                 record_data.freshness_boost,
                 enable_metric=True,
@@ -752,6 +766,13 @@ class BriefPipelineService:
                 f"Validation failed after removing non-companies {watchlist.id}"
             )
 
+        # The main reason to disable the intro on large entity lists is to avoid the LLM context or non-useful intros
+        if len(entities) > settings.DISABLE_INTRO_OVER_N_ENTITIES:
+            record.disable_introduction = True
+            disable_intro_msg = f"Disabling introduction section as the number of entities is {len(entities)}, which exceeds the limit of {settings.DISABLE_INTRO_OVER_N_ENTITIES}."
+            logger.debug(disable_intro_msg)
+            storage_manager.log_message(request_id, disable_intro_msg)
+
         return ValidatedInput(
             watchlist=Watchlist(
                 id=watchlist.id,
@@ -765,6 +786,7 @@ class BriefPipelineService:
                 end=record.report_end_date,
                 novelty=record.novelty,
             ),
+            disable_introduction=record.disable_introduction,
             source_rank_boost=record.source_rank_boost,
             freshness_boost=record.freshness_boost,
         )

@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Added support for the new search API instead of the SDK for retrieval, allowing for more flexible queries and better performance.
 - Added rate limiting and retry logic to handle API rate limits gracefully, avoiding rate limit errors.
+- Added an option to disable the introduction section in the generated report, useful for large watchlists where the introduction may not be relevant or may overload the context of an LLM.
 
 ### Changed
 - Fixed Pydantic model field examples to use `examples` instead of `example` to avoid deprecation warnings.

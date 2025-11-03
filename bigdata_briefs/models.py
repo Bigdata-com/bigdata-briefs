@@ -200,6 +200,7 @@ class ValidatedInput(BaseModel):
     entities: list[Entity]
     topics: list[str]
     report_dates: ReportDates
+    disable_introduction: bool
     sources_filter: list[str] | None
     source_rank_boost: int | None
     freshness_boost: int | None

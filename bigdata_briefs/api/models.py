@@ -69,6 +69,11 @@ class BriefCreationRequest(BaseModel):
         description="Whether to only include novel information in the report.",
         examples=[True],
     )
+    disable_introduction: bool = Field(
+        False,
+        description=f"Whether to disable the title and introduction section in the report. This gets automatically enabled if the number of entities exceeds {settings.DISABLE_INTRO_OVER_N_ENTITIES} entities.",
+        examples=[False],
+    )
     sources: list[str] | None = Field(
         None,
         description="List of RavenPack entity IDs to filter the sources by.",
