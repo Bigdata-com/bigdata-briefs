@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Added support for the new search API instead of the SDK for retrieval, allowing for more flexible queries and better performance.
+- Added rate limiting and retry logic to handle API rate limits gracefully, avoiding rate limit errors.
 
 ### Changed
 - Fixed Pydantic model field examples to use `examples` instead of `example` to avoid deprecation warnings.
