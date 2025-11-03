@@ -129,6 +129,7 @@ async def sample_frontend(_: str = Security(query_scheme)) -> HTMLResponse:
             sources=example_values["sources"],
             example_watchlists=list(dict(ExampleWatchlists).values()),
             example_request_id=str(EXAMPLE_UUID),
+            version=__version__,
         ),
         media_type="text/html",
     )
