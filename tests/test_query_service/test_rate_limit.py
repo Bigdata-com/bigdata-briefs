@@ -4,8 +4,8 @@ import warnings
 
 import pytest
 
-from bigdata_briefs.query_service import rate_limit
 from bigdata_briefs.exceptions import TooManyAPIRetriesError
+from bigdata_briefs.query_service import rate_limit
 
 
 def test_rpmc_allows_request():
@@ -59,9 +59,9 @@ def test_rpmc_allows_after_limit_refresh():
     # This call should be blocked until next refresh, then allowed
     second_result = rpmc(lambda: True)
     assert second_result is True, "The second request result was not as expected"
-    assert (
-        time.time() - start_time > refresh_period
-    ), "The second request was executed faster than expected"
+    assert time.time() - start_time > refresh_period, (
+        "The second request was executed faster than expected"
+    )
 
 
 def test_rpmc_safely_avoids_infinite_loops():
