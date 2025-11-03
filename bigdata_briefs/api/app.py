@@ -29,7 +29,7 @@ from bigdata_briefs.query_service.api import (
     APIQueryService,
 )
 from bigdata_briefs.service import BriefPipelineService
-from bigdata_briefs.settings import settings
+from bigdata_briefs.settings import UNSET, settings
 from bigdata_briefs.templates import loader
 from bigdata_briefs.tracing.service import TraceEventName, TracingService
 
@@ -61,12 +61,13 @@ def get_storage_manager(session: Session = Depends(get_session)) -> StorageManag
 
 def lifespan(app: FastAPI):
     logger.info("Starting Bigdata briefs service", version=__version__)
-    tracing_service.send_trace(
-        event_name=TraceEventName.SERVICE_START,
-        trace={
-            "version": __version__,
-        },
-    )
+    if settings.BIGDATA_API_KEY != UNSET:
+        tracing_service.send_trace(
+            event_name=TraceEventName.SERVICE_START,
+            trace={
+                "version": __version__,
+            },
+        )
     create_db_and_tables()
 
     # Initialize the database with example data

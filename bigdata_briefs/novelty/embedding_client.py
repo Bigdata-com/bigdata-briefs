@@ -5,14 +5,14 @@ import openai
 from bigdata_briefs import logger
 from bigdata_briefs.metrics import EmbeddingsMetrics
 from bigdata_briefs.models import EmbeddingsUsage
-from bigdata_briefs.settings import settings
+from bigdata_briefs.settings import settings, UNSET
 from bigdata_briefs.utils import sleep_with_backoff
 
 
 class EmbeddingClient:
     def __init__(self, model: str, client: openai.OpenAI | None = None):
         self.model = model
-        if client is None:
+        if client is None and settings.OPENAI_API_KEY != UNSET:
             client = openai.OpenAI()
         self.client = client
 

@@ -6,7 +6,7 @@ from pydantic import BaseModel
 from bigdata_briefs import logger
 from bigdata_briefs.metrics import LLMMetrics
 from bigdata_briefs.models import LLMUsage
-from bigdata_briefs.settings import settings
+from bigdata_briefs.settings import settings, UNSET
 from bigdata_briefs.utils import (
     log_args,
     log_return_value,
@@ -21,7 +21,7 @@ class FollowUpQuestionsPromptDefaults(BaseModel):
 
 class LLMClient:
     def __init__(self, client: openai.OpenAI | None = None):
-        if client is None:
+        if client is None and settings.OPENAI_API_KEY != UNSET:
             client = openai.OpenAI()
         self.client = client
 
