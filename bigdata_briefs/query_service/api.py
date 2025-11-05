@@ -35,6 +35,8 @@ MAX_REQUESTS_PER_MINUTE = 495  # Backend rate limit
 REFRESH_FREQUENCY_RATE_LIMIT = 5  # Time in seconds to pro-rate the rate limiter, lower values = smoother requests, more overhead
 TIME_BEFORE_RETRY_RATE_LIMITER = 1.0  # Time in seconds before retrying the request
 
+MAX_ENTITIES_PER_KG_ENTITY_BY_ID_REQUEST = 100  # Max number of entities per request to /v1/knowledge-graph/entities/id
+
 
 class APIQueryService(BaseQueryService):
     def __init__(
@@ -69,16 +71,21 @@ class APIQueryService(BaseQueryService):
         return self.sdk_client.watchlists.get(watchlist_id)
 
     def get_entities(self, entity_ids: list[str]) -> list[Entity]:
-        results = self._call_api(
-            endpoint="/v1/knowledge-graph/entities/id",
-            method="POST",
-            payload={"values": entity_ids},
-            headers=self.headers,
-        )
-        raw_entities = results
+        # Batch entity_ids into chunks
+        def batched(iterable, n):
+            for i in range(0, len(iterable), n):
+                yield iterable[i : i + n]
+
         entities = []
-        for entity_data in raw_entities["results"].values():
-            entities.append(Entity.from_api(entity_data))
+        for batch in batched(entity_ids, MAX_ENTITIES_PER_KG_ENTITY_BY_ID_REQUEST):
+            raw_entities = self._call_api(
+                endpoint="/v1/knowledge-graph/entities/id",
+                method="POST",
+                payload={"values": batch},
+                headers=self.headers,
+            )
+            for entity_data in raw_entities["results"].values():
+                entities.append(Entity.from_api(entity_data))
 
         return entities
 
