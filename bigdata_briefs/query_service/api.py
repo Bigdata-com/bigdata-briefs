@@ -422,8 +422,7 @@ def build_query(
     else:
         query["ranking_params"]["reranker"] = {
             "enabled": True,
-            # No way to change the reranker yet, coming soon
-            # "threshold": rerank_threshold,
+            "threshold": rerank_threshold,
         }
 
     # Use high-quality sources if desired
