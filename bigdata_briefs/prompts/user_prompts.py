@@ -52,6 +52,7 @@ def get_report_user_prompt(
     user_template: Template,
     response_format: str,
     report_sources: RetrievedSources | None,
+    topics: list[str] | None = None,
 ):
     if report_sources:
         rendered_qapairs = qa_pairs.render_md_with_references(report_sources)
@@ -60,9 +61,14 @@ def get_report_user_prompt(
 
     entity_info = f"{entity.name} ({entity.ticker})" if entity.ticker else entity.name
 
+    topics_md = None
+    if topics:
+        topics_md = "\n".join(f"* {t.format(company=entity.name)}" for t in topics)
+
     return user_template.render(
         entity_info=entity_info,
         rendered_qapairs=rendered_qapairs,
+        topics=topics_md,
         lookback_days=report_dates.get_lookback_days(),
         start_date=report_dates.start.strftime("%B %d, %Y"),
         end_date=report_dates.end.strftime("%B %d, %Y"),

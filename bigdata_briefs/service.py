@@ -122,7 +122,11 @@ class BriefPipelineService:
 
     @log_performance
     def generate_new_report(
-        self, entity: Entity, qa_pairs: QAPairs, report_dates: ReportDates
+        self,
+        entity: Entity,
+        qa_pairs: QAPairs,
+        report_dates: ReportDates,
+        topics: list[str] | None = None,
     ):
         report_sources, reverse_map = create_sources_for_report(qa_pairs)
 
@@ -134,6 +138,7 @@ class BriefPipelineService:
             user_template=prompt_keys.user_template,
             response_format=f"{TopicCollection.model_json_schema()}",
             report_sources=report_sources,
+            topics=topics,
         )
         messages = [
             {"role": "user", "content": user_prompt},
@@ -271,6 +276,7 @@ class BriefPipelineService:
             entity,
             qa_pairs,
             report_dates,
+            topics=topics,
             enable_metric=True,
             metric_name="Generating report",
         )

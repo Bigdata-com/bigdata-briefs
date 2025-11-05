@@ -7,6 +7,13 @@ company_update:
   user_template: |
     Generate a market-focused update on **{{entity_info}}** based on the recent information below. The following context contains a list of questions and the corresponding news texts that can potentially contain the answer to those questions. Today is {{current_datetime}}.
 
+    {% if topics %}
+    <areas_of_interest>
+    The following topics are of particular interest for this report:
+    {{topics}}
+    </areas_of_interest>
+    {% endif %}
+
     <context>
     {{rendered_qapairs}}
     </context>
@@ -16,6 +23,7 @@ company_update:
       - Your summary must contain specific details (e.g. numbers, dates, etc.)
       - Each paragraph must be distinct from the others, self-contained, and capture a unique theme. Merge relevant points into a larger paragraph if necessary.
       - Today is {{current_datetime}}. Focus only on actionable, novel information related to {{entity_info}}.
+      {% if topics %} - When prioritizing information, give preference to developments that relate to the areas of interest listed above.{% endif %}
       - If there are any reporting dates mentioned in the news text contextualizing some events, only focus on those that occur from {{start_date}} to {{end_date}}.
       - You should completely ignore any information older than {{start_date}}.
       - Do not include any information related to news about **stock prices**.
@@ -161,7 +169,12 @@ follow_up_questions:
     <instructions>
       Carefully read the information in the <context>. Today is {{current_datetime}}. We are only interested in actionable, novel information related to {{entity_info.name}}. If there are any reporting dates mentioned in the <context>, only focus on those that occur from {{start_date}} to {{end_date}}. You should completely ignore anything older than that.
 
-      If applicable, please generate up to {{n_followup_queries}} self-contained, and concise follow-up questions related to {{entity_info.name}} based on the above articles that would help us understand the situation better.
+      {% if topics %}
+      The following topics are of particular interest for this analysis:
+      {{topics}}
+      {% endif %}
+
+      If applicable, please generate up to {{n_followup_queries}} self-contained, and concise follow-up questions related to {{entity_info.name}} based on the above articles that would help us understand the situation better. {% if topics %}When generating questions, prioritize topics that align with the areas of interest listed above.{% endif %}
 
       Ignore any news related to past stock price movements, such as {{entity_info.name}} stock price changes over the previous day or week.
       
