@@ -146,6 +146,61 @@ query["ranking_params"]["reranker"] = {
 - ✅ Code ready when API feature is released
 - ✅ No breaking changes needed later
 
+### 2.4 Custom Topics Now Passed to LLM Prompts
+
+**Impact:** 🟡 **Medium** - Bug fix / Feature enhancement
+
+**Issue:** When users provided custom topics via the API, those topics were used for exploratory search but were not passed to the LLM prompts for follow-up question generation and final report generation. This meant the LLM couldn't prioritize information based on the user's specific interests.
+
+**Changes:**
+- Added `{{topics}}` variable to `follow_up_questions` template in `prompts.yaml`
+- Added `{{topics}}` variable to `company_update` template in `prompts.yaml`
+- Added `topics` parameter to `get_report_user_prompt()` function
+- Added `topics` parameter to `generate_new_report()` method
+- Updated call to `generate_new_report()` to pass topics from pipeline
+
+**Files Modified:**
+- `bigdata_briefs/prompts/prompts.yaml` (2 sections updated)
+- `bigdata_briefs/prompts/user_prompts.py` (function signature updated)
+- `bigdata_briefs/service.py` (method signature and call site updated)
+
+**How It Works:**
+1. Custom topics (or default topics) are used for exploratory search ✓
+2. Topics are now formatted and passed to follow-up questions prompt, visible to LLM ✓
+3. Topics are now formatted and passed to final report generation prompt, visible to LLM ✓
+4. LLM can prioritize information based on user's custom topics ✓
+
+**Template Changes:**
+
+In `follow_up_questions` template:
+```yaml
+{% if topics %}
+The following topics are of particular interest for this analysis:
+{{topics}}
+{% endif %}
+```
+
+In `company_update` template:
+```yaml
+{% if topics %}
+<areas_of_interest>
+The following topics are of particular interest for this report:
+{{topics}}
+</areas_of_interest>
+{% endif %}
+```
+
+**Benefits:**
+- ✅ Custom topics now properly influence LLM output
+- ✅ Better alignment between user intent and generated reports
+- ✅ Follow-up questions can be more focused on user's interests
+- ✅ Backward compatible (topics parameter is optional with default `None`)
+
+**Backward Compatibility:**
+- ✅ Existing code continues to work (topics parameter has default `None`)
+- ✅ When no custom topics provided, behavior unchanged
+- ✅ Default topics still work as before
+
 ---
 
 ## 3. Bug Fixes
@@ -324,6 +379,7 @@ API_FRESHNESS_BOOST: int = 8
 - ⚠️ Configurable ranking parameters (major feature)
 - ⚠️ Configurable API timeout
 - ⚠️ Reranker threshold preparation
+- ⚠️ Custom topics now passed to LLM prompts (bug fix / enhancement)
 
 **Recommendation:** Update CHANGELOG before release
 
@@ -356,6 +412,10 @@ API_FRESHNESS_BOOST: int = 8
    - Configurable ranking parameters (source_rank_boost, freshness_boost) via API
    - Configurable API timeout (API_TIMEOUT_SECONDS environment variable)
    - Prepared reranker threshold support for future API feature
+   - Custom topics now passed to LLM prompts for better alignment with user intent
+   
+   ### Fixed
+   - Custom topics now properly influence follow-up question generation and final report generation
    ```
 
 2. **Add integration tests** for API query service
