@@ -82,10 +82,10 @@ class Settings(BaseSettings):
     API_BASE_URL: str = "https://api.bigdata.com"
     API_CHUNKS_LIMIT_EXPLORATORY: int = 15
     API_RERANK_EXPLORATORY: float = 0.8
-    EXPLORATORY_SENTIMENT_THRESHOLD: float | None = None
+    EXPLORATORY_SENTIMENT_THRESHOLD: float = 0.3
     API_CHUNK_LIMIT_FOLLOWUP: int = 15
     API_RERANK_FOLLOWUP: float = 0.9
-    FOLLOWUP_SENTIMENT_THRESHOLD: float | None = None
+    FOLLOWUP_SENTIMENT_THRESHOLD: float = 0.3
     API_SOURCE_RANK_BOOST: int = 10
     API_FRESHNESS_BOOST: int = 8
     API_RETRIES: int = 3
