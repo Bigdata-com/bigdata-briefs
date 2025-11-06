@@ -51,15 +51,15 @@ function showInfoModal(label) {
     let container = document.getElementById('infoModalsContainer');
     const content = infoContents[label] || 'No info available.';
     container.innerHTML = `
-      <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm" onclick="if(event.target==this)this.style.display='none'">
-        <div class="bg-zinc-900 border border-zinc-700 rounded-xl w-full max-w-2xl p-6 relative shadow-2xl">
-          <button class="absolute top-4 right-4 text-zinc-400 hover:text-white text-xl font-bold transition-colors" onclick="this.closest('.fixed').style.display='none'">
+      <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/70" onclick="if(event.target==this)this.style.display='none'">
+        <div class="bg-surface border border-border rounded-lg w-full max-w-2xl p-6 relative shadow-xl">
+          <button class="absolute top-4 right-4 text-text3 hover:text-text transition-colors" onclick="this.closest('.fixed').style.display='none'">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
           </button>
-          <div class="text-sm text-zinc-300 leading-relaxed">${content}</div>
-          <div class="mt-4 pt-4 border-t border-zinc-700 text-xs text-zinc-400">For a complete list of parameters and their descriptions, refer to the <a href='/docs' target='_blank' class='text-blue-400 underline hover:text-blue-300'>API documentation</a>.</div>
+          <div class="text-sm text-text2 leading-relaxed">${content}</div>
+          <div class="mt-4 pt-4 border-t border-border text-xs text-text3">For a complete list of parameters and their descriptions, refer to the <a href='/docs' target='_blank' class='text-blue-500 underline hover:text-blue-600'>API documentation</a>.</div>
         </div>
       </div>
     `;

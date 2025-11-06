@@ -41,10 +41,10 @@ function renderOverviewTab(data) {
 
     // Watchlist and date info
     html += '<div class="mb-6">';
-    html += `<div class="inline-block bg-gradient-to-br from-blue-500/20 to-blue-700/20 border border-blue-500/30 text-white px-4 py-2 rounded-lg text-lg font-semibold mr-4 mb-4">
+    html += `<div class="inline-block bg-surface2 border border-border text-text px-4 py-2 rounded-lg text-base font-semibold mr-4 mb-4">
         ${escapeHtml(data.watchlist_name || data.watchlist_id || 'Unknown Watchlist')}
     </div>`;
-    html += `<div class="text-zinc-400 text-sm mb-4">
+    html += `<div class="text-text3 text-sm mb-4">
         <span>Period: ${escapeHtml(data.start_date || '')} to ${escapeHtml(data.end_date || '')}</span>
     </div>`;
     html += '</div>';
@@ -52,32 +52,27 @@ function renderOverviewTab(data) {
     // Title
     if (data.report_title) {
         html += `<div class="mb-6">
-            <h1 class="text-4xl font-bold text-white mb-2">${escapeHtml(data.report_title)}</h1>
+            <h1 class="text-3xl font-bold text-text mb-2">${escapeHtml(data.report_title)}</h1>
         </div>`;
     }
 
     // Introduction section
     if (data.introduction) {
-        html += `<div class="bg-zinc-800/50 border border-zinc-700 rounded-xl p-6 mb-6">
-            <h2 class="text-2xl font-bold text-white mb-4 flex items-center gap-3">
-                <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-                <span>Summary</span>
-            </h2>
-            <div class="leading-relaxed text-zinc-300 space-y-2">
+        html += `<div class="bg-surface2 border border-border rounded-lg p-6 mb-6">
+            <h2 class="text-xl font-semibold text-text mb-4">Summary</h2>
+            <div class="leading-relaxed text-text2 space-y-2">
                 ${formatIntroduction(data.introduction)}
             </div>
         </div>`;
     } else {
-        html += `<div class="bg-zinc-800/50 border border-zinc-700 rounded-xl p-6 mb-6">
-            <p class="text-zinc-400 italic">No summary available for this brief.</p>
+        html += `<div class="bg-surface2 border border-border rounded-lg p-6 mb-6">
+            <p class="text-text3 italic">No summary available for this brief.</p>
         </div>`;
     }
 
     // Additional metadata if available
     if (data.novelty !== undefined) {
-        html += `<div class="flex items-center gap-2 text-sm text-zinc-400">
+        html += `<div class="flex items-center gap-2 text-sm text-text3">
             <span>Novelty filter: ${data.novelty ? 'Enabled' : 'Disabled'}</span>
         </div>`;
     }
@@ -95,7 +90,7 @@ function renderCompanyReportsTab(data) {
     } else {
         companiesContent.innerHTML = `
             <div class="text-center py-12">
-                <p class="text-zinc-400 text-lg">No company reports available.</p>
+                <p class="text-text3 text-lg">No company reports available.</p>
             </div>
         `;
     }
@@ -106,7 +101,7 @@ function showError(message) {
     if (overviewContent) {
         overviewContent.innerHTML = `
             <div class="bg-red-900/20 border border-red-700/50 rounded-lg p-4">
-                <p class="text-red-300">${escapeHtml(message)}</p>
+                <p class="text-red-400">${escapeHtml(message)}</p>
             </div>
         `;
     }

@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
             toggleProcessLogs();
         }
         
-        if (logViewer) logViewer.innerHTML = '<div class="text-zinc-400">Starting brief generation...</div>';
+        if (logViewer) logViewer.innerHTML = '<div class="text-text3">Starting brief generation...</div>';
 
         // Get companies based on selected input method
         let companies = null;
@@ -247,7 +247,7 @@ async function pollStatus(requestId, params, submitBtn, spinner) {
             // Render logs if available
             if (logViewer && statusData.logs && Array.isArray(statusData.logs)) {
                 logViewer.innerHTML = statusData.logs.map(line => {
-                    let color = 'text-zinc-300';
+                    let color = 'text-text2';
                     if (line.toLowerCase().includes('error')) color = 'text-red-400';
                     else if (line.toLowerCase().includes('success') || line.toLowerCase().includes('complete')) color = 'text-green-400';
                     else if (line.toLowerCase().includes('info')) color = 'text-blue-400';
