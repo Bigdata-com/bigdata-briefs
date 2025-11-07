@@ -31,7 +31,9 @@ from bigdata_briefs.utils import (
     sleep_with_backoff,
 )
 
-MAX_REQUESTS_PER_MINUTE = 495  # Backend rate limit
+MAX_REQUESTS_PER_MINUTE = (
+    460  # Backend rate limit (500 max, using 460 for maximum safety margin)
+)
 REFRESH_FREQUENCY_RATE_LIMIT = 5  # Time in seconds to pro-rate the rate limiter, lower values = smoother requests, more overhead
 TIME_BEFORE_RETRY_RATE_LIMITER = 1.0  # Time in seconds before retrying the request
 

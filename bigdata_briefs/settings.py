@@ -78,7 +78,7 @@ class Settings(BaseSettings):
     EMBEDDING_RETRIES: int = 3
 
     # Search configuration
-    API_SIMULTANEOUS_REQUESTS: int = 80
+    API_SIMULTANEOUS_REQUESTS: int = 40  # Reduced to prevent rate limit bursts
     API_BASE_URL: str = "https://api.bigdata.com"
     API_CHUNKS_LIMIT_EXPLORATORY: int = 15
     API_RERANK_EXPLORATORY: float = 0.8
