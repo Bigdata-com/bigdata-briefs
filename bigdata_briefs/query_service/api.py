@@ -31,13 +31,11 @@ from bigdata_briefs.utils import (
     sleep_with_backoff,
 )
 
-MAX_REQUESTS_PER_MINUTE = 495  # Backend rate limit
+MAX_REQUESTS_PER_MINUTE = 460  # Backend rate limit (500 max, using 460 for maximum safety margin)
 REFRESH_FREQUENCY_RATE_LIMIT = 5  # Time in seconds to pro-rate the rate limiter, lower values = smoother requests, more overhead
 TIME_BEFORE_RETRY_RATE_LIMITER = 1.0  # Time in seconds before retrying the request
 
-MAX_ENTITIES_PER_KG_ENTITY_BY_ID_REQUEST = (
-    100  # Max number of entities per request to /v1/knowledge-graph/entities/id
-)
+MAX_ENTITIES_PER_KG_ENTITY_BY_ID_REQUEST = 100  # Max number of entities per request to /v1/knowledge-graph/entities/id
 
 
 class APIQueryService(BaseQueryService):
@@ -409,13 +407,15 @@ def build_query(
         raise ValueError(f"Invalid entity ID format: {entity_id}")
 
     # If a sentiment threshold is provided, filter for strong positive/negative
-    # We want to avoid specifically chunks with sentiment 0 as those are often not relevant
     if sentiment_threshold:
-        # In the future, the API will support filtering by threshold directly
-        # for now, remove neutral unless the threshold is very low
-        query["filters"]["sentiment"] = {"values": ["positive", "negative"]}
-        if abs(sentiment_threshold) < 0.1:
-            query["filters"]["sentiment"]["values"].append("neutral")
+        if 1 >= sentiment_threshold >= 0.1:
+            sentiment = "positive"
+        elif -1 <= sentiment_threshold <= -0.1:
+            sentiment = "negative"
+        elif -0.1 < sentiment_threshold < 0.1:
+            sentiment = "neutral"
+
+        query["filters"]["sentiment"] = {"values": [sentiment]}
 
     if rerank_threshold is None:
         query["ranking_params"]["reranker"] = {"enabled": False}
