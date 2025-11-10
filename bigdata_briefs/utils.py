@@ -1,5 +1,7 @@
 import random
 import time
+import traceback
+import warnings
 from datetime import datetime
 from functools import wraps
 from time import perf_counter
@@ -95,3 +97,11 @@ def sleep_with_backoff(*, base: int = 1, attempt: int):
     logger.debug(f"Sleeping for {sleep_time}")
 
     time.sleep(sleep_time)
+
+
+def raise_warning_from(e, category=RuntimeWarning):
+    """Issue a warning derived from an exception object."""
+    tb_str = "".join(traceback.format_exception(type(e), e, e.__traceback__))
+    warnings.warn(
+        f"Converted exception to warning:\n{tb_str.strip()}", category, stacklevel=2
+    )
