@@ -63,7 +63,7 @@ from bigdata_briefs.query_service.base import BaseQueryService
 from bigdata_briefs.settings import settings
 from bigdata_briefs.storage import write_report_with_sources
 from bigdata_briefs.tracing.service import TraceEventName, TracingService
-from bigdata_briefs.utils import log_performance, log_time
+from bigdata_briefs.utils import log_performance, log_time, raise_warning_from
 from bigdata_briefs.weighted_semaphore import WeightedSemaphore
 
 MIN_TOPICS_FOR_INTRO = 1
@@ -523,8 +523,11 @@ class BriefPipelineService:
                 except Exception as e:
                     entity_reports_failed.append(entity)
                     logger.warning(
-                        f"Unhandled error occurred generating entity report '{futures_to_entity[future].name}'. The entity will be ignored: {str(e)}"
+                        "Unhandled error occurred generating entity report. The error has been converted to a warning and the entity will be ignored.",
+                        entity=futures_to_entity[future].id,
+                        entity_name=futures_to_entity[future].name,
                     )
+                    raise_warning_from(e)
 
             if len(entity_reports_failed) == len(entities):
                 logger.error(

@@ -110,7 +110,7 @@ class APIQueryService(BaseQueryService):
     def _call_api(
         self, endpoint: str, method: str, payload: dict, headers: dict
     ) -> dict:
-        last_exception: httpx.HTTPStatusError
+        last_exception: httpx.HTTPStatusError | httpx.ConnectTimeout
         with self.semaphore:
             for attempt in range(settings.API_RETRIES):
                 try:
@@ -123,16 +123,18 @@ class APIQueryService(BaseQueryService):
                     )
                     result.raise_for_status()
                     return result.json()
-                except httpx.HTTPStatusError as e:
+                except (httpx.HTTPStatusError, httpx.ConnectTimeout) as e:
                     last_exception = e
                     logger.warning(
                         f"Error calling API {method} at endpoint {endpoint}: {e}. Attempt {attempt + 1}"
                     )
                     sleep_with_backoff(attempt=attempt)
 
-        raise TooManyAPIRetriesError(
-            f"Too many API retries for {method} at endpoint {endpoint}. Last error {last_exception}. Response body {last_exception.response.text}"
-        )
+        if isinstance(last_exception, httpx.HTTPStatusError):
+            msg = f"Too many API retries for {method} at endpoint {endpoint}. Last error {last_exception}. Response body {last_exception.response.text}"
+        else:
+            msg = f"Too many API retries for {method} at endpoint {endpoint}. Last error {last_exception}."
+        raise TooManyAPIRetriesError(msg)
 
     @log_performance
     def check_if_entity_has_results(
