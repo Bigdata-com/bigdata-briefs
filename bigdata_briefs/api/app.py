@@ -122,7 +122,9 @@ async def sample_frontend(_: str = Security(query_scheme)) -> HTMLResponse:
     example_values = get_example_values_from_schema(BriefCreationRequest)
     return HTMLResponse(
         content=loader.get_template("api/index.html.jinja").render(
-            companies=example_values["companies"],
+            companies=example_values[
+                "entities"
+            ],  # TODO: rename to entities when updating frontend, as this was changed recently to support other entities
             novelty=example_values["novelty"],
             default_start_date=example_values["report_start_date"].isoformat(),
             default_end_date=example_values["report_end_date"].isoformat(),
