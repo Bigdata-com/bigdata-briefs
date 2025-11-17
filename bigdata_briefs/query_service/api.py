@@ -413,8 +413,15 @@ def build_query(
     # If a sentiment threshold is provided, filter for strong positive/negative
     # We want to avoid specifically chunks with sentiment 0 as those are often not relevant
     if sentiment_threshold:
-        sentiment_threshold = abs(sentiment_threshold) # Ensure positive, we only care about magnitude
-        query["filters"]["sentiment"] = {"ranges": [{"min": -1, "max": -sentiment_threshold}, {"min": sentiment_threshold, "max": 1}]}
+        sentiment_threshold = abs(
+            sentiment_threshold
+        )  # Ensure positive, we only care about magnitude
+        query["filters"]["sentiment"] = {
+            "ranges": [
+                {"min": -1, "max": -sentiment_threshold},
+                {"min": sentiment_threshold, "max": 1},
+            ]
+        }
 
     if rerank_threshold is None:
         query["ranking_params"]["reranker"] = {"enabled": False}
