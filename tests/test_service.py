@@ -203,7 +203,7 @@ def test_correctly_checks_for_company_placeholder_in_topics(mock_service):
     ]
 
     request = BriefCreationRequest(
-        companies="test_watchlist",
+        entities="test_watchlist",
         report_start_date=datetime(2023, 1, 1),
         report_end_date=datetime(2023, 1, 31),
         novelty=True,

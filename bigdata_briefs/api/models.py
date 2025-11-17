@@ -49,9 +49,9 @@ class ExampleWatchlists(Enum):
 
 
 class BriefCreationRequest(BaseModel):
-    companies: list[str] | str = Field(
+    entities: list[str] | str = Field(
         ...,
-        description="List of RavenPack entity IDs  or a watchlist ID representing the companies to track in the generated brief.",
+        description="List of RavenPack entity IDs  or a watchlist ID representing the entities to track in the generated brief.",
         examples=[ExampleWatchlists.AI_SZN.value.id],
     )
     report_start_date: datetime = Field(

@@ -332,7 +332,7 @@ class QAPairs(BaseModel):
 
 
 class EntityInfo(BaseModel):
-    """Model representing entity information for companies in briefs reports"""
+    """Model representing entity information for entities in briefs reports"""
 
     id: str
     name: str

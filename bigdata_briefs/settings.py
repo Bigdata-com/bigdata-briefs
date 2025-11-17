@@ -65,7 +65,7 @@ class Settings(BaseSettings):
     WATCHLIST_ITEMS_LIMIT: int = 200
     TOPICS: list[str] = DEFAULT_TOPICS
     INTRO_SECTION_MIN_RELEVANCE_SCORE: int = 3
-    MAX_INTRO_SECTION_COMPANIES: int = 8
+    MAX_INTRO_SECTION_ENTITIES: int = 8
     DISABLE_INTRO_OVER_N_ENTITIES: int = 100
 
     # Novelty configuration

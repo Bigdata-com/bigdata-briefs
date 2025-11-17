@@ -393,14 +393,12 @@ class BriefPipelineService:
         report_dates: ReportDates,
         executor: ThreadPoolExecutor,
     ) -> list[str]:
-        """Generate bullet points for top companies in parallel."""
+        """Generate bullet points for top entities in parallel."""
         if len(actionable_company_reports) < MIN_TOPICS_FOR_INTRO:
             return []
 
-        # Take only the top companies based on the setting
-        top_companies = actionable_company_reports[
-            : settings.MAX_INTRO_SECTION_COMPANIES
-        ]
+        # Take only the top entities based on the setting
+        top_entities = actionable_company_reports[: settings.MAX_INTRO_SECTION_ENTITIES]
 
         # Generate bullet points in parallel
         futures_to_company = {
@@ -409,7 +407,7 @@ class BriefPipelineService:
                 company_report,
                 report_dates,
             ): company_report
-            for company_report in top_companies
+            for company_report in top_entities
         }
 
         bullet_points = []
@@ -461,7 +459,7 @@ class BriefPipelineService:
         executor: ThreadPoolExecutor,
     ) -> IntroSection:
         """Generate intro section with individual bullet points and a title."""
-        # Generate bullet points for top companies in parallel
+        # Generate bullet points for top entities in parallel
         bullet_points = self.generate_intro_section_bullets(
             actionable_company_reports, report_dates, executor
         )
@@ -730,11 +728,11 @@ class BriefPipelineService:
                     f"Invalid topic '{topic}'. Topics must include '{{company}}'."
                 )
 
-        if isinstance(record.companies, str):
-            watchlist = self.query_service.get_watchlist(watchlist_id=record.companies)
+        if isinstance(record.entities, str):
+            watchlist = self.query_service.get_watchlist(watchlist_id=record.entities)
             if not watchlist.items:
                 raise EmtpyWatchlistError(
-                    f"Validation failed before removing non-companies {watchlist.id}"
+                    f"Empty watchlist recovered from Bigdata {watchlist.id}"
                 )
 
             if len(watchlist.items) > settings.WATCHLIST_ITEMS_LIMIT:
@@ -746,19 +744,19 @@ class BriefPipelineService:
                 storage_manager.log_message(request_id, company_limit_msg)
 
             entity_ids = list(watchlist.items)
-        elif isinstance(record.companies, list):
-            entity_ids = record.companies
+        elif isinstance(record.entities, list):
+            entity_ids = record.entities
             # Use a dummy watchlist as the whole workflow expects a watchlist ID and name
             watchlist = Watchlist(
-                id=f"custom_{sha256(str(record.companies).encode()).hexdigest()}",
+                id=f"custom_{sha256(str(record.entities).encode()).hexdigest()}",
                 name="Custom set of entities",
             )
         else:
             raise ValueError(
-                "Companies must be either a list of RP entity IDs or a string representing a watchlist ID."
+                "Entities must be either a list of RP entity IDs or a string representing a watchlist ID."
             )
 
-        # Ensure there is entities, there is no duplicates and all entities are companies
+        # Ensure there is entities, there is no duplicates
         entities = self.query_service.get_entities(entity_ids)
 
         dedupped_entities = {c.id: c for c in entities}
@@ -769,11 +767,6 @@ class BriefPipelineService:
             raise ValueError("No entities found in the provided universe or watchlist.")
 
         logger.debug("Entities recovered")
-        entities = remove_non_companies(entities=entities)
-        if len(entities) == 0:
-            raise EmtpyWatchlistError(
-                f"Validation failed after removing non-companies {watchlist.id}"
-            )
 
         # The main reason to disable the intro on large entity lists is to avoid the LLM context or non-useful intros
         if len(entities) > settings.DISABLE_INTRO_OVER_N_ENTITIES:
@@ -799,14 +792,6 @@ class BriefPipelineService:
             source_rank_boost=record.source_rank_boost,
             freshness_boost=record.freshness_boost,
         )
-
-
-def remove_non_companies(entities: list[Entity]):
-    for item in entities[:]:
-        if item.entity_type != "companies":
-            entities.remove(item)
-
-    return entities
 
 
 def calculate_relevance_score(score_values: list[int]) -> float:
