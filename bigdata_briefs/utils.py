@@ -70,12 +70,12 @@ def validate_and_repair_model(json_str: str, model: Type[BaseModel]) -> BaseMode
         try:
             response = model.model_validate_json(fixed_json_str)
             logger.debug(
-                f"The following could not be parsed as a {model.__name__}, but we could repair the json {json_str=}"
+                f"The following could not be parsed as a {model.__name__}, but we could repair the json\n{json_str=}\n{fixed_json_str=}"
             )
             return response
         except ValidationError:
             logger.warning(
-                f"The following LLM completion could not be parsed as a {model.__name__}, nor could it be repaired"
+                f"The following LLM completion could not be parsed as a {model.__name__}, nor could it be repaired\n{json_str=}\n{fixed_json_str=}"
             )
             raise
 

@@ -692,48 +692,8 @@ class TopicContentTracker(BaseModel):
         chunks = 0
         for retrieval in self.retrieval:
             for result in retrieval.result:
-                for chunk in result.chunks:
-                    chunks += len(result.chunks)
+                chunks += len(result.chunks)
         return chunks
-
-    @property
-    def documents_per_topic(self) -> dict[str, int]:
-        """Calculates the number of documents per topic."""
-        documents_per_topic = {}
-        for retrieval in self.retrieval:
-            if retrieval.topic is None:
-                documents_per_topic["No Topic"] = [
-                    c.document_id
-                    for r in self.retrieval
-                    for c in r.chunks
-                    if r.topic is None
-                ]
-            else:
-                documents_per_topic[retrieval.topic] = [
-                    c.document_id
-                    for r in self.retrieval
-                    for c in r.chunks
-                    if r.topic == retrieval.topic
-                ]
-
-        for topic, documents in documents_per_topic.items():
-            documents_per_topic[topic] = len(set(documents))
-        return documents_per_topic
-
-    @property
-    def chunks_per_topic(self) -> dict[str, int]:
-        """Calculates the number of chunks per topic."""
-        chunks_per_topic = {}
-        for retrieval in self.retrieval:
-            if retrieval.topic is None:
-                chunks_per_topic["No Topic"] = sum(
-                    len(r.chunks) for r in self.retrieval if r.topic is None
-                )
-            else:
-                chunks_per_topic[retrieval.topic] = sum(
-                    len(r.chunks) for r in self.retrieval if r.topic == retrieval.topic
-                )
-        return chunks_per_topic
 
     def __add__(self, other):
         if not isinstance(other, TopicContentTracker):
