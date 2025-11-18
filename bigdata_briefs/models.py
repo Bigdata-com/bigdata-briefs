@@ -302,7 +302,7 @@ class QuestionAnswer(BaseModel):
 
 
 class QAPairs(BaseModel):
-    """Collection of Q&A pairs for a single company."""
+    """Collection of Q&A pairs for a single entity."""
 
     pairs: list[QuestionAnswer]
 
@@ -483,10 +483,10 @@ class IntroSection(BaseModel):
 
 
 class SingleBulletPoint(BaseModel):
-    """Generates a single bullet point for a company's most important development."""
+    """Generates a single bullet point for a entity's most important development."""
 
     bullet_point: str = Field(
-        description="A single bullet point capturing the most important, actionable development for the company.",
+        description="A single bullet point capturing the most important, actionable development for the entity.",
     )
 
 

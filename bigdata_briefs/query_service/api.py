@@ -244,7 +244,7 @@ class APIQueryService(BaseQueryService):
     ) -> list[Result]:
         if use_topics:
             # TODO use jinja2
-            company_topics = [t.format(company=entity.name) for t in topics]
+            entity_topics = [t.format(entity=entity.name) for t in topics]
             futures = [
                 executor.submit(
                     self._run_single_exploratory_search,
@@ -261,7 +261,7 @@ class APIQueryService(BaseQueryService):
                     enable_metric=True,
                     metric_name=f"Exploratory search. Entity {entity.id}",
                 )
-                for similarity_text, topic in zip(company_topics, topics)
+                for similarity_text, topic in zip(entity_topics, topics)
             ]
             # In addition to searching by topics, query with just the entity
             futures.append(

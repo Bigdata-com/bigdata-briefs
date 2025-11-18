@@ -12,7 +12,7 @@ PROMPT_FILE = os.path.join(base_dir, "prompts.yaml")
 
 def get_prompt_keys(
     prompt_name: Literal[
-        "company_update",
+        "entity_update",
         "follow_up_questions",
         "intro_section",
         "report_title",

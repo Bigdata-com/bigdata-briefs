@@ -130,7 +130,7 @@ class BriefPipelineService:
     ):
         report_sources, reverse_map = create_sources_for_report(qa_pairs)
 
-        prompt_keys = get_prompt_keys("company_update")
+        prompt_keys = get_prompt_keys("entity_update")
         user_prompt = get_report_user_prompt(
             entity=entity,
             qa_pairs=qa_pairs,
@@ -362,13 +362,13 @@ class BriefPipelineService:
     @log_performance
     def generate_intro_section_single_bullet_point(
         self,
-        company_report: SingleEntityReport,
+        entity_report: SingleEntityReport,
         report_dates: ReportDates,
     ) -> str:
-        """Generate a single bullet point for a company report."""
+        """Generate a single bullet point for a entity report."""
         prompt_keys = get_prompt_keys("intro_section")
         user_prompt = get_single_bullet_user_prompt(
-            company_report=company_report,
+            entity_report=entity_report,
             user_template=prompt_keys.user_template,
             report_dates=report_dates,
             response_format=f"{SingleBulletPoint.model_json_schema()}",
@@ -389,38 +389,39 @@ class BriefPipelineService:
     @log_performance
     def generate_intro_section_bullets(
         self,
-        actionable_company_reports: list[SingleEntityReport],
+        actionable_entity_reports: list[SingleEntityReport],
         report_dates: ReportDates,
         executor: ThreadPoolExecutor,
     ) -> list[str]:
         """Generate bullet points for top entities in parallel."""
-        if len(actionable_company_reports) < MIN_TOPICS_FOR_INTRO:
+        if len(actionable_entity_reports) < MIN_TOPICS_FOR_INTRO:
             return []
 
         # Take only the top entities based on the setting
-        top_entities = actionable_company_reports[: settings.MAX_INTRO_SECTION_ENTITIES]
+        top_entities = actionable_entity_reports[: settings.MAX_INTRO_SECTION_ENTITIES]
 
         # Generate bullet points in parallel
-        futures_to_company = {
+        futures_to_entity = {
             executor.submit(
                 self.generate_intro_section_single_bullet_point,
-                company_report,
+                entity_report,
                 report_dates,
-            ): company_report
-            for company_report in top_entities
+            ): entity_report
+            for entity_report in top_entities
         }
 
         bullet_points = []
-        for future in futures_to_company:
+        for future in futures_to_entity:
             try:
                 bullet_point = future.result()
                 bullet_points.append(bullet_point)
             except Exception as e:
-                company = futures_to_company[future]
-                company_name = company.entity_info.get("name", "Unknown")
+                entity = futures_to_entity[future]
+                entity_name = entity.entity_info.get("name", "Unknown")
                 logger.warning(
-                    f"Failed to generate bullet point for {company_name}: {e}"
+                    f"Failed to generate bullet point for {entity_name}: {e}"
                 )
+                raise e
 
         return bullet_points
 
@@ -454,14 +455,14 @@ class BriefPipelineService:
     @log_performance
     def generate_intro_section_and_title(
         self,
-        actionable_company_reports: list[SingleEntityReport],
+        actionable_entity_reports: list[SingleEntityReport],
         report_dates: ReportDates,
         executor: ThreadPoolExecutor,
     ) -> IntroSection:
         """Generate intro section with individual bullet points and a title."""
         # Generate bullet points for top entities in parallel
         bullet_points = self.generate_intro_section_bullets(
-            actionable_company_reports, report_dates, executor
+            actionable_entity_reports, report_dates, executor
         )
 
         if not bullet_points:
@@ -563,7 +564,7 @@ class BriefPipelineService:
                     request_id, "Generating introduction section"
                 )
                 intro_section = self.generate_intro_section_and_title(
-                    actionable_company_reports=entity_reports_with_info,
+                    actionable_entity_reports=entity_reports_with_info,
                     report_dates=report_dates,
                     executor=executor,
                 )
@@ -719,13 +720,13 @@ class BriefPipelineService:
     ) -> ValidatedInput:
         logger.debug(record)
 
-        # Ensure all topics include the placeholder {company}
+        # Ensure all topics include the placeholder {entity}
         topics = record.topics or settings.TOPICS
 
         for topic in topics:
-            if "{company}" not in topic:
+            if "{entity}" not in topic:
                 raise ValueError(
-                    f"Invalid topic '{topic}'. Topics must include '{{company}}'."
+                    f"Invalid topic '{topic}'. Topics must include '{{entity}}'."
                 )
 
         if isinstance(record.entities, str):
@@ -739,9 +740,9 @@ class BriefPipelineService:
                 watchlist.items = list(
                     set(list(watchlist.items)[: settings.WATCHLIST_ITEMS_LIMIT])
                 )
-                company_limit_msg = f"Watchlist {watchlist.id} has too many items: {len(watchlist.items)} Taking the first {settings.WATCHLIST_ITEMS_LIMIT}"
-                logger.debug(company_limit_msg)
-                storage_manager.log_message(request_id, company_limit_msg)
+                limit_msg = f"Watchlist {watchlist.id} has too many items: {len(watchlist.items)} Taking the first {settings.WATCHLIST_ITEMS_LIMIT}"
+                logger.debug(limit_msg)
+                storage_manager.log_message(request_id, limit_msg)
 
             entity_ids = list(watchlist.items)
         elif isinstance(record.entities, list):
