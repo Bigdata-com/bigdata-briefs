@@ -1,4 +1,4 @@
-company_update:
+entity_update:
   model: "gpt-4o-mini"
   model_kwargs:
     temperature: 0.0
@@ -45,14 +45,14 @@ company_update:
       - Only use the information present in the <context>. Do NOT infer from outside knowledge.
       - Generate a list of short paragraphs: **one short paragraph covers one specific topic or theme**.
       - Each paragraph starts with a bullet point.
-      - The first bullet point should introduce the entity: **Full Company Name** (TICKER, if available) [active verb] [key event/action] [location if relevant], [specific details with metrics].
-      - Subsequent bullets about the same entity should use natural sentence flow without repeating the full name - start with "The company" or a pronoun, maintaining proper grammar while preserving the dense, information-packed style.
+      - The first bullet point should introduce the entity: **Full entity Name** (TICKER, if entity is a company and is available) [active verb] [key event/action] [location if relevant], [specific details with metrics].
+      - Subsequent bullets about the same entity should use natural sentence flow without repeating the full name - start with "The <entity type, such as company, person, place..>" or a pronoun, maintaining proper grammar while preserving the dense, information-packed style.
       - All bullets must be complete sentences that read like a professional desk analyst's notes - concise yet grammatically correct.
       - Do NOT use explainers or generic summarizations, present the information and let the reader interpret the context.
       - Concise and extremely dense, presenting a large volume of information efficiently.
       - Use standard industry abbreviations for brevity and clarity.
       - Make use of financial and industry-specific terminology, assuming familiarity with market concepts (e.g., "FFO," "bp," "yields").
-      - Use **bold** to emphasize company names.
+      - Use **bold** to emphasize entity names.
       - Accurately report dates and figures when mentioned in the source text.
       - Do not report the same date in multiples paragraphs of the same entity.
       - Do not use colons to separate short paragraphs from details.
@@ -60,15 +60,33 @@ company_update:
     </style>
 
     <relevance_score>
-      For each short paragraph you identified, assign a relevance score from 1 (low) to 5 (high) based on actionability, materiality, and market impact:
-      - **1**: Irrelevant or contains no new information (e.g., recycled news, trivial updates).
-      - **2**: Barely relevant or generally not actionable (e.g., participation in industry events, routine commentary, non-specific trends).
-      - **3**: Moderately relevant but minimally actionable (e.g., awards, routine company updates, minor product tweaks, class action lawsuits).
-      - **4**: Relevant and actionable, with potential material impact (e.g., new product launches, earnings in line with expectations, significant layoffs, large settlements or lawsuits).
-      - **5**: Highly relevant and extremely actionable, with substantial market impact (e.g., M&A announcements, bankruptcy filings, executive departures, significant earnings surprises or misses, major regulatory actions, winning or losing key contracts, massive market price moves, etc.).
+      For each short paragraph you identified, assign a relevance score from 1 (low) to 5 (high) based on how significantly the information affects or meaningfully relates to **{{entity_info}}**, considering actionability, materiality, influence, or real-world impact on the entity’s status, behavior, or perception:
 
-      Topics related to stock price movements and topics not directly related to **{{entity_info}}** should be scored **1**, they are not interesting and you should ignore them.
+      - **1**: Irrelevant or contains no meaningful new information about {{entity_info}}  
+        Examples: recycled news, trivial mentions, tangential references, general market/industry commentary that does not specifically affect {{entity_info}}.  
+        *Any topic related only to general market or price movements and not directly tied to {{entity_info}} should be scored 1.*
 
+      - **2**: Barely relevant or weakly actionable  
+        Examples: passing mentions, routine appearances (e.g., participation in events, public statements without consequences), non-specific trends, minor rumors, non-material updates.
+
+      - **3**: Moderately relevant with limited actionability or impact  
+        Examples: awards, routine updates, mild public scrutiny, minor product or policy changes, small-scale incidents, class-action filings, local or short-lived effects on {{entity_info}}.
+
+      - **4**: Relevant and actionable with potential material or reputational impact  
+        Examples:  
+          • For **companies/products**: product launches, earnings in line, large layoffs, notable settlements, regulatory warnings.  
+          • For **people**: major appointments, significant controversies, legally meaningful actions, endorsements with broad reach.  
+          • For **places**: impactful policy changes, major infrastructure developments, significant demographic or economic shifts.  
+          • For **events/organizations**: influential announcements, substantial operational updates, meaningful victories or losses.
+
+      - **5**: Highly relevant, extremely actionable, with substantial direct impact on {{entity_info}}  
+        Examples:  
+          • For **companies/products**: M&A, bankruptcy, major regulatory actions, key contract wins/losses, massive surprises (earnings, failures, breakthroughs).  
+          • For **people**: resignations or appointments to major roles, large-scale legal events, major awards or scandals with global attention.  
+          • For **places**: catastrophes, major geopolitical developments, transformative policy shifts, large-scale economic events.  
+          • For **events/organizations**: dissolutions, mergers, landmark achievements, sanctions, or major governance changes.
+
+      For entity types non mentioned above, apply the same principles of actionability, materiality, and direct impact when assigning relevance scores.
       Sort the topics by relevance score in descending order. If there are multiple topics with the same relevance score, sort them by the first date mentioned in the text.
     </relevance_score>
 
@@ -191,11 +209,11 @@ intro_section:
   model_kwargs:
     temperature: 0.0
     max_tokens: 500
-  system_prompt: "You are a financial analyst tasked with distilling company developments into concise, actionable bullet points for an executive brief."
+  system_prompt: "You are a financial analyst tasked with distilling entities developments into concise, actionable bullet points for an executive brief."
   user_template: |
     Today is {{current_datetime}}.
 
-    The following context contains a report for a single company.
+    The following context contains a report for a single entity.
 
     <context>
     {{report}}
@@ -203,27 +221,27 @@ intro_section:
 
     <instructions>
     1. **Objective**  
-       - Extract the single most important, actionable development from this company's report.
+       - Extract the single most important, actionable development from this entity's report.
        - Today is {{current_datetime}}. Focus only on novel, market-moving information.
        - Create one high-impact bullet point that captures the key takeaway an investor needs to know.
 
     2. **Style**  
        - **Direct, concise, and information-dense.**
-       - Use **bold** for the company name to aid quick scanning.
+       - Use **bold** for the entity name to aid quick scanning.
        - Focus on the "so what" for investors; no fluffy transitions.
        - Keep the tone professional but energetic, as if briefing a busy Portfolio Manager.
        - Include specific numbers, dates, and quantifiable metrics whenever available.
        - Use active voice and precise language.
 
     3. **Content Requirements**
-       - Select the most significant developments from the company report.
-       - If multiple developments are mentioned, prioritize based on:
-         * Financial impact (revenue, margins, guidance changes)
-         * Strategic shifts (M&A, partnerships, pivots)
-         * Regulatory/legal developments
-         * Market position changes
-       - Avoid speculative implications unless explicitly stated in the source material.
-       - Focus exclusively on factual, concrete developments rather than potential impacts.
+      - Select the most significant developments related to entity from the report.
+      - If multiple developments are mentioned, prioritize them based on:
+          * **Material impact** on entity (e.g., financial, operational, political, social, reputational, or environmental consequences)
+          * **Strategic or structural shifts** (e.g., mergers, appointments, alliances, policy changes, major initiatives, directional changes)
+          * **Regulatory, legal, or governmental actions** (e.g., investigations, new laws, sanctions, court rulings)
+          * **Changes in status, influence, or position** (e.g., competitive standing, geopolitical significance, leadership roles, technological relevance)
+      - Avoid speculative statements or interpretations unless they are explicitly supported by the source material.
+      - Focus exclusively on factual, concrete developments rather than hypothetical or potential impacts.
 
     4. **Length**  
        - Exactly one bullet point.
@@ -246,7 +264,7 @@ intro_section:
       {% raw %}
       ```json
       {
-        "bullet_point": "* **Company Name** [specific development with quantifiable details]"
+        "bullet_point": "* **Entity Name** [specific development with quantifiable details]"
       }
       ```
       {% endraw %}
@@ -290,20 +308,20 @@ report_title:
     <instructions>
     1. **Objective**  
        - Create a title that captures the essence of the most important development mentioned in the bullet point.
-       - Focus on the company name and the key action or development.
+       - Focus on the entity name and the key action or development.
        - The title should be between 6 and 8 words long.
 
     2. **Style**  
-       - Be specific and insightful: ALWAYS mention the company name.
+       - Be specific and insightful: ALWAYS mention the entity name.
        - Use the style of a seasoned Wall Street desk analyst reporting to their Portfolio Manager.
-       - AVOID use of generic company descriptors like "Titans", "Giants", "Movers", "Corporations" or similar.
+       - AVOID use of generic entity descriptors like "Titans", "Giants", "Movers", "Corporations" or similar.
        - Do not include any other external information in the title.
        - DO NOT create a generic title.
 
     3. **What to Avoid**  
        - Overly formal language or unnecessary detail.
        - Generic observations or filler words.
-       - Starting with phrases like "Company announces" or "Report shows"
+       - Starting with phrases like "Entity announces" or "Report shows"
     </instructions>
 
     <response_format>
@@ -314,7 +332,7 @@ report_title:
       {% raw %}
       ```json
       {
-        "report_title": "Company Name [Key Development/Action]"
+        "report_title": "Entity Name [Key Development/Action]"
       }
       ```
       {% endraw %}

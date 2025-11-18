@@ -108,9 +108,9 @@ curl -X 'POST' \
   "report_end_date": "2025-11-03",
   "novelty": true,
   "topics": [
-    "What notable changes in {company}\u0027s financial performance metrics have been reported recently?",
-    "Has {company} revised its financial or operational guidance for upcoming periods?",
-    "What significant strategic initiatives or business pivots has {company} announced recently?"
+    "What notable changes in {entity}\u0027s financial performance metrics have been reported recently?",
+    "Has {entity} revised its financial or operational guidance for upcoming periods?",
+    "What significant strategic initiatives or business pivots has {entity} announced recently?"
   ],
   "source_rank_boost": 10,
   "freshness_boost": 8,
@@ -119,10 +119,10 @@ curl -X 'POST' \
 ```
 
 **Key Parameters:**
-- `companies`: Either a watchlist ID (UUID string) or a list of entity IDs (e.g., `["D8442A"]`)
+- `entities`: Either a watchlist ID (UUID string) or a list of entity IDs (e.g., `["D8442A"]`)
 - `report_start_date` / `report_end_date`: Date range for the briefing (ISO format: `YYYY-MM-DD` or `YYYY-MM-DDTHH:MM:SS`)
 - `novelty` (optional): Filter for only new or unique information based on previously generated briefs
-- `topics` (optional): List of research questions/topics. Use `{company}` placeholder to customize per company
+- `topics` (optional): List of research questions/topics. Use `{entity}` placeholder to customize per entity
 - `source_rank_boost` (optional): Control how sources are prioritized (default: 10)
 - `freshness_boost` (optional): Control freshness weighting for sources (default: 8)
 - `disable_introduction` (optional): Skip the introduction section in the brief
@@ -141,13 +141,13 @@ For more details on all available parameters, refer to the API documentation @ `
 For generating briefs for large portfolios (hundreds or thousands of companies), see the [Large-Scale Portfolio Briefs Generation](https://github.com/Bigdata-com/bigdata-cookbook/tree/main/Briefs_Generation_Large_Scale) notebook in the bigdata-cookbook repository.
 
 This notebook demonstrates how to:
-- Process large numbers of companies in configurable batches
-- Load company identifiers from CSV files
+- Process large numbers of entities in configurable batches
+- Load entity identifiers from CSV files
 - Customize topics and research questions for different batches
 - Monitor batch processing with status polling
 - Export results to JSON and Excel formats
 
-The notebook uses this briefs service API to generate briefs programmatically, making it ideal for portfolio managers and analysts who need to monitor many companies simultaneously. The service can handle large numbers of companies in a single request, and the notebook shows how to organize batch processing for scheduling across time zones or running concurrent service instances.
+The notebook uses this briefs service API to generate briefs programmatically, making it ideal for portfolio managers and analysts who need to monitor many entities simultaneously. The service can handle large numbers of entities in a single request, and the notebook shows how to organize batch processing for scheduling across time zones or running concurrent service instances.
 
 ## Enable access token security
 You can optionally protect the API endpoints using an access token. To enable this feature, set the `ACCESS_TOKEN` environment variable when running the Docker container. For example:
