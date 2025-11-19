@@ -127,9 +127,9 @@ curl -X 'POST' \
 - `freshness_boost` (optional): Control freshness weighting for sources (default: 8)
 - `disable_introduction` (optional): Skip the introduction section in the brief
 
-> [!IMPORTANT]  
-> The novelty feature is implemented based on knowledge available from previously generated briefs for each entity. This means that a new deployment with a clean database will not have any prior knowledge, and thus the novelty filter will not exclude any information until some briefs have been generated and stored.
-> Ensure that your database persists between service restarts and, if required, consider warming it up by generating initial briefs for your entities for previous periods.
+> [!WARNING]  
+> The novelty feature operates using knowledge derived from previously generated briefs for each entity. Consequently, a new deployment with an empty database will have no prior context, and the novelty filter will not exclude any information until briefs have been created and stored.
+> To ensure novelty content, make sure your database persists across service restarts. If necessary, consider pre-populating it by generating initial briefs for your entities covering previous periods.
 
 The response will include a `request_id`. You can check the status and get your brief with:
 ```bash
