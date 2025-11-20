@@ -190,6 +190,7 @@ class BriefPipelineService:
         entity: Entity,
         topics: list[str],
         source_filter: list[str] | None,
+        categories: list[str] | None,
         report_dates: ReportDates,
         source_rank_boost: int | None,
         freshness_boost: int | None,
@@ -202,6 +203,7 @@ class BriefPipelineService:
             entity_id=entity.id,
             report_dates=report_dates,
             source_filter=source_filter,
+            categories=categories,
         )
 
         if not initial_results:
@@ -222,6 +224,7 @@ class BriefPipelineService:
                 enable_metric=True,
                 metric_name="Exploratory search. All entities",
                 source_filter=source_filter,
+                categories=categories,
                 source_rank_boost=source_rank_boost,
                 freshness_boost=freshness_boost,
             )
@@ -261,6 +264,7 @@ class BriefPipelineService:
                 enable_metric=True,
                 metric_name="Run follow up questions",
                 source_filter=source_filter,
+                categories=categories,
                 source_rank_boost=source_rank_boost,
                 freshness_boost=freshness_boost,
             )
@@ -483,6 +487,7 @@ class BriefPipelineService:
         watchlist: Watchlist,
         topics: list[str],
         source_filter: list[str] | None,
+        categories: list[str] | None,
         report_dates: ReportDates,
         disable_introduction: bool,
         source_rank_boost: int | None,
@@ -498,6 +503,7 @@ class BriefPipelineService:
                     entity,
                     topics,
                     source_filter,
+                    categories,
                     report_dates,
                     source_rank_boost,
                     freshness_boost,
@@ -618,6 +624,7 @@ class BriefPipelineService:
                 record_data.watchlist,
                 record_data.topics,
                 record_data.sources_filter,
+                record_data.categories,
                 record_data.report_dates,
                 record_data.disable_introduction,
                 record_data.source_rank_boost,
@@ -764,6 +771,11 @@ class BriefPipelineService:
 
         entities = list(dedupped_entities.values())
 
+        if record.categories:
+            categories = [cat.value for cat in record.categories]
+        else:
+            categories = None
+
         if len(entities) == 0:
             raise ValueError("No entities found in the provided universe or watchlist.")
 
@@ -784,6 +796,7 @@ class BriefPipelineService:
             entities=entities,
             topics=topics,
             sources_filter=record.sources,
+            categories=categories,
             report_dates=ReportDates(
                 start=record.report_start_date,
                 end=record.report_end_date,
