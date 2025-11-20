@@ -122,7 +122,7 @@ def health_check():
     return {"status": "ok", "version": __version__}
 
 
-@app.get(
+@app.get( #Redirct goes here if we want to disable the frontend
     "/",
     summary="Example frontend for testing the thematic screener.",
     response_class=HTMLResponse,
@@ -142,11 +142,8 @@ async def sample_frontend(_: str = Security(query_scheme)) -> HTMLResponse:
             sources=example_values["sources"],
             example_watchlists=list(dict(ExampleWatchlists).values()),
             example_request_id=str(EXAMPLE_UUID),
-<<<<<<< HEAD
             version=__version__,
-=======
             demo_mode=settings.DEMO_MODE,
->>>>>>> master
         ),
         media_type="text/html",
     )
