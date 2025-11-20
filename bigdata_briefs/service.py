@@ -63,7 +63,7 @@ from bigdata_briefs.query_service.base import BaseQueryService
 from bigdata_briefs.settings import settings
 from bigdata_briefs.storage import write_report_with_sources
 from bigdata_briefs.tracing.service import TraceEventName, TracingService
-from bigdata_briefs.utils import log_performance, log_time
+from bigdata_briefs.utils import log_performance, log_time, raise_warning_from
 from bigdata_briefs.weighted_semaphore import WeightedSemaphore
 
 MIN_TOPICS_FOR_INTRO = 1
@@ -122,11 +122,15 @@ class BriefPipelineService:
 
     @log_performance
     def generate_new_report(
-        self, entity: Entity, qa_pairs: QAPairs, report_dates: ReportDates
+        self,
+        entity: Entity,
+        qa_pairs: QAPairs,
+        report_dates: ReportDates,
+        topics: list[str] | None = None,
     ):
         report_sources, reverse_map = create_sources_for_report(qa_pairs)
 
-        prompt_keys = get_prompt_keys("company_update")
+        prompt_keys = get_prompt_keys("entity_update")
         user_prompt = get_report_user_prompt(
             entity=entity,
             qa_pairs=qa_pairs,
@@ -134,6 +138,7 @@ class BriefPipelineService:
             user_template=prompt_keys.user_template,
             response_format=f"{TopicCollection.model_json_schema()}",
             report_sources=report_sources,
+            topics=topics,
         )
         messages = [
             {"role": "user", "content": user_prompt},
@@ -273,6 +278,7 @@ class BriefPipelineService:
             entity,
             qa_pairs,
             report_dates,
+            topics=topics,
             enable_metric=True,
             metric_name="Generating report",
         )
@@ -369,13 +375,13 @@ class BriefPipelineService:
     @log_performance
     def generate_intro_section_single_bullet_point(
         self,
-        company_report: SingleEntityReport,
+        entity_report: SingleEntityReport,
         report_dates: ReportDates,
     ) -> str:
-        """Generate a single bullet point for a company report."""
+        """Generate a single bullet point for a entity report."""
         prompt_keys = get_prompt_keys("intro_section")
         user_prompt = get_single_bullet_user_prompt(
-            company_report=company_report,
+            entity_report=entity_report,
             user_template=prompt_keys.user_template,
             report_dates=report_dates,
             response_format=f"{SingleBulletPoint.model_json_schema()}",
@@ -396,40 +402,39 @@ class BriefPipelineService:
     @log_performance
     def generate_intro_section_bullets(
         self,
-        actionable_company_reports: list[SingleEntityReport],
+        actionable_entity_reports: list[SingleEntityReport],
         report_dates: ReportDates,
         executor: ThreadPoolExecutor,
     ) -> list[str]:
-        """Generate bullet points for top companies in parallel."""
-        if len(actionable_company_reports) < MIN_TOPICS_FOR_INTRO:
+        """Generate bullet points for top entities in parallel."""
+        if len(actionable_entity_reports) < MIN_TOPICS_FOR_INTRO:
             return []
 
-        # Take only the top companies based on the setting
-        top_companies = actionable_company_reports[
-            : settings.MAX_INTRO_SECTION_COMPANIES
-        ]
+        # Take only the top entities based on the setting
+        top_entities = actionable_entity_reports[: settings.MAX_INTRO_SECTION_ENTITIES]
 
         # Generate bullet points in parallel
-        futures_to_company = {
+        futures_to_entity = {
             executor.submit(
                 self.generate_intro_section_single_bullet_point,
-                company_report,
+                entity_report,
                 report_dates,
-            ): company_report
-            for company_report in top_companies
+            ): entity_report
+            for entity_report in top_entities
         }
 
         bullet_points = []
-        for future in futures_to_company:
+        for future in futures_to_entity:
             try:
                 bullet_point = future.result()
                 bullet_points.append(bullet_point)
             except Exception as e:
-                company = futures_to_company[future]
-                company_name = company.entity_info.get("name", "Unknown")
+                entity = futures_to_entity[future]
+                entity_name = entity.entity_info.get("name", "Unknown")
                 logger.warning(
-                    f"Failed to generate bullet point for {company_name}: {e}"
+                    f"Failed to generate bullet point for {entity_name}: {e}"
                 )
+                raise e
 
         return bullet_points
 
@@ -463,14 +468,14 @@ class BriefPipelineService:
     @log_performance
     def generate_intro_section_and_title(
         self,
-        actionable_company_reports: list[SingleEntityReport],
+        actionable_entity_reports: list[SingleEntityReport],
         report_dates: ReportDates,
         executor: ThreadPoolExecutor,
     ) -> IntroSection:
         """Generate intro section with individual bullet points and a title."""
-        # Generate bullet points for top companies in parallel
+        # Generate bullet points for top entities in parallel
         bullet_points = self.generate_intro_section_bullets(
-            actionable_company_reports, report_dates, executor
+            actionable_entity_reports, report_dates, executor
         )
 
         if not bullet_points:
@@ -492,6 +497,7 @@ class BriefPipelineService:
         topics: list[str],
         source_filter: list[str] | None,
         report_dates: ReportDates,
+        disable_introduction: bool,
         source_rank_boost: int | None,
         freshness_boost: int | None,
         request_id: UUID,
@@ -531,8 +537,11 @@ class BriefPipelineService:
                 except Exception as e:
                     entity_reports_failed.append(entity)
                     logger.warning(
-                        f"Unhandled error occurred generating entity report '{futures_to_entity[future].name}'. The entity will be ignored: {str(e)}"
+                        "Unhandled error occurred generating entity report. The error has been converted to a warning and the entity will be ignored.",
+                        entity=futures_to_entity[future].id,
+                        entity_name=futures_to_entity[future].name,
                     )
+                    raise_warning_from(e)
 
             if len(entity_reports_failed) == len(entities):
                 logger.error(
@@ -556,12 +565,24 @@ class BriefPipelineService:
                 request_id,
                 f"Generated reports for {len(entities)} entities, {len(entity_reports_with_info)} with information, {len(self.no_info_reports)} without information and {len(entity_reports_failed)} failed.",
             )
-            storage_manager.log_message(request_id, "Generating introduction section")
-            intro_section = self.generate_intro_section_and_title(
-                actionable_company_reports=entity_reports_with_info,
-                report_dates=report_dates,
-                executor=executor,
-            )
+            if disable_introduction:
+                intro_section = IntroSection(
+                    intro_section=f"Generated reports for {len(entities)} entities, {len(self.no_info_reports) + len(entity_reports_failed)} without information. Read the individual reports for more details.",
+                    report_title=f"Brief report for {len(entities)} entities",
+                )
+                storage_manager.log_message(
+                    request_id,
+                    "Skipping introduction section generation.",
+                )
+            else:
+                storage_manager.log_message(
+                    request_id, "Generating introduction section"
+                )
+                intro_section = self.generate_intro_section_and_title(
+                    actionable_entity_reports=entity_reports_with_info,
+                    report_dates=report_dates,
+                    executor=executor,
+                )
             storage_manager.log_message(request_id, "Introduction section generated")
         # Construct the final WatchlistReport
         return (
@@ -613,6 +634,7 @@ class BriefPipelineService:
                 record_data.topics,
                 record_data.sources_filter,
                 record_data.report_dates,
+                record_data.disable_introduction,
                 record_data.source_rank_boost,
                 record_data.freshness_boost,
                 enable_metric=True,
@@ -717,44 +739,44 @@ class BriefPipelineService:
     ) -> ValidatedInput:
         logger.debug(record)
 
-        # Ensure all topics include the placeholder {company}
+        # Ensure all topics include the placeholder {entity}
         topics = record.topics or settings.TOPICS
 
         for topic in topics:
-            if "{company}" not in topic:
+            if "{entity}" not in topic:
                 raise ValueError(
-                    f"Invalid topic '{topic}'. Topics must include '{{company}}'."
+                    f"Invalid topic '{topic}'. Topics must include '{{entity}}'."
                 )
 
-        if isinstance(record.companies, str):
-            watchlist = self.query_service.get_watchlist(watchlist_id=record.companies)
+        if isinstance(record.entities, str):
+            watchlist = self.query_service.get_watchlist(watchlist_id=record.entities)
             if not watchlist.items:
                 raise EmtpyWatchlistError(
-                    f"Validation failed before removing non-companies {watchlist.id}"
+                    f"Empty watchlist recovered from Bigdata {watchlist.id}"
                 )
 
             if len(watchlist.items) > settings.WATCHLIST_ITEMS_LIMIT:
                 watchlist.items = list(
                     set(list(watchlist.items)[: settings.WATCHLIST_ITEMS_LIMIT])
                 )
-                company_limit_msg = f"Watchlist {watchlist.id} has too many items: {len(watchlist.items)} Taking the first {settings.WATCHLIST_ITEMS_LIMIT}"
-                logger.debug(company_limit_msg)
-                storage_manager.log_message(request_id, company_limit_msg)
+                limit_msg = f"Watchlist {watchlist.id} has too many items: {len(watchlist.items)} Taking the first {settings.WATCHLIST_ITEMS_LIMIT}"
+                logger.debug(limit_msg)
+                storage_manager.log_message(request_id, limit_msg)
 
             entity_ids = list(watchlist.items)
-        elif isinstance(record.companies, list):
-            entity_ids = record.companies
+        elif isinstance(record.entities, list):
+            entity_ids = record.entities
             # Use a dummy watchlist as the whole workflow expects a watchlist ID and name
             watchlist = Watchlist(
-                id=f"custom_{sha256(str(record.companies).encode()).hexdigest()}",
+                id=f"custom_{sha256(str(record.entities).encode()).hexdigest()}",
                 name="Custom set of entities",
             )
         else:
             raise ValueError(
-                "Companies must be either a list of RP entity IDs or a string representing a watchlist ID."
+                "Entities must be either a list of RP entity IDs or a string representing a watchlist ID."
             )
 
-        # Ensure there is entities, there is no duplicates and all entities are companies
+        # Ensure there is entities, there is no duplicates
         entities = self.query_service.get_entities(entity_ids)
 
         dedupped_entities = {c.id: c for c in entities}
@@ -765,11 +787,13 @@ class BriefPipelineService:
             raise ValueError("No entities found in the provided universe or watchlist.")
 
         logger.debug("Entities recovered")
-        entities = remove_non_companies(entities=entities)
-        if len(entities) == 0:
-            raise EmtpyWatchlistError(
-                f"Validation failed after removing non-companies {watchlist.id}"
-            )
+
+        # The main reason to disable the intro on large entity lists is to avoid the LLM context or non-useful intros
+        if len(entities) > settings.DISABLE_INTRO_OVER_N_ENTITIES:
+            record.disable_introduction = True
+            disable_intro_msg = f"Disabling introduction section as the number of entities is {len(entities)}, which exceeds the limit of {settings.DISABLE_INTRO_OVER_N_ENTITIES}."
+            logger.debug(disable_intro_msg)
+            storage_manager.log_message(request_id, disable_intro_msg)
 
         return ValidatedInput(
             watchlist=Watchlist(
@@ -784,17 +808,10 @@ class BriefPipelineService:
                 end=record.report_end_date,
                 novelty=record.novelty,
             ),
+            disable_introduction=record.disable_introduction,
             source_rank_boost=record.source_rank_boost,
             freshness_boost=record.freshness_boost,
         )
-
-
-def remove_non_companies(entities: list[Entity]):
-    for item in entities[:]:
-        if item.entity_type != "companies":
-            entities.remove(item)
-
-    return entities
 
 
 def calculate_relevance_score(score_values: list[int]) -> float:

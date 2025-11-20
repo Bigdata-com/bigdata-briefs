@@ -52,9 +52,8 @@ class LLMClient:
                 total_tokens=response.usage.total_tokens,
             )
         )
-        # Model text contains the last part of a json. It is missing the opening curly brace
+
         content = response.output_parsed
-        logger.debug(f"Response: {content}")
 
         return content
 

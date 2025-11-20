@@ -193,7 +193,7 @@ def test_create_no_info_report(mock_service, mock_entity):
     assert (mock_entity, generation_step) in service.no_info_reports
 
 
-def test_correctly_checks_for_company_placeholder_in_topics(mock_service):
+def test_correctly_checks_for_entity_placeholder_in_topics(mock_service):
     service, _, _, _, _ = mock_service
 
     invalid_topics = [
@@ -203,7 +203,7 @@ def test_correctly_checks_for_company_placeholder_in_topics(mock_service):
     ]
 
     request = BriefCreationRequest(
-        companies="test_watchlist",
+        entities="test_watchlist",
         report_start_date=datetime(2023, 1, 1),
         report_end_date=datetime(2023, 1, 31),
         novelty=True,
@@ -216,4 +216,4 @@ def test_correctly_checks_for_company_placeholder_in_topics(mock_service):
         )
 
     assert "Invalid topic" in str(exc_info.value)
-    assert "'{company}'" in str(exc_info.value)
+    assert "'{entity}'" in str(exc_info.value)

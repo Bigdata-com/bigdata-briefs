@@ -64,19 +64,19 @@ class Entity(BaseModel):
         return EntityInfo(
             id=self.id,
             name=self.name,
-            description=raw["description"],
+            description=raw.get("description", None),
             entity_type=raw["category"],
-            company_type=raw["type"],
-            country=raw["country"],
-            sector=raw["sector"],
-            industry_group=raw["industry_group"],
-            industry=raw["industry"],
+            company_type=raw.get("type", None),
+            country=raw.get("country", None),
+            sector=raw.get("sector", None),
+            industry_group=raw.get("industry_group", None),
+            industry=raw.get("industry", None),
             ticker=raw.get("ticker", None),
-            webpage=raw["webpage"],
-            isin_values=raw["isin_values"],
-            cusip_values=raw["cusip_values"],
-            sedol_values=raw["sedol_values"],
-            listing_values=raw["listing_values"],
+            webpage=raw.get("webpage", None),
+            isin_values=raw.get("isin_values", None),
+            cusip_values=raw.get("cusip_values", None),
+            sedol_values=raw.get("sedol_values", None),
+            listing_values=raw.get("listing_values", None),
         )
 
 
@@ -200,6 +200,7 @@ class ValidatedInput(BaseModel):
     entities: list[Entity]
     topics: list[str]
     report_dates: ReportDates
+    disable_introduction: bool
     sources_filter: list[str] | None
     source_rank_boost: int | None
     freshness_boost: int | None
@@ -301,7 +302,7 @@ class QuestionAnswer(BaseModel):
 
 
 class QAPairs(BaseModel):
-    """Collection of Q&A pairs for a single company."""
+    """Collection of Q&A pairs for a single entity."""
 
     pairs: list[QuestionAnswer]
 
@@ -331,7 +332,7 @@ class QAPairs(BaseModel):
 
 
 class EntityInfo(BaseModel):
-    """Model representing entity information for companies in briefs reports"""
+    """Model representing entity information for entities in briefs reports"""
 
     id: str
     name: str
@@ -482,10 +483,10 @@ class IntroSection(BaseModel):
 
 
 class SingleBulletPoint(BaseModel):
-    """Generates a single bullet point for a company's most important development."""
+    """Generates a single bullet point for a entity's most important development."""
 
     bullet_point: str = Field(
-        description="A single bullet point capturing the most important, actionable development for the company.",
+        description="A single bullet point capturing the most important, actionable development for the entity.",
     )
 
 
@@ -773,48 +774,8 @@ class TopicContentTracker(BaseModel):
         chunks = 0
         for retrieval in self.retrieval:
             for result in retrieval.result:
-                for chunk in result.chunks:
-                    chunks += len(result.chunks)
+                chunks += len(result.chunks)
         return chunks
-
-    @property
-    def documents_per_topic(self) -> dict[str, int]:
-        """Calculates the number of documents per topic."""
-        documents_per_topic = {}
-        for retrieval in self.retrieval:
-            if retrieval.topic is None:
-                documents_per_topic["No Topic"] = [
-                    c.document_id
-                    for r in self.retrieval
-                    for c in r.chunks
-                    if r.topic is None
-                ]
-            else:
-                documents_per_topic[retrieval.topic] = [
-                    c.document_id
-                    for r in self.retrieval
-                    for c in r.chunks
-                    if r.topic == retrieval.topic
-                ]
-
-        for topic, documents in documents_per_topic.items():
-            documents_per_topic[topic] = len(set(documents))
-        return documents_per_topic
-
-    @property
-    def chunks_per_topic(self) -> dict[str, int]:
-        """Calculates the number of chunks per topic."""
-        chunks_per_topic = {}
-        for retrieval in self.retrieval:
-            if retrieval.topic is None:
-                chunks_per_topic["No Topic"] = sum(
-                    len(r.chunks) for r in self.retrieval if r.topic is None
-                )
-            else:
-                chunks_per_topic[retrieval.topic] = sum(
-                    len(r.chunks) for r in self.retrieval if r.topic == retrieval.topic
-                )
-        return chunks_per_topic
 
     def __add__(self, other):
         if not isinstance(other, TopicContentTracker):

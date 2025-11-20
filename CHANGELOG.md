@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Added support for the new search API instead of the SDK for retrieval, allowing for more flexible queries and better performance.
+- Added rate limiting and retry logic to handle API rate limits gracefully, avoiding rate limit errors.
+- Added an option to disable the introduction section in the generated report, useful for large watchlists where the introduction may not be relevant or may overload the context of an LLM.
+- Added support for demo mode, allowing to show pre-computed reports without requiring API keys. This is useful for demos and showcases.
+- Added support for other entities types beyond companies, such as places, peoples, and more. The `entities` field can now accept a list of entity IDs of any type.
 
 ### Changed
 - Fixed Pydantic model field examples to use `examples` instead of `example` to avoid deprecation warnings.

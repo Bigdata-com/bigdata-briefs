@@ -50,9 +50,9 @@ class ExampleWatchlists(Enum):
 
 
 class BriefCreationRequest(BaseModel):
-    companies: list[str] | str = Field(
+    entities: list[str] | str = Field(
         ...,
-        description="List of RavenPack entity IDs  or a watchlist ID representing the companies to track in the generated brief.",
+        description="List of RavenPack entity IDs  or a watchlist ID representing the entities to track in the generated brief.",
         examples=[ExampleWatchlists.AI_SZN.value.id],
     )
     report_start_date: datetime = Field(
@@ -69,6 +69,11 @@ class BriefCreationRequest(BaseModel):
         True,
         description="Whether to only include novel information in the report.",
         examples=[True],
+    )
+    disable_introduction: bool = Field(
+        False,
+        description=f"Whether to disable the title and introduction section in the report. This gets automatically enabled if the number of entities exceeds {settings.DISABLE_INTRO_OVER_N_ENTITIES} entities.",
+        examples=[False],
     )
     sources: list[str] | None = Field(
         None,

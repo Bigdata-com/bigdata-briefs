@@ -38,7 +38,7 @@ from bigdata_briefs.query_service.api import (
     APIQueryService,
 )
 from bigdata_briefs.service import BriefPipelineService
-from bigdata_briefs.settings import settings
+from bigdata_briefs.settings import UNSET, settings
 from bigdata_briefs.sql_models import SQLBriefReport
 from bigdata_briefs.templates import loader
 from bigdata_briefs.tracing.service import TraceEventName, TracingService
@@ -71,12 +71,13 @@ def get_storage_manager(session: Session = Depends(get_session)) -> StorageManag
 
 def lifespan(app: FastAPI):
     logger.info("Starting Bigdata briefs service", version=__version__)
-    tracing_service.send_trace(
-        event_name=TraceEventName.SERVICE_START,
-        trace={
-            "version": __version__,
-        },
-    )
+    if settings.BIGDATA_API_KEY != UNSET:
+        tracing_service.send_trace(
+            event_name=TraceEventName.SERVICE_START,
+            trace={
+                "version": __version__,
+            },
+        )
     create_db_and_tables()
 
     # Initialize the database with example data
@@ -131,7 +132,9 @@ async def sample_frontend(_: str = Security(query_scheme)) -> HTMLResponse:
     example_values = get_example_values_from_schema(BriefCreationRequest)
     return HTMLResponse(
         content=loader.get_template("api/index.html.jinja").render(
-            companies=example_values["companies"],
+            companies=example_values[
+                "entities"
+            ],  # TODO: rename to entities when updating frontend, as this was changed recently to support other entities
             novelty=example_values["novelty"],
             default_start_date=example_values["report_start_date"].isoformat(),
             default_end_date=example_values["report_end_date"].isoformat(),
@@ -139,7 +142,11 @@ async def sample_frontend(_: str = Security(query_scheme)) -> HTMLResponse:
             sources=example_values["sources"],
             example_watchlists=list(dict(ExampleWatchlists).values()),
             example_request_id=str(EXAMPLE_UUID),
+<<<<<<< HEAD
             version=__version__,
+=======
+            demo_mode=settings.DEMO_MODE,
+>>>>>>> master
         ),
         media_type="text/html",
     )

@@ -21,6 +21,7 @@ from bigdata_briefs.models import (
 )
 from bigdata_briefs.query_service.base import BaseQueryService
 from bigdata_briefs.query_service.models import SearchAPIQueryDict
+from bigdata_briefs.query_service.rate_limit import RequestsPerMinuteController
 from bigdata_briefs.settings import settings
 from bigdata_briefs.utils import (
     log_args,
@@ -28,6 +29,16 @@ from bigdata_briefs.utils import (
     log_return_value,
     log_time,
     sleep_with_backoff,
+)
+
+MAX_REQUESTS_PER_MINUTE = (
+    460  # Backend rate limit (500 max, using 460 for maximum safety margin)
+)
+REFRESH_FREQUENCY_RATE_LIMIT = 5  # Time in seconds to pro-rate the rate limiter, lower values = smoother requests, more overhead
+TIME_BEFORE_RETRY_RATE_LIMITER = 1.0  # Time in seconds before retrying the request
+
+MAX_ENTITIES_PER_KG_ENTITY_BY_ID_REQUEST = (
+    100  # Max number of entities per request to /v1/knowledge-graph/entities/id
 )
 
 
@@ -44,6 +55,11 @@ class APIQueryService(BaseQueryService):
             headers=self.headers,
             timeout=settings.API_TIMEOUT_SECONDS,
         )
+        self.rate_limit_controller = RequestsPerMinuteController(
+            max_requests_per_min=MAX_REQUESTS_PER_MINUTE,
+            rate_limit_refresh_frequency=REFRESH_FREQUENCY_RATE_LIMIT,
+            seconds_before_retry=TIME_BEFORE_RETRY_RATE_LIMITER,
+        )
 
         # Watchlists are not available in the API client yet, so we use the SDK for that
         self.sdk_client = Bigdata(api_key=settings.BIGDATA_API_KEY)
@@ -59,16 +75,21 @@ class APIQueryService(BaseQueryService):
         return self.sdk_client.watchlists.get(watchlist_id)
 
     def get_entities(self, entity_ids: list[str]) -> list[Entity]:
-        results = self._call_api(
-            endpoint="/v1/knowledge-graph/entities/id",
-            method="POST",
-            payload={"values": entity_ids},
-            headers=self.headers,
-        )
-        raw_entities = results
+        # Batch entity_ids into chunks
+        def batched(iterable, n):
+            for i in range(0, len(iterable), n):
+                yield iterable[i : i + n]
+
         entities = []
-        for entity_data in raw_entities["results"].values():
-            entities.append(Entity.from_api(entity_data))
+        for batch in batched(entity_ids, MAX_ENTITIES_PER_KG_ENTITY_BY_ID_REQUEST):
+            raw_entities = self._call_api(
+                endpoint="/v1/knowledge-graph/entities/id",
+                method="POST",
+                payload={"values": batch},
+                headers=self.headers,
+            )
+            for entity_data in raw_entities["results"].values():
+                entities.append(Entity.from_api(entity_data))
 
         return entities
 
@@ -89,25 +110,29 @@ class APIQueryService(BaseQueryService):
     def _call_api(
         self, endpoint: str, method: str, payload: dict, headers: dict
     ) -> dict:
-        last_exception: httpx.HTTPStatusError
         with self.semaphore:
             for attempt in range(settings.API_RETRIES):
                 try:
-                    result = self._client.request(
-                        method=method, url=endpoint, json=payload, headers=headers
+                    result = self.rate_limit_controller(
+                        self._client.request,
+                        method=method,
+                        url=endpoint,
+                        json=payload,
+                        headers=headers,
                     )
                     result.raise_for_status()
                     return result.json()
-                except httpx.HTTPStatusError as e:
+                except (httpx.HTTPStatusError, httpx.ConnectTimeout) as e:
                     last_exception = e
                     logger.warning(
                         f"Error calling API {method} at endpoint {endpoint}: {e}. Attempt {attempt + 1}"
                     )
                     sleep_with_backoff(attempt=attempt)
 
-        raise TooManyAPIRetriesError(
-            f"Too many API retries for {method} at endpoint {endpoint}. Last error {last_exception}. Response body {last_exception.response.text}"
-        )
+        msg = f"Too many API retries for {method} at endpoint {endpoint}. Last error {last_exception}."
+        if isinstance(last_exception, httpx.HTTPStatusError):
+            msg = msg + f" Response body {last_exception.response.text}"
+        raise TooManyAPIRetriesError(msg)
 
     @log_performance
     def check_if_entity_has_results(
@@ -219,7 +244,7 @@ class APIQueryService(BaseQueryService):
     ) -> list[Result]:
         if use_topics:
             # TODO use jinja2
-            company_topics = [t.format(company=entity.name) for t in topics]
+            entity_topics = [t.format(entity=entity.name) for t in topics]
             futures = [
                 executor.submit(
                     self._run_single_exploratory_search,
@@ -236,7 +261,7 @@ class APIQueryService(BaseQueryService):
                     enable_metric=True,
                     metric_name=f"Exploratory search. Entity {entity.id}",
                 )
-                for similarity_text, topic in zip(company_topics, topics)
+                for similarity_text, topic in zip(entity_topics, topics)
             ]
             # In addition to searching by topics, query with just the entity
             futures.append(
@@ -386,23 +411,24 @@ def build_query(
         raise ValueError(f"Invalid entity ID format: {entity_id}")
 
     # If a sentiment threshold is provided, filter for strong positive/negative
+    # We want to avoid specifically chunks with sentiment 0 as those are often not relevant
     if sentiment_threshold:
-        if 1 >= sentiment_threshold >= 0.1:
-            sentiment = "positive"
-        elif -1 <= sentiment_threshold <= -0.1:
-            sentiment = "negative"
-        elif -0.1 < sentiment_threshold < 0.1:
-            sentiment = "neutral"
-
-        query["filters"]["sentiment"] = {"values": [sentiment]}
+        sentiment_threshold = abs(
+            sentiment_threshold
+        )  # Ensure positive, we only care about magnitude
+        query["filters"]["sentiment"] = {
+            "ranges": [
+                {"min": -1, "max": -sentiment_threshold},
+                {"min": sentiment_threshold, "max": 1},
+            ]
+        }
 
     if rerank_threshold is None:
         query["ranking_params"]["reranker"] = {"enabled": False}
     else:
         query["ranking_params"]["reranker"] = {
             "enabled": True,
-            # No way to change the reranker yet, coming soon
-            # "threshold": rerank_threshold,
+            "threshold": rerank_threshold,
         }
 
     # Use high-quality sources if desired
