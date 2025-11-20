@@ -142,6 +142,7 @@ class APIQueryService(BaseQueryService):
         similarity_text: str | None = None,
         *,
         source_filter: list[str] | None = None,
+        categories: list[str] | None = None,
         sentiment_threshold: float | None = None,
         chunk_limit: int | None = 1,
         rerank_threshold: float | None = None,
@@ -156,6 +157,7 @@ class APIQueryService(BaseQueryService):
             report_dates=report_dates,
             similarity_text=similarity_text,
             source_filter=source_filter,
+            categories=categories,
             sentiment_threshold=sentiment_threshold,
             chunk_limit=chunk_limit,
             rerank_threshold=rerank_threshold,
@@ -188,6 +190,7 @@ class APIQueryService(BaseQueryService):
         similarity_text: str | None = None,
         topic: str | None = None,
         source_filter: list[str] | None = None,
+        categories: list[str] | None = None,
         sentiment_threshold: float | None = settings.EXPLORATORY_SENTIMENT_THRESHOLD,
         chunk_limit: int | None = settings.API_CHUNKS_LIMIT_EXPLORATORY,
         rerank_threshold: float | None = settings.API_RERANK_EXPLORATORY,
@@ -199,6 +202,7 @@ class APIQueryService(BaseQueryService):
             report_dates=report_dates,
             similarity_text=similarity_text,
             source_filter=source_filter,
+            categories=categories,
             sentiment_threshold=sentiment_threshold,
             chunk_limit=chunk_limit,
             rerank_threshold=rerank_threshold,
@@ -235,6 +239,7 @@ class APIQueryService(BaseQueryService):
         report_dates: ReportDates,
         executor: ThreadPoolExecutor,
         source_filter: list[str] | None = None,
+        categories: list[str] | None = None,
         sentiment_threshold: float | None = settings.EXPLORATORY_SENTIMENT_THRESHOLD,
         chunk_limit: int | None = settings.API_CHUNKS_LIMIT_EXPLORATORY,
         use_topics: bool = True,
@@ -253,6 +258,7 @@ class APIQueryService(BaseQueryService):
                     topic=topic,
                     report_dates=report_dates,
                     source_filter=source_filter,
+                    categories=categories,
                     sentiment_threshold=sentiment_threshold,
                     chunk_limit=chunk_limit,
                     rerank_threshold=rerank_threshold,
@@ -293,6 +299,7 @@ class APIQueryService(BaseQueryService):
         report_dates: ReportDates,
         *,
         source_filter: list[str] | None = None,
+        categories: list[str] | None = None,
         sentiment_threshold: float | None = settings.FOLLOWUP_SENTIMENT_THRESHOLD,
         chunk_limit: int | None = settings.API_CHUNK_LIMIT_FOLLOWUP,
         rerank_threshold: float | None = settings.API_RERANK_FOLLOWUP,
@@ -304,6 +311,7 @@ class APIQueryService(BaseQueryService):
             report_dates=report_dates,
             similarity_text=question,
             source_filter=source_filter,
+            categories=categories,
             sentiment_threshold=sentiment_threshold,
             chunk_limit=chunk_limit,
             rerank_threshold=rerank_threshold,
@@ -336,6 +344,7 @@ class APIQueryService(BaseQueryService):
         follow_up_questions: list[str],
         report_dates: ReportDates,
         source_filter: list[str] | None,
+        categories: list[str] | None,
         executor: ThreadPoolExecutor,
         source_rank_boost: int | None = settings.API_SOURCE_RANK_BOOST,
         freshness_boost: int | None = settings.API_FRESHNESS_BOOST,
@@ -347,6 +356,7 @@ class APIQueryService(BaseQueryService):
                 question=question,
                 report_dates=report_dates,
                 source_filter=source_filter,
+                categories=categories,
                 source_rank_boost=source_rank_boost,
                 freshness_boost=freshness_boost,
             ): question
@@ -376,6 +386,7 @@ def build_query(
     report_dates: ReportDates,
     *,
     source_filter: list[str] | None,
+    categories: list[str] | None = None,
     sentiment_threshold: float | None,
     chunk_limit: int,
     rerank_threshold: float | None,
@@ -434,5 +445,12 @@ def build_query(
     # Use high-quality sources if desired
     if source_filter:
         query["filters"]["source"] = {"mode": "INCLUDE", "values": source_filter}
+
+    # Filter to a specific source category
+    if categories:
+        query["filters"]["category"] = {
+            "mode": "INCLUDE",
+            "values": categories,
+        }
 
     return {"query": query}

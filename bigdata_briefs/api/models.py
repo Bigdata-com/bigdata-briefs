@@ -48,6 +48,16 @@ class ExampleWatchlists(Enum):
         yield self.value.model_dump()
 
 
+class Categories(StrEnum):
+    EXPERT_INTERVIEWS = "expert_interviews"
+    FILINGS = "filings"
+    MY_FILES = "my_files"
+    NEWS = "news"
+    PODCASTS = "podcasts"
+    RESEARCH = "research"
+    TRANSCRIPTS = "transcripts"
+
+
 class BriefCreationRequest(BaseModel):
     entities: list[str] | str = Field(
         ...,
@@ -77,6 +87,11 @@ class BriefCreationRequest(BaseModel):
     sources: list[str] | None = Field(
         None,
         description="List of RavenPack entity IDs to filter the sources by.",
+        examples=[None],
+    )
+    categories: list[Categories] | None = Field(
+        None,
+        description="List of categories to filter the report content by.",
         examples=[None],
     )
     topics: list[str] | None = Field(

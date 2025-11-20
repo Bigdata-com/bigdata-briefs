@@ -19,11 +19,17 @@ class SourceFilter(TypedDict):
     values: List[str]
 
 
+class CategoryFilter(TypedDict):
+    mode: Literal["INCLUDE", "EXCLUDE"]
+    values: List[str]
+
+
 class Filters(TypedDict, total=False):
     timestamp: TimestampFilter
     entity: EntityFilter
     sentiment: SentimentFilter
     source: SourceFilter
+    category: CategoryFilter
 
 
 class RerankerParams(TypedDict):
