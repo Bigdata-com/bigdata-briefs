@@ -1,5 +1,6 @@
 from datetime import date, datetime, timedelta
 from enum import Enum, StrEnum
+from uuid import UUID
 
 from pydantic import BaseModel, Field
 
@@ -106,3 +107,56 @@ class BriefStatusResponse(BaseModel):
     status: WorkflowStatus
     logs: list[str] = Field(default_factory=list)
     report: BriefReport | None = None
+
+
+class WorkflowRunInfo(BaseModel):
+    id: UUID
+    status: str
+    last_updated: datetime
+    log_count: int
+
+
+class ReportInfo(BaseModel):
+    id: UUID
+    watchlist_id: str
+    created_at: datetime
+    report_period_start: datetime
+    report_period_end: datetime
+    novelty_enabled: bool
+    is_empty: bool
+
+
+class BulletPointInfo(BaseModel):
+    id: UUID
+    entity_id: str
+    date: datetime
+    original_text: str
+
+
+class DatabaseStatusResponse(BaseModel):
+    workflow_runs: list[WorkflowRunInfo] = Field(default_factory=list)
+    reports: list[ReportInfo] = Field(default_factory=list)
+    bullet_points: list[BulletPointInfo] = Field(default_factory=list)
+    total_workflow_runs: int = 0
+    total_reports: int = 0
+    total_bullet_points: int = 0
+
+
+class DiscardedBulletPointDebug(BaseModel):
+    text: str
+    max_similarity: float
+    most_similar_text: str
+
+
+class EntityDebugInfo(BaseModel):
+    entity_id: str
+    entity_name: str
+    generated_texts: list[str]
+    compared_with: list[str]
+    discarded: list[DiscardedBulletPointDebug]
+    kept_texts: list[str]
+
+
+class DebugDataResponse(BaseModel):
+    request_id: str
+    entities: dict[str, EntityDebugInfo] = Field(default_factory=dict)

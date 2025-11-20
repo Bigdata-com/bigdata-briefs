@@ -211,7 +211,7 @@ function resetFormState() {
     if (spinner) spinner.classList.add('hidden');
 }
 
-function updateHeaderInfo(startDate, endDate, companies) {
+function updateHeaderInfo(startDate, endDate, companies, watchlistName) {
     const dateRangeEl = document.getElementById('currentDateRange');
     const companiesEl = document.getElementById('currentCompanies');
     
@@ -222,7 +222,10 @@ function updateHeaderInfo(startDate, endDate, companies) {
     }
     
     if (companiesEl) {
-        if (Array.isArray(companies)) {
+        // Use provided watchlist name if available (from loaded report)
+        if (watchlistName) {
+            companiesEl.textContent = watchlistName;
+        } else if (Array.isArray(companies)) {
             companiesEl.textContent = `${companies.length} companies`;
         } else {
             const watchlist = watchlists.find(w => w.id === companies);
@@ -231,9 +234,15 @@ function updateHeaderInfo(startDate, endDate, companies) {
     }
 }
 
+// Make function globally available
+window.updateHeaderInfo = updateHeaderInfo;
+
 async function pollStatus(requestId, params, submitBtn, spinner) {
     const logViewer = document.getElementById('logViewer');
     let polling = true;
+    
+    // Save request ID globally for debug tab
+    window.lastRequestId = requestId;
     
     async function poll() {
         try {
@@ -266,11 +275,29 @@ async function pollStatus(requestId, params, submitBtn, spinner) {
                         indicator.classList.add('hidden');
                     });
                     
+                    // Save request ID for debug tab
+                    window.lastRequestId = requestId;
+                    
+                    // Update header with watchlist name from report
+                    const report = statusData.report;
+                    updateHeaderInfo(
+                        report.start_date,
+                        report.end_date,
+                        report.watchlist_id,
+                        report.watchlist_name
+                    );
+                    
                     // Render the report
                     if (window.renderBriefReport) {
-                        renderBriefReport(statusData.report);
+                        renderBriefReport(report);
                     }
-                    window.lastReport = statusData.report;
+                    window.lastReport = report;
+                    
+                    // Emit event for debug tab
+                    const event = new CustomEvent('reportLoaded', { 
+                        detail: { requestId: requestId } 
+                    });
+                    document.dispatchEvent(event);
                 } else if (statusData.status === 'failed') {
                     showError('Brief generation failed. Check logs for details.');
                 }

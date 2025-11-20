@@ -6,7 +6,7 @@ from uuid import UUID, uuid4
 from fastapi import BackgroundTasks, Body, Depends, FastAPI, HTTPException, Security
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
-from sqlmodel import Session, SQLModel, create_engine
+from sqlmodel import Session, SQLModel, create_engine, select
 
 from bigdata_briefs import LOG_LEVEL, __version__, logger
 from bigdata_briefs.api.examples import EXAMPLE_UUID
@@ -14,22 +14,32 @@ from bigdata_briefs.api.models import (
     BriefAcceptedResponse,
     BriefCreationRequest,
     BriefStatusResponse,
+    BulletPointInfo,
+    DatabaseStatusResponse,
+    DebugDataResponse,
+    DiscardedBulletPointDebug,
+    EntityDebugInfo,
     ExampleWatchlists,
+    ReportInfo,
+    WorkflowRunInfo,
     WorkflowStatus,
 )
 from bigdata_briefs.api.secure import query_scheme
+from bigdata_briefs.api.sql_models import SQLWorkflowStatus
 from bigdata_briefs.api.storage import StorageManager
 from bigdata_briefs.api.utils import get_example_values_from_schema
 from bigdata_briefs.metrics import (
     LLMMetrics,
     Metrics,
 )
+from bigdata_briefs.novelty.sql_models import SQLBulletPointEmbedding
 from bigdata_briefs.novelty.storage import SQLiteEmbeddingStorage
 from bigdata_briefs.query_service.api import (
     APIQueryService,
 )
 from bigdata_briefs.service import BriefPipelineService
 from bigdata_briefs.settings import settings
+from bigdata_briefs.sql_models import SQLBriefReport
 from bigdata_briefs.templates import loader
 from bigdata_briefs.tracing.service import TraceEventName, TracingService
 
@@ -189,3 +199,92 @@ def get_status(
     if report is None:
         raise HTTPException(status_code=404, detail="Request ID not found")
     return report
+
+
+@app.get(
+    "/briefs/database-status",
+    summary="Get the current state of the database",
+    response_model=DatabaseStatusResponse,
+)
+def get_database_status(
+    session: Session = Depends(get_session),
+    _: str = Security(query_scheme),
+) -> DatabaseStatusResponse:
+    """Get the current state of the database including workflow runs, reports, and bullet points"""
+    
+    # Query workflow runs
+    workflow_runs_query = select(SQLWorkflowStatus)
+    workflow_runs = session.exec(workflow_runs_query).all()
+    workflow_runs_info = [
+        WorkflowRunInfo(
+            id=run.id,
+            status=run.status,
+            last_updated=run.last_updated,
+            log_count=len(run.logs),
+        )
+        for run in workflow_runs
+    ]
+    
+    # Query reports
+    reports_query = select(SQLBriefReport)
+    reports = session.exec(reports_query).all()
+    reports_info = [
+        ReportInfo(
+            id=report.id,
+            watchlist_id=report.watchlist_id,
+            created_at=report.created_at,
+            report_period_start=report.report_period_start,
+            report_period_end=report.report_period_end,
+            novelty_enabled=report.novelty_enabled,
+            is_empty=report.is_empty,
+        )
+        for report in reports
+    ]
+    
+    # Query bullet points
+    bullet_points_query = select(SQLBulletPointEmbedding)
+    bullet_points = session.exec(bullet_points_query).all()
+    bullet_points_info = [
+        BulletPointInfo(
+            id=bp.id,
+            entity_id=bp.entity_id,
+            date=bp.date,
+            original_text=bp.original_text,
+        )
+        for bp in bullet_points
+    ]
+    
+    return DatabaseStatusResponse(
+        workflow_runs=workflow_runs_info,
+        reports=reports_info,
+        bullet_points=bullet_points_info,
+        total_workflow_runs=len(workflow_runs_info),
+        total_reports=len(reports_info),
+        total_bullet_points=len(bullet_points_info),
+    )
+
+
+@app.get(
+    "/briefs/debug/{request_id}",
+    summary="Get debug information for novelty filtering",
+    response_model=DebugDataResponse,
+)
+def get_debug_data(
+    request_id: UUID,
+    storage_manager: StorageManager = Depends(get_storage_manager),
+    _: str = Security(query_scheme),
+) -> DebugDataResponse:
+    """Get debug information about novelty filtering for a specific brief"""
+    debug_data = storage_manager.get_debug_data(request_id)
+    if debug_data is None:
+        raise HTTPException(status_code=404, detail="Request ID not found")
+    
+    # Convert debug_data dict to EntityDebugInfo objects
+    entities = {}
+    for entity_id, entity_data in debug_data.items():
+        entities[entity_id] = EntityDebugInfo(**entity_data)
+    
+    return DebugDataResponse(
+        request_id=str(request_id),
+        entities=entities,
+    )

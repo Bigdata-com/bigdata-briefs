@@ -2,6 +2,7 @@ from datetime import datetime
 from threading import Lock
 from uuid import UUID
 
+from sqlalchemy.orm import attributes
 from sqlmodel import Session, select
 
 from bigdata_briefs.api.models import BriefStatusResponse, WorkflowStatus
@@ -82,6 +83,38 @@ class StorageManager:
                 logs=workflow_status.logs,
                 report=report,
             )
+
+    def save_debug_data(self, request_id: UUID, entity_id: str, debug_info: dict):
+        """Save debug information for a specific entity in the workflow."""
+        with self.lock:
+            workflow_status = self._get_workflow_status(request_id)
+            if workflow_status is None:
+                raise ValueError(
+                    f"Request ID {request_id} not found in status storage."
+                )
+            
+            # Initialize debug_data if it doesn't exist
+            if not workflow_status.debug_data:
+                workflow_status.debug_data = {}
+            
+            # Add or update debug info for this entity
+            workflow_status.debug_data[entity_id] = debug_info
+            workflow_status.last_updated = datetime.now()
+            
+            # Mark the JSON field as modified so SQLAlchemy saves it
+            attributes.flag_modified(workflow_status, 'debug_data')
+            
+            self.db_session.add(workflow_status)
+            self.db_session.commit()
+            self.db_session.refresh(workflow_status)
+
+    def get_debug_data(self, request_id: UUID) -> dict | None:
+        """Retrieve debug data for a workflow."""
+        with self.lock:
+            workflow_status = self._get_workflow_status(request_id)
+            if workflow_status is None:
+                return None
+            return workflow_status.debug_data or {}
 
     def initialize_with_example_data(self):
         """Initialize the database with example data for testing and demonstration purposes.

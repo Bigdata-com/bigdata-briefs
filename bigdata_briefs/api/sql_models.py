@@ -12,3 +12,6 @@ class SQLWorkflowStatus(SQLModel, table=True):
     logs: list[str] = Field(
         default_factory=list, sa_column=Column(MutableList.as_mutable(JSON))
     )
+    debug_data: dict = Field(
+        default_factory=dict, sa_column=Column(JSON)
+    )

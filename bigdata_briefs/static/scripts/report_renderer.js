@@ -31,23 +31,42 @@ function renderBriefReport(data) {
 
     // Render Company Reports tab
     renderCompanyReportsTab(data);
+
+    // Render Audit tab
+    console.log('[ReportRenderer] Rendering Audit tab:', {
+        hasEntityReports: !!data.entity_reports,
+        entityReportsCount: data.entity_reports?.length,
+        hasSourceMetadata: !!data.source_metadata,
+        sourceMetadataType: typeof data.source_metadata,
+        sourceMetadataKeys: data.source_metadata ? Object.keys(data.source_metadata).slice(0, 3) : [],
+        hasAuditTable: !!window.auditTable
+    });
+    
+    if (data.entity_reports && data.source_metadata && window.auditTable) {
+        console.log('[ReportRenderer] Calling auditTable.init()');
+        // Handle both direct dict and RootModel format
+        const sourceMetadata = data.source_metadata.root || data.source_metadata;
+        window.auditTable.init(data.entity_reports, sourceMetadata);
+    } else {
+        console.warn('[ReportRenderer] Cannot render Audit tab - missing dependencies:', {
+            entity_reports: !data.entity_reports,
+            source_metadata: !data.source_metadata,
+            auditTable: !window.auditTable
+        });
+    }
 }
 
 function renderOverviewTab(data) {
     const overviewContent = document.querySelector('[data-tab-content="overview"] .tab-actual-content');
     if (!overviewContent) return;
 
-    let html = '';
+    // Format dates to show only YYYY-MM-DD
+    const formatDateOnly = (isoString) => {
+        if (!isoString) return '';
+        return isoString.split('T')[0];
+    };
 
-    // Watchlist and date info
-    html += '<div class="mb-6">';
-    html += `<div class="inline-block bg-surface2 border border-border text-text px-4 py-2 rounded-lg text-base font-semibold mr-4 mb-4">
-        ${escapeHtml(data.watchlist_name || data.watchlist_id || 'Unknown Watchlist')}
-    </div>`;
-    html += `<div class="text-text3 text-sm mb-4">
-        <span>Period: ${escapeHtml(data.start_date || '')} to ${escapeHtml(data.end_date || '')}</span>
-    </div>`;
-    html += '</div>';
+    let html = '';
 
     // Title
     if (data.report_title) {
@@ -86,7 +105,7 @@ function renderCompanyReportsTab(data) {
 
     // Use the company browser to render companies
     if (window.companyBrowser && Array.isArray(data.entity_reports) && data.entity_reports.length > 0) {
-        window.companyBrowser.init(data.entity_reports);
+        window.companyBrowser.init(data.entity_reports, data.source_metadata);
     } else {
         companiesContent.innerHTML = `
             <div class="text-center py-12">

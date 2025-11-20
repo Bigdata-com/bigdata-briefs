@@ -511,6 +511,11 @@ class OutputReportBulletPoint(BaseModel):
 
     bullet_point: str
     sources: list[str]
+    # Fields for discarded bullets
+    comparison_similarity: float | None = None
+    comparison_sentence: str | None = None
+    # Field for compared_with bullets
+    creation_date: str | None = None
 
 
 class OutputEntityReport(BaseModel):
@@ -519,6 +524,9 @@ class OutputEntityReport(BaseModel):
     entity_id: str
     entity_info: dict
     content: list[OutputReportBulletPoint]
+    kept: list[OutputReportBulletPoint] = Field(default_factory=list)
+    discarded: list[OutputReportBulletPoint] = Field(default_factory=list)
+    compared_with: list[OutputReportBulletPoint] = Field(default_factory=list)
 
 
 class BriefReport(BaseModel):
@@ -535,7 +543,11 @@ class BriefReport(BaseModel):
 
     @classmethod
     def from_watchlist_report(
-        cls, watchlist_report: WatchlistReport, sources: RetrievedSources, novelty: bool
+        cls, 
+        watchlist_report: WatchlistReport, 
+        sources: RetrievedSources, 
+        novelty: bool,
+        debug_data: dict | None = None,
     ) -> "BriefReport":
         """Create a BriefReport from a WatchlistReport."""
         # Format entity reports
@@ -550,13 +562,83 @@ class BriefReport(BaseModel):
                         sources=references,
                     )
                 )
+            
+            # Populate debug fields if debug_data is available
+            kept = []
+            discarded = []
+            compared_with = []
+            
+            if debug_data and entity_report.entity_id in debug_data:
+                entity_debug = debug_data[entity_report.entity_id]
+                
+                # Kept texts - extract references and clean text
+                for kept_text in entity_debug.get("kept_texts", []):
+                    cleaned_text, references = SingleEntityReport._extract_references(kept_text)
+                    kept.append(
+                        OutputReportBulletPoint(
+                            bullet_point=cleaned_text,
+                            sources=references,
+                        )
+                    )
+                
+                # Discarded texts with similarity info - extract references and clean text
+                for discarded_item in entity_debug.get("discarded", []):
+                    discarded_text = discarded_item.get("text", "")
+                    max_sim = discarded_item.get("max_similarity", 0.0)
+                    most_similar = discarded_item.get("most_similar_text", "")
+                    
+                    # Extract references from the discarded text
+                    cleaned_text, references = SingleEntityReport._extract_references(discarded_text)
+                    
+                    # Extract the most similar sentence (without references)
+                    cleaned_most_similar, _ = SingleEntityReport._extract_references(most_similar) if most_similar else ("", [])
+                    
+                    # Create bullet point with separated data
+                    discarded.append(
+                        OutputReportBulletPoint(
+                            bullet_point=cleaned_text,
+                            sources=references,  # Only real source IDs
+                            comparison_similarity=max_sim,
+                            comparison_sentence=cleaned_most_similar if cleaned_most_similar else None,
+                        )
+                    )
+                
+                # Compared with texts - extract references and clean
+                for compared_text in entity_debug.get("compared_with", []):
+                    cleaned_compared, compared_refs = SingleEntityReport._extract_references(compared_text)
+                    compared_with.append(
+                        OutputReportBulletPoint(
+                            bullet_point=cleaned_compared,
+                            sources=compared_refs,
+                        )
+                    )
+            
             entity_reports.append(
                 OutputEntityReport(
                     entity_id=entity_report.entity_id,
                     entity_info=entity_report.entity_info,
                     content=content,
+                    kept=kept,
+                    discarded=discarded,
+                    compared_with=compared_with,
                 )
             )
+
+        # Mark sources from discarded and compared_with as used
+        # so they get included in source_metadata
+        for entity_report_data in entity_reports:
+            # Mark discarded sources
+            for discarded_bp in entity_report_data.discarded:
+                for source_id in discarded_bp.sources:
+                    if source_id in sources.root:
+                        sources.root[source_id].mark_as_used()
+            
+            # Mark compared_with sources
+            # (currently compared_with doesn't show sources in UI, but good to have them available)
+            for compared_bp in entity_report_data.compared_with:
+                for source_id in compared_bp.sources:
+                    if source_id in sources.root:
+                        sources.root[source_id].mark_as_used()
 
         return cls(
             watchlist_id=watchlist_report.watchlist_id,

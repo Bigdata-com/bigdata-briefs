@@ -189,6 +189,8 @@ class BriefPipelineService:
         source_rank_boost: int | None,
         freshness_boost: int | None,
         executor: ThreadPoolExecutor,
+        request_id: UUID | None = None,
+        storage_manager: StorageManager | None = None,
     ) -> tuple[SingleEntityReport, RetrievedSources]:
         logger.debug(f"Starting report on {entity}")
 
@@ -281,15 +283,26 @@ class BriefPipelineService:
         )
         if settings.NOVELTY_ENABLED and report_dates.novelty:
             # Filter final report for novelty
-            novel_bulletpoints = self.novelty_filter_service.filter_by_novelty(
+            collect_debug = storage_manager is not None and request_id is not None
+            novel_bulletpoints, debug_info = self.novelty_filter_service.filter_by_novelty(
                 texts=entity_report.report_bulletpoints,
                 entity_id=entity_report.entity_id,
                 start_date=report_dates.get_novelty_dates().start,
                 end_date=report_dates.get_novelty_dates().end,
                 current_date=report_dates.end,
                 clean_up_func=SingleEntityReport.remove_references,
+                collect_debug_info=collect_debug,
+                entity_name=entity.name,
             )
             novel_titles = [bp.original_text for bp in novel_bulletpoints]
+            
+            # Save debug info if available
+            if debug_info and storage_manager and request_id:
+                storage_manager.save_debug_data(
+                    request_id, 
+                    entity_report.entity_id, 
+                    debug_info.model_dump()
+                )
 
             # To ensure that the length matches, we need to remove unwanted bp from the report
             rp_bulletpoints = []
@@ -496,6 +509,8 @@ class BriefPipelineService:
                     source_rank_boost,
                     freshness_boost,
                     executor,
+                    request_id,
+                    storage_manager,
                 ): entity
                 for entity in entities
             }
@@ -652,10 +667,14 @@ class BriefPipelineService:
                 **chunk_aggregation,
             )
 
+            # Retrieve debug data if available
+            debug_data = storage_manager.get_debug_data(request_id)
+            
             pipeline_output = BriefReport.from_watchlist_report(
                 watchlist_report,
                 source_metadata,
                 novelty=record_data.report_dates.novelty,
+                debug_data=debug_data,
             )
 
             if pipeline_output.is_empty:

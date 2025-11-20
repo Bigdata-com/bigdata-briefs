@@ -17,3 +17,20 @@ class BulletPointEmbedding(BaseModel):
 
     def set_novel(self, value: bool):
         self._is_novel = value
+
+
+class DiscardedBulletPoint(BaseModel):
+    """Represents a bullet point that was discarded during novelty filtering."""
+    text: str
+    max_similarity: float
+    most_similar_text: str
+
+
+class NoveltyDebugInfo(BaseModel):
+    """Debug information about the novelty filtering process for a single entity."""
+    entity_id: str
+    entity_name: str
+    generated_texts: list[str]
+    compared_with: list[str]
+    discarded: list[DiscardedBulletPoint]
+    kept_texts: list[str]

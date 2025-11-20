@@ -64,13 +64,19 @@ async function loadRequestId(requestId) {
                 indicator.classList.add('hidden');
             });
 
+            // Save request ID for debug tab
+            window.lastRequestId = requestId;
+
             // Update header info
             const report = statusData.report;
-            updateHeaderInfo(
-                report.start_date,
-                report.end_date,
-                report.watchlist_name || report.watchlist_id
-            );
+            if (window.updateHeaderInfo) {
+                window.updateHeaderInfo(
+                    report.start_date,
+                    report.end_date,
+                    report.watchlist_id,
+                    report.watchlist_name
+                );
+            }
 
             // Render the report using the new renderer
             if (window.renderBriefReport) {
@@ -78,26 +84,17 @@ async function loadRequestId(requestId) {
             }
             
             window.lastReport = report;
+            
+            // Emit event for debug tab
+            const event = new CustomEvent('reportLoaded', { 
+                detail: { requestId: requestId } 
+            });
+            document.dispatchEvent(event);
         } else if (statusData.status === 'failed') {
             showError('Failed to load example. The brief generation may have failed.');
         }
     } catch (err) {
         showError(`Error loading example: ${err.message}`);
-    }
-}
-
-function updateHeaderInfo(startDate, endDate, companies) {
-    const dateRangeEl = document.getElementById('currentDateRange');
-    const companiesEl = document.getElementById('currentCompanies');
-    
-    if (dateRangeEl && startDate && endDate) {
-        const start = new Date(startDate).toLocaleDateString();
-        const end = new Date(endDate).toLocaleDateString();
-        dateRangeEl.textContent = `${start} - ${end}`;
-    }
-    
-    if (companiesEl && companies) {
-        companiesEl.textContent = typeof companies === 'string' ? companies : 'Multiple companies';
     }
 }
 
