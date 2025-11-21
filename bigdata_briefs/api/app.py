@@ -4,7 +4,7 @@ from typing import Annotated
 from uuid import UUID, uuid4
 
 from fastapi import BackgroundTasks, Body, Depends, FastAPI, HTTPException, Security
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from sqlmodel import Session, SQLModel, create_engine
 
@@ -108,12 +108,13 @@ def health_check():
     return {"status": "ok", "version": __version__}
 
 
-# @app.get(
-#     "/",
+@app.get(
+    "/",
 #     summary="Example frontend for testing the thematic screener.",
 #     response_class=HTMLResponse,
-# )
-# async def sample_frontend(_: str = Security(query_scheme)) -> HTMLResponse:
+)
+async def sample_frontend(_: str = Security(query_scheme)):
+    return RedirectResponse(url="/docs")
 #     # Get example values from the schema for all fields
 #     example_values = get_example_values_from_schema(BriefCreationRequest)
 #     return HTMLResponse(
