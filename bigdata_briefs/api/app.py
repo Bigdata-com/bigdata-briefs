@@ -4,22 +4,19 @@ from typing import Annotated
 from uuid import UUID, uuid4
 
 from fastapi import BackgroundTasks, Body, Depends, FastAPI, HTTPException, Security
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 from sqlmodel import Session, SQLModel, create_engine
 
 from bigdata_briefs import LOG_LEVEL, __version__, logger
-from bigdata_briefs.api.examples import EXAMPLE_UUID
 from bigdata_briefs.api.models import (
     BriefAcceptedResponse,
     BriefCreationRequest,
     BriefStatusResponse,
-    ExampleWatchlists,
     WorkflowStatus,
 )
 from bigdata_briefs.api.secure import query_scheme
 from bigdata_briefs.api.storage import StorageManager
-from bigdata_briefs.api.utils import get_example_values_from_schema
 from bigdata_briefs.metrics import (
     LLMMetrics,
     Metrics,
@@ -30,7 +27,6 @@ from bigdata_briefs.query_service.api import (
 )
 from bigdata_briefs.service import BriefPipelineService
 from bigdata_briefs.settings import UNSET, settings
-from bigdata_briefs.templates import loader
 from bigdata_briefs.tracing.service import TraceEventName, TracingService
 
 engine = create_engine(settings.DB_STRING, echo=LOG_LEVEL == "DEBUG")
@@ -112,30 +108,30 @@ def health_check():
     return {"status": "ok", "version": __version__}
 
 
-@app.get(
-    "/",
-    summary="Example frontend for testing the thematic screener.",
-    response_class=HTMLResponse,
-)
-async def sample_frontend(_: str = Security(query_scheme)) -> HTMLResponse:
-    # Get example values from the schema for all fields
-    example_values = get_example_values_from_schema(BriefCreationRequest)
-    return HTMLResponse(
-        content=loader.get_template("api/index.html.jinja").render(
-            companies=example_values[
-                "entities"
-            ],  # TODO: rename to entities when updating frontend, as this was changed recently to support other entities
-            novelty=example_values["novelty"],
-            default_start_date=example_values["report_start_date"].isoformat(),
-            default_end_date=example_values["report_end_date"].isoformat(),
-            topics=example_values["topics"],
-            sources=example_values["sources"],
-            example_watchlists=list(dict(ExampleWatchlists).values()),
-            example_request_id=str(EXAMPLE_UUID),
-            demo_mode=settings.DEMO_MODE,
-        ),
-        media_type="text/html",
-    )
+# @app.get(
+#     "/",
+#     summary="Example frontend for testing the thematic screener.",
+#     response_class=HTMLResponse,
+# )
+# async def sample_frontend(_: str = Security(query_scheme)) -> HTMLResponse:
+#     # Get example values from the schema for all fields
+#     example_values = get_example_values_from_schema(BriefCreationRequest)
+#     return HTMLResponse(
+#         content=loader.get_template("api/index.html.jinja").render(
+#             companies=example_values[
+#                 "entities"
+#             ],  # TODO: rename to entities when updating frontend, as this was changed recently to support other entities
+#             novelty=example_values["novelty"],
+#             default_start_date=example_values["report_start_date"].isoformat(),
+#             default_end_date=example_values["report_end_date"].isoformat(),
+#             topics=example_values["topics"],
+#             sources=example_values["sources"],
+#             example_watchlists=list(dict(ExampleWatchlists).values()),
+#             example_request_id=str(EXAMPLE_UUID),
+#             demo_mode=settings.DEMO_MODE,
+#         ),
+#         media_type="text/html",
+#     )
 
 
 @app.post(
