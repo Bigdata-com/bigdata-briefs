@@ -107,7 +107,8 @@ curl -X 'POST' \
   "report_start_date": "2025-10-27",
   "report_end_date": "2025-11-03",
   "novelty": true,
-  "categories": ["news"],
+  "sources": null,
+  "categories": null,
   "topics": [
     "What notable changes in {entity}\u0027s financial performance metrics have been reported recently?",
     "Has {entity} revised its financial or operational guidance for upcoming periods?",
@@ -124,7 +125,8 @@ curl -X 'POST' \
 - `report_start_date` / `report_end_date`: Date range for the briefing (ISO format: `YYYY-MM-DD` or `YYYY-MM-DDTHH:MM:SS`)
 - `novelty` (optional): Filter for only new or unique information based on previously generated briefs
 - `topics` (optional): List of research questions/topics. Use `{entity}` placeholder to customize per entity
-- `categories` (optional): Filter report content by category. Available values: `expert_interviews`, `filings`, `my_files`, `news`, `podcasts`, `research`, `transcripts`
+- `sources` (optional): List of source IDs to whitelist, all other sources will be filtered out (default: all sources)
+- `categories` (optional): List of category IDs to whitelist, all other categories will be filtered out (default: all categories). Possible categories are: `expert_interviews`, `filings`, `news`, `podcasts`, `research`, `transcripts` and `my_files`.
 - `source_rank_boost` (optional): Control how sources are prioritized (default: 10)
 - `freshness_boost` (optional): Control freshness weighting for sources (default: 8)
 - `disable_introduction` (optional): Skip the introduction section in the brief
