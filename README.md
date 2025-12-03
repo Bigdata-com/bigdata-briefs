@@ -77,7 +77,7 @@ curl -X 'POST' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
-  "companies": "db8478c9-34db-4975-8e44-b1ff764098ac",
+  "entities": "db8478c9-34db-4975-8e44-b1ff764098ac",
   "report_start_date": "2025-09-23T15:00:00",
   "report_end_date": "2025-09-30T15:00:00"
 }'
@@ -90,7 +90,7 @@ curl -X 'POST' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
-  "companies": ["D8442A"],
+  "entities": ["D8442A"],
   "report_start_date": "2025-10-27",
   "report_end_date": "2025-11-03"
 }'
@@ -103,10 +103,11 @@ curl -X 'POST' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
-  "companies": ["D8442A", "168A5D"],
+  "entities": ["D8442A", "168A5D"],
   "report_start_date": "2025-10-27",
   "report_end_date": "2025-11-03",
   "novelty": true,
+  "categories": ["news"],
   "topics": [
     "What notable changes in {entity}\u0027s financial performance metrics have been reported recently?",
     "Has {entity} revised its financial or operational guidance for upcoming periods?",
@@ -123,6 +124,7 @@ curl -X 'POST' \
 - `report_start_date` / `report_end_date`: Date range for the briefing (ISO format: `YYYY-MM-DD` or `YYYY-MM-DDTHH:MM:SS`)
 - `novelty` (optional): Filter for only new or unique information based on previously generated briefs
 - `topics` (optional): List of research questions/topics. Use `{entity}` placeholder to customize per entity
+- `categories` (optional): Filter report content by category. Available values: `expert_interviews`, `filings`, `my_files`, `news`, `podcasts`, `research`, `transcripts`
 - `source_rank_boost` (optional): Control how sources are prioritized (default: 10)
 - `freshness_boost` (optional): Control freshness weighting for sources (default: 8)
 - `disable_introduction` (optional): Skip the introduction section in the brief
@@ -174,7 +176,7 @@ curl -X POST \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
-  "companies": ["D8442A"],
+  "entities": ["D8442A"],
   "report_start_date": "2025-10-27",
   "report_end_date": "2025-11-03"
 }'
