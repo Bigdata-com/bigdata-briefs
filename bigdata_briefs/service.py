@@ -3,8 +3,8 @@ from concurrent.futures.thread import ThreadPoolExecutor
 from datetime import datetime
 from hashlib import sha256
 from importlib.metadata import version
-from time import perf_counter
 from threading import Lock
+from time import perf_counter
 from uuid import UUID
 
 from bigdata_briefs import logger
