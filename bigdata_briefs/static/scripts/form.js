@@ -42,11 +42,11 @@ document.getElementById('briefForm').onsubmit = async function (e) {
     }
     
     if (topicsArray.length > 0) {
-        // Validate that ALL topics contain the {company} placeholder
-        const topicsWithoutPlaceholder = topicsArray.filter(topic => !topic.includes('{company}'));
+        // Validate that ALL topics contain the {entity} placeholder (matches backend BriefPipelineService)
+        const topicsWithoutPlaceholder = topicsArray.filter(topic => !topic.includes('{entity}'));
         if (topicsWithoutPlaceholder.length > 0) {
             const failingTopicsList = topicsWithoutPlaceholder.map(topic => `• ${escapeHtml(topic)}`).join('<br>');
-            output.innerHTML = `<span class="error">❌ Error: The following topics are missing the {company} placeholder:<br>${failingTopicsList}</span>`;
+            output.innerHTML = `<span class="error">❌ Error: The following topics are missing the {entity} placeholder:<br>${failingTopicsList}</span>`;
             output.classList.add('error');
             submitBtn.disabled = false;
             submitBtn.textContent = 'Generate Brief';
@@ -67,20 +67,18 @@ document.getElementById('briefForm').onsubmit = async function (e) {
         }
     }
 
-    // A list of companies
+    // entities: list of RavenPack IDs and/or a single watchlist UUID (matches BriefCreationRequest)
     if (companies.includes(',')) {
-        payload.companies = companies.split(',').map(s => s.trim()).filter(Boolean);
-        // A single RP Entity ID
+        payload.entities = companies.split(',').map(s => s.trim()).filter(Boolean);
     } else if (companies.length === 6) {
-        payload.companies = [companies];
-        // A watchlist ID
+        payload.entities = [companies];
     } else if (companies.length > 6) {
-        payload.companies = companies;
+        payload.entities = companies;
     }
 
     if (start_date) payload.report_start_date = start_date;
     if (end_date) payload.report_end_date = end_date;
-    if (novelty) payload.novelty = novelty;
+    payload.novelty = novelty;
 
     // Add token from URL param if present
     const params = new URLSearchParams();
