@@ -168,7 +168,9 @@ class Result(BaseModel):
             ts=api_document["timestamp"],
             document_scope=api_document.get("document_type", "Unknown"),
             language=api_document.get("language", "Unknown"),
-            chunks=[Chunk.from_api(api_chunk) for api_chunk in api_document["chunks"]],
+            chunks=tuple(
+                Chunk.from_api(api_chunk) for api_chunk in api_document["chunks"]
+            ),
         )
 
 

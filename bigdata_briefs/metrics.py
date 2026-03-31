@@ -66,12 +66,12 @@ class WarningsMetrics(Metrics):
     lock = Lock()
 
     @classmethod
-    def track_usage(cls, warning_message: str):
+    def track_usage(cls, usage: str):
         with cls.lock:
             # Avoid logging duplicate warnings
-            if warning_message not in cls.warnings:
-                logger.info("A warning have been suppressed", warning=warning_message)
-            cls.warnings.add(warning_message)
+            if usage not in cls.warnings:
+                logger.info("A warning have been suppressed", warning=usage)
+            cls.warnings.add(usage)
 
     @classmethod
     def get_total_usage(cls) -> set[str]:
