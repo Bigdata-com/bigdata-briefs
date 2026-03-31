@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from queue import Queue
 from threading import Lock
+from typing import Any, ClassVar
 
 from bigdata_briefs import logger
 from bigdata_briefs.models import (
@@ -12,6 +13,9 @@ from bigdata_briefs.models import (
 
 
 class Metrics(ABC):
+    lock: ClassVar[Any]
+    metrics_queue: ClassVar[Queue[Any]]
+
     @classmethod
     @abstractmethod
     def track_usage(cls, usage): ...
