@@ -275,6 +275,13 @@ class APIQueryService(BaseQueryService):
                     self._run_single_exploratory_search,
                     entity_id=entity.id,
                     report_dates=report_dates,
+                    source_filter=source_filter,
+                    categories=categories,
+                    sentiment_threshold=sentiment_threshold,
+                    chunk_limit=chunk_limit,
+                    rerank_threshold=rerank_threshold,
+                    source_rank_boost=source_rank_boost,
+                    freshness_boost=freshness_boost,
                     enable_metric=True,
                     metric_name=f"Exploratory search. Entity {entity.id}",
                 )
@@ -288,6 +295,13 @@ class APIQueryService(BaseQueryService):
             return self._run_single_exploratory_search(
                 entity_id=entity.id,
                 report_dates=report_dates,
+                source_filter=source_filter,
+                categories=categories,
+                sentiment_threshold=sentiment_threshold,
+                chunk_limit=chunk_limit,
+                rerank_threshold=rerank_threshold,
+                source_rank_boost=source_rank_boost,
+                freshness_boost=freshness_boost,
                 enable_metric=True,
                 metric_name=f"Exploratory search. Entity {entity.id}",
             )
@@ -348,6 +362,8 @@ class APIQueryService(BaseQueryService):
         executor: ThreadPoolExecutor,
         source_rank_boost: int | None = settings.API_SOURCE_RANK_BOOST,
         freshness_boost: int | None = settings.API_FRESHNESS_BOOST,
+        sentiment_threshold: float | None = settings.FOLLOWUP_SENTIMENT_THRESHOLD,
+        rerank_threshold: float | None = settings.API_RERANK_FOLLOWUP,
     ) -> QAPairs:
         future_to_question = {
             executor.submit(
@@ -359,6 +375,8 @@ class APIQueryService(BaseQueryService):
                 categories=categories,
                 source_rank_boost=source_rank_boost,
                 freshness_boost=freshness_boost,
+                sentiment_threshold=sentiment_threshold,
+                rerank_threshold=rerank_threshold,
             ): question
             for question in follow_up_questions
         }

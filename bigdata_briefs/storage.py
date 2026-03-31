@@ -56,7 +56,7 @@ def get_report_with_sources(
             # since some users might have older versions of the database with the report column stored as string
             # Remove in future versions when a breaking change is acceptable
             report.brief_report = json.loads(report.brief_report)
-        brief_report = BriefReport(**report.brief_report)  # ty: ignore[missing-argument]
+        brief_report = BriefReport(**report.brief_report)
         return brief_report
     except Exception as e:
         logger.error(f"Error reconstructing BriefReport from database records: {e}")

@@ -39,7 +39,7 @@ class BaseQueryService(ABC):
         categories: list[str] | None = None,
         sentiment_threshold: float | None = None,
         chunk_limit: int | None = None,
-        rerank_threshold: float = 0.0,
+        rerank_threshold: float | None = None,
     ) -> list[Result]: ...
 
     @abstractmethod
@@ -106,7 +106,10 @@ class BaseQueryService(ABC):
         follow_up_questions: list[str],
         report_dates: ReportDates,
         source_filter: list[str] | None,
+        categories: list[str] | None,
         executor: ThreadPoolExecutor,
         source_rank_boost: int | None,
         freshness_boost: int | None,
+        sentiment_threshold: float | None = None,
+        rerank_threshold: float | None = None,
     ) -> QAPairs: ...

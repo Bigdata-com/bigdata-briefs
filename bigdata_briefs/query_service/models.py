@@ -1,4 +1,4 @@
-from typing import List, Literal, NotRequired, TypedDict
+from typing import Literal, NotRequired, TypedDict
 
 
 class TimestampFilter(TypedDict):
@@ -7,21 +7,29 @@ class TimestampFilter(TypedDict):
 
 
 class EntityFilter(TypedDict):
-    any_of: List[str]
+    any_of: list[str]
 
 
-class SentimentFilter(TypedDict):
-    values: List[Literal["positive", "negative", "neutral"]]
+class SentimentRangeBand(TypedDict):
+    min: float
+    max: float
+
+
+class SentimentFilter(TypedDict, total=False):
+    """API supports categorical values or numeric range bands (magnitude filter)."""
+
+    values: list[Literal["positive", "negative", "neutral"]]
+    ranges: list[SentimentRangeBand]
 
 
 class SourceFilter(TypedDict):
     mode: Literal["INCLUDE", "EXCLUDE"]
-    values: List[str]
+    values: list[str]
 
 
 class CategoryFilter(TypedDict):
     mode: Literal["INCLUDE", "EXCLUDE"]
-    values: List[str]
+    values: list[str]
 
 
 class Filters(TypedDict, total=False):

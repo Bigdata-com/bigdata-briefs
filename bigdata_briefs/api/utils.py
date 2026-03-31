@@ -1,4 +1,4 @@
-from typing import Type
+from typing import Any, cast
 
 from pydantic import BaseModel
 
@@ -7,7 +7,7 @@ from bigdata_briefs.api.sql_models import SQLWorkflowStatus
 from bigdata_briefs.sql_models import SQLBriefReport
 
 
-def get_example_values_from_schema(schema_model: Type[BaseModel]) -> dict:
+def get_example_values_from_schema(schema_model: type[BaseModel]) -> dict:
     """
     Extract example values from a Pydantic model's fields, falling back to defaults if no example is provided.
     Args:
@@ -18,9 +18,9 @@ def get_example_values_from_schema(schema_model: Type[BaseModel]) -> dict:
     example_values = {}
     for field_name, field in schema_model.model_fields.items():
         example = None
-        if isinstance(field.json_schema_extra, dict):
-            if "example" in field.json_schema_extra:
-                example = field.json_schema_extra["example"]
+        extra = field.json_schema_extra
+        if isinstance(extra, dict):
+            example = cast(dict[str, Any], extra).get("example")
         elif field.examples:
             if field.examples:
                 example = field.examples[0]

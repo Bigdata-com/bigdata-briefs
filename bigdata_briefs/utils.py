@@ -5,7 +5,7 @@ import warnings
 from datetime import datetime
 from functools import wraps
 from time import perf_counter
-from typing import Type
+from typing import cast
 
 from json_repair import repair_json
 from pydantic import BaseModel, ValidationError
@@ -60,13 +60,14 @@ def log_performance(func):
     return wrapper
 
 
-def validate_and_repair_model(json_str: str, model: Type[BaseModel]) -> BaseModel:
+def validate_and_repair_model(json_str: str, model: type[BaseModel]) -> BaseModel:
     try:
         response = model.model_validate_json(json_str)
         return response
     except ValidationError:
-        # With return_objects=False, it always returns a string, so ignore type checking error
-        fixed_json_str: str = repair_json(json_str, return_objects=False)  # type: ignore[invalid-assignment]
+        fixed_json_str = cast(
+            str, repair_json(json_str, return_objects=False)
+        )
         try:
             response = model.model_validate_json(fixed_json_str)
             logger.debug(
