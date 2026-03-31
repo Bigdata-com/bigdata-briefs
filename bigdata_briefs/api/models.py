@@ -113,6 +113,29 @@ class BriefCreationRequest(BaseModel):
         le=10,
         examples=[settings.API_FRESHNESS_BOOST],
     )
+    sentiment_threshold: float | None = Field(
+        None,
+        description=(
+            "Sentiment filter magnitude for every Bigdata /v1/search in this brief: chunks outside "
+            "[-1,-t] ∪ [t,1] are excluded. Omit to use the server default "
+            f"({settings.EXPLORATORY_SENTIMENT_THRESHOLD}). Use 0 to disable sentiment filtering."
+        ),
+        ge=0,
+        le=1,
+        examples=[settings.EXPLORATORY_SENTIMENT_THRESHOLD],
+    )
+    rerank_threshold: float | None = Field(
+        None,
+        description=(
+            "Reranker score threshold for exploratory and follow-up Bigdata /v1/search calls "
+            "(ranking_params.reranker). Omit to use built-in defaults: exploratory "
+            f"{settings.API_RERANK_EXPLORATORY}, follow-up {settings.API_RERANK_FOLLOWUP}. "
+            "The initial lightweight \"has results\" probe always runs with reranking disabled."
+        ),
+        ge=0,
+        le=1,
+        examples=[settings.API_RERANK_EXPLORATORY],
+    )
 
 
 class BriefAcceptedResponse(BaseModel):

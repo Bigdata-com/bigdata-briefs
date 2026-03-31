@@ -13,7 +13,10 @@ class EmbeddingClient:
     def __init__(self, model: str, client: openai.OpenAI | None = None):
         self.model = model
         if client is None:
-            client = openai.OpenAI()
+            client = openai.OpenAI(
+                timeout=settings.OPENAI_TIMEOUT_SECONDS,
+                max_retries=settings.EMBEDDING_RETRIES,
+            )
         self.client = client
 
     def compute(self, texts: list[str], **kwargs) -> list[list[float]]:

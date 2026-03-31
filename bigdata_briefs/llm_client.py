@@ -3,7 +3,7 @@ import json
 import openai
 from pydantic import BaseModel
 
-from bigdata_briefs import logger
+from bigdata_briefs import LOG_LEVEL, logger
 from bigdata_briefs.metrics import LLMMetrics
 from bigdata_briefs.models import LLMUsage
 from bigdata_briefs.settings import settings
@@ -22,7 +22,10 @@ class FollowUpQuestionsPromptDefaults(BaseModel):
 class LLMClient:
     def __init__(self, client: openai.OpenAI | None = None):
         if client is None:
-            client = openai.OpenAI()
+            client = openai.OpenAI(
+                timeout=settings.OPENAI_TIMEOUT_SECONDS,
+                max_retries=settings.LLM_RETRIES,
+            )
         self.client = client
 
     @log_time
@@ -91,6 +94,12 @@ class LLMClient:
             try:
                 return func(*args, **kwargs)
             except Exception as e:
+                if LOG_LEVEL == "DEBUG" and "timeout" in str(e).lower():
+                    prompt_payload = kwargs.get("input") or kwargs.get("messages")
+                    print(
+                        "\n[DEBUG][LLM TIMEOUT] Prompt payload sent to LLM:\n",
+                        json.dumps(prompt_payload, indent=2, ensure_ascii=False),
+                    )
                 if attempt >= settings.LLM_RETRIES - 1:
                     raise
                 logger.warning(f"Error calling LLM: {e}. Attempt {attempt + 1}")

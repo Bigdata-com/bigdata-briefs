@@ -75,7 +75,7 @@ class Settings(BaseSettings):
     NOVELTY_LOOKBACK_DAYS: int = 14
     NOVELTY_STORAGE_LOOKBACK_HOURS: int = 1
     NOVELTY_STORAGE_THRESHOLD: float = 0.8
-    EMBEDDING_RETRIES: int = 3
+    EMBEDDING_RETRIES: int = 2
 
     # Search configuration
     API_SIMULTANEOUS_REQUESTS: int = 40  # Reduced to prevent rate limit bursts
@@ -93,7 +93,8 @@ class Settings(BaseSettings):
 
     # LLM configuration
     LLM_FOLLOW_UP_QUESTIONS: int = 5
-    LLM_RETRIES: int = 3
+    LLM_RETRIES: int = 2
+    OPENAI_TIMEOUT_SECONDS: int = 30
 
     # Server configuration
     HOST: str = "0.0.0.0"

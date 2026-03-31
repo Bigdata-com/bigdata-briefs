@@ -205,6 +205,8 @@ class ValidatedInput(BaseModel):
     categories: list[str] | None
     source_rank_boost: int | None
     freshness_boost: int | None
+    sentiment_threshold: float
+    rerank_threshold: float | None = None
 
 
 class FollowUpAnalysis(BaseModel):

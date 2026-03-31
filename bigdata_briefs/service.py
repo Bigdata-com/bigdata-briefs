@@ -3,6 +3,7 @@ from concurrent.futures.thread import ThreadPoolExecutor
 from datetime import datetime
 from hashlib import sha256
 from importlib.metadata import version
+from time import perf_counter
 from threading import Lock
 from uuid import UUID
 
@@ -194,16 +195,21 @@ class BriefPipelineService:
         report_dates: ReportDates,
         source_rank_boost: int | None,
         freshness_boost: int | None,
+        sentiment_threshold: float,
         executor: ThreadPoolExecutor,
+        *,
+        rerank_threshold: float | None = None,
     ) -> tuple[SingleEntityReport, RetrievedSources]:
         logger.debug(f"Starting report on {entity}")
 
         # Quick initial search to check if there are any results
+        # Initial probe: keep rerank off (cheap existence check); overrides apply only below.
         initial_results = self.query_service.check_if_entity_has_results(
             entity_id=entity.id,
             report_dates=report_dates,
             source_filter=source_filter,
             categories=categories,
+            sentiment_threshold=sentiment_threshold,
         )
 
         if not initial_results:
@@ -215,19 +221,33 @@ class BriefPipelineService:
             )
 
         # If we found results, proceed with full exploratory search
+        exploratory_kw: dict = {
+            "entity": entity,
+            "topics": topics,
+            "report_dates": report_dates,
+            "executor": executor,
+            "enable_metric": True,
+            "metric_name": "Exploratory search. All entities",
+            "source_filter": source_filter,
+            "categories": categories,
+            "source_rank_boost": source_rank_boost,
+            "freshness_boost": freshness_boost,
+            "sentiment_threshold": sentiment_threshold,
+        }
+        if rerank_threshold is not None:
+            exploratory_kw["rerank_threshold"] = rerank_threshold
+        logger.debug(
+            f"[diag] {entity.id} entering run_exploratory_search with {len(topics)} topics"
+        )
+        exploratory_t0 = perf_counter()
         with self.weighted_semaphore(len(topics) + 1):
             exploratory_search_results = self.query_service.run_exploratory_search(
-                entity=entity,
-                topics=topics,
-                report_dates=report_dates,
-                executor=executor,
-                enable_metric=True,
-                metric_name="Exploratory search. All entities",
-                source_filter=source_filter,
-                categories=categories,
-                source_rank_boost=source_rank_boost,
-                freshness_boost=freshness_boost,
+                **exploratory_kw
             )
+        logger.debug(
+            f"[diag] {entity.id} completed run_exploratory_search in "
+            f"{perf_counter() - exploratory_t0:.2f}s with {len(exploratory_search_results)} results"
+        )
         if not exploratory_search_results:
             logger.debug(f"No new information found for {entity}")
             return self.create_no_info_report(
@@ -236,6 +256,8 @@ class BriefPipelineService:
                 generation_step=NoInfoReportGenerationStep.EXPLORATORY_SEARCH,
             )
 
+        logger.debug(f"[diag] {entity.id} entering generate_follow_up_questions")
+        followup_questions_t0 = perf_counter()
         follow_up_questions = self.generate_follow_up_questions(
             entity,
             topics,
@@ -243,6 +265,10 @@ class BriefPipelineService:
             exploratory_search_results,
             enable_metric=True,
             metric_name="Generate follow up questions",
+        )
+        logger.debug(
+            f"[diag] {entity.id} completed generate_follow_up_questions in "
+            f"{perf_counter() - followup_questions_t0:.2f}s with {len(follow_up_questions)} questions"
         )
         if not follow_up_questions:
             logger.debug(f"No follow-up questions generated for {entity}")
@@ -255,19 +281,32 @@ class BriefPipelineService:
         if len(follow_up_questions) != settings.LLM_FOLLOW_UP_QUESTIONS:
             logger.debug(f"Number of followup questions: {len(follow_up_questions)}")
 
+        followup_kw: dict = {
+            "entity": entity,
+            "follow_up_questions": follow_up_questions,
+            "report_dates": report_dates,
+            "executor": executor,
+            "enable_metric": True,
+            "metric_name": "Run follow up questions",
+            "source_filter": source_filter,
+            "categories": categories,
+            "source_rank_boost": source_rank_boost,
+            "freshness_boost": freshness_boost,
+            "sentiment_threshold": sentiment_threshold,
+        }
+        if rerank_threshold is not None:
+            followup_kw["rerank_threshold"] = rerank_threshold
+        logger.debug(
+            f"[diag] {entity.id} entering run_query_with_follow_up_questions "
+            f"with {len(follow_up_questions)} questions"
+        )
+        qa_t0 = perf_counter()
         with self.weighted_semaphore(len(follow_up_questions)):
-            qa_pairs = self.query_service.run_query_with_follow_up_questions(
-                entity=entity,
-                follow_up_questions=follow_up_questions,
-                report_dates=report_dates,
-                executor=executor,
-                enable_metric=True,
-                metric_name="Run follow up questions",
-                source_filter=source_filter,
-                categories=categories,
-                source_rank_boost=source_rank_boost,
-                freshness_boost=freshness_boost,
-            )
+            qa_pairs = self.query_service.run_query_with_follow_up_questions(**followup_kw)
+        logger.debug(
+            f"[diag] {entity.id} completed run_query_with_follow_up_questions in "
+            f"{perf_counter() - qa_t0:.2f}s with {len(qa_pairs.pairs)} qa pairs"
+        )
         if not any(pair.answer for pair in qa_pairs.pairs):
             logger.debug(f"No qa-pairs generated for {entity}")
             return self.create_no_info_report(
@@ -276,6 +315,8 @@ class BriefPipelineService:
                 generation_step=NoInfoReportGenerationStep.QA_PAIRS,
             )
 
+        logger.debug(f"[diag] {entity.id} entering generate_new_report")
+        report_t0 = perf_counter()
         entity_report, source_mapping = self.generate_new_report(
             entity,
             qa_pairs,
@@ -283,6 +324,11 @@ class BriefPipelineService:
             topics=topics,
             enable_metric=True,
             metric_name="Generating report",
+        )
+        logger.debug(
+            f"[diag] {entity.id} completed generate_new_report in "
+            f"{perf_counter() - report_t0:.2f}s with "
+            f"{len(entity_report.report_bulletpoints)} bullets"
         )
         BulletPointMetrics.track_usage(
             BulletPointsUsage(
@@ -492,8 +538,11 @@ class BriefPipelineService:
         disable_introduction: bool,
         source_rank_boost: int | None,
         freshness_boost: int | None,
+        sentiment_threshold: float,
         request_id: UUID,
         storage_manager: StorageManager,
+        *,
+        rerank_threshold: float | None = None,
     ) -> tuple[WatchlistReport, RetrievedSources]:
         storage_manager.log_message(request_id, "Generating report per entity")
         with ThreadPoolExecutor(max_workers=EXECUTOR_WORKERS) as executor:
@@ -507,7 +556,9 @@ class BriefPipelineService:
                     report_dates,
                     source_rank_boost,
                     freshness_boost,
+                    sentiment_threshold,
                     executor,
+                    rerank_threshold=rerank_threshold,
                 ): entity
                 for entity in entities
             }
@@ -629,10 +680,12 @@ class BriefPipelineService:
                 record_data.disable_introduction,
                 record_data.source_rank_boost,
                 record_data.freshness_boost,
-                enable_metric=True,
-                metric_name="Execute watchlist report pipeline",
+                record_data.sentiment_threshold,
                 request_id=request_id,
                 storage_manager=storage_manager,
+                rerank_threshold=record_data.rerank_threshold,
+                enable_metric=True,
+                metric_name="Execute watchlist report pipeline",
             )
 
             n_watchlist_items = len(record_data.entities)
@@ -788,6 +841,12 @@ class BriefPipelineService:
             logger.debug(disable_intro_msg)
             storage_manager.log_message(request_id, disable_intro_msg)
 
+        resolved_sentiment = (
+            record.sentiment_threshold
+            if record.sentiment_threshold is not None
+            else settings.EXPLORATORY_SENTIMENT_THRESHOLD
+        )
+
         return ValidatedInput(
             watchlist=Watchlist(
                 id=watchlist.id,
@@ -805,6 +864,8 @@ class BriefPipelineService:
             disable_introduction=record.disable_introduction,
             source_rank_boost=record.source_rank_boost,
             freshness_boost=record.freshness_boost,
+            sentiment_threshold=resolved_sentiment,
+            rerank_threshold=record.rerank_threshold,
         )
 
 
