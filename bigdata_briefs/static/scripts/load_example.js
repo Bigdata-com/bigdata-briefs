@@ -13,7 +13,7 @@ async function loadRequestId(requestId) {
     }
     const logViewer = document.getElementById('logViewer');
 
-    const statusResp = await fetch(`/briefs/status/${requestId}?${params}`);
+    const statusResp = await apiRequest(`/briefs/status/${requestId}?${params}`);
     if (!statusResp.ok) {
         throw new Error(`Status HTTP error ${statusResp.status}`);
     }

@@ -47,8 +47,10 @@ class Settings(BaseSettings):
     # Only affects the frontend, to protect the backend, set ACCESS_TOKEN
     DEMO_MODE: bool = False
 
-    # Required, except on demo mode
+    # Bigdata API key is provided by the client via X-API-KEY (not server env).
+    # Kept for backward compatibility only; not used by the query service.
     BIGDATA_API_KEY: str | Literal["<UNSET>"] = UNSET
+    # Required for LLM calls unless DEMO_MODE is enabled
     OPENAI_API_KEY: str | Literal["<UNSET>"] = UNSET
 
     # Set access token to enable authentication on the endpoints
@@ -122,9 +124,9 @@ class Settings(BaseSettings):
                 "This mode is intended for demonstration purposes only."
             )
         else:
-            if self.BIGDATA_API_KEY == UNSET or self.OPENAI_API_KEY == UNSET:
+            if self.OPENAI_API_KEY == UNSET:
                 raise ValueError(
-                    "BIGDATA_API_KEY and OPENAI_API_KEY must be set when DEMO_MODE is disabled."
+                    "OPENAI_API_KEY must be set when DEMO_MODE is disabled."
                 )
         return self
 

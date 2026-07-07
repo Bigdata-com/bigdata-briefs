@@ -11,6 +11,10 @@ primary_region = 'cdg'
   min_machines_running = 1
   processes = ['app']
 
+[mounts]
+  source = "bigdata_briefs_data"
+  destination = "/data"
+
 [[vm]]
   memory = '512mb'
   cpu_kind = 'shared'

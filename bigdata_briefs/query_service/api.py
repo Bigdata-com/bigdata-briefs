@@ -45,8 +45,9 @@ MAX_ENTITIES_PER_KG_ENTITY_BY_ID_REQUEST = (
 class APIQueryService(BaseQueryService):
     def __init__(
         self,
+        api_key: str,
     ):
-        self._api_key = settings.BIGDATA_API_KEY
+        self._api_key = api_key
         self.semaphore = Semaphore(
             value=settings.API_SIMULTANEOUS_REQUESTS
         )  # Max number of concurrent connections to the SDK
@@ -62,7 +63,7 @@ class APIQueryService(BaseQueryService):
         )
 
         # Watchlists are not available in the API client yet, so we use the SDK for that
-        self.sdk_client = Bigdata(api_key=settings.BIGDATA_API_KEY)
+        self.sdk_client = Bigdata(api_key=api_key)
 
     @property
     def headers(self) -> dict[str, str]:

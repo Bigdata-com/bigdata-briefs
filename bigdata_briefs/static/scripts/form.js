@@ -88,7 +88,7 @@ document.getElementById('briefForm').onsubmit = async function (e) {
     }
 
     try {
-        const response = await fetch(`/briefs/create?${params}`, {
+        const response = await apiRequest(`/briefs/create?${params}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
@@ -105,7 +105,7 @@ document.getElementById('briefForm').onsubmit = async function (e) {
             async function pollStatus() {
 
                 try {
-                    const statusResp = await fetch(`/briefs/status/${requestId}?${params}`);
+                    const statusResp = await apiRequest(`/briefs/status/${requestId}?${params}`);
                     if (!statusResp.ok) {
                         throw new Error(`Status HTTP error ${statusResp.status}`);
                     }

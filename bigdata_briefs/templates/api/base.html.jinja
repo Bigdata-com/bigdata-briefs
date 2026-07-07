@@ -5,10 +5,6 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Bigdata Research Services</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<script src="static/scripts/visualization.js"></script>
-<script src="static/scripts/report_renderer.js"></script>
-<script src="static/scripts/validators.js"></script>
-<script src="static/scripts/topics_selector.js"></script>
 <script>
 	tailwind.config = {
 		theme: {
@@ -26,22 +22,69 @@
 	}
 </script>
 <link rel="icon" href="static/favicon.ico">
+<style>
+	#settingsOverlay {
+		display: none;
+		position: fixed;
+		inset: 0;
+		z-index: 3000;
+		align-items: center;
+		justify-content: center;
+		background: rgba(0, 0, 0, 0.75);
+	}
+	#settingsOverlay.visible {
+		display: flex;
+	}
+</style>
+</head>
 <body class="min-h-screen font-sans text-text bg-black" style="background: radial-gradient(1200px 1200px at 10% -10%, #1f2022 0%, rgba(26,37,80,0) 60%), #000000; background-repeat: no-repeat; background-size: 100% 100%; color: #e6e9f5;">
 
+<div id="settingsOverlay" role="dialog" aria-modal="true" aria-labelledby="settingsApiKeyTitle">
+	<div class="settings-box w-full max-w-md mx-4 rounded-lg border border-gray-700 bg-[#161b22] p-7 shadow-2xl">
+		<h2 id="settingsApiKeyTitle" class="text-xl font-semibold text-white mb-2">Bigdata API Key</h2>
+		<p id="settingsApiKeyDescription" class="text-sm text-gray-300 mb-4">
+			Enter your Bigdata.com API key to continue.
+		</p>
+		<div class="api-key-input-wrap flex gap-2 mb-2">
+			<input id="settingsApiKey" type="password" autocomplete="off"
+				class="flex-1 rounded-lg border border-gray-600 bg-gray-900 text-white px-3 py-2 text-sm"
+				placeholder="Paste your API key" />
+			<button id="toggleApiKeyVisibility" type="button"
+				class="rounded-lg border border-gray-600 px-3 py-2 text-sm text-gray-200 hover:bg-gray-800">Show</button>
+		</div>
+		<p id="apiKeyStatus" class="text-sm text-gray-400 mt-2">Enter your Bigdata.com API key below.</p>
+		<div class="mt-6 flex flex-wrap gap-2 justify-end">
+			<button type="button" class="btn-clear-key rounded-lg border border-gray-600 px-4 py-2 text-sm text-gray-200 hover:bg-gray-800">Clear</button>
+			<button type="button" class="btn-close-settings rounded-lg border border-gray-600 px-4 py-2 text-sm text-gray-200 hover:bg-gray-800">Cancel</button>
+			<button type="button" class="btn-save-key rounded-lg bg-blue-700 hover:bg-blue-800 px-4 py-2 text-sm font-semibold text-white">Save</button>
+		</div>
+		<p class="text-xs text-gray-500 mt-4">
+			Get a key from your <a href="https://docs.bigdata.com/api-reference/introduction#api-key-beta" target="_blank" rel="noopener" class="text-blue-400 hover:underline">Bigdata.com account settings</a>.
+			The key is stored in this browser only.
+		</p>
+	</div>
+</div>
+
+<div id="appContent" style="display: none;">
 	<nav class="flex items-center pt-4 pb-4 pl-4 border-b border-black bg-gradient-to-b from-[#101116d9] to-[#080c1e99] sticky top-0 z-40" role="navigation" aria-label="main navigation">
 		<a id="logo-link" class="inline-flex items-center gap-2 no-underline text-text font-semibold" href="/">
 			<img class="h-[40px] w-auto" alt="light logo" src="static/bigdata_logo.svg">
 		</a>
 		<div class="flex-1"></div>
-		<!-- API Docs Button right centered and blue -->
+		<button id="navApiKeyBtn" type="button" class="px-4 py-2 rounded border border-gray-600 hover:bg-gray-800 text-white font-semibold transition-colors duration-200 mr-4">API Key</button>
 		<a href="/docs" class="px-4 py-2 rounded bg-blue-700 hover:bg-blue-800 text-white font-semibold transition-colors duration-200 mr-8">API Docs</a>
 	</nav>
 
 	<main class="px-4 py-8 text-left ml-0">
 		{% block content %}{% endblock %}
 	</main>
+</div>
 
-</body>
+<script src="static/scripts/api_key_auth.js"></script>
+<script src="static/scripts/visualization.js"></script>
+<script src="static/scripts/report_renderer.js"></script>
+<script src="static/scripts/validators.js"></script>
+<script src="static/scripts/topics_selector.js"></script>
 
 <!-- Make the logo link keep the current token -->
 <script>
@@ -49,7 +92,10 @@
 	const token = urlParams.get('token');
 	if (token) {
 		const logoLink = document.getElementById('logo-link');
-		logoLink.href = `/?token=${encodeURIComponent(token)}`;
+		if (logoLink) {
+			logoLink.href = `/?token=${encodeURIComponent(token)}`;
+		}
 	}
 </script>
+</body>
 </html>

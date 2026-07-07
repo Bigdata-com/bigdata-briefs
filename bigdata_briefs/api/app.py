@@ -17,32 +17,50 @@ from bigdata_briefs.api.models import (
     ExampleWatchlists,
     WorkflowStatus,
 )
-from bigdata_briefs.api.utils import get_example_values_from_schema
-from bigdata_briefs.api.secure import query_scheme
+from bigdata_briefs.api.secure import query_scheme, require_bigdata_api_key
 from bigdata_briefs.api.storage import StorageManager
+from bigdata_briefs.api.utils import get_example_values_from_schema
 from bigdata_briefs.metrics import (
     LLMMetrics,
     Metrics,
 )
 from bigdata_briefs.novelty.storage import SQLiteEmbeddingStorage
-from bigdata_briefs.query_service.api import (
-    APIQueryService,
-)
+from bigdata_briefs.query_service.api import APIQueryService
 from bigdata_briefs.service import BriefPipelineService
-from bigdata_briefs.settings import UNSET, settings
+from bigdata_briefs.settings import settings
 from bigdata_briefs.templates import loader
-from bigdata_briefs.tracing.service import TraceEventName, TracingService
+from bigdata_briefs.tracing.service import TracingService
 
 engine = create_engine(settings.DB_STRING, echo=LOG_LEVEL == "DEBUG")
 
 embedding_storage = SQLiteEmbeddingStorage(engine)
-query_service = APIQueryService()
-tracing_service = TracingService()
-brief_service = BriefPipelineService.factory(
-    query_service=query_service,
-    tracing_service=tracing_service,
-    embedding_storage=embedding_storage,
-)
+
+
+def build_pipeline_services(api_key: str) -> tuple[BriefPipelineService, APIQueryService]:
+    query_service = APIQueryService(api_key=api_key)
+    brief_service = BriefPipelineService.factory(
+        query_service=query_service,
+        tracing_service=TracingService(api_key=api_key),
+        embedding_storage=embedding_storage,
+    )
+    return brief_service, query_service
+
+
+def run_brief_generation(
+    api_key: str,
+    brief_config: BriefCreationRequest,
+    request_id: UUID,
+    storage_manager: StorageManager,
+) -> None:
+    brief_service, query_service = build_pipeline_services(api_key)
+    try:
+        brief_service.generate_brief(
+            brief_config,
+            request_id=request_id,
+            storage_manager=storage_manager,
+        )
+    finally:
+        query_service.cleanup()
 
 
 def create_db_and_tables():
@@ -61,13 +79,6 @@ def get_storage_manager(session: Session = Depends(get_session)) -> StorageManag
 
 def lifespan(app: FastAPI):
     logger.info("Starting Bigdata briefs service", version=__version__)
-    if settings.BIGDATA_API_KEY != UNSET:
-        tracing_service.send_trace(
-            event_name=TraceEventName.SERVICE_START,
-            trace={
-                "version": __version__,
-            },
-        )
     create_db_and_tables()
 
     # Initialize the database with example data
@@ -76,7 +87,6 @@ def lifespan(app: FastAPI):
         storage_manager.initialize_with_example_data()
 
     yield
-    query_service.cleanup()
 
 
 app = FastAPI(
@@ -113,6 +123,14 @@ def health_check():
 
 
 @app.get(
+    "/api/config",
+    summary="Public config for the web UI (API key gate).",
+)
+def api_config():
+    return {"bigdata_api_key_configured": False}
+
+
+@app.get(
     "/",
     summary="Web UI for creating and viewing briefs (demo).",
     response_class=HTMLResponse,
@@ -144,6 +162,7 @@ async def create_brief(
     brief_config: Annotated[BriefCreationRequest, Body()],
     background_tasks: BackgroundTasks,
     storage_manager: StorageManager = Depends(get_storage_manager),
+    api_key: str = Depends(require_bigdata_api_key),
     _: str = Security(query_scheme),
 ) -> JSONResponse:
     """
@@ -158,10 +177,11 @@ async def create_brief(
 
     background_tasks.add_task(
         partial(
-            brief_service.generate_brief,
+            run_brief_generation,
+            api_key,
             brief_config,
-            request_id=request_id,
-            storage_manager=storage_manager,
+            request_id,
+            storage_manager,
         )
     )
 
@@ -180,6 +200,7 @@ async def create_brief(
 def get_status(
     request_id: UUID,
     storage_manager: StorageManager = Depends(get_storage_manager),
+    _api_key: str = Depends(require_bigdata_api_key),
     _: str = Security(query_scheme),
 ) -> BriefStatusResponse:
     """Get the status of a brief report by its request_id. If the report is still running,

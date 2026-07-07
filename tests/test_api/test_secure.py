@@ -1,7 +1,11 @@
+import asyncio
+
 import pytest
 from fastapi import HTTPException
+from fastapi.testclient import TestClient
 
 from bigdata_briefs.api import secure
+from bigdata_briefs.api.app import app
 
 
 # Fixtures for dummy settings
@@ -48,3 +52,33 @@ def test_invalid_or_missing_token(monkeypatch, settings_with_token, token):
         secure.validate_access_token(token)
     assert exc.value.status_code == 403
     assert exc.value.detail == "Invalid access token"
+
+
+def test_require_bigdata_api_key_missing():
+    with pytest.raises(HTTPException) as exc:
+        asyncio.run(secure.require_bigdata_api_key(None))
+    assert exc.value.status_code == 401
+    assert exc.value.detail["error"] == "API key required"
+
+
+def test_require_bigdata_api_key_blank():
+    with pytest.raises(HTTPException) as exc:
+        asyncio.run(secure.require_bigdata_api_key("   "))
+    assert exc.value.status_code == 401
+
+
+def test_require_bigdata_api_key_valid():
+    assert asyncio.run(secure.require_bigdata_api_key("  my-key  ")) == "my-key"
+
+
+def test_create_brief_requires_bigdata_api_key():
+    with TestClient(app) as client:
+        response = client.post(
+            "/briefs/create",
+            json={
+                "entities": "db8478c9-34db-4975-8e44-b1ff764098ac",
+                "report_start_date": "2025-10-01",
+                "report_end_date": "2025-10-07",
+            },
+        )
+        assert response.status_code == 401
