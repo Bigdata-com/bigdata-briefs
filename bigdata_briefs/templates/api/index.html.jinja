@@ -2,242 +2,354 @@
 {% block content %}
 
 <div id="infoModalsContainer"></div>
-<div class="flex flex-col w-full h-screen">
-  <!-- Top section with left form and right output -->
-  <div class="flex flex-row w-full flex-1 min-h-0 mb-10">
-    <!-- Left: Form -->
+<div class="flex flex-col w-full gap-4 min-h-[calc(100vh-7rem)]">
+  <div class="flex flex-row w-full flex-1 min-h-0 gap-0">
+    <!-- Left: Configure (collapsible) -->
     <div id="sidebar"
-      class="min-w-[150px] max-w-[600px] w-[350px] pr-6 bg-zinc-800 pl-2 rounded-l-lg pt-2 pb-2 text-sm transition-all duration-100 ease-in-out h-full overflow-y-auto">
-      <div class="h-full">
-        <form id="briefForm" autocomplete="off" class="h-full">
+      class="glass-panel min-w-[260px] max-w-[560px] w-[340px] rounded-2xl p-4 text-sm h-full overflow-y-auto animate-fade-up">
+      <div class="flex items-start justify-between gap-2 mb-3">
+        <div>
+          <p id="sidebarHeaderTitle" class="font-display text-lg font-semibold text-white">Configure brief</p>
+          <p id="sidebarHeaderSub" class="text-xs text-muted mt-1">Universe, dates, and optional filters</p>
+        </div>
+        <button type="button" id="toggleSidebarBtn" class="btn-secondary py-1.5 px-2.5 text-xs" title="Collapse configure panel">⟨</button>
+      </div>
 
-          <div class="mb-5">
-            <label for="companies" class="block mb-2 font-bold text-md text-white">
-              <span>Company Universe:</span>
-              <button type="button" class="text-blue-500 text-sm" onclick="showInfoModal('companies')"
+      <div id="sidebarBody">
+        <form id="briefForm" autocomplete="off">
+
+          <div class="mb-4">
+            <label for="companies" class="field-label">
+              <span>Company Universe</span>
+              <button type="button" class="text-accent text-sm" onclick="showInfoModal('companies')"
                 title="Info about Company Universe">ⓘ</button>
             </label>
-            <div class="relative"> <!-- dropdown -->
-              <input id="companies_text" type="text"
-                class="absolute w-[calc(100%-20px)] bg-gray-50 text-gray-900 text-md rounded-lg block p-2.5 h-[42px]" />
-              <select id="companies"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2.5 h-[42px] z-10"
-                onchange="this.previousElementSibling.value=this.options[this.selectedIndex].text;">
-                <!-- Options and default are added in a javascript-->
-              </select>
+            <select id="companies" class="field-input mb-2">
+              <option value="">— Select a watchlist —</option>
+            </select>
+            <input id="companies_text" type="text" class="field-input"
+              placeholder="Or paste watchlist UUID / RP entity IDs (comma-separated)" />
+            <p class="text-[11px] text-muted mt-1.5 leading-snug">
+              Dropdown picks a preconfigured watchlist. You can also type a watchlist ID or entity IDs like <code class="text-accent2">D8442A, 4A6F00</code>.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 gap-4 mb-4">
+            <div>
+              <label for="start_date" class="field-label">
+                <span>Start Date</span>
+                <button type="button" class="text-accent text-sm" onclick="showInfoModal('start_date')"
+                  title="Info about Start Date">ⓘ</button>
+              </label>
+              <input type="date" id="start_date" class="field-input"
+                placeholder="{{ default_start_date }}" required value="{{ default_start_date }}" />
+            </div>
+            <div>
+              <label for="end_date" class="field-label">
+                <span>End Date</span>
+                <button type="button" class="text-accent text-sm" onclick="showInfoModal('start_date')"
+                  title="Info about End Date">ⓘ</button>
+              </label>
+              <input type="date" id="end_date" class="field-input"
+                placeholder="{{ default_end_date }}" required value="{{ default_end_date }}" />
             </div>
           </div>
 
-          <div class="mb-5">
-            <label for="start_date" class="block mb-2 font-bold text-md text-white">
-              <span>Start Date:</span>
-              <button type="button" class="text-blue-500 text-sm" onclick="showInfoModal('start_date')"
-                title="Info about Start Date">ⓘ</button>
-            </label>
-            <input type="date" id="start_date"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2"
-              placeholder="{{ default_start_date }}" required value="{{ default_start_date }}" />
-          </div>
-
-          <div class="mb-5">
-            <label for="end_date" class="block mb-2 font-bold text-md text-white">
-              <span>End Date:</span>
-              <button type="button" class="text-blue-500 text-sm" onclick="showInfoModal('start_date')"
-                title="Info about End Date">ⓘ</button>
-            </label>
-            <input type="date" id="end_date"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2"
-              placeholder="{{ default_end_date }}" required value="{{ default_end_date }}" />
-          </div>
-
-          <!-- Hidden novelty by default -->
-          <div class="hidden mb-5">
-            <label for="novelty" class="block mb-2 font-bold text-md text-white">
-              <span>Novelty:</span>
-              <button type="button" class="text-blue-500 text-sm" onclick="showInfoModal('novelty')"
-                title="Info about Novelty">ⓘ</button>
-            </label>
-            <select id="novelty"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2.5">
+          <div class="hidden mb-4">
+            <label for="novelty" class="field-label"><span>Novelty</span></label>
+            <select id="novelty" class="field-input">
               <option value="true" {% if novelty %}selected{% endif %}>true</option>
               <option value="false" {% if not novelty %}selected{% endif %}>false</option>
             </select>
           </div>
 
-          <div class="mb-5">
-            <label for="sources" class="block mb-2 font-bold text-md text-white">
-              <span>Sources:</span>
-              <button type="button" class="text-blue-500 text-sm" onclick="showInfoModal('sources')"
+          <div class="mb-4">
+            <label for="sources" class="field-label">
+              <span>Sources</span>
+              <button type="button" class="text-accent text-sm" onclick="showInfoModal('sources')"
                 title="Info about Sources">ⓘ</button>
             </label>
-            <input id="sources"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2"
-              placeholder="{% if sources %}{{ ','.join(sources) }}{% endif %}" />
+            <input id="sources" class="field-input"
+              placeholder="{% if sources %}{{ ','.join(sources) }}{% else %}Optional source entity IDs{% endif %}" />
           </div>
 
           <button type="button" onclick="toggleAdvancedOptions()" id="advancedOptionsBtn"
-            class="flex items-center gap-2 text-white bg-gray-600 hover:bg-gray-700 font-medium rounded-lg text-sm px-3 py-0.5 mb-6 transition-colors duration-200">
-            <span id="advancedOptionsIcon" class="text-m font-bold">+</span>
+            class="btn-secondary w-full mb-4 flex items-center justify-between text-sm">
             <span>Topics list</span>
+            <span id="advancedOptionsIcon" class="font-bold">+</span>
           </button>
 
-          <div id="advanced-options" class="hidden mt-4">
-            <!-- Topics selector -->
-            <div class="mb-5">
-              <label for="topics" class="block mb-2 font-bold text-md text-white">
-                <span>Topics:</span>
-                <button type="button" class="text-blue-500 text-sm" onclick="showInfoModal('topics')"
+          <div id="advanced-options" class="hidden mt-1 mb-4">
+            <div class="mb-2">
+              <label for="topics" class="field-label">
+                <span>Topics</span>
+                <button type="button" class="text-accent text-sm" onclick="showInfoModal('topics')"
                   title="Info about Topics">ⓘ</button>
               </label>
-              <div id="add-form" class="flex gap-3 mb-6">
-                <input type="text" id="new-sentence-input" placeholder="Add new topic"
-                  class="flex-grow p-3 border border-gray-300 text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <button id="add-button" type="button"
-                  class="bg-blue-600 text-white font-semibold px-8 py-3 rounded-md hover:bg-blue-700 transition-colors">
-                  Add
-                </button>
+              <div id="add-form" class="flex gap-2 mb-3">
+                <input type="text" id="new-sentence-input" placeholder="Add new topic" class="field-input flex-grow">
+                <button id="add-button" type="button" class="btn-primary whitespace-nowrap">Add</button>
               </div>
-
-              <div id="sentence-list" class="space-y-3">
-              </div>
+              <div id="sentence-list" class="space-y-2"></div>
             </div>
           </div>
 
-          <div class="mb-5 hidden">
-            <label for="llm_model" class="block mb-2 font-bold text-md text-white">
-              <span>LLM Model:</span>
-              <button type="button" class="text-blue-500 text-sm" onclick="showInfoModal('llm_model')"
-                title="Info about LLM Model">ⓘ</button>
-            </label>
-            <input type="text" id="llm_model"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-lg block w-full p-2.5"
+          <div class="mb-4 hidden">
+            <label for="llm_model" class="field-label"><span>LLM Model</span></label>
+            <input type="text" id="llm_model" class="field-input"
               placeholder="{{ llm_model }}" value="{{ llm_model }}" />
           </div>
-          <button type="submit"
-            class="w-[150px] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md px-5 py-2.5 text-center mb-2">Generate
-            Brief</button>
-          <div>
-            <button type="button" id="loadExampleBtn"
-              class="w-[150px] text-white bg-green-600 hover:bg-green-800 font-medium rounded-lg text-md px-5 py-2.5 text-center">See
-              Example</button>
-            <button type="button" class="text-blue-500 text-sm" onclick="showInfoModal('load_example')"
-              title="Info about Load Example">ⓘ</button>
-          </div>
+
+          <button type="submit" class="btn-primary w-full">Generate Brief</button>
+          <div id="spinner" class="hidden mt-3 text-sm text-accent2">Running analysis…</div>
         </form>
       </div>
-      <div id="spinner" class="hidden p-2.5">⏳ Running...</div>
-
     </div>
-    <!-- Drag bar -->
-    <div id="dragbar"
-      class="w-2 cursor-ew-resize bg-zinc-700 hover:bg-blue-500 transition-colors duration-100 ease-in-out z-20"
-      style="position: relative;"></div>
-    <!-- Right: Output -->
+
+    <div id="dragbar"></div>
+
+    <!-- Right: Quick demos + Output -->
     <div id="outputarea"
-      class="flex-1 min-w-[300px] bg-zinc-900 p-8 rounded-r-lg transition-all duration-100 ease-in-out h-full overflow-y-auto">
-      <button id="showJsonBtn"
-        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md w-full sm:w-auto px-5 py-2.5 text-center mb-4"
-        style="display:none;">Show raw JSON</button>
+      class="glass-panel flex-1 min-w-[280px] rounded-2xl p-5 md:p-7 h-full overflow-y-auto animate-fade-up"
+      style="animation-delay: 0.05s;">
+
+      <div class="mb-5 pb-5 border-b border-line">
+        <div class="flex items-center justify-between mb-3">
+          <div>
+            <p class="font-display text-base font-semibold text-white">Quick Demo</p>
+            <p class="text-xs text-muted mt-0.5">Click a saved brief to render it instantly</p>
+          </div>
+          <button type="button" class="text-accent text-sm" onclick="showInfoModal('load_example')" title="About demos">ⓘ</button>
+        </div>
+        <div id="demoExamples" class="grid grid-cols-1 sm:grid-cols-3 gap-2.5"></div>
+      </div>
+
+      <div id="reportActions" class="hidden mb-4 flex flex-wrap gap-2 items-center">
+        <button id="showJsonBtn" type="button" class="btn-secondary text-sm" onclick="showJsonModal()">View JSON</button>
+        <button id="downloadJsonBtn" type="button" class="btn-secondary text-sm" onclick="downloadBriefJson()">Download JSON</button>
+      </div>
+
       <div id="output" class="w-full">
-        <div class="flex flex-col h-full py-5">
-          <h1 class="text-3xl font-bold text-white mb-4">Brief Generation</h1>
-          <p class="mb-4">
-            Briefs are concise, automated reports generated by Bigdata's platform that help users stay informed about
-            their watchlists and areas of interest. They are personalized market updates that deliver only the most
-            relevant insights based on your watchlist, helping you stay informed without information overload.
+        <div class="flex flex-col h-full py-2 max-w-3xl">
+          <p class="text-xs font-semibold uppercase tracking-[0.14em] text-accent2 mb-3">Bigdata.com Briefs</p>
+          <h1 class="font-display text-3xl md:text-4xl font-semibold text-white mb-3">Brief Generation</h1>
+          <p class="text-muted leading-relaxed mb-6">
+            Concise, automated market updates from
+            <a href="https://bigdata.com" target="_blank" rel="noopener" class="text-accent hover:underline">Bigdata.com</a>
+            tailored to your watchlist.
           </p>
-
-          <h2 class="text-2xl font-bold text-white mb-4">HOW TO USE:</h2>
-          <h2 class="text-xl font-bold text-blue-100 mb-4 pl-4">Option 1: Quick Start</h2>
-          <ol class="list-decimal mb-4 pl-10">
-            <li>Click <strong>"See Example"</strong> to explore a pre-configured analysis with sample data</li>
-            <li>Perfect for first-time users to understand the tool's capabilities</li>
-          </ol>
-          <h2 class="text-xl font-bold text-blue-100 mb-4 pl-4">Option 2: Custom Analysis</h2>
-          <ol class="list-decimal mb-4 pl-10">
-            <li>Configure your brief parameters in the sidebar</li>
-            <li>Click <strong>"Generate Brief"</strong> to begin generation</li>
-            <li>Monitor the logs below to see the process working in the background</li>
-            <li>Results will appear below once processing is complete</li>
-          </ol>
-
-          <h2 class="text-2xl font-bold text-white mb-4">CURRENT LIMITATIONS:</h2>
-          <ul class="list-disc mb-4 pl-6">
-            <li>Processing may take a few minutes for complex queries</li>
-            <li>This is an experimental tool – results should be validated independently before making investment
-              decisions</li>
-          </ul>
-
-          <p><strong>New users</strong>: We recommend starting with <strong>"See Example"</strong> to see the screener
-            in
-            action before
-            running your own analysis.<br></p>
-          <p class="">
-            Check our repo
-            <a href="https://github.com/Bigdata-com/bigdata-briefs" target="_blank"
-              class="font-bold hover:text-blue-200">
-              https://github.com/Bigdata-com/bigdata-briefs
-            </a> for the complete and customizable version.
-          </p>
+          <div class="grid md:grid-cols-2 gap-4 mb-6">
+            <div class="rounded-xl border border-line bg-ink/40 p-4">
+              <h2 class="font-display text-base font-semibold text-white mb-2">Quick start</h2>
+              <p class="text-sm text-muted">Select <strong class="text-text">AI Scene</strong>, <strong class="text-text">Commodities</strong>, or <strong class="text-text">Countries</strong> above to load a precomputed brief here.</p>
+            </div>
+            <div class="rounded-xl border border-line bg-ink/40 p-4">
+              <h2 class="font-display text-base font-semibold text-white mb-2">Custom analysis</h2>
+              <p class="text-sm text-muted">Open Configure on the left, set universe/dates, then click <strong class="text-text">Generate Brief</strong>.</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- Logs below both divs -->
-  <div class="bg-zinc-900 rounded-lg shadow-lg p-6 text-zinc-100 h-80 min-h-[200px]">
-    <h2 class="text-lg font-bold mb-4 text-sky-400">Process Logs</h2>
-    <div id="logViewer"
-      class="bg-zinc-800 border border-slate-700 rounded-md p-4 h-64 overflow-y-auto font-mono text-sm whitespace-pre-wrap break-words text-zinc-100">
+<!-- Process logs popup -->
+<div id="logsModal" class="hidden fixed z-[1100] inset-0 pointer-events-none" aria-hidden="true">
+  <div id="logsPopup"
+    class="pointer-events-auto absolute bottom-5 right-5 w-[min(440px,calc(100vw-2rem))] bg-panel2 border border-line rounded-2xl shadow-2xl overflow-hidden">
+    <div class="flex items-center justify-between gap-3 px-4 py-3 border-b border-line bg-ink/40">
+      <div class="min-w-0">
+        <h2 class="font-display text-sm font-semibold uppercase tracking-wide text-accent2">Process Logs</h2>
+        <p id="logsPopupStatus" class="text-xs text-muted truncate">Running…</p>
+      </div>
+      <div class="flex items-center gap-2 shrink-0">
+        <button type="button" id="toggleLogsCollapseBtn" class="btn-secondary py-1 px-2.5 text-xs" title="Collapse logs">Collapse</button>
+        <button type="button" id="closeLogsBtn" class="text-xl leading-none text-muted hover:text-white px-1" aria-label="Close logs">&times;</button>
+      </div>
+    </div>
+    <div id="logBody" class="p-3">
+      <div id="logViewer"
+        class="bg-ink/70 border border-line rounded-xl p-3 h-56 overflow-y-auto font-mono text-sm whitespace-pre-wrap break-words text-muted">
+        Waiting for a run…
+      </div>
     </div>
   </div>
 </div>
 
-
-<!-- Modal for JSON output -->
-<div id="jsonModal" class="hidden fixed z-[1000] inset-0 w-screen h-screen bg-black/50">
-  <div class="bg-white relative my-20 mx-auto p-5 rounded-lg w-4/5 max-w-[900px]">
-    <button id="copyBtn" onclick="copyJson()"
-      class="absolute top-[10px] right-[50px] text-[15px] px-[10px] py-[4px] cursor-pointer text-gray-900">Copy</button>
-    <button onclick="closeModal()" class="absolute top-2.5 right-2.5 text-lg text-gray-900">&times;</button>
-    <h2 class="text-gray-900">Raw JSON Output</h2>
+<div id="jsonModal" class="hidden fixed z-[1000] inset-0 w-screen h-screen bg-black/60 backdrop-blur-sm">
+  <div class="bg-panel2 border border-line relative my-16 mx-auto p-5 rounded-2xl w-4/5 max-w-[900px]">
+    <div class="flex items-center justify-between gap-3 mb-3">
+      <h2 class="font-display text-white">Raw JSON Output</h2>
+      <div class="flex items-center gap-3">
+        <button id="copyBtn" type="button" onclick="copyJson()" class="btn-secondary text-sm py-1.5 px-3">Copy</button>
+        <button id="downloadJsonModalBtn" type="button" onclick="downloadBriefJson()" class="btn-secondary text-sm py-1.5 px-3">Download</button>
+        <button type="button" onclick="closeModal()" class="text-xl leading-none text-muted hover:text-white px-1" aria-label="Close">&times;</button>
+      </div>
+    </div>
     <pre id="jsonContent"
-      class="bg-gray-900 text-gray-100 p-4 whitespace-pre-wrap break-words overflow-auto rounded-md mt-5"
+      class="bg-ink text-text p-4 whitespace-pre-wrap break-words overflow-auto rounded-xl border border-line"
       style="max-height:60vh;"></pre>
   </div>
 </div>
 
 <script>
-
   let topic_sentences = {{ topics | tojson }};
-
-
   const watchlists = {{ example_watchlists | tojson }};
+  const demoExamples = {{ demo_examples | tojson }};
+  window.lastReport = null;
 
-  // Populate the dropdown with watchlists
-  const comp_select = document.getElementById('companies');
-  const comp_text = document.getElementById('companies_text');
-  watchlists.forEach((watchlist, index) => {
-    if (watchlist.id === "{{ companies }}") {
-      comp_text.value = watchlist.name;
-    }
+  const compSelect = document.getElementById('companies');
+  const compText = document.getElementById('companies_text');
+  const preferredOrder = [
+    'AI Scene Stocks', 'Commodities', 'Countries',
+    'Magnificent 7', 'Defense Stocks', 'Health and Wellness Stocks',
+    'High Finance Stocks', 'FinTech Innovators',
+  ];
+  const sortedWatchlists = [...watchlists].sort((a, b) => {
+    const ia = preferredOrder.indexOf(a.name);
+    const ib = preferredOrder.indexOf(b.name);
+    return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib);
+  });
+  sortedWatchlists.forEach((watchlist) => {
     const option = document.createElement('option');
     option.value = watchlist.id;
     option.textContent = watchlist.name;
-    comp_select.appendChild(option);
+    if (watchlist.id === "{{ companies }}") {
+      option.selected = true;
+      compText.value = watchlist.id;
+    }
+    compSelect.appendChild(option);
+  });
+  const customOpt = document.createElement('option');
+  customOpt.value = '__custom__';
+  customOpt.textContent = 'Custom (type below)';
+  compSelect.appendChild(customOpt);
+
+  compSelect.addEventListener('change', () => {
+    if (compSelect.value && compSelect.value !== '__custom__') {
+      compText.value = compSelect.value;
+    } else if (compSelect.value === '__custom__') {
+      compText.value = '';
+      compText.focus();
+    }
+  });
+  compText.addEventListener('input', () => {
+    const match = watchlists.find(w => w.id === compText.value.trim() || w.name === compText.value.trim());
+    if (match) {
+      compSelect.value = match.id;
+    } else if (compText.value.trim()) {
+      compSelect.value = '__custom__';
+    }
   });
 
+  const sidebar = document.getElementById('sidebar');
+  const logsModal = document.getElementById('logsModal');
+  const logBody = document.getElementById('logBody');
+  const logsPopupStatus = document.getElementById('logsPopupStatus');
+  const toggleSidebarBtn = document.getElementById('toggleSidebarBtn');
+  const toggleLogsCollapseBtn = document.getElementById('toggleLogsCollapseBtn');
+  const closeLogsBtn = document.getElementById('closeLogsBtn');
 
-  window.closeModal = closeModal;
+  function setSidebarCollapsed(collapsed) {
+    sidebar.classList.toggle('panel-collapsed', collapsed);
+    toggleSidebarBtn.textContent = collapsed ? '⟩' : '⟨';
+    toggleSidebarBtn.title = collapsed ? 'Expand configure panel' : 'Collapse configure panel';
+  }
 
-  // Load Example button functionality
-  document.getElementById('loadExampleBtn').onclick = async function () {
-    const requestId = "{{ example_request_id }}";
-    await loadRequestId(requestId);
-  };
+  function setLogsCollapsed(collapsed) {
+    if (!logBody || !toggleLogsCollapseBtn) return;
+    logBody.classList.toggle('hidden', collapsed);
+    toggleLogsCollapseBtn.textContent = collapsed ? 'Expand' : 'Collapse';
+    toggleLogsCollapseBtn.title = collapsed ? 'Expand logs' : 'Collapse logs';
+  }
 
+  function openProcessLogs() {
+    if (!logsModal) return;
+    logsModal.classList.remove('hidden');
+    logsModal.setAttribute('aria-hidden', 'false');
+    setLogsCollapsed(false);
+    if (logsPopupStatus) logsPopupStatus.textContent = 'Running…';
+  }
+
+  function closeProcessLogs() {
+    if (!logsModal) return;
+    logsModal.classList.add('hidden');
+    logsModal.setAttribute('aria-hidden', 'true');
+    if (logsPopupStatus) logsPopupStatus.textContent = 'Idle';
+  }
+
+  window.openProcessLogs = openProcessLogs;
+  window.closeProcessLogs = closeProcessLogs;
+
+  toggleSidebarBtn.addEventListener('click', () => {
+    setSidebarCollapsed(!sidebar.classList.contains('panel-collapsed'));
+  });
+  toggleLogsCollapseBtn.addEventListener('click', () => {
+    setLogsCollapsed(!logBody.classList.contains('hidden'));
+  });
+  closeLogsBtn.addEventListener('click', () => closeProcessLogs());
+
+  const demoContainer = document.getElementById('demoExamples');
+  const reportActions = document.getElementById('reportActions');
+
+  function setActiveDemo(activeId) {
+    demoContainer.querySelectorAll('.demo-chip').forEach((el) => {
+      el.classList.toggle('active', Boolean(activeId) && el.dataset.demoId === activeId);
+    });
+  }
+
+  function clearActiveDemo() {
+    setActiveDemo(null);
+  }
+
+  window.setActiveDemo = setActiveDemo;
+  window.clearActiveDemo = clearActiveDemo;
+
+  function showReportActions(show) {
+    if (!reportActions) return;
+    // Always clear any leftover inline display styles on the buttons
+    ['showJsonBtn', 'downloadJsonBtn'].forEach((id) => {
+      const btn = document.getElementById(id);
+      if (btn) btn.style.display = '';
+    });
+    if (show) {
+      reportActions.classList.remove('hidden');
+      reportActions.style.display = 'flex';
+    } else {
+      reportActions.classList.add('hidden');
+      reportActions.style.display = 'none';
+    }
+  }
+
+  demoExamples.forEach((demo) => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'demo-chip';
+    btn.dataset.demoId = demo.id;
+    btn.innerHTML = `
+      <span class="text-sm font-semibold text-white">${demo.label}</span>
+      <span class="text-xs text-accent2 font-medium">${demo.period || ''}</span>
+      <span class="text-xs text-muted">${demo.description}</span>`;
+    btn.onclick = async () => {
+      setActiveDemo(demo.id);
+      try {
+        await loadRequestId(demo.request_id);
+        showReportActions(true);
+      } catch (err) {
+        showReportActions(false);
+        document.getElementById('output').innerHTML =
+          `<span class="text-red-400">❌ Error loading ${demo.label}: ${escapeHtml(err.message)}</span>`;
+      }
+    };
+    demoContainer.appendChild(btn);
+  });
+
+  window.showReportActions = showReportActions;
 </script>
+{% endblock %}
+
+{% block scripts %}
 <script src="static/scripts/form.js"></script>
 <script src="static/scripts/load_example.js"></script>
-</form>
 {% endblock %}

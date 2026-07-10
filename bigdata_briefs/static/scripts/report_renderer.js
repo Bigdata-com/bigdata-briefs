@@ -40,30 +40,24 @@ function renderBriefReport(data) {
 
     // Header section with watchlist badge and date range
     html += '<div class="mb-8">';
-    html += `<div class="mb-4">
-        <span class="inline-block bg-gradient-to-br from-blue-500 to-blue-700 text-white px-5 py-2 rounded-full text-2xl font-semibold mr-4">
+    html += `<div class="mb-4 flex flex-wrap items-center gap-3">
+        <span class="inline-block bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-4 py-1.5 rounded-full text-sm font-semibold tracking-wide">
             ${escapeHtml(data.watchlist_name || data.watchlist_id)}
         </span>
-        <span>📅</span>
-        <span>${escapeHtml(data.end_date)}</span>
-    </div>`;
-
-    html += `<div class="flex items-center gap-2 text-gray-400 text-sm mb-5">
-        
-        
+        <span class="text-sm text-muted">${escapeHtml(data.start_date || '')} → ${escapeHtml(data.end_date || '')}</span>
     </div>`;
 
     // Title
-    html += `<h1 class="text-4xl font-bold text-gray-200 mb-5">${escapeHtml(data.report_title)}</h1>`;
+    html += `<h1 class="font-display text-3xl md:text-4xl font-semibold text-white mb-5">${escapeHtml(data.report_title)}</h1>`;
     html += '</div>';
 
     // Introduction section
     if (data.introduction) {
-        html += `<div class="bg-slate-800/50 rounded-2xl p-6 mb-8 border border-slate-700">
-            <h2 class="text-3xl font-bold text-slate-100 mb-4 flex items-center gap-3">
-                <span>Highlights</span>
+        html += `<div class="rounded-2xl p-6 mb-8 border border-line bg-ink/40">
+            <h2 class="font-display text-xl font-semibold text-white mb-4">
+                Highlights
             </h2>
-            <div class="leading-relaxed text-slate-300">
+            <div class="leading-relaxed text-muted space-y-1">
                 ${formatIntroduction(data.introduction)}
             </div>
         </div>`;

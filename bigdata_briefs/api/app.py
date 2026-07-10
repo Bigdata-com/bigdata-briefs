@@ -10,6 +10,10 @@ from sqlmodel import Session, SQLModel, create_engine
 
 from bigdata_briefs import LOG_LEVEL, __version__, logger
 from bigdata_briefs.api.examples import EXAMPLE_UUID
+from bigdata_briefs.api.examples_demo import (
+    COMMODITIES_EXAMPLE_UUID,
+    COUNTRIES_EXAMPLE_UUID,
+)
 from bigdata_briefs.api.models import (
     BriefAcceptedResponse,
     BriefCreationRequest,
@@ -147,6 +151,29 @@ async def sample_frontend(_: str = Security(query_scheme)):
             sources=example_values["sources"],
             example_watchlists=list(dict(ExampleWatchlists).values()),
             example_request_id=str(EXAMPLE_UUID),
+            demo_examples=[
+                {
+                    "id": "ai-scene",
+                    "label": "AI Scene",
+                    "description": "Tech & AI leaders",
+                    "period": "2026-07-02 → 2026-07-09",
+                    "request_id": str(EXAMPLE_UUID),
+                },
+                {
+                    "id": "commodities",
+                    "label": "Commodities",
+                    "description": "Oil, gold, copper, gas",
+                    "period": "2026-07-02 → 2026-07-09",
+                    "request_id": str(COMMODITIES_EXAMPLE_UUID),
+                },
+                {
+                    "id": "countries",
+                    "label": "Countries",
+                    "description": "US, China, Germany, Japan, India",
+                    "period": "2026-07-02 → 2026-07-09",
+                    "request_id": str(COUNTRIES_EXAMPLE_UUID),
+                },
+            ],
             demo_mode=settings.DEMO_MODE,
         ),
         media_type="text/html",

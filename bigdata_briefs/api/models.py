@@ -38,6 +38,12 @@ class ExampleWatchlists(Enum):
     AI_SZN = WatchlistExample(
         id="db8478c9-34db-4975-8e44-b1ff764098ac", name="AI Scene Stocks"
     )
+    COMMODITIES = WatchlistExample(
+        id="e3e9d089-0668-4e2b-85f6-4179a447e3c9", name="Commodities"
+    )
+    COUNTRIES = WatchlistExample(
+        id="164fa89e-1aa6-4a38-a84f-ce6063c61023", name="Countries"
+    )
 
     def __iter__(self):
         """Allows to create a dict from the enum

@@ -3,19 +3,28 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Bigdata Research Services</title>
+<title>Bigdata Briefs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
 	tailwind.config = {
 		theme: {
 			extend: {
+				fontFamily: {
+					sans: ['"IBM Plex Sans"', 'ui-sans-serif', 'sans-serif'],
+					display: ['Sora', 'ui-sans-serif', 'sans-serif'],
+				},
 				colors: {
-					bg: '#000000',
-					panel: '#70ff77',
-					panelhover: '#ffffff',
-					text: '#e6e9f5',
-					muted: '#b7c0e0',
-					brand: '#000000',
+					ink: '#07090f',
+					panel: '#10141f',
+					panel2: '#161c2b',
+					line: '#2a3348',
+					text: '#e8edf7',
+					muted: '#9aa6bf',
+					accent: '#3b82f6',
+					accent2: '#22d3ee',
 				},
 			}
 		}
@@ -23,6 +32,115 @@
 </script>
 <link rel="icon" href="static/favicon.ico">
 <style>
+	:root {
+		--ink: #07090f;
+		--panel: #10141f;
+		--panel2: #161c2b;
+		--line: #2a3348;
+		--text: #e8edf7;
+		--muted: #9aa6bf;
+		--accent: #3b82f6;
+	}
+	body {
+		font-family: "IBM Plex Sans", ui-sans-serif, sans-serif;
+		background:
+			radial-gradient(900px 500px at 12% -8%, rgba(59, 130, 246, 0.18), transparent 55%),
+			radial-gradient(700px 420px at 88% 0%, rgba(34, 211, 238, 0.10), transparent 50%),
+			linear-gradient(180deg, #0a0d14 0%, #07090f 100%);
+		color: var(--text);
+	}
+	.font-display { font-family: Sora, ui-sans-serif, sans-serif; }
+	.glass-panel {
+		background: linear-gradient(180deg, rgba(22, 28, 43, 0.92), rgba(16, 20, 31, 0.96));
+		border: 1px solid rgba(42, 51, 72, 0.9);
+		box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+	}
+	.field-input {
+		width: 100%;
+		border-radius: 0.75rem;
+		border: 1px solid #2a3348;
+		background: #0c101a;
+		color: #e8edf7;
+		padding: 0.7rem 0.9rem;
+		font-size: 0.925rem;
+		transition: border-color 0.15s ease, box-shadow 0.15s ease;
+	}
+	.field-input:focus {
+		outline: none;
+		border-color: #3b82f6;
+		box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+	}
+	.field-label {
+		display: flex;
+		align-items: center;
+		gap: 0.4rem;
+		margin-bottom: 0.5rem;
+		font-size: 0.8rem;
+		font-weight: 600;
+		letter-spacing: 0.02em;
+		text-transform: uppercase;
+		color: #9aa6bf;
+	}
+	.btn-primary {
+		background: linear-gradient(135deg, #2563eb, #0891b2);
+		color: white;
+		font-weight: 600;
+		border-radius: 0.75rem;
+		padding: 0.75rem 1.1rem;
+		transition: transform 0.15s ease, filter 0.15s ease;
+	}
+	.btn-primary:hover { filter: brightness(1.08); transform: translateY(-1px); }
+	.btn-primary:disabled { opacity: 0.55; cursor: not-allowed; transform: none; filter: none; }
+	.btn-secondary {
+		border: 1px solid #2a3348;
+		background: #121826;
+		color: #e8edf7;
+		font-weight: 600;
+		border-radius: 0.75rem;
+		padding: 0.7rem 1rem;
+		transition: background 0.15s ease, border-color 0.15s ease;
+	}
+	.btn-secondary:hover { background: #1a2233; border-color: #3b82f6; }
+	.demo-chip {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 0.2rem;
+		width: 100%;
+		text-align: left;
+		border: 1px solid #2a3348;
+		background: #0c101a;
+		border-radius: 0.9rem;
+		padding: 0.9rem 1rem;
+		transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+		cursor: pointer;
+	}
+	.demo-chip:hover {
+		border-color: #3b82f6;
+		background: #121a2b;
+		transform: translateY(-1px);
+	}
+	.demo-chip.active {
+		border-color: #22d3ee;
+		background: rgba(34, 211, 238, 0.08);
+	}
+	.panel-collapsed #sidebarBody {
+		display: none;
+	}
+	.panel-collapsed {
+		height: auto !important;
+		min-height: 0 !important;
+	}
+	#sidebar.panel-collapsed {
+		width: 56px !important;
+		min-width: 56px !important;
+		max-width: 56px !important;
+		overflow: hidden;
+	}
+	#sidebar.panel-collapsed #sidebarHeaderTitle,
+	#sidebar.panel-collapsed #sidebarHeaderSub {
+		display: none;
+	}
 	#settingsOverlay {
 		display: none;
 		position: fixed;
@@ -30,52 +148,73 @@
 		z-index: 3000;
 		align-items: center;
 		justify-content: center;
-		background: rgba(0, 0, 0, 0.75);
+		background: rgba(0, 0, 0, 0.78);
+		backdrop-filter: blur(4px);
 	}
-	#settingsOverlay.visible {
-		display: flex;
+	#settingsOverlay.visible { display: flex; }
+	#dragbar {
+		width: 6px;
+		cursor: ew-resize;
+		background: transparent;
+		position: relative;
 	}
+	#dragbar::after {
+		content: "";
+		position: absolute;
+		inset: 12% 2px;
+		border-radius: 999px;
+		background: #2a3348;
+		transition: background 0.15s ease;
+	}
+	#dragbar:hover::after { background: #3b82f6; }
+	@keyframes fade-up {
+		from { opacity: 0; transform: translateY(8px); }
+		to { opacity: 1; transform: translateY(0); }
+	}
+	.animate-fade-up { animation: fade-up 0.35s ease both; }
 </style>
 </head>
-<body class="min-h-screen font-sans text-text bg-black" style="background: radial-gradient(1200px 1200px at 10% -10%, #1f2022 0%, rgba(26,37,80,0) 60%), #000000; background-repeat: no-repeat; background-size: 100% 100%; color: #e6e9f5;">
+<body class="min-h-screen text-text">
 
 <div id="settingsOverlay" role="dialog" aria-modal="true" aria-labelledby="settingsApiKeyTitle">
-	<div class="settings-box w-full max-w-md mx-4 rounded-lg border border-gray-700 bg-[#161b22] p-7 shadow-2xl">
-		<h2 id="settingsApiKeyTitle" class="text-xl font-semibold text-white mb-2">Bigdata API Key</h2>
-		<p id="settingsApiKeyDescription" class="text-sm text-gray-300 mb-4">
+	<div class="settings-box w-full max-w-md mx-4 rounded-2xl border border-line bg-panel2 p-7 shadow-2xl">
+		<h2 id="settingsApiKeyTitle" class="font-display text-xl font-semibold text-white mb-2">Bigdata API Key</h2>
+		<p id="settingsApiKeyDescription" class="text-sm text-muted mb-4">
 			Enter your Bigdata.com API key to continue.
 		</p>
 		<div class="api-key-input-wrap flex gap-2 mb-2">
 			<input id="settingsApiKey" type="password" autocomplete="off"
-				class="flex-1 rounded-lg border border-gray-600 bg-gray-900 text-white px-3 py-2 text-sm"
+				class="field-input flex-1"
 				placeholder="Paste your API key" />
-			<button id="toggleApiKeyVisibility" type="button"
-				class="rounded-lg border border-gray-600 px-3 py-2 text-sm text-gray-200 hover:bg-gray-800">Show</button>
+			<button id="toggleApiKeyVisibility" type="button" class="btn-secondary">Show</button>
 		</div>
-		<p id="apiKeyStatus" class="text-sm text-gray-400 mt-2">Enter your Bigdata.com API key below.</p>
+		<p id="apiKeyStatus" class="text-sm text-muted mt-2">Enter your Bigdata.com API key below.</p>
 		<div class="mt-6 flex flex-wrap gap-2 justify-end">
-			<button type="button" class="btn-clear-key rounded-lg border border-gray-600 px-4 py-2 text-sm text-gray-200 hover:bg-gray-800">Clear</button>
-			<button type="button" class="btn-close-settings rounded-lg border border-gray-600 px-4 py-2 text-sm text-gray-200 hover:bg-gray-800">Cancel</button>
-			<button type="button" class="btn-save-key rounded-lg bg-blue-700 hover:bg-blue-800 px-4 py-2 text-sm font-semibold text-white">Save</button>
+			<button type="button" class="btn-clear-key btn-secondary">Clear</button>
+			<button type="button" class="btn-close-settings btn-secondary">Cancel</button>
+			<button type="button" class="btn-save-key btn-primary">Save</button>
 		</div>
-		<p class="text-xs text-gray-500 mt-4">
-			Get a key from your <a href="https://docs.bigdata.com/api-reference/introduction#api-key-beta" target="_blank" rel="noopener" class="text-blue-400 hover:underline">Bigdata.com account settings</a>.
+		<p class="text-xs text-muted mt-4">
+			Get a key from your <a href="https://docs.bigdata.com/api-reference/introduction#api-key-beta" target="_blank" rel="noopener" class="text-accent hover:underline">Bigdata.com account settings</a>.
 			The key is stored in this browser only.
 		</p>
 	</div>
 </div>
 
 <div id="appContent" style="display: none;">
-	<nav class="flex items-center pt-4 pb-4 pl-4 border-b border-black bg-gradient-to-b from-[#101116d9] to-[#080c1e99] sticky top-0 z-40" role="navigation" aria-label="main navigation">
-		<a id="logo-link" class="inline-flex items-center gap-2 no-underline text-text font-semibold" href="/">
-			<img class="h-[40px] w-auto" alt="light logo" src="static/bigdata_logo.svg">
-		</a>
-		<div class="flex-1"></div>
-		<button id="navApiKeyBtn" type="button" class="px-4 py-2 rounded border border-gray-600 hover:bg-gray-800 text-white font-semibold transition-colors duration-200 mr-4">API Key</button>
-		<a href="/docs" class="px-4 py-2 rounded bg-blue-700 hover:bg-blue-800 text-white font-semibold transition-colors duration-200 mr-8">API Docs</a>
+	<nav class="sticky top-0 z-40 border-b border-line/80 bg-[#0a0d14]/85 backdrop-blur-md" role="navigation" aria-label="main navigation">
+		<div class="flex items-center px-5 py-3.5">
+			<a id="logo-link" class="inline-flex items-center gap-3 no-underline text-text font-semibold" href="/">
+				<img class="h-[34px] w-auto" alt="Bigdata logo" src="static/bigdata_logo.svg">
+				<span class="font-display text-sm tracking-wide text-muted hidden sm:inline">Briefs</span>
+			</a>
+			<div class="flex-1"></div>
+			<button id="navApiKeyBtn" type="button" class="btn-secondary mr-3 text-sm">API Key</button>
+			<a href="/docs" class="btn-primary text-sm no-underline">API Docs</a>
+		</div>
 	</nav>
 
-	<main class="px-4 py-8 text-left ml-0">
+	<main class="px-4 py-5 md:px-6 md:py-6">
 		{% block content %}{% endblock %}
 	</main>
 </div>
@@ -85,8 +224,8 @@
 <script src="static/scripts/report_renderer.js"></script>
 <script src="static/scripts/validators.js"></script>
 <script src="static/scripts/topics_selector.js"></script>
+{% block scripts %}{% endblock %}
 
-<!-- Make the logo link keep the current token -->
 <script>
 	const urlParams = new URLSearchParams(window.location.search);
 	const token = urlParams.get('token');

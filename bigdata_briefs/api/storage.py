@@ -7,6 +7,7 @@ from sqlmodel import Session, select
 from bigdata_briefs.api.models import BriefStatusResponse, WorkflowStatus
 from bigdata_briefs.api.sql_models import SQLWorkflowStatus
 from bigdata_briefs.api.utils import status_report_example_models
+from bigdata_briefs.sql_models import SQLBriefReport
 from bigdata_briefs.storage import get_report_with_sources
 
 
@@ -84,22 +85,44 @@ class StorageManager:
             )
 
     def initialize_with_example_data(self):
-        """Initialize the database with example data for testing and demonstration purposes.
-        This method adds a predefined workflow status and report to the database.
-        Only works if the database is empty.
+        """Seed predefined demo briefs (AI Scene, Commodities, Countries).
+
+        Upserts by example ID so refreshed demo content replaces stale rows.
         """
 
         with self.lock:
-            example_status, example_report = status_report_example_models()
-            # Check if the example id already exists in the database
-            existing_id = self.db_session.exec(
-                select(SQLWorkflowStatus).where(
-                    SQLWorkflowStatus.id == example_status.id
-                )
-            ).first()
-            if existing_id is not None:
-                return  # Database already initialized with example data
+            changed = False
+            for example_status, example_report in status_report_example_models():
+                existing_status = self.db_session.exec(
+                    select(SQLWorkflowStatus).where(
+                        SQLWorkflowStatus.id == example_status.id
+                    )
+                ).first()
+                existing_report = self.db_session.exec(
+                    select(SQLBriefReport).where(SQLBriefReport.id == example_report.id)
+                ).first()
 
-            self.db_session.add(example_status)
-            self.db_session.add(example_report)
-            self.db_session.commit()
+                if existing_status is None:
+                    self.db_session.add(example_status)
+                    changed = True
+                else:
+                    existing_status.last_updated = example_status.last_updated
+                    existing_status.status = example_status.status
+                    existing_status.logs = example_status.logs
+                    changed = True
+
+                if existing_report is None:
+                    self.db_session.add(example_report)
+                    changed = True
+                else:
+                    existing_report.watchlist_id = example_report.watchlist_id
+                    existing_report.created_at = example_report.created_at
+                    existing_report.is_empty = example_report.is_empty
+                    existing_report.report_period_start = example_report.report_period_start
+                    existing_report.report_period_end = example_report.report_period_end
+                    existing_report.novelty_enabled = example_report.novelty_enabled
+                    existing_report.brief_report = example_report.brief_report
+                    changed = True
+
+            if changed:
+                self.db_session.commit()

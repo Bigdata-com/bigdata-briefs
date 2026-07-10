@@ -2,25 +2,28 @@ document.getElementById('briefForm').onsubmit = async function (e) {
     e.preventDefault();
     const output = document.getElementById('output');
     const spinner = document.getElementById('spinner');
-    const showJsonBtn = document.getElementById('showJsonBtn');
-    const submitBtn = document.querySelector('button[type="submit"]');
+    const submitBtn = document.querySelector('#briefForm button[type="submit"]');
     output.innerHTML = '';
     output.classList.remove('error');
-    showJsonBtn.style.display = 'none';
-    lastReport = null;
+    if (typeof showReportActions === 'function') {
+        showReportActions(false);
+    }
+    window.lastReport = null;
 
-    // Disable the submit button
     submitBtn.disabled = true;
     submitBtn.textContent = 'Waiting for response...';
 
-    // Get companies and check if its available in the watchlists
+    // Prefer free-text; fall back to dropdown selection
     let companies = document.getElementById('companies_text').value.trim();
-    const foundWatchlist = watchlists.find(w => w.name === companies);
+    const selectedWatchlist = document.getElementById('companies').value;
+    if (!companies && selectedWatchlist && selectedWatchlist !== '__custom__') {
+        companies = selectedWatchlist;
+    }
+    const foundWatchlist = watchlists.find(w => w.name === companies || w.id === companies);
     if (foundWatchlist) {
         companies = foundWatchlist.id;
-    }
-    else if (!companies) {
-        output.innerHTML = `<span class="error">❌ Error: Company Universe is required.</span>`;
+    } else if (!companies) {
+        output.innerHTML = `<span class="error text-red-400">❌ Error: Company Universe is required.</span>`;
         output.classList.add('error');
         submitBtn.disabled = false;
         submitBtn.textContent = 'Generate Brief';
@@ -29,30 +32,23 @@ document.getElementById('briefForm').onsubmit = async function (e) {
     const start_date = document.getElementById('start_date').value;
     const end_date = document.getElementById('end_date').value;
 
-    const llm_model = document.getElementById('llm_model').value.trim();
+    let payload = {};
 
-    // Build request payload
-    let payload = {
-    };
-    
-    // Use topic_sentences array if it exists and has content, otherwise fall back to topics input field
     let topicsArray = [];
     if (typeof topic_sentences !== 'undefined' && topic_sentences.length > 0) {
         topicsArray = topic_sentences;
     }
-    
+
     if (topicsArray.length > 0) {
-        // Validate that ALL topics contain the {entity} placeholder (matches backend BriefPipelineService)
         const topicsWithoutPlaceholder = topicsArray.filter(topic => !topic.includes('{entity}'));
         if (topicsWithoutPlaceholder.length > 0) {
             const failingTopicsList = topicsWithoutPlaceholder.map(topic => `• ${escapeHtml(topic)}`).join('<br>');
-            output.innerHTML = `<span class="error">❌ Error: The following topics are missing the {entity} placeholder:<br>${failingTopicsList}</span>`;
+            output.innerHTML = `<span class="error text-red-400">❌ Error: The following topics are missing the {entity} placeholder:<br>${failingTopicsList}</span>`;
             output.classList.add('error');
             submitBtn.disabled = false;
             submitBtn.textContent = 'Generate Brief';
             return;
         }
-
         payload.topics = topicsArray;
     }
     const novelty = document.getElementById('novelty').value === 'true';
@@ -60,14 +56,11 @@ document.getElementById('briefForm').onsubmit = async function (e) {
     if (sources) {
         if (sources.includes(',')) {
             payload.sources = sources.split(',').map(s => s.trim()).filter(Boolean);
-            // A single RP Entity ID
-        }
-        else {
+        } else {
             payload.sources = [sources];
         }
     }
 
-    // entities: list of RavenPack IDs and/or a single watchlist UUID (matches BriefCreationRequest)
     if (companies.includes(',')) {
         payload.entities = companies.split(',').map(s => s.trim()).filter(Boolean);
     } else if (companies.length === 6) {
@@ -80,11 +73,18 @@ document.getElementById('briefForm').onsubmit = async function (e) {
     if (end_date) payload.report_end_date = end_date;
     payload.novelty = novelty;
 
-    // Add token from URL param if present
     const params = new URLSearchParams();
     const token = getUrlParam('token');
     if (token) {
         params.append("token", token);
+    }
+
+    // Clear any Quick Demo selection and open process-log popup
+    if (typeof clearActiveDemo === 'function') {
+        clearActiveDemo();
+    }
+    if (typeof openProcessLogs === 'function') {
+        openProcessLogs();
     }
 
     try {
@@ -97,13 +97,11 @@ document.getElementById('briefForm').onsubmit = async function (e) {
             throw new Error(`HTTP error ${response.status}`);
         }
         const data = await response.json();
-        // Start polling status endpoint every 5 seconds using request_id
         if (data && data.request_id) {
             const requestId = data.request_id;
             let polling = true;
             const logViewer = document.getElementById('logViewer');
             async function pollStatus() {
-
                 try {
                     const statusResp = await apiRequest(`/briefs/status/${requestId}?${params}`);
                     if (!statusResp.ok) {
@@ -111,7 +109,6 @@ document.getElementById('briefForm').onsubmit = async function (e) {
                     }
                     const statusData = await statusResp.json();
                     spinner.style.display = 'block';
-                    // Render logs if available
                     if (statusData.logs && Array.isArray(statusData.logs)) {
                         logViewer.innerHTML = statusData.logs.map(line => {
                             let base = 'mb-1';
@@ -127,21 +124,32 @@ document.getElementById('briefForm').onsubmit = async function (e) {
                     } else {
                         logViewer.textContent = 'No logs yet.';
                     }
-                    // Stop polling if status is 'completed' or 'failed'
                     if (statusData.status === 'completed' || statusData.status === 'failed') {
                         polling = false;
                         if (statusData.status === 'completed') {
-                            output.innerHTML = renderBriefReport(statusData.report)
-                            showJsonBtn.style.display = 'inline-block';
-                            lastReport = statusData.report;
+                            output.innerHTML = renderBriefReport(statusData.report);
+                            window.lastReport = statusData.report;
+                            if (typeof showReportActions === 'function') {
+                                showReportActions(true);
+                            }
+                        } else {
+                            output.innerHTML = `<span class="text-red-400">❌ Brief generation failed. See process logs.</span>`;
                         }
                         spinner.style.display = 'none';
                         submitBtn.disabled = false;
                         submitBtn.textContent = 'Generate Brief';
+                        const statusEl = document.getElementById('logsPopupStatus');
+                        if (statusEl) {
+                            statusEl.textContent = statusData.status === 'completed' ? 'Completed' : 'Failed';
+                        }
+                        // Auto-close logs popup when the run finishes
+                        if (typeof closeProcessLogs === 'function') {
+                            setTimeout(() => closeProcessLogs(), 800);
+                        }
                         return;
                     }
                 } catch (err) {
-                    logViewer.innerHTML = `<div class=\"log-line log-error\">❌ Status Error: ${err.message}</div>`;
+                    logViewer.innerHTML = `<div class="log-line log-error text-red-400">❌ Status Error: ${err.message}</div>`;
                 }
                 if (polling) {
                     setTimeout(pollStatus, 5000);
@@ -150,17 +158,25 @@ document.getElementById('briefForm').onsubmit = async function (e) {
             pollStatus();
         }
     } catch (err) {
-        output.innerHTML = `<span class="error">❌ Error: ${err.message}</span>`;
+        output.innerHTML = `<span class="error text-red-400">❌ Error: ${err.message}</span>`;
         output.classList.add('error');
         submitBtn.disabled = false;
         submitBtn.textContent = 'Generate Brief';
         spinner.style.display = 'none';
+        if (typeof closeProcessLogs === 'function') {
+            closeProcessLogs();
+        }
     }
 };
 
-document.getElementById('showJsonBtn').onclick = function () {
-    if (lastReport) {
-        document.getElementById('jsonContent').textContent = JSON.stringify(lastReport, null, 2);
-        document.getElementById('jsonModal').style.display = 'block';
+function showJsonModal() {
+    if (!window.lastReport) {
+        alert('No brief loaded yet. Open a Quick Demo or generate a brief first.');
+        return;
     }
-};
+    document.getElementById('jsonContent').textContent = JSON.stringify(window.lastReport, null, 2);
+    const modal = document.getElementById('jsonModal');
+    modal.classList.remove('hidden');
+    modal.style.display = 'block';
+}
+window.showJsonModal = showJsonModal;
