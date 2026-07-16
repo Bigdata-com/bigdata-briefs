@@ -1,0 +1,1898 @@
+
+{
+    "watchlist_id": "164fa89e-1aa6-4a38-a84f-ce6063c61023",
+    "watchlist_name": "G20 Countries",
+    "is_empty": false,
+    "start_date": "2026-07-10T00:00:00",
+    "end_date": "2026-07-10T00:00:00",
+    "novelty": true,
+    "report_title": "China Proposes E-Commerce Law Amendments",
+    "introduction": "* **China** proposes e-commerce law amendments imposing fines up to 5% of annual revenue for serious violations, aiming to curb competition and integrate gig workers, significantly impacting market dynamics.\n\n* **Saudi Arabia** initiates plans to expand East-West pipeline capacity by 2 million barrels per day, aiming to reduce reliance on the Strait of Hormuz, requiring billions in investment and strategic adjustments to crude pricing.\n\n* **ADNOC Distribution** acquires **Shell Downstream South Africa** for $1 billion, enhancing earnings per share by 6% in the first year, marking a strategic entry into Sub-Saharan Africa.\n\n* **Canada** launches the Small Business Procurement Program with $79.9 million funding to enhance small business competitiveness in federal contracting, effective July 10, 2026, aiming to boost job creation and innovation.\n\n* **United States** trade deficit surges 42.2% to $77.6 billion in May 2026, driven by a 3.3% rise in imports and a 3.2% drop in exports, signaling persistent domestic demand amid economic growth concerns.\n\n* **Mexico** achieves a notable drop in annual inflation to 3.37% in June 2026, below the 3.52% consensus, reducing central bank rate hike pressures and potentially stabilizing economic conditions.\n\n* **Türkiye** initiates Free Trade Agreement negotiations with Canada, aiming to boost economic cooperation and job creation, potentially enhancing trade flows significantly by 2027.\n\n* **Australia** initiates uranium exports to **India**, marking a significant shift in energy cooperation and opening a new market, potentially boosting resource revenues amid economic growth slowdown.",
+    "entity_reports": [
+      {
+        "entity_id": "13FF12",
+        "entity_info": {
+          "id": "13FF12",
+          "name": "China",
+          "description": "The People's Republic of China is a country located in East Asia.",
+          "entity_type": "places",
+          "company_type": "Country",
+          "country": "CN"
+        },
+        "content": [
+          {
+            "bullet_point": "**China** emphasizes high-standard opening-up and international cooperation in response to global supply chain disruptions, with R&D investment from multinationals in China reaching 14.3% of their total global spending, and a 27.2% year-on-year increase in new foreign-invested enterprises in scientific research and technical services.",
+            "sources": [
+              "ED8F1881BF3C14733103E8C7C8BAB6BF-4"
+            ]
+          },
+          {
+            "bullet_point": "**China** unveils draft amendments to its e-commerce law, proposing significant regulatory changes including fines up to 5% of annual revenue for serious violations, aimed at curbing cutthroat competition and integrating gig workers into the legal framework.",
+            "sources": [
+              "1A5750F331B67F0902309A2746C952FB-1"
+            ]
+          },
+          {
+            "bullet_point": "**China** launches a cross-agency campaign to address industrial safety challenges, focusing on high-risk sectors like mining and chemicals, following a series of fatal accidents this year, including a recent fire that killed 28 people in a shoe factory.",
+            "sources": [
+              "54CE7B19DF9739AADB3AD43588CAD4C8-1"
+            ]
+          },
+          {
+            "bullet_point": "**China**'s Ministry of Commerce issues new measures for industrial and supply chain security investigations, reflecting a response to heightened geopolitical tensions and trade restrictions, aiming to close gaps in its regulatory framework.",
+            "sources": [
+              "79D2176F4A1282CFD45BC8CF67A36997-1"
+            ]
+          },
+          {
+            "bullet_point": "**China**'s AI sector sees rapid growth, with over 300 million generative AI users and a government target to create a $150 billion AI industry by 2030, emphasizing the integration of AI into manufacturing and the development of a robust domestic semiconductor ecosystem.",
+            "sources": [
+              "AE2A49011068FDF92B7FC8BC6223BA28-48",
+              "AE2A49011068FDF92B7FC8BC6223BA28-53"
+            ]
+          },
+          {
+            "bullet_point": "**China**'s President Xi Jinping calls for rigorous safety measures following a deadly factory fire, emphasizing the need for accountability and comprehensive safety inspections across the country to prevent future industrial disasters.",
+            "sources": [
+              "2170502E82D549AC7CC4A0B449318062-3"
+            ]
+          },
+          {
+            "bullet_point": "**China**'s e-commerce law amendments include provisions for international cooperation and support for Chinese companies expanding overseas, aiming to align domestic regulations with international practices while protecting local businesses from foreign discrimination.",
+            "sources": [
+              "07386C40C6966A618D725690E26A1E65-2"
+            ]
+          }
+        ]
+      },
+      {
+        "entity_id": "2CD40F",
+        "entity_info": {
+          "id": "2CD40F",
+          "name": "Saudi Arabia",
+          "description": "The Kingdom of Saudi Arabia is a country located in the Middle East.",
+          "entity_type": "places",
+          "company_type": "Country",
+          "country": "SA"
+        },
+        "content": [
+          {
+            "bullet_point": "**Saudi Arabia** is in preliminary discussions to expand its East-West pipeline capacity by up to 2 million barrels per day, aiming to enhance oil transport without relying on the Strait of Hormuz. The project could take years and require billions in investment, alongside adjustments to crude pricing mechanisms.",
+            "sources": [
+              "5890C7A9CF284B24BA6AF824C3DC8113-2"
+            ]
+          },
+          {
+            "bullet_point": "**Saudi Arabia** and **Canada** have signed multiple investment agreements during the Saudi-Canadian Investment Forum, totaling over $1 billion, focusing on sectors such as mining, infrastructure, and advanced manufacturing. This marks a significant step in strengthening bilateral economic ties.",
+            "sources": [
+              "FE7ECDB33921DF0B5FF1552A418D6621-3",
+              "FE7ECDB33921DF0B5FF1552A418D6621-4"
+            ]
+          },
+          {
+            "bullet_point": "The **Riyad Bank** Purchasing Managers' Index (PMI) for Saudi Arabia's non-oil private sector rose to 53.3 in June, indicating solid growth driven by increased domestic demand, despite ongoing challenges in export markets and rising input costs.",
+            "sources": [
+              "81E1A64E5A9A50A7AAB9488FCE05402D-6"
+            ]
+          },
+          {
+            "bullet_point": "**Saudi Arabia** is experiencing significant input cost inflation, with firms reporting the strongest quarterly increase in 15 years, leading approximately 22% of surveyed companies to raise their prices. This reflects ongoing challenges in managing operational costs amid rising fuel and labor expenses.",
+            "sources": [
+              "167EC4BB61F579CF7DBE764DC125160B-2"
+            ]
+          },
+          {
+            "bullet_point": "**Saudi Arabia** is actively exploring opportunities in the mining sector, with Canadian companies collaborating on projects to unlock over $2 trillion in mineral wealth. This aligns with the Kingdom's Vision 2030 goals to diversify its economy and attract foreign investment.",
+            "sources": [
+              "1A3020ADAE3B9FD84CFCE93927A193FD-2",
+              "1A3020ADAE3B9FD84CFCE93927A193FD-3"
+            ]
+          },
+          {
+            "bullet_point": "**Saudi Arabia** is enhancing its pipeline infrastructure to facilitate oil transport, reflecting a strategic pivot in response to geopolitical tensions. The expansion discussions involve neighboring countries and aim to mitigate reliance on the Strait of Hormuz, which has been a critical chokepoint for oil exports.",
+            "sources": [
+              "5F556545A5833B15969F3F789241BC4C-3"
+            ]
+          }
+        ]
+      },
+      {
+        "entity_id": "92EBB2",
+        "entity_info": {
+          "id": "92EBB2",
+          "name": "South Africa",
+          "description": "The Republic of South Africa is a country located in the southernmost part of Africa.",
+          "entity_type": "places",
+          "company_type": "Country",
+          "country": "ZA"
+        },
+        "content": [
+          {
+            "bullet_point": "**South African SMEs** report a significant decline in confidence due to rising fuel prices, with the SME Confidence Index dropping 6 percentage points to 63% for economic growth and 4 percentage points to 77% for their own business growth in Q2 2026. This shift indicates a move towards short-term survival and cost management rather than expansion.",
+            "sources": [
+              "32E7DBCF3F65A355F78E079B8B445E4E-1"
+            ]
+          },
+          {
+            "bullet_point": "**South Africa's National Treasury** temporarily withholds R13.5 billion in funding from 69 municipalities, including Johannesburg, due to persistent financial mismanagement and unauthorized expenditures. This intervention aims to enforce fiscal discipline ahead of local elections in November 2026.",
+            "sources": [
+              "96DC17E6365FE1DDAC934FD346E74406-1"
+            ]
+          },
+          {
+            "bullet_point": "**ADNOC Distribution** announces the acquisition of **Shell Downstream South Africa** for approximately $1 billion, marking its first investment in Sub-Saharan Africa. The deal includes 580 fuel stations and is expected to enhance ADNOC's earnings per share by 6% in the first year post-acquisition, with completion anticipated in 2027.",
+            "sources": [
+              "F42486DC45A63C9F702E50A42898C843-2"
+            ]
+          },
+          {
+            "bullet_point": "**Transport Minister Barbara Creecy** highlights ongoing reforms in South Africa's rail and port sectors, with 11 private Train Operating Companies approved to access the national rail network by April 2027. The government aims to move 250 million tonnes of freight on the Transnet rail network by 2030, emphasizing the restoration of rail as the backbone of logistics.",
+            "sources": [
+              "8AB5EFBE49D9D0B1781687C744129E44-1"
+            ]
+          },
+          {
+            "bullet_point": "**Newlyn Group** secures a R5 billion financing package to enhance logistics infrastructure across South Africa, addressing bottlenecks in the logistics network. This investment supports the development of multimodal logistics platforms, including a rail link and warehouse space, aimed at improving freight flow and efficiency.",
+            "sources": [
+              "79B9E93E88DD13DDF2C104156050287E-1"
+            ]
+          }
+        ]
+      },
+      {
+        "entity_id": "C6A466",
+        "entity_info": {
+          "id": "C6A466",
+          "name": "Canada",
+          "description": "Canada is a country located in North America.",
+          "entity_type": "places",
+          "company_type": "Country",
+          "country": "CA"
+        },
+        "content": [
+          {
+            "bullet_point": "**Canada** engages in significant economic cooperation with Saudi Arabia, highlighted by the Saudi-Canadian Investment Forum held on July 9, 2026, where 15 memoranda of understanding were signed, covering sectors such as mining, AI, and financial services, aiming to enhance bilateral trade and investment.",
+            "sources": [
+              "1DFE45FFD733A7239B84D87C5AF5B00B-1"
+            ]
+          },
+          {
+            "bullet_point": "The **Saudi-Canadian Investment Forum** resulted in agreements worth approximately $1.14 billion, including a $700 million partnership between Saudi mining company Maaden and Canada's Hatch, further solidifying trade relations and investment opportunities between the two nations.",
+            "sources": [
+              "D81CD5DC0AD01C071069CC6A4DC1686A-3"
+            ]
+          },
+          {
+            "bullet_point": "**Canada** launches the Small Business Procurement Program (SBPP) on July 10, 2026, aimed at reducing barriers for small businesses in federal contracting, enhancing their ability to compete for government work, and supporting job creation and innovation.",
+            "sources": [
+              "400DA2F5E92F5819AB03857EFD9F252A-2",
+              "400DA2F5E92F5819AB03857EFD9F252A-6"
+            ]
+          },
+          {
+            "bullet_point": "The **SBPP** will leverage the Innovative Solutions Canada (ISC) program, providing $79.9 million over five years to help small businesses develop and commercialize innovative technologies, thereby strengthening Canada's industrial base and domestic supply chains.",
+            "sources": [
+              "AEF02D8EA9A65F2B536BE93B9EC762F3-3"
+            ]
+          },
+          {
+            "bullet_point": "**KPMG's** recent survey reveals that 42% of Canadian manufacturers have moved or are considering moving production to the U.S. due to ongoing trade uncertainties and tariffs, indicating a significant shift in operational strategies amid economic pressures.",
+            "sources": [
+              "4F6F99DFB1807044412F20D5F4FD9DB1-1"
+            ]
+          }
+        ]
+      },
+      {
+        "entity_id": "3D4567",
+        "entity_info": {
+          "id": "3D4567",
+          "name": "United States of America",
+          "description": "The United States of America is a country located in North America.",
+          "entity_type": "places",
+          "company_type": "Country",
+          "country": "US"
+        },
+        "content": [
+          {
+            "bullet_point": "**United States** experiences a significant widening of its trade deficit, which surged 42.2% to $77.6 billion in May 2026, marking the highest level since March 2025. This increase was driven by a 3.3% rise in imports to $395.3 billion, while exports fell by 3.2% to $317.7 billion, indicating persistent domestic demand despite potential economic growth impacts.",
+            "sources": [
+              "C55DE85A681CCDA31183CE6E5B562711-3"
+            ]
+          },
+          {
+            "bullet_point": "The U.S. public debt is projected to exceed $40 trillion within three months, driven by fiscal pressures from the ongoing conflict in the Middle East. The national debt currently stands at 123% of GDP, with annual interest payments expected to surpass $1.2 trillion, raising concerns about long-term fiscal sustainability and necessitating potential adjustments to the dollar system.",
+            "sources": [
+              "D1E12408E7C72FB41408C019055256EB-1"
+            ]
+          },
+          {
+            "bullet_point": "The U.S. trade deficit's expansion reflects a broader economic trend, with imports of capital goods reaching a record high of $128 billion, largely fueled by an artificial intelligence investment boom. This trend suggests that trade will continue to be a drag on GDP growth in the second quarter of 2026, as net exports subtract from economic output.",
+            "sources": [
+              "CACDAA997A59C443E17DB12C59657132-28"
+            ]
+          },
+          {
+            "bullet_point": "The ongoing U.S.-Iran conflict has led to increased oil exports, with petroleum shipments hitting record levels amid rising tensions. This geopolitical situation is expected to keep oil prices elevated, further complicating inflationary pressures and the Federal Reserve's monetary policy decisions.",
+            "sources": [
+              "96D0CB04F8B93A582F1D1E3AAB1F0EA7-3"
+            ]
+          },
+          {
+            "bullet_point": "The U.S. clean energy sector faces rising costs as the government halts renewable energy tax credits, with projections indicating that prices for long-term power purchase agreements (PPAs) could increase by 40% to 120% once subsidies end. This situation is exacerbated by high demand from data centers, which are competing aggressively for limited green power supplies.",
+            "sources": [
+              "D111C77CF150C18D40540E27F653EB89-1"
+            ]
+          }
+        ]
+      },
+      {
+        "entity_id": "421256",
+        "entity_info": {
+          "id": "421256",
+          "name": "Mexico",
+          "description": "The United Mexican States is a country located in North America.",
+          "entity_type": "places",
+          "company_type": "Country",
+          "country": "MX"
+        },
+        "content": [
+          {
+            "bullet_point": "**Mexico** experiences a significant drop in annual inflation to 3.37% in June 2026, marking the lowest level since December 2020, which is below the 3.52% consensus estimate, easing pressure on the central bank to raise interest rates.",
+            "sources": [
+              "125515DF0EA1B0226E11F78E1E0F9379-2"
+            ]
+          },
+          {
+            "bullet_point": "**Toyota Motor Corp** (TM) confirms it will gradually shift Tacoma pickup production from Baja California to Texas by 2030, raising concerns about potential domino effects on Mexico's automotive sector, which contributes 4.5% to the country's GDP.",
+            "sources": [
+              "8B4741273316AF07D354E723C3316B12-1",
+              "8B4741273316AF07D354E723C3316B12-3"
+            ]
+          },
+          {
+            "bullet_point": "**Mexico's** Economy Minister Marcelo Ebrard emphasizes the importance of maintaining the USMCA framework amid ongoing negotiations, as the U.S. opts for annual reviews instead of a long-term renewal, creating uncertainty for businesses reliant on the agreement.",
+            "sources": [
+              "A032F154DDC77CE5C827C5DFD7A3821A-8"
+            ]
+          },
+          {
+            "bullet_point": "**Mexico** plans to invest 296 billion pesos in upgrading nine strategic ports to enhance supply chain efficiency and offset compliance costs imposed by the U.S., as part of its 'Supply Chain Upgrade Plan'.",
+            "sources": [
+              "B4E1AC7F4B3DA13528902C16C5C0576E-11"
+            ]
+          },
+          {
+            "bullet_point": "**Mexico** seeks legal action in the U.S. over the deaths of 17 Mexican nationals during ICE operations, escalating diplomatic tensions and aiming for accountability regarding the treatment of its citizens in U.S. custody.",
+            "sources": [
+              "0F5EBBE878CB5660CB766C124FA60CFE-1"
+            ]
+          }
+        ]
+      },
+      {
+        "entity_id": "AD1863",
+        "entity_info": {
+          "id": "AD1863",
+          "name": "Turkiye",
+          "description": "The Republic of Turkey is a country located at the crossroads of Europe and Asia.",
+          "entity_type": "places",
+          "company_type": "Country",
+          "country": "TR"
+        },
+        "content": [
+          {
+            "bullet_point": "**Türkiye** announces the formal launch of Free Trade Agreement (FTA) negotiations with Canada on July 7, 2026, aimed at enhancing economic cooperation, job creation, and competitiveness between the two nations. The agreement is expected to strengthen supply chains and create new opportunities for businesses in both countries.",
+            "sources": [
+              "6F5FBA77E0B179219968BE00DF002A6C-1"
+            ]
+          },
+          {
+            "bullet_point": "**Türkiye** is set to increase its defense spending to 3.5% of GDP by 2030, with an additional $24 billion allocated for the Steel Dome air and missile defense project, addressing critical NATO capability gaps. This commitment underscores Türkiye's role as a key military power within NATO, ready to contribute its capabilities when needed.",
+            "sources": [
+              "933F084CD0E9FB5C460DF898D1C0C601-2"
+            ]
+          },
+          {
+            "bullet_point": "**Türkiye**'s defense industry is rapidly evolving, with a domestic production rate exceeding 80% and over 3,500 companies involved. The country aims to further expand its defense sector, which is expected to play a significant role in future economic growth and international partnerships, particularly with the U.S.",
+            "sources": [
+              "B0F1B6DBCC77CB60AF0B1C4F74DA0037-3"
+            ]
+          },
+          {
+            "bullet_point": "**DP World** invests over $600 million in Türkiye, enhancing its logistics capabilities through the creation of an integrated logistics platform. This investment strengthens Türkiye's connectivity to global markets and improves supply chain resilience, positioning the country as a competitive gateway for international trade.",
+            "sources": [
+              "7AD465DC4A9D1939CEA5950BD9548571-4"
+            ]
+          }
+        ]
+      },
+      {
+        "entity_id": "3793E9",
+        "entity_info": {
+          "id": "3793E9",
+          "name": "Australia",
+          "description": "The Commonwealth of Australia is a country located in the Southern Hemisphere.",
+          "entity_type": "places",
+          "company_type": "Country",
+          "country": "AU"
+        },
+        "content": [
+          {
+            "bullet_point": "**Australia** begins exporting uranium to **India** for peaceful purposes following a long-stalled agreement, enhancing bilateral energy cooperation and providing a new market for Australian resources.",
+            "sources": [
+              "6FE772EC908E44A46936062C3423211A-1"
+            ]
+          },
+          {
+            "bullet_point": "**Deloitte Access Economics** forecasts Australia's economic growth to slow to 1.3% for FY 2026, marking the longest period of sub-2% growth since the early 1990s recession, driven by structural vulnerabilities and high inflation.",
+            "sources": [
+              "250874B55930EA75A1EA02C1C6F4339B-10"
+            ]
+          },
+          {
+            "bullet_point": "**Telstra** experiences a nationwide network outage affecting over 18 million users, disrupting critical services including transport and electronic payments, highlighting vulnerabilities in Australia's digital infrastructure.",
+            "sources": [
+              "85D130F1B0F70DF8151DA368D1CFF67D-1"
+            ]
+          }
+        ]
+      },
+      {
+        "entity_id": "5D90D2",
+        "entity_info": {
+          "id": "5D90D2",
+          "name": "Russia",
+          "description": "The Russian Federation is a country located in Eastern Europe and Northern Asia.",
+          "entity_type": "places",
+          "company_type": "Country",
+          "country": "RU"
+        },
+        "content": [
+          {
+            "bullet_point": "**Russia** implements a temporary ban on diesel exports until July 31, 2026, to stabilize domestic fuel supply amid ongoing Ukrainian drone attacks on refineries, with Deputy Prime Minister Alexander Novak acknowledging rising domestic prices and fuel supply tightness.",
+            "sources": [
+              "B0D730196B135315BC0CC85B557867D8-4"
+            ]
+          },
+          {
+            "bullet_point": "The government reports that seaborne diesel and jet fuel exports fell by 39% month-on-month and 46% year-on-year in June to 1.8 million tons before the export ban was announced, reflecting significant disruptions in refining capacity.",
+            "sources": [
+              "B0D730196B135315BC0CC85B557867D8-4"
+            ]
+          },
+          {
+            "bullet_point": "Ukrainian drone strikes have reportedly knocked out 20-40% of Russia's refining capacity, with significant damage to major refineries, including the Omsk facility, which accounts for about 7% of the country's total refining capacity.",
+            "sources": [
+              "7BF9A4A51F0EAD30F20F8F559FA6F3A3-3"
+            ]
+          },
+          {
+            "bullet_point": "In response to the fuel crisis, Russia is considering importing refined oil products, marking a significant shift for a country that has historically been self-sufficient in fuel production.",
+            "sources": [
+              "7BF9A4A51F0EAD30F20F8F559FA6F3A3-6"
+            ]
+          },
+          {
+            "bullet_point": "The fuel crisis has led to widespread fuel shortages across Russia, with reports of long queues at gas stations and rationing measures being implemented in several regions, affecting approximately 50 million Russians.",
+            "sources": [
+              "7BF9A4A51F0EAD30F20F8F559FA6F3A3-2"
+            ]
+          }
+        ]
+      },
+      {
+        "entity_id": "609489",
+        "entity_info": {
+          "id": "609489",
+          "name": "United Kingdom",
+          "description": "The United Kingdom, made up of England, Scotland, Wales and Northern Ireland, is an island nation in northwestern Europe",
+          "entity_type": "places",
+          "company_type": "Country",
+          "country": "GB"
+        },
+        "content": [
+          {
+            "bullet_point": "**Bank of England** announces plans to ease capital requirements for UK banks, reducing the leverage ratio by 20 basis points to promote lending and support financial markets during crises, despite concerns about increased market leverage risks.",
+            "sources": [
+              "E105337048EBC25564C16FB9833A40A4-1"
+            ]
+          },
+          {
+            "bullet_point": "The **Financial Conduct Authority** reports a record 41% of UK takeover announcements in 2025 were preceded by suspicious trading activity, raising concerns about insider trading and market integrity as the regulator intensifies scrutiny.",
+            "sources": [
+              "41F71490364031A3D74A9776A312ABA6-1",
+              "41F71490364031A3D74A9776A312ABA6-2"
+            ]
+          },
+          {
+            "bullet_point": "**Rubrik** plans to invest over £375 million in the UK over the next five years, establishing London as its EMEA headquarters to enhance its presence in a key market and support growth in cybersecurity and AI sectors.",
+            "sources": [
+              "16A0ABF6E9564BFEDF6E19A2011EC038-1"
+            ]
+          },
+          {
+            "bullet_point": "The **UK Gambling Commission** proposes new financial risk assessments for online gamblers depositing over £1,000 in a single day, aiming to protect vulnerable customers, though the measures face backlash from the industry over potential revenue impacts.",
+            "sources": [
+              "419EB710D402D200A31747D1C0241ABB-1",
+              "419EB710D402D200A31747D1C0241ABB-2",
+              "419EB710D402D200A31747D1C0241ABB-4"
+            ]
+          },
+          {
+            "bullet_point": "The **Bank of England** warns that a potential sharp correction in AI stock valuations could impact UK GDP by up to 2.2 percentage points, highlighting vulnerabilities in the financial system amid rising leverage in equity markets.",
+            "sources": [
+              "EF61EE109CE7D43E76ABED3B755D52B0-3"
+            ]
+          }
+        ]
+      },
+      {
+        "entity_id": "C3FAF4",
+        "entity_info": {
+          "id": "C3FAF4",
+          "name": "France",
+          "description": "The French Republic is a country located in Western Europe.",
+          "entity_type": "places",
+          "company_type": "Country",
+          "country": "FR"
+        },
+        "content": [
+          {
+            "bullet_point": "**France** faces escalating public debt concerns as its total debt reaches EUR3.5 trillion, equivalent to 117.5% of GDP, with projections indicating it could rise to 203% of GDP by 2050 if strict budget discipline is not implemented. The government is under pressure to present a clear plan to reduce the budget deficit from 5% of GDP to the EU's 3% threshold by 2027, amid rising interest payments that are expected to surpass EUR100 billion by 2029.",
+            "sources": [
+              "77464AD1A34CFA610745A14C8C5FE3E0-1",
+              "77464AD1A34CFA610745A14C8C5FE3E0-3"
+            ]
+          },
+          {
+            "bullet_point": "**France**'s trade deficit widened to EUR6.9 billion in May 2026, up from EUR5.4 billion in April, driven by a EUR1.1 billion drop in exports, particularly in military equipment. Imports increased by EUR400 million, primarily due to higher transport equipment purchases, including a significant rise in automotive imports.",
+            "sources": [
+              "7B61A34F65348111BE0251FEB6BFCBD6-1"
+            ]
+          },
+          {
+            "bullet_point": "**Marine Le Pen**'s candidacy is expected to challenge France's fiscal policies, as her party emphasizes reducing the retirement age and opposes strict fiscal reforms. This could lead to increased market volatility and concerns among investors regarding the sustainability of France's fiscal health, especially given the current high public debt levels.",
+            "sources": [
+              "B75B2300BA934EBD61E1A670B2F56CB6-13"
+            ]
+          },
+          {
+            "bullet_point": "**Meta Platforms** (META) is ordered by France's competition authority to resume negotiations with French media groups over payments for content under the neighboring rights framework. The authority found that Meta's previous negotiation tactics may constitute an abuse of its dominant market position, impacting the financial health of French media outlets.",
+            "sources": [
+              "F7C7B7D50411A1ED48309513756D477B-1"
+            ]
+          }
+        ]
+      },
+      {
+        "entity_id": "00F154",
+        "entity_info": {
+          "id": "00F154",
+          "name": "Indonesia",
+          "description": "The Republic of Indonesia is a country located in Southeast Asia.",
+          "entity_type": "places",
+          "company_type": "Country",
+          "country": "ID"
+        },
+        "content": [
+          {
+            "bullet_point": "**Indonesia** faces potential downgrade to frontier market status as S&P Dow Jones Indices places it on a watchlist due to ongoing market transparency issues, with significant implications for foreign investment and capital flows.",
+            "sources": [
+              "08ECD0F7C12F83C72F89A60219ACDC9B-1"
+            ]
+          },
+          {
+            "bullet_point": "The Indonesian government has implemented reforms to enhance market transparency, including doubling the minimum free float requirement for listed companies from 7.5% to 15% and tightening shareholder disclosure rules, now requiring public reporting of stakes above 1%.",
+            "sources": [
+              "5338994F44425398F0C780C7642A001E-2"
+            ]
+          },
+          {
+            "bullet_point": "Indonesia's foreign direct investment declined by 6% in 2025, following a 19% growth in 2024, as stricter commodity control regulations and proposed tax increases have unsettled investors, contributing to a 10% drop in the Indonesia Composite Index since the announcement of these controls.",
+            "sources": [
+              "2E2A03ADEEC3D854A56E4A0CA44BD0BE-2"
+            ]
+          },
+          {
+            "bullet_point": "The Indonesian rupiah has depreciated approximately 8% year-to-date, trading near all-time lows, as investor confidence wanes amid concerns over fiscal policy stability and the government's increasing control over the economy.",
+            "sources": [
+              "AF03895282C34A2D7183B4CBAD536691-127"
+            ]
+          }
+        ]
+      },
+      {
+        "entity_id": "5E1FDC",
+        "entity_info": {
+          "id": "5E1FDC",
+          "name": "Argentina",
+          "description": "The Argentine Republic is a country located in South America.",
+          "entity_type": "places",
+          "company_type": "Country",
+          "country": "AR"
+        },
+        "content": [
+          {
+            "bullet_point": "**Argentina** makes a $4.3 billion payment on its dollar bonds, demonstrating its ability to meet debt obligations without tapping global capital markets, as stated by Economy Minister Luis Caputo on July 6, 2026. This payment clears most of a $19 billion debt pile due in 2026, with another $25 billion coming due in 2027.",
+            "sources": [
+              "C0A3EE471F5E38609EA4A1B1C8EC1EDE-1"
+            ]
+          },
+          {
+            "bullet_point": "The government plans to meet its debt payments through 2027 using multilateral loans, local bond issuance, and privatizations, avoiding international bond markets for now, as confirmed by Caputo on July 6, 2026. This strategy marks a significant shift from previous administrations' reliance on global debt.",
+            "sources": [
+              "88B7C115C0D5D5F7221203BC989B3826-2"
+            ]
+          },
+          {
+            "bullet_point": "Argentina's inflation rate has significantly decreased from 25.5% in December 2023 to 2.1% in May 2026, attributed to the government's tight fiscal stance and monetary reforms, as reported on July 6, 2026. This reduction is part of a broader strategy to stabilize the economy and regain investment-grade status by 2031.",
+            "sources": [
+              "D83E3D5EE14C44822686AD2139485248-2"
+            ]
+          },
+          {
+            "bullet_point": "The government has successfully raised approximately $4 billion through local bond sales since March 2026, with plans to raise an additional $2 billion by year-end, as announced by Caputo on July 6, 2026. This funding strategy aims to cover upcoming debt obligations without incurring high-interest rates from international markets.",
+            "sources": [
+              "88B7C115C0D5D5F7221203BC989B3826-2"
+            ]
+          }
+        ]
+      },
+      {
+        "entity_id": "8C5254",
+        "entity_info": {
+          "id": "8C5254",
+          "name": "Brazil",
+          "description": "The Federative Republic of Brazil is a country located in South America.",
+          "entity_type": "places",
+          "company_type": "Country",
+          "country": "BR"
+        },
+        "content": [
+          {
+            "bullet_point": "**Brazil's Agriculture Ministry** implements new inspection procedures for meat exports to comply with EU antimicrobial regulations, aiming to prevent a suspension of shipments starting September 3, 2026. This adjustment is critical as Brazil seeks to maintain access to a major market where poultry exports were valued at $800 million and beef exports exceeded $1 billion in 2025.",
+            "sources": [
+              "A502BBEA1E0F8ECF7B5A5733E92D897B-1"
+            ]
+          },
+          {
+            "bullet_point": "**Petrobras** (PBR) reports significant operational achievements, with the Búzios field surpassing 1 million barrels/day across 8 platforms and the Sergipe deepwater project expected to add 240,000 barrels/day. The company maintains a disciplined CapEx of $5 billion in Q1, with 90% allocated to exploration and production, reinforcing its commitment to high-return projects.",
+            "sources": [
+              "D613ACE53775DC54DFE46B071AB43E03-9",
+              "D613ACE53775DC54DFE46B071AB43E03-11",
+              "D613ACE53775DC54DFE46B071AB43E03-20"
+            ]
+          },
+          {
+            "bullet_point": "The **Brazilian government** continues to enhance its digital public infrastructure, integrating digital identity and instant payments into a unified ecosystem. The GOV.BR platform now serves over 170 million users, providing access to more than 4,000 federal digital services, which positions Brazil as a leader in digital governance.",
+            "sources": [
+              "224A0F915011E623E47B8024DB4AD45B-203",
+              "224A0F915011E623E47B8024DB4AD45B-204",
+              "224A0F915011E623E47B8024DB4AD45B-205"
+            ]
+          },
+          {
+            "bullet_point": "Supply chain disruptions are impacting Brazil's agricultural sector, with El Niño potentially causing crop losses for various produce, including onions and tomatoes. This could lead to increased inflation by up to two percentage points through 2027, affecting the overall economic outlook and commodity prices.",
+            "sources": [
+              "612F94E60833CC083C9538035535FF45-3"
+            ]
+          }
+        ]
+      },
+      {
+        "entity_id": "847BDC",
+        "entity_info": {
+          "id": "847BDC",
+          "name": "Italy",
+          "description": "The Italian Republic is a country located in southern Europe.",
+          "entity_type": "places",
+          "company_type": "Country",
+          "country": "IT"
+        },
+        "content": [
+          {
+            "bullet_point": "**Italy** expels two Russian military attachés accused of espionage, with Foreign Minister Antonio Tajani stating they have three days to leave the country, highlighting ongoing security concerns amid rising geopolitical tensions.",
+            "sources": [
+              "8E685DE1FD554A4E3B9206C332EADFB9-1"
+            ]
+          },
+          {
+            "bullet_point": "**Italy's** data protection authority fines Character Technologies EUR158,000 for privacy violations related to its AI platform, emphasizing the need for stricter safeguards for minors and compliance with EU regulations.",
+            "sources": [
+              "AC855A87279E184D9EF603AED3C65D78-1"
+            ]
+          },
+          {
+            "bullet_point": "**Italy** faces significant economic challenges as climate change could reduce GDP by up to 6% by 2050, according to a study by the Euro-Mediterranean Center on Climate Change, stressing the urgency for mitigation measures to protect public finances.",
+            "sources": [
+              "F49D898CAA8C0D512121C72DAA1C0D2F-1"
+            ]
+          }
+        ]
+      },
+      {
+        "entity_id": "E96159",
+        "entity_info": {
+          "id": "E96159",
+          "name": "Germany",
+          "description": "The Federal Republic of Germany is a country located in central Europe.",
+          "entity_type": "places",
+          "company_type": "Country",
+          "country": "DE"
+        },
+        "content": [
+          {
+            "bullet_point": "**Volkswagen AG** (VOW3) announces plans to cut up to 100,000 jobs and close four manufacturing plants in Germany as part of a major restructuring effort, driven by intense competition from Chinese automakers and rising labor costs.",
+            "sources": [
+              "A75EBC375FC93B51107CC1138DA8DA8B-1"
+            ]
+          },
+          {
+            "bullet_point": "The German government commits to a joint defense initiative with NATO allies, including a $50 billion investment over the next decade to develop long-range precision strike weapons, with Germany contributing approximately half of the costs.",
+            "sources": [
+              "2C4CC2E77153ABC3710C636FA126750D-3"
+            ]
+          },
+          {
+            "bullet_point": "Chancellor Friedrich Merz unveils a comprehensive 34-point reform package aimed at revitalizing Germany's economy, including €10 billion in annual tax cuts and stricter sick leave regulations, with the goal of boosting GDP growth by over 1% by 2027.",
+            "sources": [
+              "F02A62981886E3E2E0803BCC9DD40E04-1"
+            ]
+          }
+        ]
+      }
+    ],
+    "source_metadata": {
+      "8E685DE1FD554A4E3B9206C332EADFB9-1": {
+        "ref_id": 3,
+        "document_id": "8E685DE1FD554A4E3B9206C332EADFB9",
+        "headline": "Italy expels Russian diplomats suspected of running spy ring",
+        "ts": "2026-07-09T12:45:45",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "DA9FC6",
+        "source_name": "Financial Times",
+        "source_rank": 1,
+        "url": "https://www.ft.com/content/9268f8b9-4fb5-4625-943b-dcb42064eb12",
+        "chunk_id": 1,
+        "text": "Italy is expelling two Russian military attachés accused of espionage, including by running retired Italian law enforcement officials accused of passing on classified information to Moscow.\nForeign minister Antonio Tajani on Thursday said the two diplomats - Ivan Petrovich Gorbachev and Mikhail Vasilyevich Astakhov - had three days to leave the country.\n\"Moscow continues to use its hybrid weapons to attack the west and Italy,\" Tajani said in a social media post, announcing the expulsions. He called Russia's conduct \"a serious and unacceptable interference for Italian institutions and for national security\".\nThe expulsions come days after two retired Italian intelligence officials were arrested for alleged espionage, with police identifying Astakhov as their main handler. According to Rome prosecutors and police, the Russian attaché discussed Moscow's information requests and payment details with Gavino Raoul Piras, a retired senior Carabinieri officer previously involved in intelligence matters.",
+        "highlights": []
+      },
+      "AC855A87279E184D9EF603AED3C65D78-1": {
+        "ref_id": 7,
+        "document_id": "AC855A87279E184D9EF603AED3C65D78",
+        "headline": "Italy privacy watchdog fines Character.AI owner over age-check failures",
+        "ts": "2026-07-09T14:01:03",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "648085",
+        "source_name": "AOL.com",
+        "source_rank": 2,
+        "url": "https://www.aol.com/articles/italy-privacy-watchdog-fines-character-132917000.html",
+        "chunk_id": 1,
+        "text": "ROME, July 9 (Reuters) - Italy's data protection authority fined Character Technologies, the U.S.-based owner of generative AI platform Character.AI, EUR158,000 ($180,500) for breaches of data protection rules, it said on Thursday in a statement.\nThe service allows users, including minors, to chat with AI-generated virtual characters.\nThe regulator found several privacy violations, including shortcomings in information provided to users about the processing of their personal data.\nThe authority also raised concerns about safeguards for minors and the effectiveness of age-verification procedures, saying further protections were needed beyond those already in place.\nCharacter Technologies did not immediately respond to a request for comment.\nThe authority, known as Garante, also said the company was late in conducting a Data Protection Impact Assessment (DPIA) and appointing an EU representative.\nThe Garante has been one of the most proactive regulators in Europe on AI. In 2023, it briefly banned the use of OpenAI's ChatGPT chatbot over age-check and data collection issues.\n(Writing by Francesca Piscioneri, editing by Alvise Armellini)",
+        "highlights": []
+      },
+      "F49D898CAA8C0D512121C72DAA1C0D2F-1": {
+        "ref_id": 19,
+        "document_id": "F49D898CAA8C0D512121C72DAA1C0D2F",
+        "headline": "Climate crisis hits hard... Italy's GDP could shrink by up to 6% by 2050",
+        "ts": "2026-07-08T12:54:45",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "4DDE06",
+        "source_name": "Yonhap News",
+        "source_rank": 1,
+        "url": "https://www.yna.co.kr/view/AKR20260708182400109",
+        "chunk_id": 1,
+        "text": "Euro-Mediterranean Center for Climate Change analysis\n\"Due to low potential growth rate and high debt ratio\"\nRome Colosseum\n(Rome=Yonhap News) Correspondent Min Kyung-rak = An analysis has shown that Italy's gross domestic product (GDP) could shrink by up to 6% by 2050 due to the climate crisis.\nAccording to Reuters on the 8th (local time), the Euro-Mediterranean Center for Climate Change (CMCC) projected that Italy's long-term economic growth rate could significantly worsen due to the impact of climate change, such as reduced tax revenue and increased financing costs.\nItaly's GDP is expected to be 2.2-6.0% lower by 2050 compared to if no measures are taken to adapt to the climate crisis, including greenhouse gas reductions. Even under an optimistic scenario, GDP is expected to decrease by 1.6-4.2%.",
+        "highlights": []
+      },
+      "2C4CC2E77153ABC3710C636FA126750D-3": {
+        "ref_id": 1,
+        "document_id": "2C4CC2E77153ABC3710C636FA126750D",
+        "headline": "US Approves Sale of Tomahawk Missiles to Germany",
+        "ts": "2026-07-09T17:19:59",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "29CF44",
+        "source_name": "NewsMax.com",
+        "source_rank": 3,
+        "url": "https://www.newsmax.com/politics/us-sale-tomahawk-missiles/2026/07/09/id/1262317/",
+        "chunk_id": 3,
+        "text": "Moscow has deployed Iskander cruise missiles to the Kaliningrad exclave, which could strike targets in European NATO countries.\nA German government source said the defense ministers for both countries signed a letter of intent for the Tomahawk missile deal on Tuesday after previous negotiations between Merz and President Donald Trump and senior security officials from both countries.\nIn the letter, the United States committed to granting formal approval for the sale of Tomahawk missiles and ground-based Typhoon launchers by August, although the number of missiles acquired would remain classified.\nOn Wednesday, Britain announced that a dozen European NATO allies - including Germany - would jointly spend about $50 billion over the next decade to develop new long-range precision strike weapons.\nThe German government source said that Berlin plans to contribute roughly half of the cost of the project.\nPistorius said the group would \"develop long-range cruise missiles and hypersonic glide vehicles, and procure off-the-shelf long-range drones.\"\nThe announcement came after months of uncertainty over whether the US would station the missiles in Germany, which had been promised by Trump's predecessor, former President Joe Biden.\nIn May, Merz suggested that a planned deployment of Tomahawk missiles was being called off.\nAt the time, Merz cited depleted arsenals because of the wars in Iran and Ukraine as the reason.\nIt also followed a spat between Merz and Trump over the war in Iran.",
+        "highlights": []
+      },
+      "A75EBC375FC93B51107CC1138DA8DA8B-1": {
+        "ref_id": 4,
+        "document_id": "A75EBC375FC93B51107CC1138DA8DA8B",
+        "headline": "Union warns of \"conflict\" as Volkswagen eyes mass job cuts",
+        "ts": "2026-07-09T13:44:08",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "ED68DC",
+        "source_name": "Alliance News",
+        "source_rank": 1,
+        "url": null,
+        "chunk_id": 1,
+        "text": "(Alliance News) - Volkswagen workers staged protests nationwide on Thursday as unions warned of \"major conflict\" if the struggling German car giant pushes ahead with what could be the global auto industry's biggest restructuring.\nEurope's largest carmaker has come under intense pressure from US tariffs, slimmer profit margins from electric cars and above all intense competition in China, the world's largest auto market.\nThousands of job cuts have already been announced, but reports say CEO Oliver Blume is now weighing ramping these up to 100,000 as well as potentially closing four factories in Germany.\nAs VW's bosses presented their planned overhaul to the 10-brand group's supervisory board, workers staged protests outside plants and unions warned they were ready to step up industrial action.",
+        "highlights": []
+      },
+      "F02A62981886E3E2E0803BCC9DD40E04-1": {
+        "ref_id": 20,
+        "document_id": "F02A62981886E3E2E0803BCC9DD40E04",
+        "headline": "German CEOs worry Merz's EUR10bn tax cuts are too little to jump-start economy",
+        "ts": "2026-07-07T04:00:09",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "DA9FC6",
+        "source_name": "Financial Times",
+        "source_rank": 1,
+        "url": "https://www.ft.com/content/92ca68d2-f0d7-45ab-9811-437ee45e8d5d",
+        "chunk_id": 1,
+        "text": "German chief executives have expressed concern that Chancellor Friedrich Merz's EUR10bn in tax cuts may not be enough to jump-start the country's stagnant economy.\nMerz's coalition government on Thursday unveiled a series of measures including tax cuts for the middle class, labour market reforms, stricter sick-leave rules and initiatives to curb bureaucracy as it aims to kick-start the economy and combat rising voter discontent.\nExecutives welcomed the moves but warned that the measures were not enough to dispel fears among business leaders that the country is at risk of a \"lost decade\".\nRoland Busch, chief executive of Siemens, Germany's biggest company by market capitalisation, said the reform package was \"an important step towards restoring growth and competitiveness\" but that \"further action will be needed\".",
+        "highlights": []
+      },
+      "32E7DBCF3F65A355F78E079B8B445E4E-1": {
+        "ref_id": 1,
+        "document_id": "32E7DBCF3F65A355F78E079B8B445E4E",
+        "headline": "Declining confidence among South African SMEs amid rising fuel prices",
+        "ts": "2026-07-07T14:02:46",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "5B7327",
+        "source_name": "Independent Online",
+        "source_rank": 3,
+        "url": "https://iol.co.za/business-report/economy/2026-07-07-declining-confidence-among-south-african-smes-amid-rising-fuel-prices/",
+        "chunk_id": 1,
+        "text": "Small businesses\nSouth African small and medium enterprises (SMEs) confidence declined according to the SME Confidence Index by Business Partners released on Tuesday\nBusiness Partners have attributed the dip in confidence in the second quarter to the surge in fuel prices due to Middle East tensions.\n\"This was reflected in declining confidence levels, with SME confidence in the South African economy being conducive to business growth falling by 6 percentage points to 63%, while confidence in their own business growth declined by 4 percentage points to 77%.\"\nJeremy Lang, Managing Director at Business Partners Limited, said that these findings suggest a clear shift among SMEs away from growth and expansion towards short-term survival, cost management and operational resilience.",
+        "highlights": []
+      },
+      "96DC17E6365FE1DDAC934FD346E74406-1": {
+        "ref_id": 10,
+        "document_id": "96DC17E6365FE1DDAC934FD346E74406",
+        "headline": "South Africa suspends funds for Johannesburg over 'wasteful' spending",
+        "ts": "2026-07-07T15:07:16",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "DA9FC6",
+        "source_name": "Financial Times",
+        "source_rank": 1,
+        "url": "https://www.ft.com/content/307c25fd-1c46-44b9-a629-7068ee77d6de",
+        "chunk_id": 1,
+        "text": "South Africa's treasury will withhold state funds from Johannesburg and dozens of other towns and cities for a month, in a last-ditch bid to stop wasteful spending months before local elections.\nThe National Treasury said it had invoked constitutional powers to temporarily withhold funding after years of engagement with the more than 60 municipalities had failed to halt wasteful spending and end persistent breaches of financial laws.\nThe municipalities in question have accumulated R40.14bn (£1.65bn) in irregular spending in the last year alone. The suspension of funds affects municipalities from all nine of South Africa's provinces and would not have any short-term impact on city services, the Treasury added.\nIt places fresh pressure on Johannesburg, Africa's richest city, which accounts for 15 per cent of the country's GDP. With November's local elections looming, Mayor Dada Morero has been embroiled in an increasingly public battle with finance minister Enoch Godongwana, despite both belonging to the African National Congress.",
+        "highlights": []
+      },
+      "F42486DC45A63C9F702E50A42898C843-2": {
+        "ref_id": 25,
+        "document_id": "F42486DC45A63C9F702E50A42898C843",
+        "headline": "UAE's Adnoc strikes $1bn deal for Shell's South African fuels business",
+        "ts": "2026-07-07T04:15:07",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "DA9FC6",
+        "source_name": "Financial Times",
+        "source_rank": 1,
+        "url": "https://www.ft.com/content/c9774e9d-27c4-4a75-93ab-f8c99d0c4a51",
+        "chunk_id": 2,
+        "text": "The acquisition is also the latest example of how state-backed Middle Eastern energy companies are using their financial strength to build global businesses outside their domestic market across oil, gas, chemicals and retail. Gulf energy companies, many flush with cash, have become more active buyers of overseas assets as western majors sell mature or lower-growth businesses.\n\"South Africa's investments in critical transport infrastructure, alongside a growing driving-age population, reinforce the growth potential of fuel consumption,\" Adnoc Distribution said.\nAdnoc Distribution's chief executive, Bader Saeed Al Lamki, said the deal reflected the group's confidence in South Africa's \"high-potential, well-regulated\" fuel retail market.",
+        "highlights": []
+      },
+      "79B9E93E88DD13DDF2C104156050287E-1": {
+        "ref_id": 43,
+        "document_id": "79B9E93E88DD13DDF2C104156050287E",
+        "headline": "South Africa's Newlyn Group Secures Absa Financing for Logistics Expansion",
+        "ts": "2026-07-09T15:36:32",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "073D0F",
+        "source_name": "Ecofin Agency",
+        "source_rank": 3,
+        "url": "http://www.ecofinagency.com/news-infrastructures/0907-57241-south-africa-s-newlyn-group-secures-absa-financing-for-logistics-expansion",
+        "chunk_id": 1,
+        "text": "South African logistics and port infrastructure developer Newlyn Group has secured a 5 billion rand ($305.1 million) financing package with Absa Corporate and Investment Banking (Absa CIB). The facility will support the company's pipeline of infrastructure projects across South Africa and fund development along the country's main logistics corridors.\nThe agreement builds on the two companies' partnership in developing the Newlyn PX terminal, which opened in 2024. The multimodal logistics platform includes a rail link, 640,000 square meters of warehouse space, rail sidings and storage facilities.\nThe terminal was designed to enhance the Port of Durban's logistics capacity and improve the flow of freight.\nThe new investment comes as South Africa continues efforts to address bottlenecks affecting its logistics network. In addition to challenges facing port and rail infrastructure, the country also faces a shortage of storage facilities, a key part of the supply chain for export industries such as mining and citrus.\nAccording to official data, logistics inefficiencies cost South Africa's citrus industry 5.27 billion rand in 2024. Those losses reflect the challenges highlighted in the World Bank's Transport Connectivity for Food Security in Africa: Strengthening Supply Chains report, published in May 2025.\nAccording to the report, available storage capacity across Africa can accommodate less than 30% of annual agricultural production, a shortfall that contributes to significant post-harvest losses. Nearly 40% of perishable products and 20% of other food products are lost each year across African logistics supply chains.",
+        "highlights": []
+      },
+      "8AB5EFBE49D9D0B1781687C744129E44-1": {
+        "ref_id": 47,
+        "document_id": "8AB5EFBE49D9D0B1781687C744129E44",
+        "headline": "Transport Minister Barbara Creecy applauds early success of logistics sector reforms",
+        "ts": "2026-07-06T10:43:06",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "52E6D6",
+        "source_name": "Eye Witness News",
+        "source_rank": 3,
+        "url": "https://www.ewn.co.za/2026/07/06/transport-minister-barbara-creecy-applauds-early-success-of-logistics-sector-reforms",
+        "chunk_id": 1,
+        "text": "Addressing the Southern African Transport Conference in Johannesburg, Creecy outlined progress in rail and port reforms, further stressing the need for a more sustainable and resilient transport system.\nTransport Minister Barbara Creecy said the government is beginning to see the impact of reforms aimed at rebuilding South Africa's transport and logistics sector.\nAddressing the Southern African Transport Conference in Johannesburg, Creecy outlined progress in rail and port reforms, further stressing the need for a more sustainable and resilient transport system.\nCreecy said the government remains committed to restoring rail as the backbone of the country's freight logistics system.\nShe announced that 11 private train operating companies have now been approved to access the national rail network.\nOperations are expected to begin in April next year, with the government targeting the movement of 250 million tonnes of freight on the Transnet rail network by 2030.\nCreecy also highlighted improvements in passenger rail. She said 35 of the country's 40 priority rail lines have now been restored.\nPassenger journeys on the Passenger Rail Agency of South Africa (PRASA) network have increased from just 10 million in 2020/21 to 101 million in 2025/26. The government aims to increase this to 600 million passenger trips by 2030/31.\nCreecy said shifting more passengers and freight from road to rail will reduce congestion, improve road safety and lower carbon emissions.",
+        "highlights": []
+      },
+      "5890C7A9CF284B24BA6AF824C3DC8113-2": {
+        "ref_id": 3,
+        "document_id": "5890C7A9CF284B24BA6AF824C3DC8113",
+        "headline": "<International Industry>Report: Saudi Arabia May Expand East-West Pipeline to Bypass Hormuz",
+        "ts": "2026-07-07T09:10:12",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "A15E96",
+        "source_name": "Chinatimes",
+        "source_rank": 1,
+        "url": "https://www.chinatimes.com/realtimenews/20260707003547-260410",
+        "chunk_id": 2,
+        "text": "Reuters reports, citing sources, that Saudi Arabia plans to expand the pipeline's transport capacity by up to 2 million barrels per day and has already begun preliminary consultations with some neighboring countries. It is currently unclear whether Saudi Aramco plans to upgrade the existing pipeline or construct a new one. One source indicated that the plan includes building a separate, smaller pipeline for petroleum products.\nAnother source stated that the expansion project could increase transport capacity by 1 to 2 million barrels per day, with the transport of refined oil also being considered. The project is expected to take several years and cost billions of dollars, and the Kingdom will also need to adjust its crude oil pricing mechanisms.",
+        "highlights": []
+      },
+      "5F556545A5833B15969F3F789241BC4C-3": {
+        "ref_id": 6,
+        "document_id": "5F556545A5833B15969F3F789241BC4C",
+        "headline": "Saudi Arabia Eyes Oil Pipeline Expansion to Red Sea",
+        "ts": "2026-07-07T10:46:29",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "D8AF6F",
+        "source_name": "Offshore Engineer",
+        "source_rank": 3,
+        "url": "https://www.oedigital.com/news/540973-saudi-arabia-eyes-oil-pipeline-expansion-to-red-sea",
+        "chunk_id": 3,
+        "text": "Iran's blockade of the strait forced Gulf producers to shut in as much as 12 million bpd, sending prices surging. Flows have resumed partially after a preliminary U.S.-Iran deal last month, but they remain below pre-war levels.\nIraqi output collapsed from 4.3 million bpd to less than 1.5 million bpd in May, Kuwait declared force majeure in March and Bahrain's Sitra refinery was struck by Iranian missiles several times.\n\"The recent talks about new pipeline corridors involving Saudi Arabia, Kuwait and Qatar reflect a broader strategic reality. The conflict has focused minds regionally on the perils of relying solely on Hormuz,\" said Zaid Belbagi, managing partner at London-based Hardcastle Advisory.\nAramco declined to comment while the Saudi and Bahraini government communications offices, the Iraqi oil ministry and QatarEnergy did not respond immediately to requests for comment.",
+        "highlights": []
+      },
+      "167EC4BB61F579CF7DBE764DC125160B-2": {
+        "ref_id": 10,
+        "document_id": "167EC4BB61F579CF7DBE764DC125160B",
+        "headline": "Saudi Arabia's Construction Sector Gains Momentum in June Amid Rebound in New Orders",
+        "ts": "2026-07-07T09:55:12",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "CF4113",
+        "source_name": "MT Newswires - EMEA",
+        "source_rank": 1,
+        "url": null,
+        "chunk_id": 2,
+        "text": "New work across the sector further recovered in June, with output growth mainly driven by the fastest increase in new orders since February as reduced geopolitical tensions led to an improvement in market conditions.\nMeanwhile, the delivery times of suppliers considerably shortened despite shipping disruptions. Input buying also increased for the first time in four months despite persistent input cost inflation.\nLooking ahead, business activity expectations for the next 12 months improved to its highest level since the survey began, with most construction companies anticipating opportunities related to the Saudi government's investment spending and its plans to diversify the economy.\n\"That said, cost pressures remain an important area to monitor, particularly with firms reporting higher prices for key materials such as aluminium, steel and electrical equipment,\" Altowaim noted.",
+        "highlights": []
+      },
+      "81E1A64E5A9A50A7AAB9488FCE05402D-6": {
+        "ref_id": 18,
+        "document_id": "81E1A64E5A9A50A7AAB9488FCE05402D",
+        "headline": "US job growth weaker than expected in June",
+        "ts": "2026-07-05T11:18:13",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "B26HQO",
+        "source_name": "National Bank of Kuwait, S.A.K.P.",
+        "source_rank": 1,
+        "url": "https://research.bluematrix.com/docs/pdf/e0764484-dd26-489f-ade6-5946a3166b90/70327347-874c-44dc-b54f-4acf4743d999",
+        "chunk_id": 6,
+        "text": "Saudi Arabia: Business activity strengthens in June as domestic demand rebounds. Saudi Arabia's non-oil private sector gained further momentum in June, supported by stronger domestic demand and improving business confidence, despite continued weakness in export markets and elevated cost pressures. The Purchasing Managers' Index (PMI) rose to 53.3 in June from 52.8 in May, its highest level in four months, signaling a solid expansion in business activity. The improvement was driven by stronger new orders and higher output, as businesses reported a recovery in investor sentiment and domestic spending following the easing of regional tensions. The recovery, however, remained largely domestic. Export orders contracted for the fourth consecutive month, highlighting that external demand is yet to fully recover despite improving conditions at home. Businesses also faced rising input costs, reflecting continued inflationary pressures, although firms remained increasingly optimistic about the months ahead. Business confidence climbed to its highest level since January, supported by expectations of stronger domestic demand, ongoing government investment, and continued progress under Vision 2030. June's PMI suggests that Saudi Arabia's non-oil economy is regaining momentum after the disruption caused by the regional conflict. While export demand remains weak and cost pressures persist, stronger domestic activity and improving business confidence point to a more resilient second half of 2026 for the non-oil economy.",
+        "highlights": []
+      },
+      "FE7ECDB33921DF0B5FF1552A418D6621-3": {
+        "ref_id": 20,
+        "document_id": "FE7ECDB33921DF0B5FF1552A418D6621",
+        "headline": "Prime Minister of Canada Mark Carney and the Crown Prince and Prime Minister of Saudi Arabia, His Royal Highness Mohammed bin Salman commit to deepening bilateral engagement and economic cooperation",
+        "ts": "2026-07-09T19:28:18",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "5A5702",
+        "source_name": "Benzinga",
+        "source_rank": 1,
+        "url": "https://www.benzinga.com/node/60372025?utm_campaign=partner_feed&utm_medium=feed&utm_source=ravenpack",
+        "chunk_id": 3,
+        "text": "Trade and investment\nThe two sides emphasized the importance of unlocking the full potential of bilateral economic ties and welcomed the growing engagement between Canadian and Saudi businesses. Both sides noted that bilateral trade has reached over 20 billion USD since 2020. They agreed to promote two-way investment, increase non-oil trade, support small and medium-sized enterprises, and strengthen cooperation between financial institutions. The two sides agreed to launch negotiations for a Double Taxation Agreement and welcomed the ongoing Foreign Investment Promotion and Protection Agreement negotiations with a view to concluding them by early 2027. The two sides stressed the importance of cooperation between financial institutions in the two countries, which contributes to enhancing financing for strategic and major projects. The Kingdom welcomed the strong interest of Canadian investors in visiting Saudi Arabia to explore opportunities. Equally, Prime Minister Carney looks forward to welcoming Saudi investors to the first-ever Investment Summit in Toronto in September 2026.",
+        "highlights": []
+      },
+      "FE7ECDB33921DF0B5FF1552A418D6621-4": {
+        "ref_id": 21,
+        "document_id": "FE7ECDB33921DF0B5FF1552A418D6621",
+        "headline": "Prime Minister of Canada Mark Carney and the Crown Prince and Prime Minister of Saudi Arabia, His Royal Highness Mohammed bin Salman commit to deepening bilateral engagement and economic cooperation",
+        "ts": "2026-07-09T19:28:18",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "5A5702",
+        "source_name": "Benzinga",
+        "source_rank": 1,
+        "url": "https://www.benzinga.com/node/60372025?utm_campaign=partner_feed&utm_medium=feed&utm_source=ravenpack",
+        "chunk_id": 4,
+        "text": "The Saudi Arabia-Canada Investment Forum, held on July 9th, showcased the economic momentum between the two countries. The two sides welcomed the announcement of commercial and investment agreements between Canadian and Saudi entities, illustrating the scale of opportunities across several sectors, including mining, engineering, infrastructure, advanced manufacturing, training and education, financial services, and information and communication technology.\nEnergy, mining and mineral resources\nThe two sides welcomed the conclusion of a Memorandum of Understanding (MOU) on Energy Cooperation and highlighted opportunities for collaboration across conventional and clean energy, including liquefied natural gas projects in Canada, electricity and renewable energy, hydrogen, carbon management technologies, innovation, cybersecurity, artificial intelligence, resilient supply chains and workforce development.",
+        "highlights": []
+      },
+      "D81CD5DC0AD01C071069CC6A4DC1686A-3": {
+        "ref_id": 2,
+        "document_id": "D81CD5DC0AD01C071069CC6A4DC1686A",
+        "headline": "MBS, Canada's Carney discuss regional developments, bilateral ties in Jeddah",
+        "ts": "2026-07-09T16:55:00",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "1993D3",
+        "source_name": "Al Arabiya",
+        "source_rank": 1,
+        "url": "https://english.alarabiya.net/News/saudi-arabia/2026/07/09/mbs-canada-s-carney-discuss-regional-developments-bilateral-ties-in-jeddah",
+        "chunk_id": 3,
+        "text": "A Saudi-Canadian investment forum is also being held on the sidelines of the visit. According to the sources, the agreements cover infrastructure, mining and industry.\nThe Royal Commission for Riyadh City is expected to sign two contracts worth $440 million, while a partnership agreement between Saudi mining company Maaden and Canada's Hatch is also set to be signed, with a value of up to $700 million.\nThe deals further strengthen trade relations between Saudi Arabia and Canada and move them toward a phase of sustainable investment partnership, while providing fertile ground for investors to exchange goods and innovative services.\nTrade between Saudi Arabia and Canada reached around $2.909 billion in 2025. Saudi exports to Canada were valued at $1.719 billion, while Saudi imports from Canada stood at $1.190 billion.\nBusiness ties between the two countries have continued to develop. In January 2026, Riyadh hosted the Saudi-Canadian Business and Investment Forum, which aimed to strengthen bilateral investment partnerships in digital transformation, infrastructure and opportunities to empower the private sector in both countries.\nThe forum concluded with the signing of six memoranda of understanding worth nearly $600 million, covering cooperation initiatives in telecommunications, information technology, cybersecurity, education and manufacturing.\nAll Rights Reserved.",
+        "highlights": []
+      },
+      "1DFE45FFD733A7239B84D87C5AF5B00B-1": {
+        "ref_id": 4,
+        "document_id": "1DFE45FFD733A7239B84D87C5AF5B00B",
+        "headline": "Saudi Arabia-Canada Investment Forum Opens, 15 Memoranda of Understanding Signed",
+        "ts": "2026-07-09T18:10:11",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "A524F9",
+        "source_name": "Saudi Press Agency (SPA)",
+        "source_rank": 1,
+        "url": "https://spa.gov.sa/en/N2631053?type=news&uuid=N2631053",
+        "chunk_id": 1,
+        "text": "Jeddah, July 09, 2026, SPA -- The Saudi Arabia-Canada Investment Forum opened today in Jeddah, bringing together a high-level Canadian delegation representing the public and private sectors of both countries. The forum aims to strengthen the investment partnership and explore cooperation opportunities across several promising economic sectors. The forum featured a roundtable bringing together officials, investors, and business leaders from both sides. Participants discussed investment partnership opportunities, reviewed the enablers and incentives offered by the Kingdom, and explored prospects for cooperation in priority sectors. The forum also witnessed the signing of 15 memoranda of understanding and cooperation agreements between government entities, companies, and institutions from Saudi Arabia and Canada. The agreements further strengthen economic ties and expand areas of cooperation and joint investment. During the forum sessions, participants discussed investment opportunities in the financial services, mining, advanced industries, artificial intelligence (AI), and data center sectors. They also reviewed the incentives the Kingdom offers investors as part of Saudi Vision 2030. The forum highlighted the Kingdom's rapid industrial growth and competitive advantages, including advanced infrastructure and a strategic location linking the markets of the Middle East, Asia, Europe, and Africa. These advantages open new horizons for investment partnerships with the Canadian side. The forum also highlighted opportunities in the mining sector. The Kingdom's mineral resources are estimated at approximately $2.5 trillion and include more than 50 minerals.",
+        "highlights": []
+      },
+      "1A3020ADAE3B9FD84CFCE93927A193FD-3": {
+        "ref_id": 36,
+        "document_id": "1A3020ADAE3B9FD84CFCE93927A193FD",
+        "headline": "Saudi Arabia-Canada Investment Forum Unlocks High-Quality Opportunities in Mining, AI, and Finance",
+        "ts": "2026-07-09T19:16:03",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "A524F9",
+        "source_name": "Saudi Press Agency (SPA)",
+        "source_rank": 1,
+        "url": "https://spa.gov.sa/en/N2631098?type=news&uuid=N2631098",
+        "chunk_id": 3,
+        "text": "This expansion in access for foreign investors provides a clearer pathway for international institutions to participate in the growth of the Saudi market. This deep liquidity offers Canadian asset managers, insurance firms, and fintech companies unprecedented access to rapidly expanding debt, sukuk, and venture capital markets. The Kingdom's Vision 2030 and National Industrial Strategy create a long-term platform for industrial investment, enabling Canadian companies to leverage infrastructure, industrial cities, and special economic zones to expand production and exports. The Kingdom aims to reach 35,000 factories by 2035, with industrial investments approaching SAR2 trillion. It also aims to increase the industrial sector's contribution to GDP to approximately SAR895 billion by 2030. Canadian manufacturing firms, notably Ingenia Polymers, are already leveraging the Kingdom's infrastructure and access to regional markets to expand production and export capabilities. This bilateral synergy extends into advanced technology, pairing Canada's premier AI research with Saudi Arabia's computing power and energy infrastructure. The Kingdom is targeting 6.6 gigawatts of AI data center capacity by 2034. Key milestones include a $3 billion AI data center complex developed by AirTrunk-backed by Canada's CPP Investments-in partnership with Humain, alongside ongoing cooperation with Cohere to advance Arabic-language AI models. Saudi industrial and technological transformation requires continuous workforce development and Canadian institutions have strong international capabilities in technical and vocational education.",
+        "highlights": []
+      },
+      "6FE772EC908E44A46936062C3423211A-1": {
+        "ref_id": 1,
+        "document_id": "6FE772EC908E44A46936062C3423211A",
+        "headline": "Australia signs a deal to export uranium to India",
+        "ts": "2026-07-09T07:15:03",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "D904DE",
+        "source_name": "Associated Press",
+        "source_rank": 1,
+        "url": "https://apnews.com/article/modi-australia-india-albanese-uranium-32cbec58c8907d2b4aea934f2e241966",
+        "chunk_id": 1,
+        "text": "WELLINGTON, New Zealand (AP) - Australia will begin to sell uranium to India for peaceful purposes after the two countries' leaders signed an administrative deal Thursday, enacting an agreement on exports of the material that was held up for years over concerns about weapons use.\nAustralia's Prime Minister Anthony Albanese and India's Prime Minister Narendra Modi made the joint announcement after a meeting in Melbourne.\nThe leaders didn't immediately supply details of how much uranium would be sold, or when. Exports of Australian uranium to India stalled after an agreement to do so in 2014, because of concern that the material could be used to make weapons.\nAustralia has the world's largest known uranium resources, but the country doesn't use any nuclear power or weapons and all uranium is exported. India, which has a population of 1.4 billion people and a growing middle class, wants to install 100 gigawatts of nuclear power by 2047 - enough to power nearly 60 million Indian homes a year. But obtaining uranium hasn't been simple.",
+        "highlights": []
+      },
+      "85D130F1B0F70DF8151DA368D1CFF67D-1": {
+        "ref_id": 22,
+        "document_id": "85D130F1B0F70DF8151DA368D1CFF67D",
+        "headline": "Telstra Stock Drops 3.8% After Network Outage Disrupts Calls and Trains",
+        "ts": "2026-07-08T18:39:17",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "E5AA62",
+        "source_name": "Yahoo! Finance",
+        "source_rank": 2,
+        "url": "https://finance.yahoo.com/markets/stocks/articles/telstra-stock-drops-3-8-145526421.html",
+        "chunk_id": 1,
+        "text": "This article first appeared on GuruFocus.\nTelstra Group Ltd. (TTRAF), an Australian telecommunications provider with roughly 25 million retail mobile services, came under investor pressure after a network outage affected some mobile calls and data connections, adding to broader concerns about telecom infrastructure reliability in Australia. The disruption spilled into transport and payments, with all regional train services in Victoria suspended due to a radio network error linked to the outage, while regional and some intercity trains in New South Wales also faced significant delays. Telstra shares fell as much as 3.8% in Sydney trading, after the stock had gained 4.1% this year before the outage.\nChief Financial Officer Michael Ackland said Telstra detected an issue in the early hours of Wednesday affecting the nodes that keep time across the network, with some nodes restored but thousands of servers still needing to reset. The company said around 10 a.m. in Sydney that just under 90% of calls and data were flowing successfully, suggesting service recovery was underway but not yet complete. Ackland also said there was nothing at this stage to indicate malicious activity, although Telstra continued to investigate the issue.",
+        "highlights": []
+      },
+      "250874B55930EA75A1EA02C1C6F4339B-10": {
+        "ref_id": 26,
+        "document_id": "250874B55930EA75A1EA02C1C6F4339B",
+        "headline": "$5.3b deal for NRL rights; WiseTech's White steps down, again; Albo blasts China",
+        "ts": "2026-07-07T18:00:00",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "D4D491",
+        "source_name": "FEAR & GREED | Business News",
+        "source_rank": 1,
+        "url": "https://p.podderapp.com/2544644999/traffic.omny.fm/d/clips/2fb3740d-3436-44af-8cc0-a91900716aa5/8d1ad3f3-9fa8-4c7b-b013-ad5500138c5e/45a4b59d-ea4f-48e0-850d-b48000bf4394/audio.mp3?utm_source=Podcast&in_playlist=4110ee17-de19-42e2-b016-ad5500138c71",
+        "chunk_id": 10,
+        "text": "Deloitte cut its economic growth forecast for this financial year to 1.3% and 1.9% next financial year. Now, if this eventuates, Australia hasn't had a sub 2% growth rate for a prolonged stretch for about 30 years or so. So it ain't looking good, at least on Deloitte's numbers. However, I mean the problem here is the forecasters expect underlying inflation to rise now. Deloitte's saying nearly 4%, they'll necessitate another rate rise, slowing growth, high registrates, not good. Deloitte access partner Stephen Smith said years of insufficient investment in housing, infrastructure, energy and the economy's productive capacity have left the supply side of the economy struggling to keep pace with demand. I must say that is a great way of encapsulating the problem for Australia. When we talk about productive capacity and all that, the supply side of the economy hasn't kept pace with demand and that is the fundamental problem for Australia over the last 10 years. Yeah, well said. I love this next story.",
+        "highlights": []
+      },
+      "77464AD1A34CFA610745A14C8C5FE3E0-1": {
+        "ref_id": 2,
+        "document_id": "77464AD1A34CFA610745A14C8C5FE3E0",
+        "headline": "France's Debt Burden at Risk of Snowballing Ahead of 2027 Election",
+        "ts": "2026-07-07T11:53:59",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "5C1F47",
+        "source_name": "US News & World Report",
+        "source_rank": 2,
+        "url": "https://money.usnews.com/investing/news/articles/2026-07-07/frances-debt-burden-at-risk-of-snowballing-ahead-of-2027-election",
+        "chunk_id": 1,
+        "text": "PARIS, July 7 (Reuters) - France's rising borrowing costs are fuelling concern among investors &#8288;and &#8288;economists that its EUR3.5 trillion public debt could spiral &#8288;higher just as political jockeying ahead of next year's presidential election makes fiscal reform unlikely.\nThey cite the risk of  a \"snowball effect\", in which the average interest rate paid on government bonds exceeds economic growth, causing debt to rise relative to the size of the economy unless the government runs sustained primary budget surpluses.\n\"If nothing is done, the public debt could reach 203% of GDP by 2050. Strict budgetary discipline is therefore essential to stabilise public debt,\" OECD Secretary-General Mathias Cormann told journalists in &#8288;Paris last week.",
+        "highlights": []
+      },
+      "77464AD1A34CFA610745A14C8C5FE3E0-3": {
+        "ref_id": 4,
+        "document_id": "77464AD1A34CFA610745A14C8C5FE3E0",
+        "headline": "France's Debt Burden at Risk of Snowballing Ahead of 2027 Election",
+        "ts": "2026-07-07T11:53:59",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "5C1F47",
+        "source_name": "US News & World Report",
+        "source_rank": 2,
+        "url": "https://money.usnews.com/investing/news/articles/2026-07-07/frances-debt-burden-at-risk-of-snowballing-ahead-of-2027-election",
+        "chunk_id": 3,
+        "text": "\"The increase in interest payments relative  to public debt will be greatest for France,\" Moody's Senior Vice President Sarah Carlson said at an economics conference in Aix-en-Provence last Thursday.\nKEEPING  UP WITH THE INTEREST BILL\nInterest payments on &#8288;the public debt reached EUR66 billion last year and are rapidly becoming the state's biggest expense, likely to surpass the education and defence budgets.\nThe Cour des Comptes warned last week that the bill could approach EUR100 billion by 2029 as debt issued during years of ultra-low interest rates is refinanced at higher borrowing costs.\nIt has urged the government to detail how it will reduce the budget deficit from around 5% of GDP this year to the European Union's 3% ceiling and eventually return to a primary surplus.",
+        "highlights": []
+      },
+      "7B61A34F65348111BE0251FEB6BFCBD6-1": {
+        "ref_id": 16,
+        "document_id": "7B61A34F65348111BE0251FEB6BFCBD6",
+        "headline": "France's trade deficit widens more than expected in May",
+        "ts": "2026-07-07T07:45:00",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "ED68DC",
+        "source_name": "Alliance News",
+        "source_rank": 1,
+        "url": null,
+        "chunk_id": 1,
+        "text": "(Alliance News) - France's trade deficit widened in May as exports fell and imports edged higher, data showed on Tuesday.\nAccording to the French Directorate-General of Customs & Indirect Taxes, the trade deficit widened by EUR1.5 billion to EUR6.9 billion in May, exceeding the FXStreet-cited consensus for a EUR5.2 billion shortfall, after narrowing by EUR1.0 billion to a revised EUR5.4 billion deficit in April.\nExports fell by EUR1.1 billion on the month to EUR53.6 billion, while imports rose by EUR400 million to EUR60.5 billion.\nThe deterioration was mainly driven by a EUR800 million drop in exports of military equipment, following particularly strong deliveries in April. Exports of mechanical, electronic and computer equipment also declined by EUR400 million.",
+        "highlights": []
+      },
+      "B75B2300BA934EBD61E1A670B2F56CB6-13": {
+        "ref_id": 28,
+        "document_id": "B75B2300BA934EBD61E1A670B2F56CB6",
+        "headline": "French Presidential Elections: Implications of Marine Le Pen's Reduced Ineligibility",
+        "ts": "2026-07-08T19:29:21",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "961B55",
+        "source_name": "Natixis",
+        "source_rank": 1,
+        "url": "https://research.bluematrix.com/docs/pdf/3de41bc7-bfd2-406d-a320-bef7107a3f1c/a1ca886c-9301-468d-a373-46357df331e9",
+        "chunk_id": 13,
+        "text": "The party's anti-European rhetoric remains strong, emphasizing the primacy of French law over EU law. However, advocating for France to exit the Eurozone (\"Frexit\")-widely blamed for her defeat in 2017-has been completely dropped from the platform. The party congress is scheduled for October 24 and 25 and is expected to provide further insights into the economic platform.\n2 To put this in perspective, in the 2017 Presidential campaign, François Fillon (Les Républicains)-then the front-runner-had campaigned on a platform of irreproachable ethics. During the right-wing primary in August 2016, Fillon had famously attacked his rival, former President Nicolas Sarkozy, by declaring: \"There is no point in talking about authority when one is not beyond reproach himself,\" adding, \"Who could imagine General de Gaulle being placed under formal investigation?\" While these sharp formulas helped him in the primary, they severely backfired following his own formal investigation (mise en examen) in March 2017.\n[NATIXIS logo] CORPORATE AND INVESTMENT BANKING\nIn any event, the fiscal leeway for the next president and their government will be extremely tight. On July 7, the government revised down its 2026 GDP growth forecast to 0.7%, from 0.9% previously (Natixis forecast: 0.6%), and announced an additional EUR3 billion in spending cuts across central government and social security to meet its 5.0% public deficit target (Natixis forecast: 5.1%). The combination of a high primary deficit and a rapidly rising debt-servicing burden will undoubtedly represent one of the most critical challenges of the next presidential term (see France's Rising Public Debt: The Bill Comes Due).",
+        "highlights": []
+      },
+      "F7C7B7D50411A1ED48309513756D477B-1": {
+        "ref_id": 31,
+        "document_id": "F7C7B7D50411A1ED48309513756D477B",
+        "headline": "French regulator slams Meta over suspended content payments",
+        "ts": "2026-07-08T11:13:55",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "ED68DC",
+        "source_name": "Alliance News",
+        "source_rank": 1,
+        "url": null,
+        "chunk_id": 1,
+        "text": "(Alliance News) - France's competition watchdog Wednesday accused Meta Platforms Inc, which owns Facebook and Instagram, of causing \"serious and immediate harm\" to French media by failing to compensate it for content it republishes.\nIt ordered the Menlo Park, California-based technology firm to hold talks with key newspapers and news agencies on order to pay the so-called neighbouring rights that, under a 2019 European directive adopted into French law, are due when social media platforms republish news content.\nTwo groups called APIG and DVP that represent hundreds of media outlets - including AFP - had petitioned France's Competition Authority after they said Meta failed to renew neighbouring rights contracts in early 2025 and late 2024 respectively.",
+        "highlights": []
+      },
+      "6F5FBA77E0B179219968BE00DF002A6C-1": {
+        "ref_id": 1,
+        "document_id": "6F5FBA77E0B179219968BE00DF002A6C",
+        "headline": "Joint Statement on the Launch of FTA Negotiations between Canada and Türkiye",
+        "ts": "2026-07-07T11:01:07",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "5A5702",
+        "source_name": "Benzinga",
+        "source_rank": 1,
+        "url": "https://www.benzinga.com/node/60299546?utm_campaign=partner_feed&utm_medium=feed&utm_source=ravenpack",
+        "chunk_id": 1,
+        "text": "ANKARA, Türkiye, July 7, 2026 /CNW/ - \"On the occasion of the meeting between Prime Minister Mark Carney and President Recep Tayyip Erdogan on the margins of the NATO Summit in Ankara, Türkiye on July 7, 2026, the Leaders are pleased to announce the launch of Free-Trade Agreement (FTA) negotiations between Canada and Türkiye.\nIn early June 2026, Trade Ministers Bolat and Sidhu issued a Joint Ministerial Statement on Economic Partnership, which announced the launch of exploratory discussions toward a comprehensive Free Trade Agreement (FTA). That announcement reflected the shared ambition and recognition of the potential to further deepen the economic partnership between Canada and Türkiye.\nCanada and Türkiye are taking the next step by formally announcing the launch of negotiations toward a comprehensive, modern, and mutually beneficial FTA. Closer economic cooperation will support economic growth, support job creation, enhance competitiveness, strengthen supply chains, and help our businesses succeed in an increasingly dynamic global economy.\nIn the coming months, the technical teams from both countries will undertake the necessary work to define the scope and ambition of the agreement and prepare for the first round of negotiations. Both governments look forward to working together to advance a high-quality agreement that strengthens the Canada-Türkiye partnership and creates new opportunities for prosperity for businesses, workers and people in both countries.\"\nThis document is also available at https://pm.gc.ca\nSOURCE Prime Minister's Office",
+        "highlights": []
+      },
+      "B0F1B6DBCC77CB60AF0B1C4F74DA0037-3": {
+        "ref_id": 22,
+        "document_id": "B0F1B6DBCC77CB60AF0B1C4F74DA0037",
+        "headline": "Türkiye, US defense firms eye deeper cooperation in NATO supply chains",
+        "ts": "2026-07-09T00:00:00",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "CE1ADC",
+        "source_name": "Anadolu Agency",
+        "source_rank": 1,
+        "url": "https://www.aa.com.tr/en/turkiye/turkiye-us-defense-firms-eye-deeper-cooperation-in-nato-supply-chains/3993254",
+        "chunk_id": 3,
+        "text": "Turkish defense industry 'strong production ecosystem'\nAyhan said the constructive dialogue between President Recep Tayyip Erdogan and US President Donald Trump has brought new momentum to Türkiye-US relations, adding that the strategic partnership contributes not only to the interests of both countries but also to NATO's deterrence and common security architecture.\nHe said the defense industry is one of the strongest pillars of the strategic partnership between Ankara and Washington.\nTürkiye's defense industry has become a strong production and technology ecosystem globally, with a domestic production rate above 80%, more than 3,500 companies and over 100,000 qualified employees, Ayhan said.\nHe added that Türkiye is ready to advance cooperation with American companies in joint production, research and development, and advanced technologies.\nAyhan stressed that removing barriers to bilateral defense industry and trade cooperation is critical to fully realizing this potential, saying that reducing regulatory restrictions and opening the way for mutual trade would create new opportunities for the future of Türkiye-US relations.",
+        "highlights": []
+      },
+      "933F084CD0E9FB5C460DF898D1C0C601-2": {
+        "ref_id": 29,
+        "document_id": "933F084CD0E9FB5C460DF898D1C0C601",
+        "headline": "Turkish President Erdogan calls for lifting defense cooperation restrictions among NATO allies",
+        "ts": "2026-07-08T00:00:00",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "CE1ADC",
+        "source_name": "Anadolu Agency",
+        "source_rank": 1,
+        "url": "https://www.aa.com.tr/en/world/turkish-president-erdogan-calls-for-lifting-defense-cooperation-restrictions-among-nato-allies/3990665",
+        "chunk_id": 2,
+        "text": "Türkiye to raise defense spending to 3.5% level before 2030\nErdogan also reaffirmed Ankara's commitment to strengthening its contribution to NATO by increasing defense spending.\n\"Türkiye has taken measures to raise the ratio of our defense spending to the 3.5% level before 2030,\" he said.\nErdogan said Türkiye has already allocated 1.5% of its budget to security- and resilience-related expenditures.\nHe also announced that Türkiye has earmarked an additional $24 billion for its Steel Dome air and missile defense project, saying the investment is aimed at strengthening one of NATO's most critical capability gaps.\nHighlighting Türkiye's role within NATO, Erdogan said the country, which has Europe's largest land army, remains ready to place its military capabilities at the alliance's disposal whenever needed.\nHe noted that Türkiye is among the leading contributors to NATO operations, missions, and exercises in Kosovo, the Black Sea, the Baltic region, and other areas.\nErdogan also said Türkiye hopes to secure NATO accreditation for its planned Center of Excellence for Countering Unmanned Systems, citing the country's experience in successfully deploying unmanned aerial vehicles on real battlefields.\n\"I believe this center will bolster our capability to counter threats posed, in particular, by aerial and maritime drones,\" he added.",
+        "highlights": []
+      },
+      "7AD465DC4A9D1939CEA5950BD9548571-4": {
+        "ref_id": 36,
+        "document_id": "7AD465DC4A9D1939CEA5950BD9548571",
+        "headline": "DP World Highlights Türkiye's Growing Role in Europe-Gulf Trade Corridors",
+        "ts": "2026-07-06T06:00:00",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "5A5702",
+        "source_name": "Benzinga",
+        "source_rank": 1,
+        "url": "https://www.benzinga.com/node/60270956?utm_campaign=partner_feed&utm_medium=feed&utm_source=ravenpack",
+        "chunk_id": 4,
+        "text": "DP World has invested more than US$600 million in Türkiye, creating one of Türkiye's most integrated logistics platforms. The formation of DP World Evyap in 2024 combined the Yarimca and Körfez terminals to create the largest port operation in East Marmara and the second largest in Türkiye, expanding capacity and strengthening the country's connectivity to regional and global markets.\nDP World was also the first private port operator in Türkiye to connect its terminal to the national railway network through its own investment. The connection extends Türkiye's reach via the Baku-Tbilisi-Kars corridor and the wider Silk Road network, while DP World Evyap links the country's industrial regions to global markets through direct highway access and the Istanbul-Ankara rail line. Together, these investments create an integrated logistics network that supports faster inland distribution, improves supply chain resilience and reinforces Türkiye's position as a competitive gateway for international trade.\nTo support this shift in global trade, Al Hashmi said DP World will continue expanding its integrated logistics network across Türkiye, bringing together ports, freight forwarding, contract logistics and multimodal transport into a seamless end-to-end supply chain offering.\nHe said: \"In a world of disruption, connectivity is a competitive advantage. In a world of uncertainty, integration is strength. In a world that is becoming more complex by the day, Türkiye has a chance to become even more central to the flow of global trade. DP World is here to support that ambition.\"",
+        "highlights": []
+      },
+      "ED8F1881BF3C14733103E8C7C8BAB6BF-4": {
+        "ref_id": 1,
+        "document_id": "ED8F1881BF3C14733103E8C7C8BAB6BF",
+        "headline": "Unicorn surge outcome of holistic ecosystem: China Daily editorial",
+        "ts": "2026-07-07T21:07:00",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "I39OKI",
+        "source_name": "China Daily (English)",
+        "source_rank": 1,
+        "url": "https://www.chinadaily.com.cn/a/202607/07/WS6a4cfa1ea310986e2b463ff7.html",
+        "chunk_id": 4,
+        "text": "At a time when international supply chains face growing uncertainty, China continues emphasizing high-standard opening-up, deeper international innovation cooperation and integration into global industrial networks. Rather than presenting technological development as a zero-sum contest, China is proving that advanced manufacturing, AI, green technologies and digital infrastructure can generate shared opportunities for international partners.\nStatistics show that R&D investment in China by multinational corporations accounted for 14.3 percent of their total global R&D spending last year, and 14,000 new foreign-invested enterprises were established in China's scientific research and technical services sector, a year-on-year increase of 27.2 percent.",
+        "highlights": []
+      },
+      "1A5750F331B67F0902309A2746C952FB-1": {
+        "ref_id": 5,
+        "document_id": "1A5750F331B67F0902309A2746C952FB",
+        "headline": "China Proposes Sweeping E-Commerce Overhaul to Protect Gig Workers, Counter Foreign Curbs",
+        "ts": "2026-07-07T06:21:19",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "887D27",
+        "source_name": "Caixin Global",
+        "source_rank": 1,
+        "url": "https://www.caixinglobal.com/2026-07-07/china-proposes-sweeping-e-commerce-overhaul-to-protect-gig-workers-counter-foreign-curbs-102461614.html  ",
+        "chunk_id": 1,
+        "text": "The draft revisions aim to curb cutthroat tech competition with massive financial penalties, formally integrate millions of gig workers into the legal framework, and arm Beijing with reciprocal countermeasures against discriminatory trade policies abroad\nChina unveiled a sweeping proposal to overhaul its e-commerce regulations, threatening tech platforms with hefty revenue-based fines while granting the country's massive gig workforce a legal role in market governance and arming Beijing with new tools for retaliation against foreign entities.\nReleased on Saturday by the State Administration for Market Regulation and the Ministry of Commerce, the draft revision modifies nearly a quarter of the seven-year-old E-Commerce Law. The proposal, open for public feedback until Aug. 4, adds 10 new articles and amends 12 to curb cutthroat competition, expand labor rights and protect Chinese companies expanding overseas.",
+        "highlights": []
+      },
+      "07386C40C6966A618D725690E26A1E65-2": {
+        "ref_id": 10,
+        "document_id": "07386C40C6966A618D725690E26A1E65",
+        "headline": "China proposes broader e-commerce law covering platforms and digital businesses",
+        "ts": "2026-07-04T04:51:44",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "E5AA62",
+        "source_name": "Yahoo! Finance",
+        "source_rank": 2,
+        "url": "https://finance.yahoo.com/economy/policy/articles/china-proposes-broader-e-commerce-043356529.html",
+        "chunk_id": 2,
+        "text": "Chinese regulators said the revisions are intended to better define the rights and obligations of participants in the platform economy while addressing serious violations that have drawn significant public concern.\nThe draft also includes provisions aimed at supporting Chinese companies expanding overseas, encouraging greater industry self-regulation and strengthening international cooperation on e-commerce standards.\nIn addition, the proposed changes seek to align China's regulatory framework more closely with international practices while introducing countermeasures designed to protect the lawful rights and interests of Chinese businesses operating at home and abroad.\nThe amendments remain open for public consultation before they can be finalized. China has tightened oversight of its internet sector in recent years, introducing a series of measures covering data security, antitrust practices, consumer protection and competition among major online platforms. Citi pushes back Fed rate cuts to May after blowout January jobs report\nMorgan Stanley CIO survey: Why AI hype isn't boosting 2026 IT budgets",
+        "highlights": []
+      },
+      "54CE7B19DF9739AADB3AD43588CAD4C8-1": {
+        "ref_id": 20,
+        "document_id": "54CE7B19DF9739AADB3AD43588CAD4C8",
+        "headline": "Fire at Shoe Factory in Southeastern China Kills 28",
+        "ts": "2026-07-09T19:46:36",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "887D27",
+        "source_name": "Caixin Global",
+        "source_rank": 1,
+        "url": "https://www.caixinglobal.com/2026-07-10/fire-at-shoe-factory-in-southeastern-china-kills-28-102462544.html  ",
+        "chunk_id": 1,
+        "text": "The fatal fire in Fujian province prompted Xi Jinping to urge swift rescue efforts and a thorough investigation into the disaster\nA fire at a shoe factory in southeastern China's Fujian province killed 28 people on Tuesday.\nThe blaze broke out around noon at the Huiteng Shoes Co. plant in Jinjiang, trapping several workers on the building's roof before firefighters largely extinguished the flames by late afternoon.\nThe deadly disaster in a major footwear manufacturing hub underscores China's persistent industrial safety challenges, prompting top leaders to order a nationwide crackdown on workplace hazards following a string of fatal accidents this year.\nPreliminary investigations indicate the fire started in a first-floor workshop. Local authorities deployed 183 firefighters and 35 vehicles to the scene.\nPolice have detained the factory's executives and frozen the company's bank accounts, according to the official Xinhua News Agency. Established in 2015, Huiteng Shoes is a privately held manufacturer and wholesaler with a registered capital of 10 million yuan ($1.5 million).\nFollowing the incident, Chinese President Xi Jinping ordered a swift investigation and strict accountability for those responsible. Premier Li Qiang also instructed government agencies to conduct comprehensive safety inspections across the country to prevent similar industrial disasters.\nCopyright © 2024 Caixin Global Limited. All Rights Reserved.",
+        "highlights": []
+      },
+      "79D2176F4A1282CFD45BC8CF67A36997-1": {
+        "ref_id": 28,
+        "document_id": "79D2176F4A1282CFD45BC8CF67A36997",
+        "headline": "China's Mechanism for Industrial and Supply Chain Resilience and Security",
+        "ts": "2026-07-08T21:07:34",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "D7735B",
+        "source_name": "Akin Corporate Website",
+        "source_rank": 4,
+        "url": "https://www.akingump.com/en/insights/alerts/chinas-mechanism-for-industrial-and-supply-chain-resilience-and-security",
+        "chunk_id": 1,
+        "text": "International Trade Alert\nOn June 24, 2026, the Ministry of Commerce (MOFCOM) issued Announcement No. 24 of 2026 , formally promulgating the Measures for Industrial and Supply Chain Security Investigations [&#20135;&#19994;&#38142;&#20379;&#24212;&#38142;&#23433;&#20840;&#35843;&#26597;&#24037;&#20316;&#21150;&#27861;] (hereinafter referred to as the Measures). The Measures were enacted to implement the supply chain security investigation requirements of Order No. 834 , Regulation on the Security of Industrial and Supply Chain s [&#22269;&#21153;&#38498;&#20851;&#20110;&#20135;&#19994;&#38142;&#20379;&#24212;&#38142;&#23433;&#20840;&#30340;&#35268;&#23450;] (hereinafter referred to as the Regulation), which was issued by the State Council of the People's Republic of China (State Council) on March 31, 2026. These rules, among other recent Chinese trade controls and countermeasures, were promulgated as a reaction to various sanctions, investigations and other trade restrictions imposed by the United States, the European Union (EU) and other countries and economies. Together, the Regulation and the Measures reflect China's effort to close a perceived gap in its legislative and regulatory framework for addressing industrial and supply chain risks-an effort made more urgent by heightened global geopolitical uncertainty.",
+        "highlights": []
+      },
+      "2170502E82D549AC7CC4A0B449318062-3": {
+        "ref_id": 36,
+        "document_id": "2170502E82D549AC7CC4A0B449318062",
+        "headline": "Xi calls for all-out efforts after Fujian fire accident",
+        "ts": "2026-07-09T23:13:00",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "I39OKI",
+        "source_name": "China Daily (English)",
+        "source_rank": 1,
+        "url": "https://www.chinadaily.com.cn/a/202607/09/WS6a4fba88a310986e2b46476b.html",
+        "chunk_id": 3,
+        "text": "Following the instructions, the Ministry of Emergency Management sent a working group to the site of the factory fire to provide guidance. Fujian has also mobilized forces to spare no effort in treating the injured and handling on-site response. Local fire and rescue teams have deployed more than 500 personnel.\nPeople in charge of the footwear factory have been taken into custody and the company's accounts frozen.\nA firefighter at the scene told China Central Television that while the exact cause of the fire remains under investigation, a preliminary assessment indicates that it started in a workshop on the first floor of the factory.\nRaw materials piled up on the stairs of the factory slowed down firefighting efforts and hampered rescue operations, the firefighter said.\nAll Rights Reserved.",
+        "highlights": []
+      },
+      "AE2A49011068FDF92B7FC8BC6223BA28-48": {
+        "ref_id": 52,
+        "document_id": "AE2A49011068FDF92B7FC8BC6223BA28",
+        "headline": "Global Artificial Intelligence Industry July 2026",
+        "ts": "2026-07-06T11:57:02",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "8DAB14",
+        "source_name": "GSBR Research Private Limited",
+        "source_rank": 1,
+        "url": "https://research.bluematrix.com/docs/pdf/dd97c29b-9379-42ad-8ffa-7a592705a591/548e0911-b072-499a-81df-7b6d53253023",
+        "chunk_id": 48,
+        "text": "According to the Global Times, China now has 300 million generative Al users, with over 120 million active on a monthly basis-meaning\nmodel efficiency innovations and a deepening domestic compute ecosystem.\nresearch and development, as well as to actively adopt Al. According to a report by the World Intellectual Property Organization (WIPO), China led the GenAl patent race, filing over 38,000 patents between 2014 and 2023, compared to 6,276 filed by the U.S. during the same period.\nThe Chinese government has an aggressive target to create a $150 billion Al sector (includes core Al applications & related industries) by 2030. China has made an open-source platform to boost the development of artificial intelligence (AI), as part of a plan to make China a world- leader in this field by 2030. The plan aims to boost production of Al-related technology to reach $60 billion in 2025, and $147 billion in 2030. The plan is also targeting the value of core Al- enabled industries to exceed 1 trillion yuan, with related industries crossing 10 trillion yuan ($1.6 trillion) in annual sales, by the end of this decade.",
+        "highlights": []
+      },
+      "AE2A49011068FDF92B7FC8BC6223BA28-53": {
+        "ref_id": 54,
+        "document_id": "AE2A49011068FDF92B7FC8BC6223BA28",
+        "headline": "Global Artificial Intelligence Industry July 2026",
+        "ts": "2026-07-06T11:57:02",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "8DAB14",
+        "source_name": "GSBR Research Private Limited",
+        "source_rank": 1,
+        "url": "https://research.bluematrix.com/docs/pdf/dd97c29b-9379-42ad-8ffa-7a592705a591/548e0911-b072-499a-81df-7b6d53253023",
+        "chunk_id": 53,
+        "text": "In August 2025, Alibaba unveiled a new chip that has the capability to serve a broad range of Al inference tasks. This chip can reduce reliance on U.S. technology amidst export restrictions, particularly from NVIDIA. China's chipmakers are seeking to triple the country's total output of Al processors next year. New fabrication plants are coming online. This includes a new plant for Huawei Al processors by the end of this year, with two more in pipeline for next year. Semiconductor Manufacturing International Corporation (SMIC), China's leading fab, is planning to double its capacity to produce 7nm chips China plans to develop over 50 new national and industrial standards by 2026. This initiative is in line with the country's guidelines aimed at standardizing systems within the Al sector. China is currently home to over 4,500 companies specializing in artificial intelligence.",
+        "highlights": []
+      },
+      "08ECD0F7C12F83C72F89A60219ACDC9B-1": {
+        "ref_id": 1,
+        "document_id": "08ECD0F7C12F83C72F89A60219ACDC9B",
+        "headline": "S&P Dow Jones puts Indonesia, Turkey on watchlist for market downgrade",
+        "ts": "2026-07-08T01:04:52",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "7EF16F",
+        "source_name": "Business Times (Singapore)",
+        "source_rank": 2,
+        "url": "https://www.businesstimes.com.sg/international/sp-dow-jones-puts-indonesia-turkey-watchlist-market-downgrade",
+        "chunk_id": 1,
+        "text": "[SINGAPORE] Global index provider S&P Dow Jones Indices warned that Turkey and Indonesia risk a downgrade to frontier from emerging status over market transparency and other issues, echoing similar moves at rival MSCI.\nBoth markets were added to a watchlist for potential inclusion in next year's market review process, S&P DJI said in a statement late on Tuesday (Jul 7). Nigeria was also on the list for a potential upgrade to frontier from standalone status.\nIndonesia has been placed under review by MSCI since January and the risk of a downgrade has tanked an equity market that was once the toast of emerging market fund managers - leaving it down more than 30 per cent, or 35 per cent in dollar terms, for the year so far.",
+        "highlights": []
+      },
+      "2E2A03ADEEC3D854A56E4A0CA44BD0BE-2": {
+        "ref_id": 13,
+        "document_id": "2E2A03ADEEC3D854A56E4A0CA44BD0BE",
+        "headline": "Indonesia's Commodity Controls Spark Market Concerns, Rupiah Continues to Fall",
+        "ts": "2026-07-09T01:15:43",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "C486EC",
+        "source_name": "Securities Times",
+        "source_rank": 2,
+        "url": "https://www.stcn.com/article/detail/4007800.html",
+        "chunk_id": 2,
+        "text": "Even before the latest plan was announced, stricter nickel ore mining quotas, proposed tax increases, and sharp upward adjustments to Indonesia's benchmark mineral prices had already unsettled investors. Foreign direct investment in Indonesia declined by 6% in 2025, compared to a 19% growth in 2024. Mining investment peaked in 2024, and new investments in the base metal smelting sector have plateaued after 2024.\nMore than a month after the new regulations were released, as of the market close on July 8th, the Indonesia Composite Index had fallen over 10% since the news of commodity controls broke, and the rupiah has been in a continuous decline. When rules waver with fiscal pressure, even the most patient capital may depart.",
+        "highlights": []
+      },
+      "5338994F44425398F0C780C7642A001E-2": {
+        "ref_id": 43,
+        "document_id": "5338994F44425398F0C780C7642A001E",
+        "headline": "S&P Dow Jones joins chorus of warnings on Indonesia downgrade",
+        "ts": "2026-07-08T02:28:39",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "DA9FC6",
+        "source_name": "Financial Times",
+        "source_rank": 1,
+        "url": "https://www.ft.com/content/dfb44d58-e8da-4f87-a65f-00eb5b1fc63c",
+        "chunk_id": 2,
+        "text": "S&P DJI's announcement follows a similar warning from MSCI, which is also reviewing Indonesia's classification as an emerging market.\nThat warning in January prompted a flood of outflows from Indonesian equities. The Jakarta Composite index has declined 31 per cent, making Indonesia the world's worst-performing stock market this year.\nIn its report, MSCI flagged concentrated and opaque ownership structures that undermined proper price formation in Indonesian stocks. The index provider is due to make a decision on reclassification in November.\nSince MSCI's warning, Jakarta has taken steps to improve transparency.\nIt has doubled the requirement for minimum free float - the portion of stocks available for public trading - to 15 per cent, giving companies up to three years to comply.\nIt has also tightened rules on shareholder disclosures, requiring public reporting of stakes above 1 per cent, down from the previous 5 per cent.\nBeyond the downgrade risks, investors have also been concerned by President Prabowo Subianto's costly populist policies and increasing state control over the private sector.\nThe macroeconomic and fiscal policies have sent Indonesia's currency tumbling against the dollar. The rupiah, which is trading near all-time lows, has lost 8 per cent of its value this year.",
+        "highlights": []
+      },
+      "AF03895282C34A2D7183B4CBAD536691-127": {
+        "ref_id": 44,
+        "document_id": "AF03895282C34A2D7183B4CBAD536691",
+        "headline": "At the Crossroads: Geopolitical Fragility, AI Rally Fatigue or Naught?",
+        "ts": "2026-07-06T09:48:33",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "AFD981",
+        "source_name": "RHB Research Institute Sdn. Bhd.",
+        "source_rank": 1,
+        "url": "https://research.bluematrix.com/docs/pdf/a9901a3f-faac-4b8d-b95c-01c09803ba12/9bc41124-e467-4ebc-95f4-d7c900159560",
+        "chunk_id": 127,
+        "text": "IDR: Pain Points Remain On the Horizon\nIDR remains vulnerable because Indonesia's challenge is increasingly centred on confidence and risk premia, rather than simply a high-USD or high-oil environment, compounded by fiscal uncertainties. MSCI's decision to defer its market-classification review until November offers temporary relief, but it leaves the downgrade overhang unresolved. It keeps investor attention on ownership transparency, free float, market accessibility and trading reliability. This risk is compounded by fiscal uncertainty, as higher oil prices expose tensions among subsidy costs, ambitious social and infrastructure spending, and the credibility of the statutory 3% of GDP deficit ceiling. The concern is not an imminent fiscal crisis, but a gradual rise in sovereign risk premia if policy becomes more interventionist or less predictable.",
+        "highlights": []
+      },
+      "400DA2F5E92F5819AB03857EFD9F252A-2": {
+        "ref_id": 8,
+        "document_id": "400DA2F5E92F5819AB03857EFD9F252A",
+        "headline": "Parliamentary Secretary Ménard highlights launch of new Small Business Procurement Program measures to modernize federal contracting and boost access for Canadian businesses",
+        "ts": "2026-07-07T16:46:44",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "5A5702",
+        "source_name": "Benzinga",
+        "source_rank": 1,
+        "url": "https://www.benzinga.com/node/60313753?utm_campaign=partner_feed&utm_medium=feed&utm_source=ravenpack",
+        "chunk_id": 2,
+        "text": "In launching the first series of measures under the new Small Business Procurement Program (SBPP), the Government of Canada will work to remove long-standing barriers that have made federal contracting difficult for smaller firms and to ensure they are better positioned to compete for and win government work. These changes will modernize procurement processes, improve access to opportunities for small businesses and ensure these businesses can play a stronger role in delivering federal priorities while supporting jobs, innovation and a more resilient Canadian economy.\nIn concert with the SBBP, Innovation, Science and Economic Development Canada (ISED) will leverage the Innovative Solutions Canada (ISC) program, which will help connect federal departments with Canadian firms to develop, test and commercialize their innovative technologies.",
+        "highlights": []
+      },
+      "400DA2F5E92F5819AB03857EFD9F252A-6": {
+        "ref_id": 10,
+        "document_id": "400DA2F5E92F5819AB03857EFD9F252A",
+        "headline": "Parliamentary Secretary Ménard highlights launch of new Small Business Procurement Program measures to modernize federal contracting and boost access for Canadian businesses",
+        "ts": "2026-07-07T16:46:44",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "5A5702",
+        "source_name": "Benzinga",
+        "source_rank": 1,
+        "url": "https://www.benzinga.com/node/60313753?utm_campaign=partner_feed&utm_medium=feed&utm_source=ravenpack",
+        "chunk_id": 6,
+        "text": "\"The launch of the Small Business Procurement Program is an important step for Canadian entrepreneurs and small businesses. By reducing barriers and making it easier to compete for federal contracts, these new measures will help more businesses access opportunities to grow, create good jobs and strengthen their communities. At the same time, they will help build stronger domestic supply chains and ensure more federal procurement supports Canadian businesses and Canadian workers.\"\nThe Honourable Rechie Valdez, Minister of Women and Gender Equality and Secretary of State (Small Business and Tourism)\n\"Canada's small businesses are the backbone of our economy and the heart of our communities. By making it easier for small businesses to compete for federal contracts, we are helping them grow, create good jobs, and bring more Canadian innovation into the work of government. These measures are about giving small businesses a fair shot and making federal procurement work better for them.\"\nMarie-Gabrielle Ménard, Parliamentary Secretary to the Minister of Women and Gender Equality and Secretary of State (Small Business and Tourism)",
+        "highlights": []
+      },
+      "AEF02D8EA9A65F2B536BE93B9EC762F3-3": {
+        "ref_id": 12,
+        "document_id": "AEF02D8EA9A65F2B536BE93B9EC762F3",
+        "headline": "Public Services and Procurement Canada launches new Small Business Procurement Program measures to modernize federal contracting and boost access for Canadian businesses",
+        "ts": "2026-07-06T15:57:18",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "5A5702",
+        "source_name": "Benzinga",
+        "source_rank": 1,
+        "url": "https://www.benzinga.com/node/60284414?utm_campaign=partner_feed&utm_medium=feed&utm_source=ravenpack",
+        "chunk_id": 3,
+        "text": "The ISC program will create an innovation pathway into federal procurement to support innovation-focused procurement opportunities for Canadian small businesses and help the government meet its operational needs. Bolstered by $79.9 million funding over five years, the ISC will help Canadian innovators develop, test and validate new technologies by providing opportunities to work directly with the federal government as a first customer. It will also expand support for Canadian small businesses to participate in federal procurement, making it easier for them to secure contracts, demonstrate their products at scale and build the track record needed to access new domestic and international markets.\nMeasures announced today respond to feedback from small businesses seeking to work with the Federal Government, and are designed to remove barriers and create a more accessible, predictable, and efficient procurement experience.",
+        "highlights": []
+      },
+      "4F6F99DFB1807044412F20D5F4FD9DB1-1": {
+        "ref_id": 24,
+        "document_id": "4F6F99DFB1807044412F20D5F4FD9DB1",
+        "headline": "Four in 10 Canadian manufacturers have moved or plan to move production to the U.S., KPMG survey finds",
+        "ts": "2026-07-07T08:17:16",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "E5AA62",
+        "source_name": "Yahoo! Finance",
+        "source_rank": 2,
+        "url": "https://finance.yahoo.com/news/four-10-canadian-manufacturers-moved-080000631.html",
+        "chunk_id": 1,
+        "text": "TORONTO, July 7, 2026 /CNW/ - One year after manufacturers warned that U.S. tariffs posed an existential threat to their businesses, a new KPMG survey finds four in 10 manufacturers have moved production to the U.S. or are considering doing so as they adapt to ongoing trade uncertainty and mounting competitive pressures.\nThe survey of 275 manufacturers finds that 57 per cent say they have paused, reduced, or cancelled capital expenditure projects due to economic uncertainty and trade and tariff threats, while 42 per cent have scaled back or paused research and development spending. More than half (52 per cent) say they are currently operating in \"endurance mode.\"\nThe findings come as discussions surrounding the Canada-United States-Mexico Agreement (CUSMA) intensify. Government action on overall competitiveness, taxation, regulations and trade will play a critical role in determining whether future manufacturing investment stays in Canada, says Anamika Gadia, Partner and National Leader of Industrial Markets at KPMG Canada.",
+        "highlights": []
+      },
+      "B0D730196B135315BC0CC85B557867D8-4": {
+        "ref_id": 56,
+        "document_id": "B0D730196B135315BC0CC85B557867D8",
+        "headline": "Daily Bulletin - July 09, 2026",
+        "ts": "2026-07-09T08:04:29",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "1477F7",
+        "source_name": "Gedik Investment Securities",
+        "source_rank": 1,
+        "url": "https://research.bluematrix.com/docs/pdf/90be6b15-c069-45dc-b7d1-ddf8ce63aad6/e0840da8-5904-4769-be11-3e54d14d7875",
+        "chunk_id": 4,
+        "text": "Russia has temporarily banned diesel exports until July 31, 2026, to stabilize domestic fuel supply following ongoing Ukrainian drone attacks on Russian refineries. Deputy Prime Minister Alexander Novak stated that the country is experiencing fuel supply tightness and rising domestic prices, and that fuel imports are also being considered to alleviate pressure on supply. Russia's seaborne diesel and jet fuel exports fell by 39% month-on-month and 46% year-on-year in June to 1.8 million tons before the ban was announced. Following the news, European diesel crack margins reached a record high of $60.2 per barrel, reflecting tightness in global middle distillate supply. Commentary: We view this development as positive for Tüpras. Strengthening diesel crack margins directly support refinery profitability due to the significant share of diesel in the company's product portfolio. However, the measure is temporary and will expire on July 31, 2026, according to the current regulation. A similar export ban implemented in September 2023 was largely eased after being in effect for approximately two weeks. Therefore, the sustainability of high diesel crack margins will depend on whether Russia extends the ban and how quickly the refinery system recovers after the latest drone attacks. We will closely monitor European diesel crack margins, developments regarding the restart of refineries in Russia, and the potential extension of the export ban. If disruptions persist longer than expected, these developments may necessitate upward revisions to our refinery margin assumptions. (POSITIVE for Tüpras)",
+        "highlights": []
+      },
+      "7BF9A4A51F0EAD30F20F8F559FA6F3A3-6": {
+        "ref_id": 54,
+        "document_id": "7BF9A4A51F0EAD30F20F8F559FA6F3A3",
+        "headline": "How Ukraine's drone strikes brought war home to 50mn Russians",
+        "ts": "2026-07-09T04:00:26",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "DA9FC6",
+        "source_name": "Financial Times",
+        "source_rank": 1,
+        "url": "https://www.ft.com/content/954cebe9-63e1-417c-858e-6657b1a63ba8",
+        "chunk_id": 6,
+        "text": "Two small airlines and a taxi industry association have warned that their prices are likely to rise. Wildberries, Russia's largest online marketplace, blamed increased fuel prices for awarding higher commissions to sellers.\nMoscow has a limited set of tools to tackle the problem. Russia has historically produced roughly as much petrol as it consumes and has little storage capacity, making it hard to stabilise the market, said Vakulenko.\nMost oil production facilities are also located in central and western Russia, where most of the population lives, putting them within reach of Ukrainian drones.\nAuthorities have allowed refineries to release lower-grade fuel on to the domestic market, and the Kremlin on Wednesday promised to increase imports of refined oil products. In June, it imported a record 141,000 tonnes of petrol from Belarus - a modest volume compared with Russia's consumption level - but 141 times higher than a year earlier.\nMoscow also banned exports of diesel, its main refined product, on Wednesday. While the measure will shore up fuel supplies to the front line - most military vehicles run on diesel - it will boost only a small percentage of the country's motorists as the vast majority of passenger cars in Russia run on petrol.",
+        "highlights": []
+      },
+      "7BF9A4A51F0EAD30F20F8F559FA6F3A3-2": {
+        "ref_id": 43,
+        "document_id": "7BF9A4A51F0EAD30F20F8F559FA6F3A3",
+        "headline": "How Ukraine's drone strikes brought war home to 50mn Russians",
+        "ts": "2026-07-09T04:00:26",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "DA9FC6",
+        "source_name": "Financial Times",
+        "source_rank": 1,
+        "url": "https://www.ft.com/content/954cebe9-63e1-417c-858e-6657b1a63ba8",
+        "chunk_id": 2,
+        "text": "Several regional governments have introduced rationing measures, allocating different refuelling days to cars with odd and even number plates.\nRussia's fuel crisis has brought the war home to more people than ever before. The shortages directly affect some 50mn Russians, or 35 per cent of the population, according to an FT analysis based on the number of motorists in each region.\nOne southern region is deploying Cossacks in traditional fur hats to keep order at filling stations, while a Siberian governor has ordered officials to provide hot meals to people queueing. Some people have even begun offering to sell their places in line via social media.\nThe situation forced President Vladimir Putin, who often distances himself from domestic difficulties, to appear on camera on Sunday and acknowledge \"some shortages\" of fuel, \"but not critical ones\".",
+        "highlights": []
+      },
+      "7BF9A4A51F0EAD30F20F8F559FA6F3A3-3": {
+        "ref_id": 52,
+        "document_id": "7BF9A4A51F0EAD30F20F8F559FA6F3A3",
+        "headline": "How Ukraine's drone strikes brought war home to 50mn Russians",
+        "ts": "2026-07-09T04:00:26",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "DA9FC6",
+        "source_name": "Financial Times",
+        "source_rank": 1,
+        "url": "https://www.ft.com/content/954cebe9-63e1-417c-858e-6657b1a63ba8",
+        "chunk_id": 3,
+        "text": "The pressure began in May, when Ukraine significantly stepped up its drone campaign against Russian oil infrastructure. It has now hit Russia's 10 biggest refineries, including the largest one at Omsk - 2,500km from the front line and accounting for about 7 per cent of the country's refining capacity - on Monday.\n\"There are simply many more drones at one target now than before, physically punching through the defences, like a medieval cavalry wedge,\" said a senior Russian energy executive. \"The defences that used to work cannot sustain such pressure. This is the new normal.\"\nThe first region to feel the strain was Russia-annexed Crimea, which is now in an official state of emergency, with region-wide blackouts and petrol available only via electronic ration coupons.",
+        "highlights": []
+      },
+      "E105337048EBC25564C16FB9833A40A4-1": {
+        "ref_id": 1,
+        "document_id": "E105337048EBC25564C16FB9833A40A4",
+        "headline": "Bank of England plans to ease bank capital rule",
+        "ts": "2026-07-07T09:47:14",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "DA9FC6",
+        "source_name": "Financial Times",
+        "source_rank": 1,
+        "url": "https://www.ft.com/content/5a335f32-e123-4239-934d-bacd876a03d5",
+        "chunk_id": 1,
+        "text": "The Bank of England has announced plans to ease a key capital requirement for UK banks despite concerns among some officials that it will add to risks in the financial system.\nThe BoE's Financial Policy Committee, which oversees stability of the financial system, said on Tuesday it would lower the leverage ratio, which caps banks' borrowing by setting a minimum level of capital they must maintain against their total assets.\nThe move, which is intended to boost lending and support the functioning of financial markets during a crisis, marks the latest step by regulators to ease the restrictions imposed on the banking system after the 2008 financial crisis.\nThe FPC said the change would cut the overall leverage ratio by about 0.2 per cent of UK banks' assets.\nThe central bank added that, combined with plans to ease other bank capital rules in a crisis, it would \"make it easier for banks to use capital to support lending and the functioning of core markets in stress, while maintaining overall consistency with international standards\".\nHowever, it said \"some FPC members were concerned that the proposal might lead to an unwanted increase in market-based leverage, with implications for the resilience of core UK markets\" and it planned to examine \"potential mitigations\".\nThis is a developing story",
+        "highlights": []
+      },
+      "EF61EE109CE7D43E76ABED3B755D52B0-3": {
+        "ref_id": 2,
+        "document_id": "EF61EE109CE7D43E76ABED3B755D52B0",
+        "headline": "Rapid AI advances raising financial stability risks - Bank of England",
+        "ts": "2026-07-07T10:02:52",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "ED68DC",
+        "source_name": "Alliance News",
+        "source_rank": 1,
+        "url": null,
+        "chunk_id": 3,
+        "text": "The report highlighted that a hypothetical fall in the value of AI stocks could result in a \"sharp\" correction in the equity markets, particularly in the US.\nIt said this possible sharp correction could spill into the UK and hit UK gross domestic product by as much as 2.2 percentage points.\nIt also highlighted \"unprecedented\" investment in the sector amid a rapid increase in AI firms using credit markets.\nOn Tuesday, the bank proposed to loosen part of its regulations of lenders' capital, which were introduced following the 2007 financial crisis.\nIt has indicated that a new capital buffer framework would reduce the leverage requirements on large domestic-focused UK banks by around 20 basis points [0.2 percentage points], but that this will vary by bank.\nThe leverage restrictions were launched following the financial crisis but the FPC launched a review into the rules last year amid industry concerns that the restrictions were too tight.\nA consultation will take place, which is expected to conclude next year.",
+        "highlights": []
+      },
+      "41F71490364031A3D74A9776A312ABA6-1": {
+        "ref_id": 16,
+        "document_id": "41F71490364031A3D74A9776A312ABA6",
+        "headline": "Suspicious trading before 41% of takeovers sets new UK record",
+        "ts": "2026-07-09T17:06:27",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "DA9FC6",
+        "source_name": "Financial Times",
+        "source_rank": 1,
+        "url": "https://www.ft.com/content/2478afc6-e7af-4ebe-8d87-e7bf0f4f3052",
+        "chunk_id": 1,
+        "text": "Suspicious share trading activity occurred before more than four out of 10 UK takeover announcements last year, a record high that adds to concerns at the financial watchdog about leaks and insider trading.\nThe Financial Conduct Authority said that abnormal trading activity it detected in share prices in the two days before takeover announcements rose from almost 38 per cent of deals in 2024 to 41 per cent in 2025.\nThe deterioration in the regulator's \"market cleanliness\" data, along with sharp increases in abnormal trading ahead of other sensitive market announcements, is a setback for the FCA, which aimed to reduce financial crime as one of the four key objectives in its new strategy last year.\nThe FCA has been increasingly worried about deals and other sensitive information being leaked or used for insider trading and last year its co-head of enforcement and market oversight, Therese Chambers, issued a public warning to market participants.",
+        "highlights": []
+      },
+      "41F71490364031A3D74A9776A312ABA6-2": {
+        "ref_id": 17,
+        "document_id": "41F71490364031A3D74A9776A312ABA6",
+        "headline": "Suspicious trading before 41% of takeovers sets new UK record",
+        "ts": "2026-07-09T17:06:27",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "DA9FC6",
+        "source_name": "Financial Times",
+        "source_rank": 1,
+        "url": "https://www.ft.com/content/2478afc6-e7af-4ebe-8d87-e7bf0f4f3052",
+        "chunk_id": 2,
+        "text": "The watchdog said the increase in abnormal trading ahead of UK takeover announcements pushed it well above the five-year average of 33.7 per cent. It said this was \"just one indicator of possible insider trading\" and there could be other factors behind it.\n\"We remained in a period of elevated market volatility, driven by global economic and geopolitical conditions,\" the FCA said. \"This is likely to have influenced price movements and trading volumes, increasing the number of signals detected.\"\nSuspicious trading is at record levels as UK takeover activity is also reaching new heights as foreign buyers and private equity snap up London-listed companies.\nThe watchdog said that despite recent adjustments to the metric's methodology it \"continues to have limitations as a broader measure of market cleanliness\".",
+        "highlights": []
+      },
+      "419EB710D402D200A31747D1C0241ABB-1": {
+        "ref_id": 21,
+        "document_id": "419EB710D402D200A31747D1C0241ABB",
+        "headline": "High-spending online gamblers will face financial checks in UK",
+        "ts": "2026-07-07T17:43:19",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "DA9FC6",
+        "source_name": "Financial Times",
+        "source_rank": 1,
+        "url": "https://www.ft.com/content/b950aa5e-a0e7-48ec-84d4-94edc5fd6f76",
+        "chunk_id": 1,
+        "text": "Online gamblers with net deposits of more than £1,000 in a single day will have to undergo a financial risk assessment, as the UK industry regulator outlined proposals that have sparked a fierce backlash from bookmakers.\nThe Gambling Commission said on Tuesday it would also require financial risk assessments for any bettor that deposits more than £3,000 during any rolling 90-day period. Lower thresholds will apply to under-25s, who are considered to be at higher risk.\nThe planned checks, which were first outlined in a 2023 consultation tied to the then-Conservative government's Gambling Act Review, will be introduced in a \"staged approach\", beginning with higher thresholds and only affecting the largest gambling companies. The regulator did not set out a timeline for finalising its rollout of the new requirements.",
+        "highlights": []
+      },
+      "419EB710D402D200A31747D1C0241ABB-2": {
+        "ref_id": 22,
+        "document_id": "419EB710D402D200A31747D1C0241ABB",
+        "headline": "High-spending online gamblers will face financial checks in UK",
+        "ts": "2026-07-07T17:43:19",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "DA9FC6",
+        "source_name": "Financial Times",
+        "source_rank": 1,
+        "url": "https://www.ft.com/content/b950aa5e-a0e7-48ec-84d4-94edc5fd6f76",
+        "chunk_id": 2,
+        "text": "The assessments, which the Gambling Commission estimates would ultimately apply to less than 3 per cent of customer accounts, would require gambling companies to use \"limited credit reference data\" to check whether high-spending customers are in financial difficulty.\nBusinesses would have to monitor issues such as arrears or defaults and \"consider whether it is right to offer some support to the customer\", which could include restricting their account to block further spending.\nThe regulator said the new checks were needed because some high-spending customers experiencing financial difficulties were not being identified by gambling companies. Businesses were therefore continuing to target these \"financially vulnerable\" customers with marketing and promotions.",
+        "highlights": []
+      },
+      "419EB710D402D200A31747D1C0241ABB-4": {
+        "ref_id": 24,
+        "document_id": "419EB710D402D200A31747D1C0241ABB",
+        "headline": "High-spending online gamblers will face financial checks in UK",
+        "ts": "2026-07-07T17:43:19",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "DA9FC6",
+        "source_name": "Financial Times",
+        "source_rank": 1,
+        "url": "https://www.ft.com/content/b950aa5e-a0e7-48ec-84d4-94edc5fd6f76",
+        "chunk_id": 4,
+        "text": "It estimated that the policy could cost the horseracing industry around £250mn in lost revenues within five years, citing a report by gambling-focused consultancy Regulus Partners.\nThe UK's gambling sector has been supercharged by the internet. A 2025 survey by the Gambling Commission found that nearly half of adults had participated in some form of gambling - including the National Lottery - in the previous four weeks.\nActivists and MPs have long lobbied for higher levies on the sector to simultaneously fund welfare spending and tackle harmful gambling. A 2024 Gambling Commission survey found that 2.7 per cent of respondents were experiencing problem gambling. A government report from 2023 found that younger people and boys were most likely to be at risk of problem gambling.\nIn her Budget last November, chancellor Rachel Reeves hit online gambling operators with steep tax rises but spared high street betting shops, arguing that the online sector was \"associated with the highest levels of harm\".\nGambling companies have consistently argued that both higher taxes and enhanced financial checks will push bettors towards offshore and unregulated operators, which have fewer consumer protection measures.",
+        "highlights": []
+      },
+      "16A0ABF6E9564BFEDF6E19A2011EC038-1": {
+        "ref_id": 36,
+        "document_id": "16A0ABF6E9564BFEDF6E19A2011EC038",
+        "headline": "Rubrik shares are trading higher after the company announced plans to invest more than $500 million in the UK over the next five years.",
+        "ts": "2026-07-09T17:38:20",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "5A5702",
+        "source_name": "Benzinga",
+        "source_rank": 1,
+        "url": "https://www.benzinga.com/node/60368271?utm_campaign=partner_feed&utm_medium=feed&utm_source=ravenpack",
+        "chunk_id": 1,
+        "text": "Rubrik shares are trading higher after the company announced plans to invest more than $500 million in the UK over the next five years.",
+        "highlights": []
+      },
+      "CACDAA997A59C443E17DB12C59657132-28": {
+        "ref_id": 1,
+        "document_id": "CACDAA997A59C443E17DB12C59657132",
+        "headline": "Daily Market Report",
+        "ts": "2026-07-08T04:56:32",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "FC88A8",
+        "source_name": "QNB Financial",
+        "source_rank": 1,
+        "url": "https://research.bluematrix.com/docs/pdf/e91be22a-a663-4a74-9ef6-59db99dc1a8e/e1508aee-534d-4e0f-bd7e-40f32743c2d6",
+        "chunk_id": 28,
+        "text": "- US May trade deficit widens as capital goods imports hit record high - The U.S. trade deficit widened sharply in May as imports of capital goods surged to a record high, suggesting that trade remained a drag on gross domestic product in the second quarter. Efforts by businesses to avoid shortages and higher prices related to the conflict in the Middle East as well as potential new tariffs also contributed to the large trade shortfall, with the report from the Commerce Department on Tuesday showing overall imports rising to a 14-month high. The U.S.-Israeli war with Iran also boosted oil exports, with shipments of petroleum hitting a record high. Though imports will likely subtract from economic growth, their persistent strength is also a sign of resilient domestic demand. Imports are partly being driven by an artificial intelligence investment boom. The deficit swelled to a 14-month high despite President Donald Trump's",
+        "highlights": []
+      },
+      "C55DE85A681CCDA31183CE6E5B562711-3": {
+        "ref_id": 2,
+        "document_id": "C55DE85A681CCDA31183CE6E5B562711",
+        "headline": "Global markets trade mixed amid Middle East tensions ahead of Fed's meeting minutes",
+        "ts": "2026-07-08T00:00:00",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "CE1ADC",
+        "source_name": "Anadolu Agency",
+        "source_rank": 1,
+        "url": "https://www.aa.com.tr/en/economy/global-markets-trade-mixed-amid-middle-east-tensions-ahead-of-fed-s-meeting-minutes/3990160",
+        "chunk_id": 3,
+        "text": "Analysts expect the developments to intensify concerns over US chipmakers' competitive edge and AI investments.\nAt the same time, the US trade deficit widened 42.2% month-on-month in May to $77.6 billion, its highest since March 2025.\nShort-term inflation expectations among US consumers increased to 3.7% in June, the highest level since September 2023.\nThe US 10-Year Treasury yield rose 10 basis points to 4.56% on Tuesday before settling at 4.55% at the start of Wednesday.\nThe US Dollar Index rose 0.3% on Tuesday to 101.2 amid concerns that the Fed may tighten its monetary policy. The index is at 101.1 on Wednesday, down 0.1%.\nGold fell 1.4% on Tuesday due to a stronger dollar and rising bonds, closing at $4,106 per ounce, while trading up 0.5% on Wednesday at $4,125.",
+        "highlights": []
+      },
+      "96D0CB04F8B93A582F1D1E3AAB1F0EA7-3": {
+        "ref_id": 10,
+        "document_id": "96D0CB04F8B93A582F1D1E3AAB1F0EA7",
+        "headline": "AmBank Daily Market Snapshot - 8 July 2026",
+        "ts": "2026-07-08T01:42:07",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "1732E9",
+        "source_name": "AmInvestment Bank Bhd.",
+        "source_rank": 1,
+        "url": "https://research.bluematrix.com/docs/pdf/3aae9ef2-6244-41bf-828f-fbf2ae1c1dd6/3253deba-7331-426a-a620-ee2b963ae41b",
+        "chunk_id": 3,
+        "text": "Macro\nGlobal: Market risk aversion sentiment back on the forefront, after the US launched airstrikes on Iran and revoked a waiver for Iran to sell oil globally, following a series of attacks on ships in the Strait of Hormuz, including a Qatari LNG carrier and a Saudi oil tanker. Meanwhile, the US trade deficit widened sharply in May to USD77.6 billion (consensus: USD78.6 billion; April: USD54.6 billion), driven by a 3.3% rise in imports, driven by higher purchases of consumer products and capital goods (including Al-related investments). Alongside April data, recent net exports data suggest it will weigh more heavily on US 2Q2026 GDP. Malaysia: The government is targeting a rollout of a revamped automotive incentive framework in 2027, as it seeks to strengthen localisation, simplify investment incentives, and ensure foreign manufacturers add greater value to Malaysia's supply chain. The framework is still currently being refined amid engagements with industry players and government agencies.",
+        "highlights": []
+      },
+      "D111C77CF150C18D40540E27F653EB89-1": {
+        "ref_id": 16,
+        "document_id": "D111C77CF150C18D40540E27F653EB89",
+        "headline": "US clean power prices set to soar as AI demand coincides with subsidy cuts",
+        "ts": "2026-07-04T10:00:02",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "DA9FC6",
+        "source_name": "Financial Times",
+        "source_rank": 1,
+        "url": "https://www.ft.com/content/911ad6e1-154d-4d10-a7dc-2bd0fd6fbdc2",
+        "chunk_id": 1,
+        "text": "US companies are facing a sharp increase in green energy costs as the Trump administration halts renewable tax credits at the same time as cash-rich data centres are snapping up the available supply.\nAccording to a survey of solar and wind developers across the US by LevelTen Energy, a clean energy marketplace, the cost of clean energy power purchase agreements (PPAs) is set to increase by 40 to 120 per cent once Inflation Reduction Act subsidies for solar and wind projects come to a close.\nFor instance in Texas, PPA prices could jump from $55 per megawatt-hour to $121.\nUnder US President Donald Trump's One Big Beautiful Bill, renewable energy projects that start construction after July 4 will no longer be eligible for a Biden-era tax break that has been worth roughly 30 per cent of development costs.",
+        "highlights": []
+      },
+      "D1E12408E7C72FB41408C019055256EB-1": {
+        "ref_id": 62,
+        "document_id": "D1E12408E7C72FB41408C019055256EB",
+        "headline": "Threats Facing America: Can We Overcome Debt, Division, And Decay?",
+        "ts": "2026-07-04T13:31:10",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "29062E",
+        "source_name": "Yahoo! News",
+        "source_rank": 3,
+        "url": "https://www.yahoo.com/news/politics/articles/threats-facing-america-overcome-debt-130003896.html",
+        "chunk_id": 1,
+        "text": "As the United States marks its 250th anniversary, federal agencies and independent analysts are examining several persistent challenges facing American citizens, including national debt, border security, declining mental health, shifting family structures, and eroding trust in institutions.\nBelow are five key areas that reports show have already negatively impacted or could significantly affect the daily lives of Americans in the coming years.\nNational Debt and Affordability\nThe U.S. national debt has continued to rise, as previously reported on by The Dallas Express. As of late June 2026, total public debt stood at approximately $39.3 trillion, according to U.S. Treasury fiscal data.\nThe Congressional Budget Office projects that debt held by the public will reach 101% of GDP in 2026 and climb to 120% by 2036. Rising debt levels increase interest payments, reducing federal resources available for other priorities.",
+        "highlights": []
+      },
+      "C0A3EE471F5E38609EA4A1B1C8EC1EDE-1": {
+        "ref_id": 1,
+        "document_id": "C0A3EE471F5E38609EA4A1B1C8EC1EDE",
+        "headline": "Argentina repays $4bn as it resists return to global markets",
+        "ts": "2026-07-09T12:05:06",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "DA9FC6",
+        "source_name": "Financial Times",
+        "source_rank": 1,
+        "url": "https://www.ft.com/content/3f4b3fc3-8fd2-43b0-aa22-da7b5b24fc5a",
+        "chunk_id": 1,
+        "text": "Argentina has made a $4.3bn payment on its dollar bonds, as economy minister Luis Caputo seeks to prove that the cash-strapped country can meet its sizeable debt obligations without tapping global capital markets.\nArgentina made the interest and capital repayment to holders of its foreign-law bonds, the economy ministry said on Thursday, clearing most of the remainder of a $19bn debt pile that Caputo has had to tackle in 2026, ahead of another $25bn coming due next year.\nArgentina's rightwing President Javier Milei has resisted repeated calls from investors over the past year to take advantage of falling borrowing costs and issue new foreign-law debt, which the country has not done since a 2020 restructuring.\nCaputo's team has instead raised dollars to make repayments using a range of sources including multilateral and private bank loans and local-law dollar bonds. On Monday, Caputo presented a plan that he said could cover all repayments before Milei's re-election bid in October 2027 without returning to global capital markets.",
+        "highlights": []
+      },
+      "D83E3D5EE14C44822686AD2139485248-2": {
+        "ref_id": 19,
+        "document_id": "D83E3D5EE14C44822686AD2139485248",
+        "headline": "Argentina to tap multilateral loans, privatizations to meet debt payments",
+        "ts": "2026-07-06T16:39:28",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "F48D50",
+        "source_name": "Market Screener",
+        "source_rank": 3,
+        "url": "https://in.marketscreener.com/news/argentina-to-tap-multilateral-loans-privatizations-to-meet-debt-payments-ce7f5edbdb81f026",
+        "chunk_id": 2,
+        "text": "Investors are watching closely for signs Milei may struggle to sustain his fiscal tightening, which could pressure the peso and unsettle markets.\nSo far, Milei has maintained a tight fiscal stance, helping slow monthly inflation from 25.5% in December 2023 to 2.1% in May. Argentina has relied on local dollar-linked bonds, repo transactions and multilateral financing to build foreign-currency reserves.\nCaputo rejected criticism that the government has hurt domestic industry by easing imports, saying previous administrations had protected inefficient sectors rather than pushing them to become competitive.\nHe said the government was focused on supporting local industry by cutting taxes and improving infrastructure, adding that \"it can't cost more to transport merchandise within the country than to export it to China.\"",
+        "highlights": []
+      },
+      "88B7C115C0D5D5F7221203BC989B3826-2": {
+        "ref_id": 10,
+        "document_id": "88B7C115C0D5D5F7221203BC989B3826",
+        "headline": "Argentina to Repay $4 Billion, Defying Critics Who Doubted Tack",
+        "ts": "2026-07-08T12:49:46",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "E5AA62",
+        "source_name": "Yahoo! Finance",
+        "source_rank": 2,
+        "url": "https://finance.yahoo.com/economy/policy/articles/argentina-repay-4-billion-defying-111112162.html",
+        "chunk_id": 2,
+        "text": "\"Going to the market is just another option, not an objective,\" Caputo told reporters. The government's goal, he said, is to refinance debt as cheaply as possible. Officials added that the Treasury already holds about $4 billion in dollar deposits for this week's payment and expects proceeds from multilateral-backed financing to arrive before the bonds come due on Thursday.\nThis will be Argentina's second major debt repayment for 2026, after the South American nation paid a similar sum to bondholders at the start of the year. Since March, the Treasury has raised roughly $4 billion through sales of bonares, or locally issued dollar-denominated bonds. The notes mature in 2027 and 2028, at yields averaging 6.9% - well below the roughly 8.6% investors estimate Argentina would currently pay abroad.\nOn Monday, Caputo announced plans to raise another $2 billion through similar domestic placements by year-end, while also relying on multilateral-backed loans with interest rates of about 6% to 7%.\nWhile the bedrock of Caputo's current strategy is the domestic market, it marks a sharp shift from the spree of international bond sales during his time under former President Mauricio Macri.",
+        "highlights": []
+      },
+      "612F94E60833CC083C9538035535FF45-3": {
+        "ref_id": 1,
+        "document_id": "612F94E60833CC083C9538035535FF45",
+        "headline": "Wheat, rice and cotton prices rise as climate, geopolitical risks shape commodity markets",
+        "ts": "2026-07-07T00:00:00",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "CE1ADC",
+        "source_name": "Anadolu Agency",
+        "source_rank": 1,
+        "url": "https://www.aa.com.tr/en/economy/wheat-rice-and-cotton-prices-rise-as-climate-geopolitical-risks-shape-commodity-markets/3987940",
+        "chunk_id": 3,
+        "text": "Prices of rice, wheat and cotton rose in the first six months of the year amid supply chain disruptions and the Middle East conflict, he added.\nErgezen said coffee, sugar, cocoa and corn prices fell significantly during the same period.\nCoffee tumbled 15% to its lowest level since September 2024 at $2.3885 per pound amid rising exports from Vietnam and expectations of a record 71.9 million-bag harvest in Brazil, according to US Agriculture Department projections.\nSurplus rainfall in Brazil pushed sugar prices down 1.3% to their lowest level since October 2020 at $0.1334 per pound.\nCocoa dropped 16.3%, hitting $2,846 per metric ton in early March, its lowest level since April 2023, amid weak demand and a positive harvest outlook in West Africa.\nCorn fell 1% due to periodic easing of US-Iran tensions and an accelerating harvest in Argentina.",
+        "highlights": []
+      },
+      "D613ACE53775DC54DFE46B071AB43E03-9": {
+        "ref_id": 3,
+        "document_id": "D613ACE53775DC54DFE46B071AB43E03",
+        "headline": "Petrobras Brasileiro SA (PBR) Is Pumping at Record Levels-But Brasília Still Controls the Dividend Tap! - Initiation of Coverage: Major Drivers, 1QF26 Review Thesis, Outlook, Forecasts, DCF, Valuation , Peer Comps & Risks",
+        "ts": "2026-07-08T21:23:22",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "D9FF00",
+        "source_name": "Equisights",
+        "source_rank": 1,
+        "url": "https://research.bluematrix.com/docs/pdf/c46b3243-5f0f-41f6-9db7-cf007fd1750f/e8b1f092-aff2-4ae7-b95d-19fa75fc9041",
+        "chunk_id": 9,
+        "text": "In upstream, needle-moving KPIs include the pre-salt layer's high productivity, the Búzios field surpassing 1 million barrels/day across 8 platforms, and the Sergipe deepwater project, which will add 240,000 barrels/day and 22 million cubic meters/day of gas processing. We see these initiatives as strategically aligned with a disciplined, high-return growth model, providing structural upside to Petrobras' production trajectory and reinforcing its competitive positioning in Brazil and international markets. CapEx of $5 billion in Q1, 90% allocated to E&P-focused projects, underlines the company's commitment to invest in projects with visible returns, while accelerated delivery of P-78/P-79 and ongoing construction of P-80, P-82, and P-83 FPSOs under full ownership we believe demonstrates a deliberate shift toward capital efficiency and long-term operational control, reducing reliance on chartered rigs, which is a positive signal for investors and strengthens the company's balance sheet resilience. Downstream performance was equally material. Refinery utilization reached 97.4%, the highest since 2014, and S10 diesel production hit a record 512,000 barrels/day facts that highlight operational excellence. Modernization at Replan and REVAP enabled these gains, improving yield of high-value byproducts, and we interpret this as evidence that Petrobras is not only expanding capacity but also capturing margin upside through higher-value products, reinforcing its strategic focus on domestic energy security and mitigating exposure to imported fuel price volatility.",
+        "highlights": []
+      },
+      "D613ACE53775DC54DFE46B071AB43E03-11": {
+        "ref_id": 4,
+        "document_id": "D613ACE53775DC54DFE46B071AB43E03",
+        "headline": "Petrobras Brasileiro SA (PBR) Is Pumping at Record Levels-But Brasília Still Controls the Dividend Tap! - Initiation of Coverage: Major Drivers, 1QF26 Review Thesis, Outlook, Forecasts, DCF, Valuation , Peer Comps & Risks",
+        "ts": "2026-07-08T21:23:22",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "D9FF00",
+        "source_name": "Equisights",
+        "source_rank": 1,
+        "url": "https://research.bluematrix.com/docs/pdf/c46b3243-5f0f-41f6-9db7-cf007fd1750f/e8b1f092-aff2-4ae7-b95d-19fa75fc9041",
+        "chunk_id": 11,
+        "text": "Financially, adjusted EBITDA of $11.7 billion and net income of $4.5 billion reflect production-driven growth, while operating cash flow of $8.4 billion, gross debt of $71.2 billion with a downward trajectory, and $9.1 billion in cash support disciplined investment and liquidity flexibility all factual metrics disclosed by management. We consider these figures indicative of a robust balance sheet and a prudent capital allocation framework that positions the company to pursue high-return projects while managing leverage effectively, providing confidence in funding future growth initiatives. Operational efficiency gains, coupled with tax contributions of BRL 72.4 billion, underscore Petrobras' systemic role in Brazil's energy and fiscal landscape, which we see as a reinforcing tailwind for its long-term strategic relevance and market credibility. Looking ahead, needle-moving tailwinds include continued pre-salt productivity, ramp-up of new FPSOs, record refining throughput, domestic energy security initiatives, and favorable diesel/gas market positioning all facts supported by management guidance. We interpret these factors as positive structural enablers for sustainable growth, though near-term earnings are moderated by the lag in price realization and geopolitical uncertainty, which are headwinds we acknowledge and monitor closely. The company maintains 2026 guidance on production, CapEx, operating expenses, and debt reduction, which we view as a credible framework for disciplined execution and risk-managed growth.",
+        "highlights": []
+      },
+      "D613ACE53775DC54DFE46B071AB43E03-20": {
+        "ref_id": 5,
+        "document_id": "D613ACE53775DC54DFE46B071AB43E03",
+        "headline": "Petrobras Brasileiro SA (PBR) Is Pumping at Record Levels-But Brasília Still Controls the Dividend Tap! - Initiation of Coverage: Major Drivers, 1QF26 Review Thesis, Outlook, Forecasts, DCF, Valuation , Peer Comps & Risks",
+        "ts": "2026-07-08T21:23:22",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "D9FF00",
+        "source_name": "Equisights",
+        "source_rank": 1,
+        "url": "https://research.bluematrix.com/docs/pdf/c46b3243-5f0f-41f6-9db7-cf007fd1750f/e8b1f092-aff2-4ae7-b95d-19fa75fc9041",
+        "chunk_id": 20,
+        "text": "We believe this combination of pre-salt productivity, capacity expansion, and disciplined investment execution positions the company to sustain top-quartile production growth and incremental revenue generation.\nWe are focused on increasing our production\n- PRODUCTION RECORDS Búzios: platforms reached an operated production level of 1.082 million barrels on April 1. Mero: production reached a monthly average of 721,000 bpd for the first time in April, following the start-up of an additional well connected to the FPSO Alexandre de Gusmão.\nOWN OIL PRODUCTION BRAZIL Mbpd\nNEW PRODUCTION UNITS\nP-78 (Búzios 6) Production started up on December 31st, 2025, and has a capacity of 180,000 barrels of oil per day.\nEFFICIENCY AND ASSET MANAGEMENT Maintenance of operational reliability and efficiency, combined with a reduction of losses with stoppages, has strengthened the stability of operations. Performance was also driven by efficient reservoir management, highlighted by the record offshore water injection rate of 4.22 MMbpd, achieved in March.",
+        "highlights": []
+      },
+      "224A0F915011E623E47B8024DB4AD45B-203": {
+        "ref_id": 8,
+        "document_id": "224A0F915011E623E47B8024DB4AD45B",
+        "headline": "Global Digital Identity & Trust Infrastructure Market 2026",
+        "ts": "2026-07-09T11:42:34",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "99A168",
+        "source_name": "yStats.com GmbH & Co. KG",
+        "source_rank": 1,
+        "url": "https://research.bluematrix.com/docs/pdf/884f441a-d2ff-4a2b-b7fa-4083ea80b1fd/12d6a20f-e212-49d7-a160-8df48df33cd3",
+        "chunk_id": 203,
+        "text": "Brazil continues integrating digital identity, instant payments, and open finance into a unified digital public infrastructure ecosystem in 2026.\nBrazil: Digital Public Infr. Supporting Digital Govern., Financial Services, And Trusted Digital Identity, July 2026\nDigital Identity Continues Serving As The Foundation Of Brazil's Digital Public Infrastructure\n- Brazil continues strengthening its digital public infrastructure by expanding GOV.BR as the common digital identity layer supporting public services across government institutions. According to the World Bank, GOV.BR has evolved into the backbone of Brazil's digital government, serving more than 170 million users, providing access to 4,000+ federal digital services, supporting hundreds of millions of digital signatures, and improving interoperability across the public sector. These developments position digital identity as foundational infrastructure supporting trusted interactions between citizens and government.",
+        "highlights": []
+      },
+      "224A0F915011E623E47B8024DB4AD45B-204": {
+        "ref_id": 9,
+        "document_id": "224A0F915011E623E47B8024DB4AD45B",
+        "headline": "Global Digital Identity & Trust Infrastructure Market 2026",
+        "ts": "2026-07-09T11:42:34",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "99A168",
+        "source_name": "yStats.com GmbH & Co. KG",
+        "source_rank": 1,
+        "url": "https://research.bluematrix.com/docs/pdf/884f441a-d2ff-4a2b-b7fa-4083ea80b1fd/12d6a20f-e212-49d7-a160-8df48df33cd3",
+        "chunk_id": 204,
+        "text": "Digital Identity Increasingly Supports Payments And Open Finance Ecosystems\n- Brazil's digital transformation increasingly connects digital identity with financial infrastructure through the combined development of PIX, Open Finance, and interoperable public services. The World Bank highlights that trusted digital identity is becoming an important enabler of fast payment systems by supporting secure user authentication, reducing onboarding friction, and facilitating broader participation in digital financial services. This integration demonstrates how digital identity increasingly operates alongside payment infrastructure rather than as an isolated government service.",
+        "highlights": []
+      },
+      "224A0F915011E623E47B8024DB4AD45B-205": {
+        "ref_id": 10,
+        "document_id": "224A0F915011E623E47B8024DB4AD45B",
+        "headline": "Global Digital Identity & Trust Infrastructure Market 2026",
+        "ts": "2026-07-09T11:42:34",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "99A168",
+        "source_name": "yStats.com GmbH & Co. KG",
+        "source_rank": 1,
+        "url": "https://research.bluematrix.com/docs/pdf/884f441a-d2ff-4a2b-b7fa-4083ea80b1fd/12d6a20f-e212-49d7-a160-8df48df33cd3",
+        "chunk_id": 205,
+        "text": "Whole-Of-Government Coordination Continues Strengthening Digital Service Delivery\n- According to the OECD Digital Government Outlook 2026, Brazil continues advancing a whole-of-government approach that emphasizes interoperability, data sharing, digital service integration, and user-centric public administration. Rather than developing isolated digital initiatives, Brazil increasingly coordinates identity, public services, and digital governance through common infrastructure that supports more consistent digital interactions across government institutions.",
+        "highlights": []
+      },
+      "A502BBEA1E0F8ECF7B5A5733E92D897B-1": {
+        "ref_id": 23,
+        "document_id": "A502BBEA1E0F8ECF7B5A5733E92D897B",
+        "headline": "Brazil moves to meet EU antimicrobial rules, seeks to avoid export ban",
+        "ts": "2026-07-03T15:44:17",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "E5AA62",
+        "source_name": "Yahoo! Finance",
+        "source_rank": 2,
+        "url": "https://finance.yahoo.com/economy/policy/articles/brazil-moves-meet-eu-antimicrobial-152129434.html",
+        "chunk_id": 1,
+        "text": "SAO PAULO, July 3 (Reuters) - Brazil's Agriculture Ministry has adjusted export controls for meat and derivatives to meet European Union antimicrobial usage requirements, aiming to prevent a suspension of shipments to  the bloc starting in September.\nThe EU threatened to halt some imports from Brazil if it fails to comply by September 3 with rules banning antimicrobials used to promote &#8288;animal growth or boost production.\nMore from Yahoo Scout\nFacilities authorized to export to the EU must &#8288;implement auditable controls demonstrating compliance with European antimicrobial rules, according to a ministry circular dated July  1.\nControls  must ensure traceability of  materials and animals, and maintain evidence of eligibility for EU-destined batches.\nBrazil was excluded from a May list of countries authorized to export meat to the EU over antimicrobial concerns.\nThe EU is a major destination for Brazilian meat, with poultry  exports at $800 million in  2025 and beef  exceeding $1 billion.\nBrazil risks losing export access for cattle, poultry, eggs,  aquaculture products,  honey and casings.\nAbiec, representing beef producers, declined to comment, while ABPA, representing poultry and  pork producers, did not immediately respond to requests for comment.\n(Reporting  by Leticia Fucuchima; Writing by Isabel Teles;  Editing by Bill Berkrot)",
+        "highlights": []
+      },
+      "125515DF0EA1B0226E11F78E1E0F9379-2": {
+        "ref_id": 2,
+        "document_id": "125515DF0EA1B0226E11F78E1E0F9379",
+        "headline": "Mexico's annual inflation hits lowest level in over five years",
+        "ts": "2026-07-09T13:26:26",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "E5AA62",
+        "source_name": "Yahoo! Finance",
+        "source_rank": 2,
+        "url": "https://finance.yahoo.com/economy/policy/articles/mexicos-annual-inflation-hits-lowest-130247099.html",
+        "chunk_id": 2,
+        "text": "MEXICO CITY, July 9 (Reuters) - Mexico's annual inflation rate fell in June for the third consecutive month, to its lowest level since December 2020, official data showed on Thursday.\nAnnual prices in Latin America's second-largest economy slowed more than expected and settled into the central bank's  target range, easing pressures to hike rates.\nMore from Yahoo Scout\nConsumer prices rose 3.37% in the year through June, the national statistics agency said, down from a 3.94% increase the prior month. In a Reuters poll, economists had expected a 3.52% increase.\nThe larger-than-expected decline \"will be welcomed by Banxico and &#8288;means that interest rates will remain on hold in the near term,\" Capital Economics analyst Kimberley Sperrfechter said in a note.",
+        "highlights": []
+      },
+      "8B4741273316AF07D354E723C3316B12-1": {
+        "ref_id": 10,
+        "document_id": "8B4741273316AF07D354E723C3316B12",
+        "headline": "Toyota's shift to U.S. stokes fears for Mexican car industry",
+        "ts": "2026-07-09T19:07:36",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "78CC5A",
+        "source_name": "Transport Topics (United States)",
+        "source_rank": 3,
+        "url": "https://www.ttnews.com/articles/toyota-shift-us-fears-mexico",
+        "chunk_id": 1,
+        "text": "A Toyota Tacoma concept pickup truck at the 2024 New York International Auto Show.\nKey Takeaways:\nToyota said it would move some Tacoma truck production from Mexico to Texas as uncertainty over U.S.-Mexico trade policy increases.\nAnalysts and industry sources said the shift reflects tariff risks and USMCA changes, with autos making up 4.5% of Mexico's GDP and exports already weakening.\nAutomakers are reviewing contingency plans and could shift more production to the U.S. or adjust supply chains as annual trade negotiations and tariffs persist, officials said.\nMexico's auto industry is bracing for a blow that could spread well beyond Toyota Motor Corp., after the Japanese automaker said it would move production of its popular Tacoma truck out of the country and into Texas.",
+        "highlights": []
+      },
+      "8B4741273316AF07D354E723C3316B12-3": {
+        "ref_id": 11,
+        "document_id": "8B4741273316AF07D354E723C3316B12",
+        "headline": "Toyota's shift to U.S. stokes fears for Mexican car industry",
+        "ts": "2026-07-09T19:07:36",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "78CC5A",
+        "source_name": "Transport Topics (United States)",
+        "source_rank": 3,
+        "url": "https://www.ttnews.com/articles/toyota-shift-us-fears-mexico",
+        "chunk_id": 3,
+        "text": "Toyota's decision to move part of its production to the U.S. could foreshadow a regional reset, as the prospect of shifting tariffs and rules of origin for the myriad parts that go into vehicles further erodes the predictability that has underpinned the sector for years.\nMexico's already battered economy has a lot to lose. Carmaking is the crown jewel of its export-focused manufacturing base, accounting for 4.5% of the country's gross domestic product.\nSiller said Toyota's announcement sends a particularly negative signal since its models already contain among the highest average share of U.S.-made parts. She noted that Mexican exports from BMW AG, Volkswagen AG's premium brand Audi and Nissan Motor Co. have declined the most this year, among others that have also seen shipments slide.",
+        "highlights": []
+      },
+      "B4E1AC7F4B3DA13528902C16C5C0576E-11": {
+        "ref_id": 24,
+        "document_id": "B4E1AC7F4B3DA13528902C16C5C0576E",
+        "headline": "Latin America Watch | USMCA Joint Review: \"Continuous Uncertainty\" May Become the New Normal for the Region",
+        "ts": "2026-07-04T09:01:55",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "H5QOZD",
+        "source_name": "News.cctv",
+        "source_rank": 1,
+        "url": "https://news.cctv.com/2026/07/04/ARTIaD8URM7fs19v2z4mptyI260704.shtml",
+        "chunk_id": 11,
+        "text": "Faced with escalating pressure from the U.S., Mexico is actively pursuing strategic self-rescue by advancing its own \"Supply Chain Upgrade Plan.\" It is investing a total of 296 billion Mexican pesos in nine strategic ports, including Manzanillo and Lázaro Cárdenas, to upgrade digital customs and intelligent logistics systems, aiming to offset compliance costs imposed by the U.S. in labor and environmental fields. On the other hand, the Mexican team, led by Economy Minister Ebrard, is adopting a pragmatic, communicative, and adaptive \"Tai Chi\" strategy of negotiation and confrontation. According to media reports from El Financiero and others, Mexico is psychologically prepared for the third round of bilateral negotiations scheduled for the week of July 20th and has even prepared a \"retaliation list\" (e.g., targeting U.S. soybeans and pork) as a defensive measure. U.S. agricultural groups have also warned that if the U.S. forcibly overthrows the agreement, leading Mexico to retaliate, the impact on U.S. agriculture would be catastrophic, as Mexico is the largest export market for U.S. pork and the second-largest for soybeans.\nPort of Manzanillo, Mexico's largest port (file photo)\nOn July 1, 2026, the long-awaited review of the USMCA did not bring the expected phased conclusion. Instead, it ushered North American free trade into a new normal of \"continuous uncertainty.\" In the coming years, whether it is the U.S.'s tough stance on domestic manufacturing thresholds and non-North American capital, or Mexico's and Canada's insistence on regional integration and resistance to tariff threats, the annual review points are destined to become geopolitical contests and power plays.",
+        "highlights": []
+      },
+      "0F5EBBE878CB5660CB766C124FA60CFE-1": {
+        "ref_id": 32,
+        "document_id": "0F5EBBE878CB5660CB766C124FA60CFE",
+        "headline": "Mexico seeks prosecutions over migrant deaths in the US | AJ #shorts",
+        "ts": "2026-07-09T20:22:14",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "FE8470",
+        "source_name": "Al Jazeera Youtube",
+        "source_rank": 1,
+        "url": "https://www.youtube.com/shorts/lc6TPF4Y_bo",
+        "chunk_id": 1,
+        "text": "Mexico seeks prosecutions over migrant deaths in the US | AJ #shorts Mexico will seek state and federal prosecutions in the United States over the deaths of Mexican migrants during ICE operations, following the fatal shooting of a Mexican man in Houston. President Claudia Sheinbaum said Mexico will also press for stronger protections for Mexican nationals held in privately run ICE detention centres.\nAll Rights Reserved.",
+        "highlights": []
+      },
+      "A032F154DDC77CE5C827C5DFD7A3821A-8": {
+        "ref_id": 47,
+        "document_id": "A032F154DDC77CE5C827C5DFD7A3821A",
+        "headline": "Strong Order Activity Reinforces Outlook",
+        "ts": "2026-07-08T12:59:57",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "0465FF",
+        "source_name": "Noble Financial Group",
+        "source_rank": 1,
+        "url": "https://research.bluematrix.com/docs/pdf/b68878d0-454d-4eef-8e8c-c783431639d6/61ddd081-971e-4d27-9b3e-a3b14133f88a",
+        "chunk_id": 8,
+        "text": "United States-Mexico-Canada Trade Agreement\nThe trade agreement between the United States, Mexico, and Canada (USMCA) required the USMCA Free Trade Commission, comprised of government representatives of each country, to conduct a joint review of the agreement on July 1, 2026. Representatives from the United States, Mexico, and Canada met virtually to discuss the USMCA. The United States did not agree to renew the USMCA in its current form. Consequently, the USMCA was not renewed. The United States will continue to engage with Mexico and Canada to address the agreement's shortcomings and its trade deficits with both countries. The agreement remains in force pending resolution of these issues or until the agreement's termination. The United States will meet with Mexico the week of July 20 for a third round of bilateral negotiations associated with the USMCA joint review. The 2020 USMCA would have been renewed for 16 years if all parties had agreed. The USMCA does not terminate but will remain in effect for another ten years, or until 2036, under terms of the agreement unless one of the countries formally seeks to withdraw. The decision not to renew the agreement prompts an annual review process that will allow discussions and negotiations among the three countries.",
+        "highlights": []
+      }
+    }
+  }

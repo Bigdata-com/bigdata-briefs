@@ -7,7 +7,7 @@ const infoContents = {
     sources: `<b>Sources</b>:<br>Optionally, you can filter the analysis to include only events from specific sources. You can provide a list of RavenPack entity IDs separated by commas (e.g., <code>9D69F1, B5235B</code>). If left empty, events from all sources will be considered.`,
     load_example: `<b>Quick demos</b>:<br>Load a precomputed brief instantly — no wait.<br><br>
       <div class="mb-2"><span class="font-bold">AI Scene</span> — tech/AI leaders (period: 2026-07-02 → 2026-07-09)</div>
-      <div class="mb-2"><span class="font-bold">Commodities</span> — oil, gold, copper, natural gas (period: 2026-07-02 → 2026-07-09)<br>
+      <div class="mb-2"><span class="font-bold">Commodities</span> — heating oil, cocoa, natural gas, platinum, cotton, sugar, coffee (period: 2026-07-10)<br>
       <a href="https://app.bigdata.com/watchlists/e3e9d089-0668-4e2b-85f6-4179a447e3c9" target="_blank" class="text-blue-600 underline">Open watchlist</a></div>
       <div><span class="font-bold">Countries</span> — US, China, Germany, Japan, India (period: 2026-07-02 → 2026-07-09)<br>
       <a href="https://app.bigdata.com/watchlists/164fa89e-1aa6-4a38-a84f-ce6063c61023" target="_blank" class="text-blue-600 underline">Open watchlist</a></div>`,
@@ -106,7 +106,7 @@ function closeModal() {
     modal.classList.add('hidden');
 }
 
-function downloadBriefJson() {
+async function downloadBriefJson() {
     const report = window.lastReport;
     if (!report) {
         alert('No brief loaded yet. Open a Quick Demo or generate a brief first.');
@@ -119,17 +119,39 @@ function downloadBriefJson() {
             .replace(/^_+|_+$/g, '')
             .toLowerCase() || 'brief';
         const filename = `${name}_brief.json`;
+        const blob = new Blob([text], { type: 'application/json;charset=utf-8' });
+
+        // Prefer the File System Access API on secure contexts (works reliably on Fly HTTPS).
+        if (window.isSecureContext && typeof window.showSaveFilePicker === 'function') {
+            try {
+                const handle = await window.showSaveFilePicker({
+                    suggestedName: filename,
+                    types: [{
+                        description: 'JSON',
+                        accept: { 'application/json': ['.json'] },
+                    }],
+                });
+                const writable = await handle.createWritable();
+                await writable.write(blob);
+                await writable.close();
+                return;
+            } catch (err) {
+                // User cancelled the save dialog — stop quietly.
+                if (err && (err.name === 'AbortError' || err.name === 'NotAllowedError')) {
+                    return;
+                }
+                // Fall through to classic download for unsupported/denied cases.
+            }
+        }
 
         // IE / legacy Edge
         if (window.navigator && typeof window.navigator.msSaveOrOpenBlob === 'function') {
-            window.navigator.msSaveOrOpenBlob(
-                new Blob([text], { type: 'application/json' }),
-                filename
-            );
+            window.navigator.msSaveOrOpenBlob(blob, filename);
             return;
         }
 
-        const blob = new Blob([text], { type: 'application/json;charset=utf-8' });
+        // Classic anchor download. Must use native a.click() (trusted) — synthetic
+        // MouseEvent clicks are ignored by Chrome for the download attribute.
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
@@ -137,7 +159,7 @@ function downloadBriefJson() {
         a.rel = 'noopener';
         a.style.cssText = 'position:fixed;left:-9999px;top:0;';
         document.body.appendChild(a);
-        a.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
+        a.click();
         setTimeout(() => {
             a.remove();
             URL.revokeObjectURL(url);

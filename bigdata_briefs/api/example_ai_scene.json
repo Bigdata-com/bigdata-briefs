@@ -1,0 +1,1209 @@
+
+{
+    "watchlist_id": "db8478c9-34db-4975-8e44-b1ff764098ac",
+    "watchlist_name": "AI Szn",
+    "is_empty": false,
+    "start_date": "2026-07-10T00:00:00",
+    "end_date": "2026-07-10T00:00:00",
+    "novelty": true,
+    "report_title": "Palantir Partners with GNP Seguros in Mexico",
+    "introduction": "* **Palantir Technologies Inc.** expands its footprint in Latin America with a strategic partnership with **GNP Seguros**, Mexico's largest insurer, leveraging AI to enhance claims fraud detection and streamline underwriting processes.\n\n* **Broadcom Inc.** secures a $30 billion multiyear agreement with **Apple Inc.** through 2031, including a $1.5 billion investment to enhance U.S. manufacturing capabilities for advanced wireless technologies.\n\n* **Microsoft Corp.** restructures Xbox division, cutting 4,800 jobs and spinning off four studios, while raising console prices by $100-$150 starting August 1, 2026, amid a critical profit margin crisis.\n\n* **Alphabet Inc.** revises 2026 capital spending to $190 billion, significantly boosting investments in AI and cloud initiatives, positioning the company for accelerated growth amid rising regulatory challenges.\n\n* **MongoDB Inc.** reports Q1 FY2027 revenues of $687.6 million, a 25.2% year-on-year increase, exceeding expectations by 3.5%, while adding 96 enterprise customers paying over $100,000 annually.\n\n* **Datadog Inc.** surpasses $1 billion in Q1 2026 revenues with a 32% YoY increase, raising full-year guidance to $4.30-$4.34 billion, driven by strong demand for cloud-native solutions.\n\n* **NVIDIA Corp.** reports record Q1 FY2027 revenue of $81.6 billion, an 85% YoY increase, with data center revenue soaring 92% to $75.2 billion, driven by surging AI infrastructure demand.\n\n* **Snowflake Inc.** reports a $9.21 billion contracted backlog, a 38% YoY increase, and raises FY27 product revenue guidance to $5.84 billion, driven by AI adoption and a $6 billion AWS collaboration.",
+    "entity_reports": [
+      {
+        "entity_id": "F1C69A",
+        "entity_info": {
+          "id": "F1C69A",
+          "name": "Palantir Technologies Inc.",
+          "description": "Palantir Technologies Inc. develops and builds data fusion platforms for integrating, managing, and securing any kind of data at massive scale. The company was incorporated in 2003 and is based in Palo Alto, California.",
+          "entity_type": "companies",
+          "company_type": "PUBLIC",
+          "country": "US",
+          "sector": "Technology",
+          "industry_group": "Data Processing & Outsourced Services",
+          "industry": "Data Processing & Outsourced Services",
+          "webpage": "http://www.palantir.com",
+          "isin_values": [
+            "AR0132889822",
+            "BRP2LTBDR001",
+            "CA69607M1032",
+            "CA7269161096",
+            "TH0241120904",
+            "TH0809123308",
+            "TH0842122309",
+            "TH3932126404",
+            "US69608A1088"
+          ],
+          "cusip_values": [
+            "69607M103",
+            "69608A108",
+            "726916109",
+            "P0R6A6536",
+            "Y100JH400",
+            "Y408JC747",
+            "Y476S8123",
+            "Y689DP194"
+          ],
+          "sedol_values": [
+            "BKQN5G3",
+            "BLPK8M9",
+            "BN78DQ4",
+            "BNDXCH7",
+            "BPJGZB9",
+            "BPTKWC1",
+            "BRC1SG1",
+            "BTMNS72",
+            "BVBM3D5",
+            "BVPV985"
+          ],
+          "listing_values": [
+            "XBUE:PLTR",
+            "XETR:PTX",
+            "XFRA:PTX",
+            "XFRA:PTX0",
+            "XLON:0A7R",
+            "XNAS:PLTR"
+          ]
+        },
+        "content": [
+          {
+            "bullet_point": "**Palantir Technologies Inc.** (PLTR) faces significant political backlash in Europe, with the London Mayor blocking a £50 million contract with the Metropolitan Police due to concerns over the company's alignment with local values, while the UK government reviews a £330 million NHS contract amid similar scrutiny.",
+            "sources": [
+              "DF864F9F1AB71A7B8681986B8F148FA9-11"
+            ]
+          },
+          {
+            "bullet_point": "Palantir Technologies has expanded its partnership with **GNP Seguros**, Mexico's largest insurer, marking a significant milestone as it becomes the company's first publicly announced commercial customer in Latin America, utilizing Palantir's AI platforms to enhance claims fraud detection and underwriting processes.",
+            "sources": [
+              "03D6CCA3AF191447AFFAD064C0B14E46-1"
+            ]
+          },
+          {
+            "bullet_point": "The company is challenging the London Mayor's decision in court, arguing that the refusal to approve the contract unlawfully considered its 'values and ethics', which could have broader adverse commercial consequences for its public sector engagements.",
+            "sources": [
+              "D0645BA37FA654D36D41FA690E057197-2"
+            ]
+          },
+          {
+            "bullet_point": "The strategic partnership with GNP Seguros aims to unify claims, underwriting, operations, and risk data into a single operational foundation, enabling the insurer to identify anomalous claims patterns and improve operational efficiency across its insurance portfolios.",
+            "sources": [
+              "59D3AF68C555E8ACC3D6BCBA0F7303F7-1"
+            ]
+          },
+          {
+            "bullet_point": "Palantir is adapting to increasing competition from AI startups by emphasizing its unique enterprise AI offerings, with CEO Alex Karp criticizing the token-based pricing models of competitors and highlighting the company's focus on delivering measurable returns on AI investments.",
+            "sources": [
+              "9580464D667CD0E1BD9B363568245ED7-2"
+            ]
+          },
+          {
+            "bullet_point": "The company is also pursuing a strategic partnership with **SNP SE** to develop AI-powered solutions for SAP transformations, which will automate the identification of relevant test data for customer test cases, enhancing operational efficiency for joint customers.",
+            "sources": [
+              "EB8909B5F46C5A22B3DC35E96D6B8ADE-1"
+            ]
+          }
+        ]
+      },
+      {
+        "entity_id": "09DE1F",
+        "entity_info": {
+          "id": "09DE1F",
+          "name": "Broadcom Inc.",
+          "description": "Broadcom Inc. (formerly known as Broadcom Ltd.) designs, develops, and supplies semiconductor devices with a focus on analog III-V based products. The company was founded in August 2005. On February 1, 2016, Broadcom Corp. and Avago Technologies Ltd. merged to form Broadcom Ltd. (now Broadcom Inc.) The company redomiciled from Singapore to U.S. on April 4, 2018.",
+          "entity_type": "companies",
+          "company_type": "PUBLIC",
+          "country": "US",
+          "sector": "Technology",
+          "industry_group": "Semiconductors",
+          "industry": "Semiconductors",
+          "webpage": "http://www.broadcom.com",
+          "isin_values": [
+            "ARBCOM4603J5",
+            "CA11134P1009",
+            "CA11134T1021",
+            "TH0150122909",
+            "TH3932124805",
+            "US11135F1012"
+          ],
+          "cusip_values": [
+            "11134P100",
+            "11134T102",
+            "11135F101",
+            "P0R684690",
+            "Y408JC580",
+            "Y49876371"
+          ],
+          "sedol_values": [
+            "B3Z2D24",
+            "BDZ78H9",
+            "BN6JCZ0",
+            "BRBGV35",
+            "BRF1S24",
+            "BVK6D05",
+            "BVPV9Y1",
+            "BZ1L8M4"
+          ],
+          "listing_values": [
+            "XBKK:AVGO80",
+            "XFRA:1YD",
+            "XLON:0YXG",
+            "XNAS:AVGO",
+            "XWBO:BROA"
+          ]
+        },
+        "content": [
+          {
+            "bullet_point": "**Broadcom Inc.** (AVGO) extends its partnership with **Apple Inc.** (AAPL) through 2031, securing a multiyear agreement valued at over $30 billion to design and manufacture custom silicon components and advanced wireless connectivity technologies in the U.S., expected to produce more than 15 billion chips.",
+            "sources": [
+              "2A15918C4D1E7F121D3F1FEBAE9D8CB5-1"
+            ]
+          },
+          {
+            "bullet_point": "The agreement includes a $1.5 billion investment by Broadcom to expand and modernize its manufacturing facility in Fort Collins, Colorado, enhancing production capabilities for advanced radio frequency components and wireless technologies.",
+            "sources": [
+              "D2AE639C665E2C3DEA60A987CF50CCF8-19"
+            ]
+          },
+          {
+            "bullet_point": "This partnership is part of Apple's broader $600 billion U.S. investment plan, aimed at strengthening domestic chip production and reducing reliance on foreign suppliers, which is critical amid ongoing geopolitical tensions.",
+            "sources": [
+              "94AD6E9BE7AA3E3966B01B61630ADBEC-1"
+            ]
+          },
+          {
+            "bullet_point": "The deal reinforces Broadcom's strategic relevance in Apple's supply chain, alleviating concerns about potential internalization of chip functions by Apple, and positions Broadcom closer to Apple's evolving AI infrastructure needs.",
+            "sources": [
+              "71B2EDE95660A4E20F3F2A574B92EF11-19"
+            ]
+          }
+        ]
+      },
+      {
+        "entity_id": "228D42",
+        "entity_info": {
+          "id": "228D42",
+          "name": "Microsoft Corp.",
+          "description": "Microsoft Corp., is an American multinational software corporation headquartered in Redmond, Washington that develops, manufactures, licenses, and supports a wide range of products and services related to computing. The company was incorporated on June 25, 1981.",
+          "entity_type": "companies",
+          "company_type": "PUBLIC",
+          "country": "US",
+          "sector": "Technology",
+          "industry_group": "Software",
+          "industry": "Software",
+          "webpage": "http://www.microsoft.com",
+          "isin_values": [
+            "CA5949881075",
+            "CA59516M1041",
+            "TH0150121109",
+            "TH0241124005",
+            "TH0809121708",
+            "TH0842120501",
+            "TH3932125604",
+            "TH8483125101",
+            "US5949181045"
+          ],
+          "cusip_values": [
+            "594918104",
+            "594988107",
+            "59516M104",
+            "P0R682363",
+            "Y100G4378",
+            "Y408JC663",
+            "Y476JC264",
+            "Y49876181",
+            "Y689DP509",
+            "Y985KH642"
+          ],
+          "sedol_values": [
+            "2588173",
+            "2668398",
+            "5925205",
+            "6257866",
+            "BMGDF89",
+            "BPGZV88",
+            "BPLLQL9",
+            "BR113P6",
+            "BSRG3N0",
+            "BVF8ZT9",
+            "BVPV9H4",
+            "BWBYD49"
+          ],
+          "listing_values": [
+            "NEOE:MSFT",
+            "XBKK:MSFT01",
+            "XBKK:MSFT06",
+            "XBKK:MSFT80",
+            "XBRU:MSF",
+            "XHKG:04338",
+            "XHKG:4338",
+            "XMEX:MSFT",
+            "XNAS:MSFT",
+            "XNMS:MSFT"
+          ]
+        },
+        "content": [
+          {
+            "bullet_point": "**Microsoft Corp.** (MSFT) announces a significant restructuring of its Xbox division, cutting approximately 4,800 jobs, which represents about 2.1% of its global workforce, with 3,200 of those cuts coming from the gaming division by the end of fiscal year 2027.",
+            "sources": [
+              "108ABD388836AAF955D2B79410BB6E7E-1"
+            ]
+          },
+          {
+            "bullet_point": "The Xbox division's CEO, Asha Sharma, acknowledges that the business is currently 'not healthy,' citing profit margins that are 3-10 times lower than comparable platforms, and calls for a reset amid the industry's severe hardware crisis.",
+            "sources": [
+              "108ABD388836AAF955D2B79410BB6E7E-3"
+            ]
+          },
+          {
+            "bullet_point": "Microsoft plans to spin off four gaming studios as part of the Xbox restructuring, including Compulsion Games and Double Fine Productions, which will become independent entities, while Ninja Theory and Undead Labs will transition to new ownership.",
+            "sources": [
+              "108ABD388836AAF955D2B79410BB6E7E-3"
+            ]
+          },
+          {
+            "bullet_point": "The company is set to raise Xbox console prices globally starting August 1, 2026, due to rising memory and storage costs, with price increases of $100 for the 512GB model and $150 for the 1TB model, while discontinuing the 2TB model.",
+            "sources": [
+              "746B047760AC9E07B5106D52D57AECD2-2"
+            ]
+          },
+          {
+            "bullet_point": "Microsoft's upcoming earnings report on July 29, 2026, is highly anticipated as it will disclose capital expenditure guidance for fiscal 2027, with analysts expecting revenue to increase by 15% year-over-year to approximately $87.66 billion.",
+            "sources": [
+              "2D7E908AAAABF93DDCECE2034EA18CC7-6"
+            ]
+          },
+          {
+            "bullet_point": "The company is investing heavily in AI infrastructure, with a projected capital expenditure of $190 billion for 2026, indicating a strategic shift towards embedding AI into its operations despite facing challenges in monetizing AI effectively.",
+            "sources": [
+              "BD52FE42D7AC5FD65E46C79C333CA47D-3"
+            ]
+          }
+        ]
+      },
+      {
+        "entity_id": "4A6F00",
+        "entity_info": {
+          "id": "4A6F00",
+          "name": "Alphabet Inc.",
+          "description": "Alphabet Inc. (formerly Google Inc.) operates as a technology conglomerate, providing various services for people and businesses. It was founded on September 4, 1998. After a reorganization of Google on October 2, 2015, Alphabet Inc. became the parent company of Google and several former Google subsidiaries.",
+          "entity_type": "companies",
+          "company_type": "PUBLIC",
+          "country": "US",
+          "sector": "Technology",
+          "industry_group": "Internet Services",
+          "industry": "Internet Services",
+          "webpage": "http://www.abc.xyz",
+          "isin_values": [
+            "ARDEUT116159",
+            "BRGOGLBDR001",
+            "BRGOGLBDR019",
+            "CA02080K1049",
+            "CA02080M1005",
+            "TH0150120903",
+            "TH0241120409",
+            "TH0809121302",
+            "TH3932126503",
+            "TH8483125903",
+            "US02079K1079",
+            "US02079K2069",
+            "US02079K3059",
+            "US02079K4040",
+            "US02079K6029",
+            "US38259P2011",
+            "US38259P3001",
+            "US38259P4090"
+          ],
+          "cusip_values": [
+            "02079K107",
+            "02079K206",
+            "02079K305",
+            "02079K404",
+            "02079K602",
+            "02080K104",
+            "02080M100",
+            "38259P201",
+            "38259P300",
+            "38259P409",
+            "P0R684351",
+            "Y100G4337",
+            "Y408JC754",
+            "Y49876173",
+            "Y689DP145",
+            "Y985L7247"
+          ],
+          "sedol_values": [
+            "B043K04",
+            "BL25KS7",
+            "BNC31T3",
+            "BPLLP90",
+            "BRC1ST4",
+            "BS5W4X7",
+            "BVBCP40",
+            "BVPV974",
+            "BWTQGC6",
+            "BX59J50",
+            "BX59J61",
+            "BYV1PK4",
+            "BYV1PL5",
+            "BYVY8G0",
+            "BYY88Y7"
+          ],
+          "listing_values": [
+            "BVMF:GOGL34",
+            "BVMF:GOGL35",
+            "NEOE:GOOG",
+            "XBKK:GOOG80",
+            "XMEX:GOOGL",
+            "XNAS:GOOG",
+            "XNAS:GOOGL",
+            "XNMS:GOOG"
+          ]
+        },
+        "content": [
+          {
+            "bullet_point": "**Alphabet Inc.** (GOOGL) faces significant regulatory challenges as a U.S. federal judge ruled that Yelp can leverage prior findings of Google's monopoly power in search, potentially complicating future legal defenses and increasing compliance costs.",
+            "sources": [
+              "3A0CFB0804BD44B1F8002E162B52C51A-6"
+            ]
+          },
+          {
+            "bullet_point": "The company has revised its capital spending plans for 2026, now projecting expenditures to reach up to $190 billion, reflecting a substantial increase aimed at supporting its AI and cloud initiatives.",
+            "sources": [
+              "7C8267469AAB56F589C444EDAB13A75A-5"
+            ]
+          },
+          {
+            "bullet_point": "Alphabet's Q2 2026 earnings report is anticipated to show a 23.8% year-over-year increase in earnings per share, driven by robust growth in its search advertising and Google Cloud segments, with analysts projecting a fiscal 2026 EPS of $14.32, up 32.5% from the previous year.",
+            "sources": [
+              "C24D7081469FA25C7463424F1360FA88-1"
+            ]
+          },
+          {
+            "bullet_point": "The company has announced a strategic partnership expansion with Workday to integrate AI-driven HR and finance solutions into Google Cloud, reinforcing its commitment to embedding AI across its business applications.",
+            "sources": [
+              "AE2A49011068FDF92B7FC8BC6223BA28-97"
+            ]
+          },
+          {
+            "bullet_point": "Alphabet has launched two new AI models, Nano Banana 2 Lite and Gemini Omni Flash, aimed at enhancing the efficiency and accessibility of its generative AI capabilities, further solidifying its position in the AI market.",
+            "sources": [
+              "5CE634AE4B61E75058EDDDBC7BCAC8EC-3"
+            ]
+          }
+        ]
+      },
+      {
+        "entity_id": "3A0C6D",
+        "entity_info": {
+          "id": "3A0C6D",
+          "name": "MongoDB Inc.",
+          "description": "MongoDB Inc., formerly 10Gen Inc., develops internet infrastructure software. The company was incorporated on November 1, 2007 and is based in NY.",
+          "entity_type": "companies",
+          "company_type": "PUBLIC",
+          "country": "US",
+          "sector": "Technology",
+          "industry_group": "Software",
+          "industry": "Software",
+          "webpage": "http://www.mongodb.com",
+          "isin_values": [
+            "BRM1DBBDR001",
+            "US60937P1066"
+          ],
+          "cusip_values": [
+            "60937P106"
+          ],
+          "sedol_values": [
+            "BF2FJ99",
+            "BMXZ726"
+          ],
+          "listing_values": [
+            "XNAS:MDB"
+          ]
+        },
+        "content": [
+          {
+            "bullet_point": "**MongoDB Inc.** (MDB) reported Q1 FY2027 revenues of $687.6 million, reflecting a 25.2% year-on-year increase, surpassing analysts' expectations by 3.5%. The company added 96 enterprise customers paying over $100,000 annually, bringing the total to 2,895.",
+            "sources": [
+              "3B18290C44FC84A9DD6AC72F5A1311B2-5"
+            ]
+          },
+          {
+            "bullet_point": "The company has faced scrutiny regarding potential breaches of fiduciary duties by its board, as investigations by Halper Sadeh LLC and Bragar Eagel & Squire, P.C. are underway following a class action complaint filed on July 9, 2024.",
+            "sources": [
+              "FCFF28393BCE92C0AEC30E06AC8E476D-1"
+            ]
+          },
+          {
+            "bullet_point": "MongoDB has launched new features including Voyage AI capabilities and enhanced search functionalities aimed at improving retrieval accuracy for enterprise AI applications, addressing critical pain points in production environments.",
+            "sources": [
+              "826E5D64963E1DA8239F8C20EBA05B9E-1",
+              "826E5D64963E1DA8239F8C20EBA05B9E-3"
+            ]
+          },
+          {
+            "bullet_point": "The recent rollout of Search and Vector Search capabilities across MongoDB's platforms aims to strengthen its competitive position against cloud provider databases, although challenges remain in translating AI use cases into sustainable revenue.",
+            "sources": [
+              "0565102322F64AD07269DB9EAB9A7EA9-2"
+            ]
+          }
+        ]
+      },
+      {
+        "entity_id": "D6C356",
+        "entity_info": {
+          "id": "D6C356",
+          "name": "Datadog Inc.",
+          "description": "Datadog Inc. is an IT company offering monitoring and analytics platform for modern cloud environments. The company was incorporated on the 4th of June 2010.",
+          "entity_type": "companies",
+          "company_type": "PUBLIC",
+          "country": "US",
+          "sector": "Technology",
+          "industry_group": "Software",
+          "industry": "Application Software",
+          "webpage": "http://www.datadoghq.com",
+          "isin_values": [
+            "BRD1DGBDR001",
+            "TH8483125309",
+            "US23804L1035"
+          ],
+          "cusip_values": [
+            "23804L103",
+            "Y985KH600"
+          ],
+          "sedol_values": [
+            "BKT9Y49",
+            "BMXZ6N0",
+            "BWBYD94"
+          ],
+          "listing_values": [
+            "XNAS:DDOG"
+          ]
+        },
+        "content": [
+          {
+            "bullet_point": "**Datadog Inc.** (DDOG) reported Q1 2026 revenues of $1.006 billion, marking a 32% year-over-year increase and its first quarter surpassing $1 billion, with a non-GAAP operating margin of 22% and free cash flow of $289 million.",
+            "sources": [
+              "CD3B3C1864B4A9A975F7F261805BF6BE-2"
+            ]
+          },
+          {
+            "bullet_point": "The company raised its full-year 2026 revenue guidance to between $4.30 billion and $4.34 billion, reflecting sustained enterprise demand for cloud-native observability and security solutions.",
+            "sources": [
+              "CD3B3C1864B4A9A975F7F261805BF6BE-3"
+            ]
+          },
+          {
+            "bullet_point": "Datadog unveiled over 100 new capabilities at its DASH 2026 conference, including the Bits AI suite for autonomous operations, which can detect, investigate, and remediate production issues, enhancing its competitive positioning in the AI and security markets.",
+            "sources": [
+              "FDF301E50848B1822598D6F46554353A-1"
+            ]
+          },
+          {
+            "bullet_point": "The acquisition of Adaptive ML, a pioneer in Reinforcement Learning Operations, was announced on June 30, 2026, aimed at bolstering Datadog's AI research capabilities and expanding its product offerings.",
+            "sources": [
+              "C6B0F35B5FB80007D28B8EECBFFB6DF8-4"
+            ]
+          }
+        ]
+      },
+      {
+        "entity_id": "E09E2B",
+        "entity_info": {
+          "id": "E09E2B",
+          "name": "NVIDIA Corp.",
+          "description": "NVIDIA Corp., incorporated in April 1993, designs, develops, and markets three dimensional (3D) graphics processors and related software. The Company offers products that provides interactive 3D graphics to the mainstream personal computer market as well as system on a chip units for the mobile computing and automotive market.",
+          "entity_type": "companies",
+          "company_type": "PUBLIC",
+          "country": "US",
+          "sector": "Technology",
+          "industry_group": "Semiconductors",
+          "industry": "Semiconductors",
+          "webpage": "http://www.nvidia.com",
+          "isin_values": [
+            "CA67080A1093",
+            "CA67122P1062",
+            "TH0150121000",
+            "TH0241121308",
+            "TH0809121807",
+            "TH0842121509",
+            "TH3932125802",
+            "TH8483122603",
+            "US67066G1040"
+          ],
+          "cusip_values": [
+            "67066G104",
+            "67080A109",
+            "67122P106",
+            "P0R67N707",
+            "Y100G4386",
+            "Y408JC689",
+            "Y476JC835",
+            "Y49876199",
+            "Y689DP236",
+            "Y985HU589"
+          ],
+          "sedol_values": [
+            "2379504",
+            "B10S3Q7",
+            "BMGDF90",
+            "BP6LB42",
+            "BPLLR27",
+            "BRC1SL6",
+            "BS55J31",
+            "BVBM4Z4",
+            "BVF8ZL1",
+            "BVPV9M9"
+          ],
+          "listing_values": [
+            "XBKK:NVDA80",
+            "XETR:NVD",
+            "XFRA:NVD",
+            "XFRA:NVDG",
+            "XLOM:0R1I",
+            "XNAS:NVDA"
+          ]
+        },
+        "content": [
+          {
+            "bullet_point": "**NVIDIA Corp.** (NVDA) reports record Q1 FY2027 revenue of $81.6 billion, reflecting an 85% year-over-year increase, with data center revenue surging 92% to $75.2 billion, driven by heightened demand for AI infrastructure.",
+            "sources": [
+              "DE6D42B9E3228D7A6E9FAF5E0DBAA1CB-11"
+            ]
+          },
+          {
+            "bullet_point": "The company anticipates Q2 FY2027 revenue guidance of approximately $91 billion, indicating continued robust growth in AI-related sectors.",
+            "sources": [
+              "96F102F60CD028669BEAA5A12F6A6151-14"
+            ]
+          },
+          {
+            "bullet_point": "NVIDIA is nearing the completion of a strategic partnership with AI cloud providers to deploy large-scale, multi-tenant AI factories, enhancing access to accelerated computing for emerging AI companies.",
+            "sources": [
+              "421AA5AD01F56238AA47A754D0B5F276-1",
+              "421AA5AD01F56238AA47A754D0B5F276-2"
+            ]
+          },
+          {
+            "bullet_point": "The French Competition Authority's antitrust investigation into NVIDIA is nearing its conclusion, with potential formal objections expected soon, which could result in significant fines if violations are found.",
+            "sources": [
+              "7F98AA9B531824A68ADD1709D2C904A4-1"
+            ]
+          }
+        ]
+      },
+      {
+        "entity_id": "D3D781",
+        "entity_info": {
+          "id": "D3D781",
+          "name": "Snowflake Inc.",
+          "description": "Snowflake Inc. (formerly Snowflake Computing Inc.) is a cloud-based data-warehousing startup. The company was incorporated on July 23, 2012.",
+          "entity_type": "companies",
+          "company_type": "PUBLIC",
+          "country": "US",
+          "sector": "Technology",
+          "industry_group": "Software",
+          "industry": "Application Software",
+          "webpage": "http://www.snowflake.com",
+          "isin_values": [
+            "ARBCOM460358",
+            "BRS2NWBDR008",
+            "TH0842121202",
+            "TH3932126107",
+            "US8334451098"
+          ],
+          "cusip_values": [
+            "833445109",
+            "P0R684559",
+            "Y408JC713",
+            "Y476JC801"
+          ],
+          "sedol_values": [
+            "BL65618",
+            "BN134B7",
+            "BN6JCP0",
+            "BVBM391",
+            "BVPV918"
+          ],
+          "listing_values": [
+            "XNYS:SNOW"
+          ]
+        },
+        "content": [
+          {
+            "bullet_point": "**Snowflake Inc.** (SNOW) reports a $9.21 billion contracted backlog, a 38% YoY increase, indicating strong customer commitment to larger deals, alongside a raised FY27 product revenue guidance to $5.84 billion driven by AI adoption and a $6 billion AWS collaboration.",
+            "sources": [
+              "7DC8A29C5C158E934E3666E319423D0D-1"
+            ]
+          },
+          {
+            "bullet_point": "The company anticipates fiscal Q2 2027 product revenues between $1.415 billion and $1.420 billion, reflecting a 30% YoY growth, bolstered by the rapid uptake of its AI Data Cloud and a net revenue retention rate of 126%.",
+            "sources": [
+              "D511C4D5832CF90389A3FAAD0EE1C87D-3"
+            ]
+          },
+          {
+            "bullet_point": "Snowflake has expanded its AI partnerships, notably with Thomson Reuters and Sanofi, enhancing its AI Data Cloud capabilities and supporting enterprise AI innovation, including the launch of Sanofi's AI agent for sales representatives.",
+            "sources": [
+              "D511C4D5832CF90389A3FAAD0EE1C87D-2"
+            ]
+          }
+        ]
+      }
+    ],
+    "source_metadata": {
+      "3B18290C44FC84A9DD6AC72F5A1311B2-5": {
+        "ref_id": 1,
+        "document_id": "3B18290C44FC84A9DD6AC72F5A1311B2",
+        "headline": "Q1 Earnings Highlights: Snowflake (NYSE:SNOW) Vs The Rest Of The Data Storage Stocks",
+        "ts": "2026-07-06T17:12:30",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "E5AA62",
+        "source_name": "Yahoo! Finance",
+        "source_rank": 2,
+        "url": "https://finance.yahoo.com/markets/stocks/articles/q1-earnings-highlights-snowflake-nyse-170001670.html",
+        "chunk_id": 5,
+        "text": "MongoDB (NASDAQ:MDB)\nNamed after \"humongous database,\" reflecting its ability to handle massive data loads, MongoDB (NASDAQ:MDB) provides a flexible document-based database platform that helps developers build, deploy, and maintain modern applications more efficiently.\nMongoDB reported revenues of $687.6 million, up 25.2% year on year. This result beat analysts' expectations by 3.5%. Overall, it was a very strong quarter as it also put up an impressive beat of analysts' billings estimates and EPS guidance for next quarter exceeding analysts' expectations.\nMongoDB had the weakest guidance update among its peers. The company added 96 enterprise customers paying more than $100,000 annually to reach a total of 2,895. The stock is up 8.8% since reporting and currently trades at $354.44.",
+        "highlights": []
+      },
+      "FCFF28393BCE92C0AEC30E06AC8E476D-1": {
+        "ref_id": 2,
+        "document_id": "FCFF28393BCE92C0AEC30E06AC8E476D",
+        "headline": "Did MongoDB, Inc. Insiders Breach their Fiduciary Duties to Shareholders?",
+        "ts": "2026-07-03T16:50:22",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "5A5702",
+        "source_name": "Benzinga",
+        "source_rank": 1,
+        "url": "https://www.benzinga.com/node/60266531?utm_campaign=partner_feed&utm_medium=feed&utm_source=ravenpack",
+        "chunk_id": 1,
+        "text": "Shareholders are encouraged to contact the firm to discuss their rights and options at no cost or obligation. We would handle any matter on a contingent fee basis, whereby you would not be responsible for out-of-pocket payment of our legal fees or expenses.\nShareholders should contact the firm immediately as there may be limited time to enforce your rights.\nNEW YORK, July 3, 2026 /PRNewswire/ -- Halper Sadeh LLC, an investor rights law firm, is investigating whether certain officers and directors of MongoDB, Inc. (NASDAQ:MDB) breached their fiduciary duties to shareholders.\nIf you currently own MongoDB stock and are a long-term shareholder, you may be able to seek corporate governance reforms, the return of funds back to the company, a court-approved financial incentive award, or other relief and benefits.\nShareholder involvement can help improve a company's policies, practices, and oversight mechanisms to create a more transparent, accountable, and effectively managed organization, which can enhance shareholder value.\nHalper Sadeh LLC represents investors all over the world who have fallen victim to securities fraud and corporate misconduct. Our attorneys have been instrumental in implementing corporate reforms and recovering millions of dollars on behalf of defrauded investors.\nAttorney Advertising. Prior results do not guarantee a similar outcome.",
+        "highlights": []
+      },
+      "0565102322F64AD07269DB9EAB9A7EA9-2": {
+        "ref_id": 6,
+        "document_id": "0565102322F64AD07269DB9EAB9A7EA9",
+        "headline": "Will Broader Vector Search Access Across Atlas and On-Premises Environments Change MongoDB's (MDB) Narrative",
+        "ts": "2026-07-06T22:08:02",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "70E3C3",
+        "source_name": "Simply Wall St",
+        "source_rank": 3,
+        "url": "https://simplywall.st/stocks/us/software/nasdaq-mdb/mongodb/news/will-broader-vector-search-access-across-atlas-and-onpremise",
+        "chunk_id": 2,
+        "text": "Explore 27 top quantum computing companies leading the revolution in next-gen technology and shaping the future with breakthroughs in quantum algorithms, superconducting qubits, and cutting-edge research.\nMongoDB Investment Narrative Recap\nTo own MongoDB, you generally need to believe its developer friendly database can keep winning mission critical workloads while turning improving scale into sustainable profitability. The newest Search and Vector Search rollout strengthens the AI product story but does not by itself resolve near term pressure points such as competition from cloud provider databases and questions around how quickly AI use cases can translate into durable, high margin Atlas revenue.\nAmong recent developments, the Q1 FY2027 results stand out next to this launch: revenue reached US$687.6 million, up 25.2% year on year, with 96 new US$100,000 plus customers added. That financial backdrop gives context to the broader availability of Search and Vector Search, which now spans Atlas, Enterprise Advanced and Community Edition, potentially deepening usage among both existing enterprises and AI focused startups as they standardize on one data platform.",
+        "highlights": []
+      },
+      "826E5D64963E1DA8239F8C20EBA05B9E-1": {
+        "ref_id": 7,
+        "document_id": "826E5D64963E1DA8239F8C20EBA05B9E",
+        "headline": "MongoDB Launches New Voyage AI Capabilities and Search for On-Premises, Private Cloud",
+        "ts": "2026-07-06T07:04:55",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "C99545",
+        "source_name": "Jiemian News – Serving Only Independent Thinkers",
+        "source_rank": 3,
+        "url": "https://www.jiemian.com/article/14707608.html",
+        "chunk_id": 1,
+        "text": "The new Voyage AI capabilities and search for on-premises and private cloud can help enterprises build accurate and compliant AI applications without code refactoring or reliance on external tools.\nMongoDB, Inc. (NASDAQ: MDB) recently unveiled several new features at MongoDB User Group India, Bengaluru (MongoDB.local Bengaluru), aimed at addressing two major pain points hindering enterprise AI projects before they reach production: insufficient retrieval accuracy, low trustworthiness, and infrastructure that fails to meet compliance requirements. Through the synergistic operation of Voyage Context 4, hybrid search, and native re-ranking, retrieval accuracy can be improved, with native re-ranking alone boosting retrieval quality by up to 30%*. These features are powered by the Voyage AI model, which outperforms Google and Cohere on the Retrieval-Augmented Generation benchmarks (RAG). Search and Vector Search are now generally available for MongoDB Enterprise Advanced and Community Edition, extending the same search capabilities trusted by MongoDB Atlas users to on-premises, private cloud, and self-hosted environments used by regulated enterprises and startups. This combination of features provides enterprises and developers with a production-ready search technology stack that offers high accuracy and compliance, deployable in any environment where enterprise data resides.",
+        "highlights": []
+      },
+      "826E5D64963E1DA8239F8C20EBA05B9E-3": {
+        "ref_id": 8,
+        "document_id": "826E5D64963E1DA8239F8C20EBA05B9E",
+        "headline": "MongoDB Launches New Voyage AI Capabilities and Search for On-Premises, Private Cloud",
+        "ts": "2026-07-06T07:04:55",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "C99545",
+        "source_name": "Jiemian News – Serving Only Independent Thinkers",
+        "source_rank": 3,
+        "url": "https://www.jiemian.com/article/14707608.html",
+        "chunk_id": 3,
+        "text": "Voyage AI: Achieve High-Accuracy Retrieval with Cutting-Edge Embedding Models\nAccuracy is the first hurdle for AI to enter the production environment, and the second hurdle is ensuring AI runs on the latest data, not on stale data from independent retrieval systems. MongoDB has introduced three new features built into the database that enhance retrieval accuracy and ensure applications run on the latest data.\nMongoDB Atlas Native Re-ranking, now in public preview, is powered by Voyage AI and can directly improve retrieval quality by up to 30% within the database, eliminating a major cause of AI project failures. This feature operates on existing retrieval results, eliminating the need to manage external APIs, keys, or round trips.",
+        "highlights": []
+      },
+      "71B2EDE95660A4E20F3F2A574B92EF11-19": {
+        "ref_id": 16,
+        "document_id": "71B2EDE95660A4E20F3F2A574B92EF11",
+        "headline": "Apple Brings Broadcom Inc (AVGO) Back Into the AI Story: Analyzing the Impact, 3 Key Drivers/Catalysts, Risks /Potential Pitfalls, Key Takeaways & Valuation Outlook",
+        "ts": "2026-07-09T19:53:31",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "D9FF00",
+        "source_name": "Equisights",
+        "source_rank": 1,
+        "url": "https://research.bluematrix.com/docs/pdf/c46b3243-5f0f-41f6-9db7-cf007fd1750f/c892577e-accf-4f1e-9de3-80326493c2ad",
+        "chunk_id": 19,
+        "text": "Key Takeaways\nApple's expanded manufacturing commitment with Broadcom is less about near-term financial impact and more about reinforcing the strategic foundations of Apple's artificial intelligence roadmap, domestic supply-chain positioning, and Broadcom's long-term AI revenue visibility. Under a new multiyear agreement expected to exceed $30 billion and run through 2031, Apple will source more than 15 billion U.S.-made chips covering custom silicon components and advanced wireless connectivity technologies, while Broadcom expands and modernizes its Fort Collins, Colorado facility through a $1.5 billion capital investment. The deal strengthens Apple's domestic manufacturing credentials within its broader $600 billion U.S. investment commitment and gives Tim Cook a concrete supply-chain win at a time when tariff politics and semiconductor localization remain strategically important. For Broadcom, the agreement converts its most debated customer relationship into a committed multi-generation program, easing concerns that Apple will continue to internalize more valuable chip functions and reduce Broadcom's strategic relevance over time. More importantly, the partnership may extend beyond radio-frequency components into custom silicon supporting Apple's evolving private-cloud AI infrastructure, positioning Broadcom closer to Apple's next generation of AI hardware, including Apple's first server-grade AI processor. That matters because Broadcom already pairs one of the fastest large-scale AI revenue ramps in semiconductors with cash conversion that has no peer at this size.",
+        "highlights": []
+      },
+      "2A15918C4D1E7F121D3F1FEBAE9D8CB5-1": {
+        "ref_id": 10,
+        "document_id": "2A15918C4D1E7F121D3F1FEBAE9D8CB5",
+        "headline": "IN BRIEF: Broadcom and Apple expand partnership through to 2031",
+        "ts": "2026-07-06T13:00:53",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "ED68DC",
+        "source_name": "Alliance News",
+        "source_rank": 1,
+        "url": null,
+        "chunk_id": 1,
+        "text": "Broadcom Inc - Palo Alto, California-based chipmaker - Says it has agreed to expand its partnership with Cupertino, California-based iPhone maker Apple Inc. The tie-up is extended through to 2031, covering long-term agreements for Broadcom to develop and supply Apple with custom application-specific integrated circuit silicon products, usable across multiple product generations. This builds on a \"multibillion-dollar deal\" between the two firms which Apple announced back in 2023, focused on \"components made in the USA\".\nBroadcom current share price: USD375.19, up 4.2% pre-market on Monday in New York\n12-month change: up 31%\nApple current share price: USD307.24, down 0.3% pre-market on Monday in New York\n12-month change: up 47%",
+        "highlights": []
+      },
+      "94AD6E9BE7AA3E3966B01B61630ADBEC-1": {
+        "ref_id": 50,
+        "document_id": "94AD6E9BE7AA3E3966B01B61630ADBEC",
+        "headline": "Apple Unveils $30 Billion Broadcom Deal",
+        "ts": "2026-07-08T13:58:38",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "5A5702",
+        "source_name": "Benzinga",
+        "source_rank": 1,
+        "url": "https://www.benzinga.com/node/60332308?utm_campaign=partner_feed&utm_medium=feed&utm_source=ravenpack",
+        "chunk_id": 1,
+        "text": "On Wednesday, Apple Inc. (NASDAQ:AAPL) announced a new multiyear agreement with Broadcom Inc. (NASDAQ:AVGO) valued at more than $30 billion to design and manufacture custom silicon components and advanced wireless connectivity technologies in the United States.\nBroadcom To Produce More Than 15 Billion U.S.-Made Chips\nThe agreement, announced Wednesday, is expected to result in the production of more than 15 billion chips in the U.S. and support hundreds of American jobs. It also marks Apple's largest commitment to date under its American Manufacturing Program (AMP), which was launched to strengthen domestic chip production.\nAs part of the deal, Broadcom will invest $1.5 billion to expand and modernize its manufacturing facility in Fort Collins, Colorado. The site will produce advanced radio frequency components, including FBAR filters, along with next-generation wireless connectivity technologies used across Apple's product lineup.",
+        "highlights": []
+      },
+      "D2AE639C665E2C3DEA60A987CF50CCF8-19": {
+        "ref_id": 41,
+        "document_id": "D2AE639C665E2C3DEA60A987CF50CCF8",
+        "headline": "Apple Brings Broadcom Inc (AVGO) Back Into the AI Story: Analyzing the Impact, 3 Key Drivers/Catalysts, Risks /Potential Pitfalls, Key Takeaways & Valuation Outlook",
+        "ts": "2026-07-09T19:50:46",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "D9FF00",
+        "source_name": "Equisights",
+        "source_rank": 1,
+        "url": "https://research.bluematrix.com/docs/pdf/c46b3243-5f0f-41f6-9db7-cf007fd1750f/9f838ef9-c4a8-4752-b037-d272e6edebf8",
+        "chunk_id": 19,
+        "text": "Key Takeaways\nApple's expanded manufacturing commitment with Broadcom is less about near-term financial impact and more about reinforcing the strategic foundations of Apple's artificial intelligence roadmap, domestic supply-chain positioning, and Broadcom's long-term AI revenue visibility. Under a new multiyear agreement expected to exceed $30 billion and run through 2031, Apple will source more than 15 billion U.S.-made chips covering custom silicon components and advanced wireless connectivity technologies, while Broadcom expands and modernizes its Fort Collins, Colorado facility through a $1.5 billion capital investment. The deal strengthens Apple's domestic manufacturing credentials within its broader $600 billion U.S. investment commitment and gives Tim Cook a concrete supply-chain win at a time when tariff politics and semiconductor localization remain strategically important. For Broadcom, the agreement converts its most debated customer relationship into a committed multi-generation program, easing concerns that Apple will continue to internalize more valuable chip functions and reduce Broadcom's strategic relevance over time. More importantly, the partnership may extend beyond radio-frequency components into custom silicon supporting Apple's evolving private-cloud AI infrastructure, positioning Broadcom closer to Apple's next generation of AI hardware, including Apple's first server-grade AI processor. That matters because Broadcom already pairs one of the fastest large-scale AI revenue ramps in semiconductors with cash conversion that has no peer at this size.",
+        "highlights": []
+      },
+      "7DC8A29C5C158E934E3666E319423D0D-1": {
+        "ref_id": 1,
+        "document_id": "7DC8A29C5C158E934E3666E319423D0D",
+        "headline": "Snowflake's $80 Billion Data Bet Is Starting to Show Results",
+        "ts": "2026-07-07T15:52:03",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "648085",
+        "source_name": "AOL.com",
+        "source_rank": 2,
+        "url": "https://www.aol.com/articles/snowflake-80-billion-data-bet-153054000.html",
+        "chunk_id": 1,
+        "text": "Quick Read\nSNOW's $9.21 billion contracted backlog surged 38% YoY, outpacing revenue growth and signaling customers are committing to longer, larger deals.\nManagement raised FY27 product revenue guidance to $5.84 billion, driven by 13,600+ accounts adopting AI capabilities and a $6 billion AWS deal.\nShares jumped from $177 to $255 the day after Q1 earnings, while existing customers spent 26% more year over year.\nAct now: the analyst who called NVIDIA in 2010 just named his top 10 AI stocks - and Snowflake didn't make the cut. Grab the names FREE today.\nSnowflake's title bet references an $80 billion data opportunity, but the number in the Q1 FY27 filing that actually validates the thesis is the size of the contracted backlog. That contracted figure is what long-term holders should anchor on.",
+        "highlights": []
+      },
+      "D511C4D5832CF90389A3FAAD0EE1C87D-3": {
+        "ref_id": 3,
+        "document_id": "D511C4D5832CF90389A3FAAD0EE1C87D",
+        "headline": "Snowflake's AI Data Cloud Gains Traction: More Upside Ahead?",
+        "ts": "2026-07-07T18:04:53",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "7DFD4A",
+        "source_name": "Nasdaq",
+        "source_rank": 2,
+        "url": "https://www.nasdaq.com/articles/snowflakes-ai-data-cloud-gains-traction-more-upside-ahead",
+        "chunk_id": 3,
+        "text": "Snowflake's growing customer base, combined with its rapid product innovation, positions the company for continued upside. Snowflake expects fiscal second-quarter 2027 product revenues in the range of $1.415-$1.420 billion, implying 30% year-over-year growth.\nSNOW Suffers From Stiff Competition\nSnowflake is facing stiff competition from the likes of major players like Oracle ORCL and Amazon AMZN, which are also expanding their footprint in the AI space.\nAmazon's AI initiatives gained significant momentum during the first quarter of 2026. Amazon's cloud computing platform, Amazon Web Services' chips business, including Graviton, Trainium, and Nitro, exceeded a $20 billion annual revenue run rate and is growing triple-digit percentages year over year.",
+        "highlights": []
+      },
+      "D511C4D5832CF90389A3FAAD0EE1C87D-2": {
+        "ref_id": 6,
+        "document_id": "D511C4D5832CF90389A3FAAD0EE1C87D",
+        "headline": "Snowflake's AI Data Cloud Gains Traction: More Upside Ahead?",
+        "ts": "2026-07-07T18:04:53",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "7DFD4A",
+        "source_name": "Nasdaq",
+        "source_rank": 2,
+        "url": "https://www.nasdaq.com/articles/snowflakes-ai-data-cloud-gains-traction-more-upside-ahead",
+        "chunk_id": 2,
+        "text": "Further expanding its AI footprint through partnerships, in June 2026, Snowflake announced that Thomson Reuters is building its enterprise AI and data platform on the Snowflake AI Data Cloud to deliver trusted, governed intelligence at scale. The collaboration enables faster analytics, modernizes legacy systems with Snowflake CoCo and supports enterprise AI innovation using Snowflake Cortex.\nSnowflake also announced that Sanofi launched its \"Concierge for Field,\" an AI agent built with Snowflake Cortex AI to help sales representatives prepare for physician visits in seconds. The collaboration also supports Sanofi's broader deployment of AI agents across R&D, procurement, IT, HR and field sales to accelerate innovation and drug development.",
+        "highlights": []
+      },
+      "FDF301E50848B1822598D6F46554353A-1": {
+        "ref_id": 1,
+        "document_id": "FDF301E50848B1822598D6F46554353A",
+        "headline": "Datadog Inc. - DASH 2026 recap: Product news, sessions, and highlights",
+        "ts": "2026-07-07T00:00:00",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "DFF004",
+        "source_name": "PubT",
+        "source_rank": 1,
+        "url": "https://www.datadoghq.com/blog/dash-2026-recap/",
+        "chunk_id": 1,
+        "text": "DASH 2026 brought thousands of engineers, builders, security professionals, and technology leaders to New York City for 2½ days focused on building, operating, and securing modern systems.\nAcross hands-on sessions and more than 40 customer talks, teams shared how they're tackling real-world challenges at scale with Datadog. On stage, the keynote set the direction for what's next across observability, security, and AI, highlighting a shift toward more autonomous, AI-assisted operations.\nHere's a look at the key happenings from this year's DASH.\nIn the keynote, we introduced Datadog's latest product updates that help you build, ship, and operate systems more quickly and reliably.\nWe continued our emphasis on using Bits AI to make the Datadog platform more powerful, announcing a number of AI-powered features. Among them were Bits Detection to autonomously monitor for degradations, Bits Remediation to fix issues, and Bits Database Optimization to intelligently find bottlenecks and improve performance.",
+        "highlights": []
+      },
+      "C6B0F35B5FB80007D28B8EECBFFB6DF8-4": {
+        "ref_id": 3,
+        "document_id": "C6B0F35B5FB80007D28B8EECBFFB6DF8",
+        "headline": "4 Top-Ranked Internet Stocks With Solid Upside Potential to Buy Now",
+        "ts": "2026-07-09T16:15:17",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "7DFD4A",
+        "source_name": "Nasdaq",
+        "source_rank": 2,
+        "url": "https://www.nasdaq.com/articles/4-top-ranked-internet-stocks-solid-upside-potential-buy-now",
+        "chunk_id": 4,
+        "text": "guidance targets full-year 2026 revenues of $4.30-$4.34 billion, reflecting sustained enterprise demand for cloud-native observability and security. As of first-quarter 2026, approximately 4,550 customers carried $100,000-plus ARR, up 21% year over year, evidencing robust platform adoption and customer wallet expansion. At DASH in June 2026, Datadog launched 100+ new capabilities, headlined by a fully autonomous Bits AI suite - independently detecting, investigating and remediating production issues - alongside AI Guard for agentic security. The late-June acquisition of Adaptive ML, a pioneer in Reinforcement Learning Operations, expands its proprietary AI research program. A newly achieved FedRAMP High certification further unlocks the federal government as an additional meaningful revenue opportunity.",
+        "highlights": []
+      },
+      "CD3B3C1864B4A9A975F7F261805BF6BE-2": {
+        "ref_id": 22,
+        "document_id": "CD3B3C1864B4A9A975F7F261805BF6BE",
+        "headline": "Datadog Rises 88.7% Year to Date: Should You Still Buy the Stock?",
+        "ts": "2026-07-08T15:59:51",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "7DFD4A",
+        "source_name": "Nasdaq",
+        "source_rank": 2,
+        "url": "https://www.nasdaq.com/articles/datadog-rises-887-year-date-should-you-still-buy-stock",
+        "chunk_id": 2,
+        "text": "Image Source: Zacks Investment Research\nCatalysts Fuelling DDOG's Rally\nDatadog's first-quarter 2026 results showed revenues climbing 32% year over year to $1,006 million, marking the company's first quarter above $1 billion and a sequential acceleration from 29% growth in the prior period. Customers with annual recurring revenues of $100,000 or more grew 21% year over year to about 4,550. Non-GAAP operating margin held at 22%, while free cash flow reached $289 million.\nMomentum has continued into the current quarter. Last month, Datadog hosted its DASH 2026 conference, unveiling more than 100 new capabilities to help customers manage growing AI and security complexity, including expanded agentic tooling. On June 30, the company announced its acquisition of Adaptive ML, a startup building a Reinforcement Learning Operations platform, which will join Datadog AI Research to accelerate work on specialized AI agents trained on real-world observability signals. The company also achieved FedRAMP High certification during the quarter and launched GPU Monitoring to help customers better manage AI infrastructure spend.",
+        "highlights": []
+      },
+      "CD3B3C1864B4A9A975F7F261805BF6BE-3": {
+        "ref_id": 11,
+        "document_id": "CD3B3C1864B4A9A975F7F261805BF6BE",
+        "headline": "Datadog Rises 88.7% Year to Date: Should You Still Buy the Stock?",
+        "ts": "2026-07-08T15:59:51",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "7DFD4A",
+        "source_name": "Nasdaq",
+        "source_rank": 2,
+        "url": "https://www.nasdaq.com/articles/datadog-rises-887-year-date-should-you-still-buy-stock",
+        "chunk_id": 3,
+        "text": "Forward-Looking Guidance by DDOG Holds Promise\nFor the second quarter of 2026, Datadog guided revenues between $1.07 billion and $1.08 billion, non-GAAP operating income to be $225-$235 million, and non-GAAP earnings per share between 57 cents and 59 cents.\nThe Zacks Consensus Estimate calls for 2026 revenues of $4.34 billion, up 26.62% year over year, with earnings pegged at $2.41 per share, up 17.56%, suggesting the current valuation gap is arguably well justified by Datadog's faster, AI-driven observability growth trajectory relative to the broader field.\nFor full-year 2026, management projected revenues between $4.30 billion and $4.34 billion, non-GAAP operating income to be $940-$980 million, and non-GAAP earnings per share between $2.36 and $2.44, underscoring continued confidence in sustained double-digit growth.",
+        "highlights": []
+      },
+      "108ABD388836AAF955D2B79410BB6E7E-1": {
+        "ref_id": 5,
+        "document_id": "108ABD388836AAF955D2B79410BB6E7E",
+        "headline": "Microsoft cuts 2% of worldwide workforce as it revamps Xbox",
+        "ts": "2026-07-06T14:45:15",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "ED68DC",
+        "source_name": "Alliance News",
+        "source_rank": 1,
+        "url": null,
+        "chunk_id": 1,
+        "text": "(Alliance News) - Microsoft said Monday it was eliminating about 4,800 jobs - roughly 2% of its global workforce - in a cost-cutting move that will deliver a sweeping restructuring of its struggling Xbox gaming division.\nThe cuts include the deepest overhaul in Xbox's history, with approximately 3,200 gaming jobs to be shed over the coming fiscal year, four game studios being spun off or sold, and a fifth entering a review process that could lead to closure, the company said.\nThe announcement is the latest in a string of mass layoffs by the technology giant as it spends massive amounts of money to stay in the artificial intelligence race, with companies investing tens of billions of dollars in AI-ready data centres and computing power.",
+        "highlights": []
+      },
+      "108ABD388836AAF955D2B79410BB6E7E-3": {
+        "ref_id": 6,
+        "document_id": "108ABD388836AAF955D2B79410BB6E7E",
+        "headline": "Microsoft cuts 2% of worldwide workforce as it revamps Xbox",
+        "ts": "2026-07-06T14:45:15",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "ED68DC",
+        "source_name": "Alliance News",
+        "source_rank": 1,
+        "url": null,
+        "chunk_id": 3,
+        "text": "Xbox has been through successive rounds of cuts since Microsoft's USD68.7 billion acquisition of Activision Blizzard closed in 2024 after a long review process by regulators over competition concerns.\nSharma described Xbox's business as \"not healthy,\" with profit margins \"3-10 times lower\" than rivals.\nShe succeeded longtime Xbox chief Phil Spencer, who retired in February, and has pledged to return the division to growth by 2027.\n\"History is full of companies that mistake longevity for inevitability,\" she wrote. \"We will not be one of them.\"\nFour studios will leave Xbox as part of the restructuring.\nCompulsion Games and Double Fine Productions will become independent, retaining their intellectual property and game catalogues.\nNinja Theory and Undead Labs have entered into terms to join new owners with funding to continue their current projects.\nIn France, Arkane's management is beginning a required consultation with its Works Council to review what Sharma called \"potential strategic options\" - a process that could result in further closures or a sale.",
+        "highlights": []
+      },
+      "746B047760AC9E07B5106D52D57AECD2-2": {
+        "ref_id": 31,
+        "document_id": "746B047760AC9E07B5106D52D57AECD2",
+        "headline": "Microsoft's 19% stock drop worst since 2000",
+        "ts": "2026-07-06T01:55:43",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "B1A50F",
+        "source_name": "MSN",
+        "source_rank": 4,
+        "url": "https://www.msn.com/en-xl/news/other/microsoft-s-19-stock-drop-worst-since-2000/ar-AA27dPFB?ocid=finance-verthp-feeds",
+        "chunk_id": 2,
+        "text": "&#9671; Is Now the Entry Point?\nDespite this, the majority opinion on Wall Street remains 'buy.' According to data from U.S. investment information firm Investing.com, approximately 90% of analysts maintained buy ratings, with an average target price of 561 dollars. The forward price-to-earnings ratio (P/E) for the next 12 months is around 22 times, significantly below the five-year average (around 30 times), marking the lowest level since 2023. However, several institutions have lowered their target prices. \"No premium can be justified until astronomical investments prove profitable,\" they argue. The message is to wait until performance demonstrates the ability to recoup investments.\nThe market has two key dates marked on its calendar. The first is the earnings announcement for the fourth quarter (April-June) scheduled for July 29. This will be the first time Microsoft discloses its capital expenditure guidance for fiscal 2027. It is a turning point to determine whether expenditures have peaked and begun to decline, and whether AI monetization is genuinely accelerating. The second date is August 1. Starting that day, Microsoft will raise Xbox console prices worldwide, citing surging memory and storage costs. The 512GB model will increase by 100 dollars, the 1TB model by 150 dollars, and the 2TB model will be discontinued, with additional price hikes expected until the end of 2027. Barron's reported, \"This move to pass component cost burdens to consumers will be a critical moment to gauge its impact on demand.\"",
+        "highlights": []
+      },
+      "BD52FE42D7AC5FD65E46C79C333CA47D-3": {
+        "ref_id": 38,
+        "document_id": "BD52FE42D7AC5FD65E46C79C333CA47D",
+        "headline": "Insight Guru Inc. - What Could Really Power Microsoft Stock Higher From Here",
+        "ts": "2026-07-07T00:00:00",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "DFF004",
+        "source_name": "PubT",
+        "source_rank": 1,
+        "url": "https://www.trefis.com/stock/msft/articles/605924/what-could-really-power-microsoft-stock-higher-from-here/2026-07-07",
+        "chunk_id": 3,
+        "text": "The Price Tag Is $190 Billion\nMicrosoft is backing this strategic shift with an immense amount of capital. The company expects to invest roughly $190 billion in capital expenditures in calendar year 2026 alone. That significant figure is allocated for building the global engine required to power all that new, paid usage, a task that goes far beyond constructing more data centers. The company has been clear that even with this spending, strong customer demand continues to exceed available capacity. It's a classic growth story: invest heavily to meet overwhelming demand that you can directly monetize. This spending is the clearest signal of management's conviction in the per-user, per-usage future.\nMicrosoft is undertaking more than another product cycle; the company is attempting to rewire its entire commercial relationship with its customers. The bet is that by embedding AI agents into the daily workflow of nearly every office worker on the planet, it can create a new, durable, and high-margin revenue stream that compounds for years to come. The pieces are in place, the spending is committed, and the first wave of customers is already paying up.",
+        "highlights": []
+      },
+      "2D7E908AAAABF93DDCECE2034EA18CC7-6": {
+        "ref_id": 54,
+        "document_id": "2D7E908AAAABF93DDCECE2034EA18CC7",
+        "headline": "AI is too expensive! Microsoft wields the knife again to lay off employees, and the tech giant's \"blood transfusion\" has just begun",
+        "ts": "2026-07-07T06:51:57",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "4A99A9",
+        "source_name": "Sina (新浪)",
+        "source_rank": 4,
+        "url": "https://finance.sina.com.cn/wm/2026-07-07/doc-inifyknx1526211.shtml",
+        "chunk_id": 6,
+        "text": "It is worth noting that on July 29th, Microsoft will release its next quarterly earnings report.\nFinancial data platform Fiscal.ai shows that Wall Street expects Microsoft's quarterly revenue to increase by 15% year-on-year to $87.66 billion; earnings per share are expected to rise from $3.65 in the same period last year to $4.24.\nGil Luria believes that the current mainstream market view on Microsoft has turned extremely negative, \"but this is precisely an investment opportunity.\"\n\"The company will release its earnings report in three weeks, and the growth rate of Azure business will continue to rise, while the growth rate of capital expenditure will be lower than the market's concerns.\"\nBenchmark analyst Yi Fu Lee said that Microsoft is a core player in the field of artificial intelligence, and its data advantages are incomparable to Amazon, Google, and even OpenAI.",
+        "highlights": []
+      },
+      "7F98AA9B531824A68ADD1709D2C904A4-1": {
+        "ref_id": 2,
+        "document_id": "7F98AA9B531824A68ADD1709D2C904A4",
+        "headline": "French Competition Watchdog's Antitrust Probe on Nvidia Nears Completion",
+        "ts": "2026-07-09T10:33:15",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "CF4113",
+        "source_name": "MT Newswires - EMEA",
+        "source_rank": 1,
+        "url": null,
+        "chunk_id": 1,
+        "text": "06:33 AM EDT, 07/09/2026 (MT Newswires) -- The Autorité de la concurrence's General Rapporteur Umberto Berkani said that the French regulator's antitrust probe into technology company Nvidia's (NVD.F) is almost completed, Reuters reported Thursday.\nThe French competition watchdog previously confirmed in July 2024 that it was investigating the technology company over alleged anti-competitive practices.\nNvidia did not immediately respond to a request for comment from MT Newswires.",
+        "highlights": []
+      },
+      "421AA5AD01F56238AA47A754D0B5F276-1": {
+        "ref_id": 17,
+        "document_id": "421AA5AD01F56238AA47A754D0B5F276",
+        "headline": "NVIDIA unlocks AI compute at scale, inviting partners to power the AI infrastructure buildout",
+        "ts": "2026-07-08T07:24:24",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "94BE1F",
+        "source_name": "ZAWYA by Refinitiv (Press Releases)",
+        "source_rank": 1,
+        "url": "https://www.zawya.com/en/press-release/companies-news/nvidia-unlocks-ai-compute-at-scale-inviting-partners-to-power-the-ai-infrastructure-buildout-mvc48c9n",
+        "chunk_id": 1,
+        "text": "NVIDIA is partnering with AI clouds to deploy large-scale, multi-tenant AI factories, aligning economics through a revenue-sharing and credit-support model.\nAs AI moves from model development to production inference, compute demand is accelerating and shifting toward continuously operating AI factories that generate tokens at scale. This shift requires access to large-scale, multi-tenant accelerated computing that can come online quickly, stay highly utilized and support the economics of token-scale AI services.\nEmerging AI companies historically have had limited access to capital-intensive infrastructure, with even long-term commitments insufficient to unlock financing for compute.\nTo address this, NVIDIA is introducing a new business model that opens up compute access to the fast-growing AI ecosystem of startups, model builders, enterprises, research organizations and regional AI players.",
+        "highlights": []
+      },
+      "421AA5AD01F56238AA47A754D0B5F276-2": {
+        "ref_id": 18,
+        "document_id": "421AA5AD01F56238AA47A754D0B5F276",
+        "headline": "NVIDIA unlocks AI compute at scale, inviting partners to power the AI infrastructure buildout",
+        "ts": "2026-07-08T07:24:24",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "94BE1F",
+        "source_name": "ZAWYA by Refinitiv (Press Releases)",
+        "source_rank": 1,
+        "url": "https://www.zawya.com/en/press-release/companies-news/nvidia-unlocks-ai-compute-at-scale-inviting-partners-to-power-the-ai-infrastructure-buildout-mvc48c9n",
+        "chunk_id": 2,
+        "text": "This new model enables AI clouds to procure NVIDIA infrastructure for AI-native, enterprise and ISV customers through economic alignment with a revenue-sharing and credit-support model. Through the partnership, AI clouds will sell NVIDIA-powered cloud services, with NVIDIA earning both standard product revenue and a share of the cloud revenue on the supported capacity. This structure accelerates adoption of NVIDIA platforms among the high-growth, high-conviction AI native sector, and provides NVIDIA with a recurring, usage-linked earnings stream.\nFor model builders, inference providers, agent platforms and enterprises scaling AI, it can mean faster access to full-stack accelerated computing without waiting through site selection, power procurement, construction and hardware bring-up.",
+        "highlights": []
+      },
+      "DE6D42B9E3228D7A6E9FAF5E0DBAA1CB-11": {
+        "ref_id": 56,
+        "document_id": "DE6D42B9E3228D7A6E9FAF5E0DBAA1CB",
+        "headline": "Why Half the AI Data Centers in America Will Never Get Built",
+        "ts": "2026-07-08T12:00:54",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "5A5702",
+        "source_name": "Benzinga",
+        "source_rank": 1,
+        "url": "https://www.benzinga.com/node/60328077?utm_campaign=partner_feed&utm_medium=feed&utm_source=ravenpack",
+        "chunk_id": 11,
+        "text": "NVIDIA Corporation (NASDAQ:NVDA) reported record Q1 FY2027 revenue of $81.6 billion, up 85% year over year, with data center revenue alone hitting $75.2 billion, a 92% jump from the same period last year. CEO Jensen Huang closed out the earnings call with a line that landed as more observation than boast: \"Demand has gone parabolic.\"\nThe driver is agentic AI. Where conversational AI tools are relatively token-efficient, coding agents and multi-agent systems can consume anywhere from 5 to 30 times more compute per task. That multiplier effect is running straight through NVIDIA's order books. Hyperscalers made up slightly over half of NVIDIA's data center revenue, but the rest of the customer base is growing faster, a sign that enterprise adoption is broadening.",
+        "highlights": []
+      },
+      "96F102F60CD028669BEAA5A12F6A6151-14": {
+        "ref_id": 58,
+        "document_id": "96F102F60CD028669BEAA5A12F6A6151",
+        "headline": "Nvidia at $197: last dip before $300, or first leg to $150?",
+        "ts": "2026-07-06T11:00:26",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "B10889",
+        "source_name": "FinanceFeeds",
+        "source_rank": 1,
+        "url": "https://financefeeds.com/nvidia-nvda-price-prediction-197-300-bull-150-bear/",
+        "chunk_id": 14,
+        "text": "What are the key numbers in Nvidia's latest earnings?\nQ1 FY2027 (reported May 20, 2026): revenue $81.6 billion (+85% y/y), Data Center revenue $75.2 billion (+92%), gross margin ~75%, Q2 guidance $91 billion ±2%, an $80 billion additional buyback authorisation, and a dividend raise from $0.01 to $0.25 per share.\nRelated: Nvidia stock price prediction: $250-$500 NVDA scenarios\nWhat would confirm the bearish scenario for NVDA?\nThree observable triggers: B200 rental prices breaking below $3/hour in H2 2026, any top-four hyperscaler guiding AI capex down at its next earnings, or the December Fed meeting delivering the full 50bp of priced hikes. Any two together put the $150 scenario in play; absent all three, the drawdown reads as multiple compression, not demand destruction.",
+        "highlights": []
+      },
+      "DF864F9F1AB71A7B8681986B8F148FA9-11": {
+        "ref_id": 2,
+        "document_id": "DF864F9F1AB71A7B8681986B8F148FA9",
+        "headline": "Palantir: too tied to Trump?",
+        "ts": "2026-07-08T04:00:09",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "DA9FC6",
+        "source_name": "Financial Times",
+        "source_rank": 1,
+        "url": "https://www.ft.com/content/21038b20-646e-4773-a473-110c2d62ab15",
+        "chunk_id": 11,
+        "text": "The company is facing widespread resistance in Europe, with government agencies in Switzerland, Germany and France rejecting or replacing its tools due to political and sovereignty concerns.\nIn the UK, Palantir's biggest market outside the US, London mayor Sadiq Khan blocked a £50mn contract last month with the Metropolitan Police. The Labour government is reviewing a £330mn deal with the NHS, although the company remains embedded in several UK intelligence agencies.\nIn the US, concrete actions against Palantir have been confined to towns and cities and smaller clients such as New York hospitals. But the political backlash has been severe. Democratic senators including Elizabeth Warren last year accused Palantir of making \"huge profits by enabling violations of human rights by authoritarian governments\" and pledged to investigate. A progressive pressure group, Purge Palantir, has secured commitments from a dozen Democrats to refuse or return Palantir-linked contributions.",
+        "highlights": []
+      },
+      "D0645BA37FA654D36D41FA690E057197-2": {
+        "ref_id": 4,
+        "document_id": "D0645BA37FA654D36D41FA690E057197",
+        "headline": "Palantir says UK police contract wrongly blocked over perceived 'values'",
+        "ts": "2026-07-09T21:41:46",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "E5AA62",
+        "source_name": "Yahoo! Finance",
+        "source_rank": 2,
+        "url": "https://uk.finance.yahoo.com/news/palantir-says-uk-police-contract-113826735.html",
+        "chunk_id": 2,
+        "text": "Palantir's supply of &#8288;software for the U.S. military and immigration services, plus billionaire co-founder Peter Thiel's political views, have drawn scrutiny as European governments grow increasingly wary about dependency on U.S.  tech  platforms.\nThe company is challenging the refusal at  London's High Court, arguing the decision unlawfully took a view of Palantir's values and ethics into account, which Khan's office denies.\nPalantir's lawyer David Pannick said the Met \"desperately needed technology in order to save money\" and that the force argued the deal \"would enable them to protect frontline services\".\nThe Mayor's Office for Policing and Crime, however, said in court filings that the contract was not approved because the  Met did not obtain approval for its procurement  strategy and only spoke to  one supplier.\nJudge Adam Constable said a trial of Palantir's case would take place in January, rejecting  the company's request for  an earlier hearing later this year.\nBritain is also conducting a review of a £330 million National Health Service contract with Palantir, while a parliamentary committee  last month said the company had a \"clear mismatch with UK values\" and recommended using a  break clause, a suggestion Palantir's British CEO Louis Mosley called \"irresponsible.\"\n(Reporting by Sam TobinEditing by Tomasz Janowski)",
+        "highlights": []
+      },
+      "03D6CCA3AF191447AFFAD064C0B14E46-1": {
+        "ref_id": 15,
+        "document_id": "03D6CCA3AF191447AFFAD064C0B14E46",
+        "headline": "Palantir enters enterprise expansion agreement with GNP Seguros",
+        "ts": "2026-07-07T11:02:38",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "B5235B",
+        "source_name": "The Fly",
+        "source_rank": 1,
+        "url": null,
+        "chunk_id": 1,
+        "text": "Palantir Technologies anounced an enterprise expansion agreement with GNP Seguros. This alliance marks a milestone for Palantir, as GNP Seguros becomes Palantir's first publicly announced commercial customer in Latin America. Palantir's platforms are designed to help insurers improve customer service, augment the judgment of claims and underwriting professionals, and provide a scalable, secure, and governed foundation for enterprise AI. GNP Seguros has used Palantir's Foundry and Artificial Intelligence Platform in targeted deployments to detect claims fraud, monitor risk, and improve underwriting. As GNP Seguros scales these capabilities across its health, life, auto, and damage insurance portfolios, Foundry and AIP will unify claims, underwriting, operations, and risk data into a single operational foundation. This enables teams to identify anomalous claims patterns, flag potential fraud before payments are made, surface risk insights faster, and test underwriting changes in near real time while maintaining human oversight, traceability, and governance.",
+        "highlights": []
+      },
+      "59D3AF68C555E8ACC3D6BCBA0F7303F7-1": {
+        "ref_id": 16,
+        "document_id": "59D3AF68C555E8ACC3D6BCBA0F7303F7",
+        "headline": "Palantir Technologies Announces Enterprise Expansion Agreement With GNP Seguros To Deploy AI For Claims Fraud Detection, Precision Underwriting",
+        "ts": "2026-07-07T11:00:45",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "5A5702",
+        "source_name": "Benzinga",
+        "source_rank": 1,
+        "url": "https://www.benzinga.com/node/60299503?utm_campaign=partner_feed&utm_medium=feed&utm_source=ravenpack",
+        "chunk_id": 1,
+        "text": "Mexico's largest insurer leverages Palantir's AI platform to detect claims fraud, sharpen underwriting precision, process claims more effectively, and bring high-quality insurance coverage to people in Mexico.\nPalantir Technologies Inc. (NASDAQ:PLTR) announced today an enterprise expansion agreement with GNP Seguros (Grupo Nacional Provincial), the largest insurer in Mexico and part of the prominent Grupo BAL consortium. This alliance marks a milestone for Palantir, as GNP Seguros becomes Palantir's first publicly announced commercial customer in Latin America.\nPalantir's platforms are designed to help insurers improve customer service, augment the judgment of claims and underwriting professionals, and provide a scalable, secure, and governed foundation for enterprise AI.",
+        "highlights": []
+      },
+      "9580464D667CD0E1BD9B363568245ED7-2": {
+        "ref_id": 28,
+        "document_id": "9580464D667CD0E1BD9B363568245ED7",
+        "headline": "What Is Going on With Palantir Stock on Wednesday?",
+        "ts": "2026-07-08T16:34:48",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "5A5702",
+        "source_name": "Benzinga",
+        "source_rank": 1,
+        "url": "https://www.benzinga.com/node/60339259?utm_campaign=partner_feed&utm_medium=feed&utm_source=ravenpack",
+        "chunk_id": 2,
+        "text": "The company generated nearly $2.2 billion in federal contract revenue in the 12 months after Trump returned to office, up 65% from the prior year, while its commercial revenue more than doubled.\nAI Competition and Talent Pressure Intensify\nPalantir also faces pressure from AI rivals. Michael Burry has argued that Anthropic is \"eating Palantir's lunch\" and placed a large bet against Palantir's stock.\nPalantir chief Alex Karp pushed back, saying large AI models create problems as well as solve them, while Palantir helps customers solve those problems themselves.\nFrom a trend perspective, Palantir is still working through a longer-term downtrend: it's trading 18.6% below its 200-day SMA ($157.31) and 7.9% below its 100-day SMA ($139.05), even though it's 2.5% above the 20-day SMA ($125.06). The moving-average stack stays bearish, with the 20-day SMA below the 50-day SMA and the Death Cross (50-day below 200-day) that formed in February still in effect.",
+        "highlights": []
+      },
+      "EB8909B5F46C5A22B3DC35E96D6B8ADE-1": {
+        "ref_id": 42,
+        "document_id": "EB8909B5F46C5A22B3DC35E96D6B8ADE",
+        "headline": "Palantir, SNP SE announce strategic partnership at Transformation World",
+        "ts": "2026-07-08T09:22:41",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "B5235B",
+        "source_name": "The Fly",
+        "source_rank": 1,
+        "url": null,
+        "chunk_id": 1,
+        "text": "SNP SE and Palantir announced a strategic partnership at SNP's event, Transformation World, in Heidelberg, Germany. The collaboration positions SNP to develop new AI-powered solutions with an aligned approach to accelerate SAP transformations for joint customers. The two partners will offer solutions for mission-critical challenges across all types of SAP projects. The first joint solution, Test Data Proposal, solves a so far highly manual area of SAP migrations, the identification of relevant test data for given customer test cases. By leveraging AI, this process runs automatically. Test Data Proposal will expand SNP's proven Kyano platform. As part of the partnership, SNP and Palantir are also collaborating in large-scale moves to SAP Cloud ERP applications where customers seek to accelerate these modernization programs.",
+        "highlights": []
+      },
+      "3A0CFB0804BD44B1F8002E162B52C51A-6": {
+        "ref_id": 1,
+        "document_id": "3A0CFB0804BD44B1F8002E162B52C51A",
+        "headline": "Benzinga Bulls and Bears: AeroVironment, Reddit, Oracle - And Stocks End Week on High Note",
+        "ts": "2026-07-04T13:21:07",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "5A5702",
+        "source_name": "Benzinga",
+        "source_rank": 1,
+        "url": "https://www.benzinga.com/node/60268467?utm_campaign=partner_feed&utm_medium=feed&utm_source=ravenpack",
+        "chunk_id": 6,
+        "text": "\"Google Takes One-Two Antitrust Punch: Yelp Win, $1.5 Billion Klarna Ruling,\" by Piero Cingari, reports that Alphabet Inc. (NASDAQ:GOOGL) suffered two significant antitrust setbacks as a U.S. federal judge ruled that Yelp Inc. (NYSE:YELP) can rely on the Justice Department's prior finding that Google holds monopoly power in general search, eliminating the need to prove that issue in its own lawsuit, while a Swedish court separately ordered Google to pay about $1.5 billion in damages (approximately $1.97 billion including interest) to Klarna Group's PriceRunner over allegations that Google unlawfully favored its own shopping comparison service in search results. The twin rulings add to mounting global regulatory pressure on Google and could strengthen future antitrust claims against the company in both the U.S. and Europe.",
+        "highlights": []
+      },
+      "7C8267469AAB56F589C444EDAB13A75A-5": {
+        "ref_id": 6,
+        "document_id": "7C8267469AAB56F589C444EDAB13A75A",
+        "headline": "Alphabet Stock Has Doubled in a Year. Is It Too Late to Buy?",
+        "ts": "2026-07-05T18:33:57",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "7DFD4A",
+        "source_name": "Nasdaq",
+        "source_rank": 2,
+        "url": "https://www.nasdaq.com/articles/alphabet-stock-has-doubled-year-it-too-late-buy",
+        "chunk_id": 5,
+        "text": "Still, buyers today should keep three risks in view.\nFirst, the growth requires staggering investment. Alphabet has lifted its planned 2026 capital spending to as much as $190 billion, and management expects the figure to rise significantly again in 2027. Returns on that capital could take years to prove out.\nSecond, the bar is high. After cloud revenue accelerated significantly in Q1 to an impressive 63% year-over-year rate, investors will likely expect further acceleration throughout the year. And the same cloud backlog that gives investors visibility also means they have high expectations.\nThird, a stock that doubles in a year can retrace sharply on sentiment alone. Alphabet's own 12% slide from its high in recent weeks is a mild preview of what a broader AI-spending scare could do.",
+        "highlights": []
+      },
+      "C24D7081469FA25C7463424F1360FA88-1": {
+        "ref_id": 7,
+        "document_id": "C24D7081469FA25C7463424F1360FA88",
+        "headline": "Alphabet Q2 Earnings Preview: What To Expect From Upcoming Report",
+        "ts": "2026-07-07T13:48:10",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "E5AA62",
+        "source_name": "Yahoo! Finance",
+        "source_rank": 2,
+        "url": "https://finance.yahoo.com/markets/stocks/articles/alphabet-q2-earnings-preview-expect-134252050.html",
+        "chunk_id": 1,
+        "text": "This article first appeared on GuruFocus.\nAlphabet (NASDAQ:GOOG) is expected to post another quarter of double-digit profit growth when it reports second-quarter results on July 22, as investors look for more evidence that its artificial intelligence investments are driving earnings.\nWall Street analysts expect Alphabet (NASDAQ:GOOG) to earn $2.86 per share for the quarter, up 23.8% from a year earlier. The company has exceeded consensus earnings estimates in each of the past four quarters, including the prior quarter when earnings climbed to $5.11 per share, beating analyst expectations.\nAlphabet continues to benefit from growth across its search advertising, Google Cloud and AI businesses. Analysts also project fiscal 2026 earnings per share of $14.32, representing 32.5% annual growth, followed by a further increase to $14.85 in fiscal 2027.\nShares of Alphabet have risen about 98% over the past year, outperforming the S&P 500 and the Communication Services Select Sector SPDR Fund. While the stock recently eased after the company raised equity to help finance its AI expansion, analysts remain optimistic, with 43 of 53 rating the shares a Strong Buy and an average price target implying roughly 22% upside, according to the report.",
+        "highlights": []
+      },
+      "AE2A49011068FDF92B7FC8BC6223BA28-97": {
+        "ref_id": 9,
+        "document_id": "AE2A49011068FDF92B7FC8BC6223BA28",
+        "headline": "Global Artificial Intelligence Industry July 2026",
+        "ts": "2026-07-06T11:57:02",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "8DAB14",
+        "source_name": "GSBR Research Private Limited",
+        "source_rank": 1,
+        "url": "https://research.bluematrix.com/docs/pdf/dd97c29b-9379-42ad-8ffa-7a592705a591/548e0911-b072-499a-81df-7b6d53253023",
+        "chunk_id": 97,
+        "text": "Recent Developments\nOn June 03, 2026, Alphabet priced its previously announced Class A and Class C share offerings and mandatory convertible preferred stock, increasing its total planned equity raise to $84.75 billion from $80 billion, including its $40 billion ATM program and a $10 billion private placement.\nfocuses on AI recommendations, conversational interactions, and more seamless customer engagement.\nOn May 05, 2026, Alphabet Inc. launched a new euro bond sale of at least EUR3 billion across six tranches, the longest bond (maturing in 2063) is priced around 205 basis points above mid-swaps. Proceeds will be used for general corporate purposes, including debt repayment.\nOn May 28, 2026, Workday and Google Cloud expanded their strategic partnership to bring HR and finance AI agents closer to employees' daily workflows, reinforcing Google Cloud's push to embed agentic AI into core business applications. EQT and Google Cloud also announced partnership to accelerate AI transformations among EQT's 300-plus global portfolio companies.",
+        "highlights": []
+      },
+      "5CE634AE4B61E75058EDDDBC7BCAC8EC-3": {
+        "ref_id": 11,
+        "document_id": "5CE634AE4B61E75058EDDDBC7BCAC8EC",
+        "headline": "Dear Google Stock Fans, Mark Your Calendars for July 22",
+        "ts": "2026-07-03T21:27:39",
+        "document_scope": "Unknown",
+        "language": "Unknown",
+        "source_key": "E5AA62",
+        "source_name": "Yahoo! Finance",
+        "source_rank": 2,
+        "url": "https://finance.yahoo.com/markets/stocks/articles/dear-google-stock-fans-mark-151501022.html",
+        "chunk_id": 3,
+        "text": "Alphabet's stock has posted impressive gains during the past year, fueled by growing investor confidence in the company's AI strategy, expanding cloud business, and ability to monetize its broad ecosystem. Shares have surged 101.5% over the past 52 weeks, underscoring Wall Street's optimism about Alphabet's long-term AI-driven growth prospects. The stock has also gained 15% year-to-date (YTD).\nThe company has continued to strengthen its Gemini AI platform by introducing new models. It has recently announced the launch of two new AI models: Nano Banana 2 Lite and Gemini Omni Flash, designed to make advanced generative AI faster, more efficient, and more accessible.",
+        "highlights": []
+      }
+    }
+  }

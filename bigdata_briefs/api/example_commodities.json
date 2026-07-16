@@ -1,0 +1,676 @@
+
+{
+  "watchlist_id": "e3e9d089-0668-4e2b-85f6-4179a447e3c9",
+  "watchlist_name": "Commodities",
+  "is_empty": false,
+  "start_date": "2026-07-10T00:00:00",
+  "end_date": "2026-07-10T00:00:00",
+  "novelty": true,
+  "report_title": "India Sugar Exports Plummet to 800,000 Tons",
+  "introduction": "* **Sugar** exports from India are set to plummet to 800,000 tons for 2026/27, down from 6.8 million tons, due to reduced domestic supply and increased ethanol production, potentially necessitating imports.\n\n* **QatarEnergy** halts LNG production ramp-up at Ras Laffan due to safety concerns from an Iranian attack, with 2026 output expected to plummet to 35 million tonnes, creating a significant global supply gap.\n\n* **Cotton** faces a 3.1% global production decline for 2026/27, with US output down 4.3% to 2.9 million tons, while India's planting area surges over 13%, potentially boosting production to 12-15 million bales.\n\n* **Nestlé** invests USD 688 million in a smart factory in Thailand, leveraging AI and automation to enhance coffee production and logistics, while committing to USD 130 million in local agricultural sourcing annually.\n\n* **Heating Oil** supply tightens as U.S. Treasury halts Iranian oil exports, with U.S. inventories down 434,000 barrels, driving prices up significantly amid escalating geopolitical tensions.\n\n* **Platinum** experiences a surge in semiconductor demand, with a projected 22.7% CAGR to 26.44 tons by 2030, while advanced tech applications could drive a staggering 45.3% CAGR in long-term demand.",
+  "entity_reports": [
+    {
+      "entity_id": "F0DC7A",
+      "entity_info": {
+        "id": "F0DC7A",
+        "name": "Sugar",
+        "description": "Sugar is a sweet substance usually in the form of white or brown crystals or white powder that comes from plants. Its is mainly used as a food sweetener. ",
+        "entity_type": "concepts"
+      },
+      "content": [
+        {
+          "bullet_point": "The ongoing El Niño phenomenon is expected to severely impact sugar production in India, with reduced monsoon rainfall likely leading to lower sugarcane yields and a significant decrease in total sugar output, which could reshape the global sugar trade landscape.",
+          "sources": [
+            "28D0DA2BFD765044DE2FF631ED3B48CA-1"
+          ]
+        },
+        {
+          "bullet_point": "India's sugar exports are projected to plummet to about 800,000 tons due to reduced domestic sugar supply and increased ethanol production, marking a significant decline from previous averages of 6.8 million tons, which may necessitate sugar imports by the 2027-28 crushing season.",
+          "sources": [
+            "EDEE42D0E388D658DF0347AE28F2E79C-1",
+            "EDEE42D0E388D658DF0347AE28F2E79C-2"
+          ]
+        },
+        {
+          "bullet_point": "**Sugar** experiences a bearish market trend as of July 8, 2026, with domestic Nanning white sugar prices at 5280 yuan/ton, down 20 yuan/ton, and the main Zheng sugar contract closing at 5271 yuan/ton, down 45 yuan/ton, amid significant supply pressure and slow sales progress.",
+          "sources": [
+            "079062281D021728FDD99BB8AECBB729-30"
+          ]
+        },
+        {
+          "bullet_point": "The global sugar market is projected to face a modest deficit of 600,000 metric tons in the 2026/27 season, primarily due to reduced output in the European Union, where a record heatwave has adversely affected sugar beet crops, leading to a forecasted production drop to 13.9 million tonnes.",
+          "sources": [
+            "B6A076A1C51F9C808073C6559B45ABE1-1"
+          ]
+        },
+        {
+          "bullet_point": "Brazil's sugar production forecast for the 2026/27 season has been revised down to 42.5 million tonnes, a 3% year-on-year decline, as millers are expected to crush more cane for ethanol rather than sugar, influenced by lower oil prices and the ongoing El Niño risks.",
+          "sources": [
+            "C688A2A3A3F8E4FF7CF656EECF777C7A-151"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_id": "42470E",
+      "entity_info": {
+        "id": "42470E",
+        "name": "Natural Gas",
+        "description": "Natural gas is a mixture of gases which are rich in hydrocarbons. It is used for heating and generating electricity.",
+        "entity_type": "concepts"
+      },
+      "content": [
+        {
+          "bullet_point": "**QatarEnergy** pauses LNG production ramp-up at the Ras Laffan complex following an Iranian attack on one of its tankers, raising safety concerns and leading to reduced operations and vessel docking schedules. This disruption could tighten global LNG supplies and intensify competition for cargoes ahead of winter.",
+          "sources": [
+            "ADC5476783D570856337F7B5CB1246A9-1"
+          ]
+        },
+        {
+          "bullet_point": "**Qatar's** LNG production is expected to fall significantly due to ongoing geopolitical tensions, with forecasts indicating a drop from 79 million tonnes in 2025 to about 35 million tonnes in 2026. Repairs to damaged facilities are projected to take 3 to 5 years, leading to a structural supply gap in the global LNG market.",
+          "sources": [
+            "003EC22525D12798CD9D81B12BBDF2DC-279"
+          ]
+        },
+        {
+          "bullet_point": "**U.S. LNG** exports are expected to surge as global demand for liquefied natural gas rises, driven by the growth of AI and hyperscale data centers. The U.S. is positioned as the top LNG exporter, with significant investments in gas-fired capacity projected to triple by 2031, further supported by geopolitical tensions affecting Middle Eastern supplies.",
+          "sources": [
+            "EEAEFCC0297E58F15A5D6756B6D2CD79-1"
+          ]
+        },
+        {
+          "bullet_point": "**Kinder Morgan** (KMI) reports a 41% year-over-year increase in adjusted EPS to $0.44 and an 18% rise in adjusted EBITDA, driven by strong performance in natural gas transportation amid tight market conditions. The company anticipates U.S. gas demand to reach 150 Bcf/d by 2031, supported by LNG feedgas deliveries and new gas-fired generation.",
+          "sources": [
+            "94B82B070137384B87E7655759124711-9",
+            "94B82B070137384B87E7655759124711-15"
+          ]
+        },
+        {
+          "bullet_point": "**Global LNG supply** is forecasted to contract by 4.1% in 2026 due to the prolonged shutdown of Qatar's LNG plants, with the U.S. and Canada unable to fully offset the shortfall. This contraction is expected to maintain tighter market conditions through 2026 and 2027, impacting pricing and availability.",
+          "sources": [
+            "003EC22525D12798CD9D81B12BBDF2DC-279"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_id": "DB547A",
+      "entity_info": {
+        "id": "DB547A",
+        "name": "Cotton",
+        "description": "Cotton is a soft, white material that grows on the seeds of a tall plant. it is mainly used in textile products like underwear, socks and t-shirts.",
+        "entity_type": "concepts"
+      },
+      "content": [
+        {
+          "bullet_point": "**USDA** forecasts global cotton production for the 2026/27 season at 25.3 million tons, reflecting a 3.1% year-on-year decrease, with US production expected to decline by 4.3% to 2.9 million tons and China's output projected to fall by 5% to 7.3 million tons.",
+          "sources": [
+            "079062281D021728FDD99BB8AECBB729-29"
+          ]
+        },
+        {
+          "bullet_point": "**Xinjiang cotton** faces significant yield risks due to continuous high temperatures exceeding 40°C, which may lead to reduced boll formation and shedding, threatening overall production quality and quantity during the critical flowering stage.",
+          "sources": [
+            "ECF2378D01D14B902E03826E50728AE4-1"
+          ]
+        },
+        {
+          "bullet_point": "**India's cotton planting area** for the 2026 season is projected to increase by over 13%, with expectations of a production rebound, leading to a procurement volume expansion to 12-15 million bales for the 2026/27 season.",
+          "sources": [
+            "D77B1898A15094456C150A9B76ADA91A-6"
+          ]
+        },
+        {
+          "bullet_point": "**US cotton prices** have shown a bearish trend, with the main contract fluctuating around 16,000 yuan/ton, as high temperatures in Xinjiang raise concerns about yield and quality, while downstream demand remains weak amid the textile off-season.",
+          "sources": [
+            "ECF2378D01D14B902E03826E50728AE4-3"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_id": "3C09B8",
+      "entity_info": {
+        "id": "3C09B8",
+        "name": "Coffee",
+        "description": "Coffee beans are the roasted seeds of the coffee plant when whole or ground. They are mainly used to make coffee. ",
+        "entity_type": "concepts"
+      },
+      "content": [
+        {
+          "bullet_point": "**Nestlé** (NSRGY) announces a USD 688 million investment to construct a smart factory and distribution center in Thailand, enhancing its strategic production and logistics hub for Southeast Asia.",
+          "sources": [
+            "61ABEF5C82139665595EBFD05A0C162D-1"
+          ]
+        },
+        {
+          "bullet_point": "The investment will utilize artificial intelligence and advanced automation, aiming to strengthen the entire coffee value chain from farming to logistics, while sourcing USD 130 million worth of local agricultural inputs annually.",
+          "sources": [
+            "61ABEF5C82139665595EBFD05A0C162D-3"
+          ]
+        },
+        {
+          "bullet_point": "**Lavazza** warns that UK consumers should expect high coffee prices for at least two more years due to geopolitical tensions and climate change, with Arabica prices soaring by 230% since 2021 and Robusta by 325%.",
+          "sources": [
+            "9B52C3FAB821BFA0FAA671B92D4FCDEA-1"
+          ]
+        },
+        {
+          "bullet_point": "The company highlights that the coffee market is experiencing exceptional volatility, with recent heavy rains in Brazil disrupting fieldwork and potentially lowering crop quality, further complicating price stability.",
+          "sources": [
+            "FC7B16885B141D25E16753975E6AD2AB-2"
+          ]
+        },
+        {
+          "bullet_point": "Analysts predict that El Niño weather patterns could significantly impact Brazil's coffee production, particularly during the critical flowering period from August to October, raising concerns about future crop yields.",
+          "sources": [
+            "003EC22525D12798CD9D81B12BBDF2DC-37",
+            "003EC22525D12798CD9D81B12BBDF2DC-55"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_id": "99AA98",
+      "entity_info": {
+        "id": "99AA98",
+        "name": "Heating Oil",
+        "description": "Heating oil is a liquid product derived from petroleum distillation as a by-product of crude oil. It is mainly used in furnaces, central heating systems, and industrial furnaces. ",
+        "entity_type": "concepts"
+      },
+      "content": [
+        {
+          "bullet_point": "The U.S.-Iran conflict is significantly impacting heating oil supply, with the U.S. Treasury terminating the general license for Iranian oil exports on July 7, 2026, which is expected to tighten global crude oil supply and elevate prices.",
+          "sources": [
+            "4A1696B442B247C7807E4A84A4BE5E4A-2"
+          ]
+        },
+        {
+          "bullet_point": "Heating oil inventories in the U.S. decreased by 434,000 barrels for the week ending July 3, 2026, indicating a tightening supply situation amid geopolitical tensions.",
+          "sources": [
+            "AF6C813BFD5F64D8372F22FB4531A958-23"
+          ]
+        },
+        {
+          "bullet_point": "Heating oil prices in Scotland have surged, with average costs rising from 67.92p per litre on February 28 to 147p per litre by March 8, reflecting the broader impact of rising crude oil prices due to the U.S.-Iran conflict.",
+          "sources": [
+            "5EB9467C09DD856CEB23EA9EDF724FAD-2"
+          ]
+        },
+        {
+          "bullet_point": "The ongoing military actions between the U.S. and Iran have led to increased fears of disruptions in the Strait of Hormuz, a critical shipping route for oil, which could further escalate heating oil prices in the near term.",
+          "sources": [
+            "B4D296395D27BC3199361A61624852C2-1",
+            "B4D296395D27BC3199361A61624852C2-5"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_id": "BF381E",
+      "entity_info": {
+        "id": "BF381E",
+        "name": "Platinum",
+        "description": "Platinum is a precious silvery-white metal. It is mainly used in jewellery, electrical contacts, laboratory equipment, and industrial catalysts.",
+        "entity_type": "concepts"
+      },
+      "content": [
+        {
+          "bullet_point": "**Platinum** faces significant supply chain risks due to geopolitical instability in major producing regions, particularly South Africa, which directly impacts mining and exports.",
+          "sources": [
+            "E6B303C5456ADF5933355683C9C056CD-2"
+          ]
+        },
+        {
+          "bullet_point": "The demand for platinum in the semiconductor sector surged by 11% year-on-year in 2025, reaching 8.1 tons, with projections indicating it could rise to 26.44 tons by 2030, reflecting a compound annual growth rate of 22.7% from 2026 to 2030.",
+          "sources": [
+            "2984F2EB38AE4B12DD95F8DFFDAAB312-2"
+          ]
+        },
+        {
+          "bullet_point": "Platinum's applications in advanced technologies, including brain-computer interfaces, are expected to drive long-term demand growth, with a remarkable compound annual growth rate of 45.3% despite a small base.",
+          "sources": [
+            "2984F2EB38AE4B12DD95F8DFFDAAB312-3"
+          ]
+        }
+      ]
+    }
+  ],
+  "source_metadata": {
+    "4A1696B442B247C7807E4A84A4BE5E4A-2": {
+      "ref_id": 2,
+      "document_id": "4A1696B442B247C7807E4A84A4BE5E4A",
+      "headline": "S&P 07.08 News - On July 7th, the international crude oil market rose strongly by 3%. This oil price hike is not driven by a single factor. Factors such as the US tightening sanctions on Iranian oil, the shipping security crisis in the Strait of Hormuz, escalating US-Iran tensions, and continued better-than-expected drawdowns in US crude oil inventories have all converged...",
+      "ts": "2026-07-08T01:09:13",
+      "document_scope": "Unknown",
+      "language": "Unknown",
+      "source_key": "825E62",
+      "source_name": "Flush Financial Services Network",
+      "source_rank": 2,
+      "url": "http://goodsfu.10jqka.com.cn/20260708/c678024816.shtml",
+      "chunk_id": 2,
+      "text": "Refined product prices diverged, with heating oil closing slightly higher by 0.10%. However, August RBOB gasoline fell significantly by 1.64%, reflecting weak expectations for summer gasoline demand and a divergence in refinery blending strategies.\nGeopolitical Factors: Tightening US Sanctions on Energy, Shrinking Global Crude Oil Supply Expectations\nOn July 7th, the US Treasury Department officially terminated the general license that allowed Iran to export oil, setting a grace period for concluding transactions only until midnight on July 17th. After this grace period, Iran's cross-border oil sales will be comprehensively restricted, directly shrinking the global supply of circulating crude oil. As a key oil exporter in the Middle East, Iran's regular oil export volume significantly impacts the global supply-demand balance. The previous sanctions exemptions had temporarily eased market supply concerns; this policy reversal directly restores the pricing of geopolitical supply risks.",
+      "highlights": []
+    },
+    "B4D296395D27BC3199361A61624852C2-1": {
+      "ref_id": 14,
+      "document_id": "B4D296395D27BC3199361A61624852C2",
+      "headline": "Oil Heads Back Towards $80: What the Renewed US-Iran Conflict Means for Heating Oil, Petrol and Rural Scotland",
+      "ts": "2026-07-09T05:22:07",
+      "document_scope": "Unknown",
+      "language": "Unknown",
+      "source_key": "4D2451",
+      "source_name": "Caithness Business Index",
+      "source_rank": 4,
+      "url": "https://caithness-business.co.uk/article/32364",
+      "chunk_id": 1,
+      "text": "For a few days it looked as though the worst might be over.\nOil prices had fallen back, hopes of diplomacy were growing, and motorists and households across Britain were beginning to wonder whether fuel costs might finally ease after months of uncertainty.\nThose hopes have been dealt a severe blow.\nFresh military action between the United States and Iran has once again pushed the oil market sharply higher, with Brent crude climbing back towards the psychologically important $80-a-barrel level. Markets are once again focusing on one question above all others: could supplies from the Middle East be disrupted?\nFor most people, oil is something they hear about on the evening news.\nFor people living in Caithness, Sutherland and across the Highlands, it is something they pay for directly.",
+      "highlights": []
+    },
+    "B4D296395D27BC3199361A61624852C2-5": {
+      "ref_id": 16,
+      "document_id": "B4D296395D27BC3199361A61624852C2",
+      "headline": "Oil Heads Back Towards $80: What the Renewed US-Iran Conflict Means for Heating Oil, Petrol and Rural Scotland",
+      "ts": "2026-07-09T05:22:07",
+      "document_scope": "Unknown",
+      "language": "Unknown",
+      "source_key": "4D2451",
+      "source_name": "Caithness Business Index",
+      "source_rank": 4,
+      "url": "https://caithness-business.co.uk/article/32364",
+      "chunk_id": 5,
+      "text": "Heating oil follows a similar pattern, although local suppliers can sometimes adjust prices more rapidly depending upon wholesale costs and available stock.\nCould oil go even higher?\nThat depends almost entirely upon events rather than economics.\nIf military activity remains limited and shipping continues to move safely through the Gulf, prices could settle back into the mid to upper $70s.\nHowever, several developments would almost certainly push prices higher:\nattacks on oil tankers;\nrestrictions on shipping through the Strait of Hormuz;\ndamage to major oil export terminals;\nwider involvement by neighbouring Gulf states;\nprolonged military action lasting weeks rather than days.\nUnder those circumstances, oil above $90 would become increasingly possible.",
+      "highlights": []
+    },
+    "AF6C813BFD5F64D8372F22FB4531A958-23": {
+      "ref_id": 6,
+      "document_id": "AF6C813BFD5F64D8372F22FB4531A958",
+      "headline": "Commodity Hedging Arbitrage Morning Review",
+      "ts": "2026-07-08T01:13:14",
+      "document_scope": "Unknown",
+      "language": "Unknown",
+      "source_key": "825E62",
+      "source_name": "Flush Financial Services Network",
+      "source_rank": 2,
+      "url": "http://goodsfu.10jqka.com.cn/20260708/c678025365.shtml",
+      "chunk_id": 23,
+      "text": "API, for the week ending July 3rd, US crude oil inventories decreased by 399,000 barrels, Cushing crude oil inventories decreased by 69,000 barrels, gasoline inventories decreased by 2,929,000 barrels, distillates inventories decreased by 1,801,000 barrels, heating oil inventories decreased by 434,000 barrels. Crude oil inputs increased by 34,000 barrels/day. Crude oil imports increased by 159,000 barrels, and refined product imports decreased by 325,000 barrels/day.\nIran attacked tankers of Saudi Arabia and Qatar passing through the Strait of Hormuz. In response, the US strikes against Iran this time were four to five times stronger than the previous ones, and the US has reinstated sanctions on Iranian oil, leading to a significant increase in crude oil prices overnight. The EIA has lowered its price forecasts for US and Brent crude for this year and next, expecting most crude oil production to return to pre-war levels by the end of this year, and the oil market to return to a state of oversupply next year, which fundamentally suppresses oil prices. Previously, after the US-Iran memorandum of understanding was reached, oil prices had fallen to February levels before the conflict began, but negotiations are ongoing, and geopolitical uncertainties remain. Coupled with low inventory drawdowns, oil prices have rebounded.",
+      "highlights": []
+    },
+    "5EB9467C09DD856CEB23EA9EDF724FAD-2": {
+      "ref_id": 13,
+      "document_id": "5EB9467C09DD856CEB23EA9EDF724FAD",
+      "headline": "Just £1m of £10m Scottish emergency heating oil fund paid out to households",
+      "ts": "2026-07-07T12:55:29",
+      "document_scope": "Unknown",
+      "language": "Unknown",
+      "source_key": "29062E",
+      "source_name": "Yahoo! News",
+      "source_rank": 3,
+      "url": "https://uk.news.yahoo.com/just-1m-10m-scottish-emergency-120545664.html",
+      "chunk_id": 2,
+      "text": "About 142,000 Scottish households rely on heating oil, with average costs in Scotland rising from 67.92p per litre on 28 February to 147p per litre by 8 March.\nThe Scottish Government's £5.4m contribution came on top of £4.6m from the UK government, more than doubling the support initially available.\nThe then Scottish energy secretary Gillian Martin said at the time that oil prices had been \"spiralling\" and that the UK government's support, while welcome, offered only \"limited\" help to Scottish households.\nIn the Commons, Mr Crichton told MPs: \"When it comes to heating oil, the SNP government boasted that it would add £5.4m to the £4.6m the UK government gave to domestic consumers.\n\"But there's scant evidence that that's reaching my constituents in the Western Isles who have the highest fuel poverty figures in the country.",
+      "highlights": []
+    },
+    "9B52C3FAB821BFA0FAA671B92D4FCDEA-1": {
+      "ref_id": 2,
+      "document_id": "9B52C3FAB821BFA0FAA671B92D4FCDEA",
+      "headline": "Coffee prices not set to ease back for at least two years, says Lavazza",
+      "ts": "2026-07-08T10:47:27",
+      "document_scope": "Unknown",
+      "language": "Unknown",
+      "source_key": "648085",
+      "source_name": "AOL.com",
+      "source_rank": 2,
+      "url": "https://www.aol.co.uk/articles/coffee-prices-not-set-ease-103135000.html",
+      "chunk_id": 1,
+      "text": "UK consumers are unlikely to see a drop in coffee prices for at least two years as geopolitical tensions and climate change drive up costs, Lavazza has said.\nThe Italian coffee giant said the sector had faced \"exceptional volatility\", with Arabica coffee prices increasing by 230% since 2021 and Robusta up by 325% over the same period.\nOn Monday, Arabica coffee soared to a five-and-a-half-month high, and on Tuesday Robusta posted a five-month high amid a delayed coffee harvest in Brazil.\nCoffee prices have moved sharply higher over the past month as heavy rains in Brazil have disrupted fieldwork and may have lowered coffee crop quality.\nAlso, Brazilian coffee farmers are holding back on sales, hoping prices will rise and bracing for the potential impact of this year's El Nino weather event.",
+      "highlights": []
+    },
+    "61ABEF5C82139665595EBFD05A0C162D-1": {
+      "ref_id": 10,
+      "document_id": "61ABEF5C82139665595EBFD05A0C162D",
+      "headline": "Thailand's BOI Approves $688 Million Nestlé Investment for AI-Driven Regional Coffee Hub",
+      "ts": "2026-07-09T00:00:00",
+      "document_scope": "Unknown",
+      "language": "Unknown",
+      "source_key": "923B93",
+      "source_name": "Financial Services Monitor Worldwide",
+      "source_rank": 1,
+      "url": null,
+      "chunk_id": 1,
+      "text": "The Thailand Board of Investment (BOI) approved on 8 July a USD 688 million (23 billion baht) investment by Nestl (Thai) Co., Ltd. to construct a smart factory and distribution center. The greenfield project will deploy artificial intelligence and advanced automation, positioning Thailand as the multinationals strategic production and logistics hub for Southeast Asia.\nMr. Narit Therdsteerasukdi, Secretary General of the Thailand Board of Investment.\nThe approval highlights Thailands accelerating momentum in attracting high-tech, high-value food and beverage manufacturing as global corporations seek resilient, technology-driven supply chains in Southeast Asia.\nThis greenfield investment will support growing domestic and regional market demand while linking directly with our domestic supply chain, said Mr. Narit Therdsteerasukdi, Secretary General of the Thailand Board of Investment. By using local raw materials, helping our farmers and entrepreneurs, and sharing knowledge, this project will boost the potential of the Thai coffee industry and strengthen Thailands position as a key food and beverage hub in the region.",
+      "highlights": []
+    },
+    "61ABEF5C82139665595EBFD05A0C162D-3": {
+      "ref_id": 11,
+      "document_id": "61ABEF5C82139665595EBFD05A0C162D",
+      "headline": "Thailand's BOI Approves $688 Million Nestlé Investment for AI-Driven Regional Coffee Hub",
+      "ts": "2026-07-09T00:00:00",
+      "document_scope": "Unknown",
+      "language": "Unknown",
+      "source_key": "923B93",
+      "source_name": "Financial Services Monitor Worldwide",
+      "source_rank": 1,
+      "url": null,
+      "chunk_id": 3,
+      "text": "Thailand has been an important market for Nestl for more than 130 years, said Mr. Nikhil Chand, Chairman and Chief Executive Officer of Nestl Indochina. This investment reflects our confidence in the country and our commitment to contributing positively to Thai society, the economy, local communities, and the environment. The new facility will use a wide range of locally sourced ingredients including coffee beans, sugar, and fresh milk, further supporting local agriculture and economic development.\nA key factor in the BOIs approval is the projects deep integration into the domestic economy. Nestl will source USD 130 million (4.3 billion baht) worth of local agricultural inputs and raw materials each year.\nIn tandem with the manufacturing expansion, Nestl will drive upstream agricultural development by researching climate-resilient coffee varieties, distributing high-quality saplings, and training local farmers in sustainable, high-yield cultivation practices.\nNestls choice to invest in coffee production here reflects the confidence global investors place in Thailand. It advances our strategy to become a world-leading food and beverage production base, Mr. Narit said. This investment strengthens the entire coffee value chain, from farming and processing to logistics and export. And it builds a stronger, more resource-efficient foundation for Thailands food and beverage industry.\n2025 Global Data Point. All Rights Reserved.",
+      "highlights": []
+    },
+    "003EC22525D12798CD9D81B12BBDF2DC-37": {
+      "ref_id": 30,
+      "document_id": "003EC22525D12798CD9D81B12BBDF2DC",
+      "headline": "Commodity forecast : World",
+      "ts": "2026-07-09T13:10:40",
+      "document_scope": "Unknown",
+      "language": "Unknown",
+      "source_key": "1FBA3D",
+      "source_name": "The Economist",
+      "source_rank": 1,
+      "url": "https://cdn.ravenpack.com/uuid/003EC22525D12798CD9D81B12BBDF2DC/filename/eiu_commodity-forecast_2026-07-09_XA.pdf",
+      "chunk_id": 37,
+      "text": "Overview\n- We expect Arabica and Robusta prices to decline in 2026 and 2027 as the global coffee market shifts from four consecutive years of deficit into surplus. Strong production growth led by Brazil's recovery and improving harvests across other major producers will outpace sluggish consumption growth. We forecast an average Arabica price of US$2.93/lb in 2026 (lowered by 6 US cents/lb to account for an improved production outlook in Brazil), which is 23.9% lower than in 2025, when it was at a record US$3.84/lb. We forecast a further 19.2% decline to US$2.36/lb in 2027.\n- The overall coffee market deficit (Arabica and Robusta) will disappear as production growth outpaces stagnant demand. We estimate a 2.4m-bag deficit in 2024/25, the fourth consecutive annual shortfall, followed by a surplus of 6.4m bags in 2025/26 and 16.9m bags in 2026/27.\n- El Niño is the main upside risk to our price outlook. The US Climate Prediction Centre now assigns a high probability to a strong El Niño developing later in 2026, raising the risk of adverse weather during Brazil's critical August-October flowering period and potentially disrupting the crop. Low global inventories leave prices particularly sensitive to any deterioration in production prospects.\n- After taking a hit last year, Brazilian exports to the US will rebound in 2026. A US executive order in November 2025 exempted coffee from 50% tariffs on imports from Brazil announced in August. Since the US Supreme Court's February 2026 decision to curtail the US president's power to initiate discretionary, country-specific tariffs, coffee imports from individual countries like Brazil, Colombia, Indonesia and Vietnam are less likely to face higher rates.\n- The outlook for global production in 2025/26 and 2026/27 is strong, after adverse weather conditions constrained supply in recent years. We forecast an increase of 4.5% in 2025/26 (a strong outcome for an \"off year\" in Brazil's biennial crop cycle) and 7.1% in 2026/27-the strongest rate in eight years.",
+      "highlights": []
+    },
+    "003EC22525D12798CD9D81B12BBDF2DC-55": {
+      "ref_id": 31,
+      "document_id": "003EC22525D12798CD9D81B12BBDF2DC",
+      "headline": "Commodity forecast : World",
+      "ts": "2026-07-09T13:10:40",
+      "document_scope": "Unknown",
+      "language": "Unknown",
+      "source_key": "1FBA3D",
+      "source_name": "The Economist",
+      "source_rank": 1,
+      "url": "https://cdn.ravenpack.com/uuid/003EC22525D12798CD9D81B12BBDF2DC/filename/eiu_commodity-forecast_2026-07-09_XA.pdf",
+      "chunk_id": 55,
+      "text": "The weather remains the biggest downside risk to our production forecasts, as strong El Niño conditions are expected in the second half of 2026 and in early 2027. In its June 2026 update, the US Climate Prediction Centre gave a 63% probability to a \"very strong\" El Niño over November-January, potentially making it one of the strongest events since records began in 1950. For coffee, the greatest risk falls during Brazil's August- October flowering period, when El Niño-related dryness could damage development of the 2027/28 crop. Although this remains a medium-term risk rather than a baseline assumption, historically low global coffee inventories leave prices highly sensitive to any deterioration in production prospects. Recent seasons have demonstrated the vulnerability of coffee production to ENSO conditions. La Niña typically brings excessive rainfall across much of Asia and drought to Latin America, whereas El Niño generally produces the opposite pattern. Given the limited irrigation infrastructure across many coffee-growing regions, abnormal rainfall patterns can significantly affect global production.\nCommodity forecast: World, July 9th 2026\nEl Niño precipitation impacts\nDry\nWet\n[Map showing El Niño precipitation impacts across the globe, with areas in red indicating dry conditions and areas in blue indicating wet conditions. A legend indicates a gradient from 'Dry' to 'Wet'. Arrows show 'Warm water movements' in the Pacific Ocean, originating near the equator and moving eastwards.]\nSource: EIU.",
+      "highlights": []
+    },
+    "FC7B16885B141D25E16753975E6AD2AB-2": {
+      "ref_id": 42,
+      "document_id": "FC7B16885B141D25E16753975E6AD2AB",
+      "headline": "Coffee Prices Surge on Brazil Weather Risks",
+      "ts": "2026-07-06T20:22:36",
+      "document_scope": "Unknown",
+      "language": "Unknown",
+      "source_key": "7DFD4A",
+      "source_name": "Nasdaq",
+      "source_rank": 2,
+      "url": "https://www.nasdaq.com/articles/coffee-prices-surge-brazil-weather-risks",
+      "chunk_id": 2,
+      "text": "Coffee prices have moved sharply higher over the past month as heavy rains in Brazil have disrupted fieldwork and may have lowered coffee crop quality. Also, Brazilian coffee farmers are holding back on sales, hoping prices will rise and bracing for the potential impact of this year's El Niño weather event.\nICE coffee inventories have trended lower over the past three months, which is also supportive of coffee prices. ICE arabica coffee inventories fell to a 2.25-year low of 366,756 bags on Monday. Meanwhile, ICE robusta inventories fell to a 2-year low of 3,631 lots on May 15 but have since risen to a 3-month high of 4,109 lots last Friday.\nConcerns that an El Niño weather pattern could hurt Brazil's coffee crop next year are bullish for prices. Coffee trader Commercial said the El Niño weather pattern may delay rains in Brazil this September and October, when tree flowering normally occurs, hurting Brazil's 2026/27 coffee crop.",
+      "highlights": []
+    },
+    "E6B303C5456ADF5933355683C9C056CD-2": {
+      "ref_id": 1,
+      "document_id": "E6B303C5456ADF5933355683C9C056CD",
+      "headline": "What is the price of gold per gram at Jiangxi Ganzhou Jinlan Jewelry today? (July 4, 2026)",
+      "ts": "2026-07-04T05:02:03",
+      "document_scope": "Unknown",
+      "language": "Unknown",
+      "source_key": "36DC52",
+      "source_name": "Southmoney",
+      "source_rank": 4,
+      "url": "https://www.southmoney.com/touzilicai/huangjin/202607/66057816.html",
+      "chunk_id": 2,
+      "text": "What affects the trend of platinum prices?\nThe formation of platinum price trends is the inevitable result of the joint action of multiple major factors. The main influencing factors include:\nMacroeconomics and Environment\nEconomic Cycles and Monetary Policy: Global economic fluctuations directly impact industrial production and investment demand. The monetary policies of major central banks, such as the Federal Reserve, indirectly affect platinum prices by influencing capital flows and inflation expectations.\nGeopolitical Risks: Instability or trade restrictions in major producing regions like South Africa directly affect mining and exports.\nSupply-Demand Relationship and Inventory Dynamics\nSupply Gap and Inventory Levels: Global platinum supply remains tight, with a quarterly shortage of 25 tons in Q1 2025. The supply side is constrained by declining mine production and insufficient recycling, while demand growth from investment offsets the decline in industrial and automotive sectors. The trend of declining inventories exacerbates market expectations of supply tightness.",
+      "highlights": []
+    },
+    "2984F2EB38AE4B12DD95F8DFFDAAB312-2": {
+      "ref_id": 5,
+      "document_id": "2984F2EB38AE4B12DD95F8DFFDAAB312",
+      "headline": "Youyan Yijin's Dong Tingyi: Platinum Group Metals Drive High Growth in Demand for Semiconductor and Electronic Fields",
+      "ts": "2026-07-08T06:22:42",
+      "document_scope": "Unknown",
+      "language": "Unknown",
+      "source_key": "825E62",
+      "source_name": "Flush Financial Services Network",
+      "source_rank": 2,
+      "url": "http://news.10jqka.com.cn/20260708/c678033478.shtml",
+      "chunk_id": 2,
+      "text": "Dong Tingyi stated that as chip processes advance from 130 nanometers to higher processes, the reduction in wire cross-sectional area leads to increased resistance. Among platinum group metals, ruthenium and rhodium show significantly less resistance increase than traditional metals like copper when the film thickness is reduced, making them potential candidates for next-generation interconnect materials. Ruthenium is primarily used as a barrier layer material in advanced logic chips and storage chips (886042), and is indispensable in processes below 7 nanometers.\nDong Tingyi said that in 2025, global demand for platinum in the semiconductor (881121) and electronics fields increased by 11% year-on-year, reaching 8.1 tons. It is estimated that by 2030, the demand for platinum in this field will reach 26.44 tons, accounting for about 9.42% of the total global platinum demand, with an average annual compound growth rate of 22.7% from 2026 to 2030.",
+      "highlights": []
+    },
+    "2984F2EB38AE4B12DD95F8DFFDAAB312-3": {
+      "ref_id": 9,
+      "document_id": "2984F2EB38AE4B12DD95F8DFFDAAB312",
+      "headline": "Youyan Yijin's Dong Tingyi: Platinum Group Metals Drive High Growth in Demand for Semiconductor and Electronic Fields",
+      "ts": "2026-07-08T06:22:42",
+      "document_scope": "Unknown",
+      "language": "Unknown",
+      "source_key": "825E62",
+      "source_name": "Flush Financial Services Network",
+      "source_rank": 2,
+      "url": "http://news.10jqka.com.cn/20260708/c678033478.shtml",
+      "chunk_id": 3,
+      "text": "Platinum's applications in the semiconductor (881121) field include platinum-cobalt alloys in magnetic recording hard drives, platinum-iron alloys in heat-assisted magnetic recording technology, absorption layers in photomask plates, platinum-rhodium electrodes for high-precision temperature measurement, and platinum-iridium alloys and platinum black nanoparticles in embedded brain-computer interfaces (886047). Among these, although the base is small, the growth rate of brain-computer interfaces (886047) is extremely fast, with an average annual compound growth rate of 45.3%, making it a long-term driver of platinum demand growth.\nDong Tingyi mentioned that the insufficient refining capacity for high-purity platinum in China and the almost non-existent domestic reserves pose potential risks to the supply chain.\nIt is worth noting that palladium has shifted to a state of continuous surplus in 2026. Dong Tingyi believes that while there is a trend of nickel substitution in the low-end market, the demand for palladium in high-end applications remains rigid.",
+      "highlights": []
+    },
+    "079062281D021728FDD99BB8AECBB729-30": {
+      "ref_id": 1,
+      "document_id": "079062281D021728FDD99BB8AECBB729",
+      "headline": "[Agricultural Products Morning Review] Cotton: Affected by policy rumors, Zhengzhou cotton surged and then fell",
+      "ts": "2026-07-09T03:21:47",
+      "document_scope": "Unknown",
+      "language": "Unknown",
+      "source_key": "825E62",
+      "source_name": "Flush Financial Services Network",
+      "source_rank": 2,
+      "url": "http://goodsfu.10jqka.com.cn/20260709/c678060212.shtml",
+      "chunk_id": 30,
+      "text": "Sugar 2026.7.9\nPrice: On July 8, the spot price of domestic Nanning white sugar was 5280 yuan/ton, down 20 yuan/ton from yesterday; the main Zheng sugar contract closed at 5271 yuan/ton, down 45 yuan/ton; the futures-spot basis was 9 yuan/ton, up 25 yuan/ton from yesterday.\nConclusion: The market opened lower and closed lower, with overall bearish sentiment. The fundamentals of the domestic sugar market still face significant supply pressure, with increased production and inventory but slow sales progress. However, there are also some potential supportive factors in the market due to recent weather conditions. Internationally, Brazilian ethanol prices have temporarily stabilized, and market expectations suggest that the widening sugar-ethanol price ratio will lead to a lower sugar-making ratio, thus reducing Brazilian sugar supply. However, Thailand's higher-than-expected production offsets some of Brazil's positive impact. Domestically, affected by the higher-than-expected increase in production, the domestic sugar market has entered a cycle (883436) of loose supply. Overall, domestic and international supply sides are mixed with both positive and negative factors, and demand has not shown significant improvement. The overall upward momentum is insufficient. However, current white sugar valuations are at a low level, with strong cost support below, and El Niño expectations are increasing, so the downside space is limited. It is expected to continue oscillating at the bottom until the fundamentals improve significantly. Follow up with the ongoing geopolitical conflicts and the evolution of global El Niño weather.",
+      "highlights": []
+    },
+    "28D0DA2BFD765044DE2FF631ED3B48CA-1": {
+      "ref_id": 2,
+      "document_id": "28D0DA2BFD765044DE2FF631ED3B48CA",
+      "headline": "Dual pressure squeezes sugar supply, former world's second-largest sugar exporter is \"exiting\"",
+      "ts": "2026-07-09T23:15:08",
+      "document_scope": "Unknown",
+      "language": "Unknown",
+      "source_key": "855C25",
+      "source_name": "Ifeng",
+      "source_rank": 3,
+      "url": "http://ishare.ifeng.com/c/s/v002O-_NCW8a22eGr5sBTzrOeyF10hymJRTCxwH--PUjF-_fYo__",
+      "chunk_id": 1,
+      "text": "[Global Times report Correspondent Yang Shasha] \"As the former world's second-largest sugar exporter, India is facing pressure from reduced sugar production,\" according to a recent report by The Times of India. Currently, the intensifying El Niño phenomenon in the Pacific may lead to severe insufficiency in India's monsoon rainfall, potentially decreasing sugarcane yield in major sugar-producing states and thus lowering India's total sugar output. Furthermore, the growing demand for ethanol in the Indian market, with more sugarcane being diverted to renewable energy production like ethanol, is also squeezing sugar supply.\nThe Japan Times commented that the aforementioned dual pressures are expected to keep millions of tons of sugar out of the global market, and India's long-term absence from the export market is reshaping the global sugar trade landscape.",
+      "highlights": []
+    },
+    "B6A076A1C51F9C808073C6559B45ABE1-1": {
+      "ref_id": 3,
+      "document_id": "B6A076A1C51F9C808073C6559B45ABE1",
+      "headline": "Sugar market to register small deficit in 2026/27, says broker Czarnikow",
+      "ts": "2026-07-08T14:57:42",
+      "document_scope": "Unknown",
+      "language": "Unknown",
+      "source_key": "7EF16F",
+      "source_name": "Business Times (Singapore)",
+      "source_rank": 2,
+      "url": "https://www.businesstimes.com.sg/companies-markets/energy-commodities/sugar-market-register-small-deficit-202627-says-broker-czarnikow",
+      "chunk_id": 1,
+      "text": "[LONDON] The global sugar market will be in a modest deficit of 600,000 metric tons in the 2026/27 season, thanks largely to reduced output in the European Union, sugar broker and supply chain services company Czarnikow said on Wednesday (Jul 8).\nA record-breaking heatwave in Europe, the world's third-largest sugar grower, has put the region's sugar beet crop at risk. Factories are also struggling to break even and so beet plantings have been reduced.\n\"We have cut our 2026/27 EU-27 sugar production forecast to 13.9 million tonnes after the European Commission's preliminary beet area estimates pointed to a smaller planted area,\" said Czarnikow.\nThe broker said that given the large surplus in 2025/26, a small deficit next season does not create a global shortage but it does leave less room for further crop disappointments in other key producers later in the season.\nThese are more likely than not. The United Nations weather agency last week raised its forecast for the El Nino weather pattern to \"strong\" and warned it could further revise it to \"very strong\" in the coming months. The weather pattern typically brings dry, hot conditions in key sugar growers India and Thailand during the crop development phase, as well as excess rains that can delay and harm harvest quality in top grower Brazil.",
+      "highlights": []
+    },
+    "EDEE42D0E388D658DF0347AE28F2E79C-1": {
+      "ref_id": 6,
+      "document_id": "EDEE42D0E388D658DF0347AE28F2E79C",
+      "headline": "India's sugar exports decline, global supply may tighten in coming years",
+      "ts": "2026-07-09T10:42:52",
+      "document_scope": "Unknown",
+      "language": "Unknown",
+      "source_key": "4B24A3",
+      "source_name": "Sohu",
+      "source_rank": 4,
+      "url": "https://www.sohu.com/a/1048055188_122014422",
+      "chunk_id": 1,
+      "text": "Mu Tian Technology\nIn the next two to three years, India's participation in the global sugar export market is expected to be limited. A decline in domestic sugar supply, the potential impact of El Niño on sugarcane production, and rising ethanol demand will reduce the amount of sugar available for export, putting pressure on global sugar supply.\nAccording to reports, India, once the world's second-largest sugar exporter, will find it difficult to regain this position in the international market in the short term. Previously, India's average annual sugar exports were about 6.8 million tons, but with the reduction in domestic surplus sugar, exports have significantly decreased to about 800,000 tons.\nOne of the main reasons for the decline in exports is the adverse impact of El Niño, which is expected to weaken the monsoon and thereby affect sugarcane cultivation. Reduced rainfall will delay sugarcane planting progress and lower sugarcane yields. Meteorological experts have previously warned that El Niño could lead to a decline in agricultural output in countries like India, increasing the risks of food inflation and supply shortages.",
+      "highlights": []
+    },
+    "C688A2A3A3F8E4FF7CF656EECF777C7A-151": {
+      "ref_id": 12,
+      "document_id": "C688A2A3A3F8E4FF7CF656EECF777C7A",
+      "headline": "Commodity forecast : World",
+      "ts": "2026-07-07T10:28:11",
+      "document_scope": "Unknown",
+      "language": "Unknown",
+      "source_key": "1FBA3D",
+      "source_name": "The Economist",
+      "source_rank": 1,
+      "url": "https://cdn.ravenpack.com/uuid/C688A2A3A3F8E4FF7CF656EECF777C7A/filename/eiu_commodity-forecast_2026-07-07_XA.pdf",
+      "chunk_id": 151,
+      "text": "Improving prospects for a durable US-Iran ceasefire have eased crude oil prices and reduced one of the main sources of support for sugar prices in the second quarter of 2026. Lower oil prices reduce incentives for Brazilian mills to maximise ethanol production, allowing a larger share of sugarcane to be diverted towards sugar. Combined with Brazil's ongoing harvest, this should keep the market well supplied for the remainder of 2026.\nFor the 2025/26 season, which began in October, we forecast 4.5% production growth and a 5.3m-tonne surplus. We then expect production to decline in 2026/27, resulting in an 800,000-tonne market deficit. Consequently, the global stocks/consumption ratio will fall from 62.5% to 61.1%, supporting a 4% increase in average prices in 2027.",
+      "highlights": []
+    },
+    "EDEE42D0E388D658DF0347AE28F2E79C-2": {
+      "ref_id": 19,
+      "document_id": "EDEE42D0E388D658DF0347AE28F2E79C",
+      "headline": "India's sugar exports decline, global supply may tighten in coming years",
+      "ts": "2026-07-09T10:42:52",
+      "document_scope": "Unknown",
+      "language": "Unknown",
+      "source_key": "4B24A3",
+      "source_name": "Sohu",
+      "source_rank": 4,
+      "url": "https://www.sohu.com/a/1048055188_122014422",
+      "chunk_id": 2,
+      "text": "Meanwhile, India is continuously expanding its ethanol development program, with more sugarcane being diverted for fuel production rather than sugar manufacturing. The government's strong push for ethanol blending in gasoline has led to more sugarcane being used for ethanol production, further tightening sugar supply.\nProduction forecast data shows that India's sugar output may remain around 27.9 million tons, with domestic consumption expected to be approximately 28.5 million tons. As demand is projected to exceed production, sugar inventories may fall to a historical low.\nIf current trends continue, India may have to import sugar by the 2027-28 crushing season, which would be the first time the country has imported sugar in over a decade. To stabilize domestic sugar prices, the government has extended sugar export restriction measures until 2026.\nIndia's reduced supply in the export market is expected to affect sugar importing countries in Asia, Africa, and the Middle East. The risk of reduced production due to climate factors, combined with increased ethanol production capacity, is reshaping the global sugar market, and a reduction in supply is likely to push up international sugar prices.",
+      "highlights": []
+    },
+    "079062281D021728FDD99BB8AECBB729-29": {
+      "ref_id": 2,
+      "document_id": "079062281D021728FDD99BB8AECBB729",
+      "headline": "[Agricultural Products Morning Review] Cotton: Affected by policy rumors, Zhengzhou cotton surged and then fell",
+      "ts": "2026-07-09T03:21:47",
+      "document_scope": "Unknown",
+      "language": "Unknown",
+      "source_key": "825E62",
+      "source_name": "Flush Financial Services Network",
+      "source_rank": 2,
+      "url": "http://goodsfu.10jqka.com.cn/20260709/c678060212.shtml",
+      "chunk_id": 29,
+      "text": "USDA's first forecast for global cotton production in the 26/27 season predicts a global output of 25.3 million tons, a year-on-year decrease of 3.1%. Domestically, China's total cotton production is expected to be 7.3 million tons, a year-on-year decrease of 5%. US cotton production is expected to be 2.9 million tons, a year-on-year decrease of 4.3%.\nBCO's 2026 national cotton planted area survey shows that the national cotton planting area in 2026 has been adjusted down by 1.081 million mu to 45.168 million mu, a year-on-year decrease of 4.5%. Total output has been adjusted up by 20,000 tons to 7.258 million tons, a year-on-year decrease of 6.8%.\nNational Development and Reform Commission: The total quota for processing trade of cotton import sliding tariff in 2026 is 300,000 tons.",
+      "highlights": []
+    },
+    "D77B1898A15094456C150A9B76ADA91A-6": {
+      "ref_id": 15,
+      "document_id": "D77B1898A15094456C150A9B76ADA91A",
+      "headline": "Cotton Market Daily (July 7)",
+      "ts": "2026-07-07T10:37:40",
+      "document_scope": "Unknown",
+      "language": "Unknown",
+      "source_key": "825E62",
+      "source_name": "Flush Financial Services Network",
+      "source_rank": 2,
+      "url": "http://goodsfu.10jqka.com.cn/20260707/c678012330.shtml",
+      "chunk_id": 6,
+      "text": "From an import perspective, the timing is not yet ripe for Indian spinning mills/traders to extensively import foreign cotton in the second half of 2026. Currently, Indian domestic cotton prices do not have a significant premium compared to international cotton prices. Furthermore, the delay in the first phase of India-US tariff negotiations and the negative impact of the US imposing an additional 10-12.5% tariff on 60 economies worldwide based on the 301 tariff investigation mean that India currently lacks a significant impetus to increase imports, relying primarily on domestic cotton supply.\nFurthermore, with a significant increase in India's cotton planting area in 2026 (CAI predicts over 13% year-on-year growth), expectations of a rebound in output, and the impact of a 7% year-on-year increase in MSP prices, CCI anticipates that cotton procurement for the 2026/27 season will expand to 12-15 million bales. Therefore, there is a need to recover funds and release warehouse capacity in advance.\nBased on the above situation, some Indian private ginners and cotton exporters believe that CCI cotton auctions in July and August will continue to be active, with strong trading, making it unlikely for destocking to cool down. It is possible that 100% clearance will be achieved before the 2026/27 new cotton comes to market.",
+      "highlights": []
+    },
+    "ECF2378D01D14B902E03826E50728AE4-1": {
+      "ref_id": 27,
+      "document_id": "ECF2378D01D14B902E03826E50728AE4",
+      "headline": "[Market Wrap] Cotton Falls 2.24% Intra-day; Institutions Suggest Bearish Trend, Advise Short-Term Wait-and-See",
+      "ts": "2026-07-09T07:20:21",
+      "document_scope": "Unknown",
+      "language": "Unknown",
+      "source_key": "825E62",
+      "source_name": "Flush Financial Services Network",
+      "source_rank": 2,
+      "url": "http://goodsfu.10jqka.com.cn/20260709/c678064287.shtml",
+      "chunk_id": 1,
+      "text": "1. Imported cotton costs are 2568-2862 yuan/ton lower than domestic cotton prices. Domestic cotton spot prices have risen significantly. Cotton prices have fallen. Fundamentally, the Northern Hemisphere's cotton planting is nearing completion, with weather changes influencing market sentiment. The drought in the US has eased. Recently, continuous high temperatures in Xinjiang may lead to a decrease in boll formation rate and shedding, threatening yields. The NOAA report indicates the formation of an El Niño climate, so weather factors warrant continued attention. On the demand side, domestic consumption remains stable, and cotton inventory is being depleted rigidly. However, the peak consumption season has passed, market transactions are subdued, and significant positive catalysts are unlikely. In the macro market, the latest US 301 investigation imposes a 10% tariff on Chinese goods, with the specific implementation date yet to be determined, and textile and apparel exports remain weak. Overall, with the rekindled US-Iran conflict, capital flowing into the chemical sector, and disturbances from reserve release news, bearish sentiment has led to a decline in cotton prices, suggesting a short-term wait-and-see approach.",
+      "highlights": []
+    },
+    "ECF2378D01D14B902E03826E50728AE4-3": {
+      "ref_id": 28,
+      "document_id": "ECF2378D01D14B902E03826E50728AE4",
+      "headline": "[Market Wrap] Cotton Falls 2.24% Intra-day; Institutions Suggest Bearish Trend, Advise Short-Term Wait-and-See",
+      "ts": "2026-07-09T07:20:21",
+      "document_scope": "Unknown",
+      "language": "Unknown",
+      "source_key": "825E62",
+      "source_name": "Flush Financial Services Network",
+      "source_rank": 2,
+      "url": "http://goodsfu.10jqka.com.cn/20260709/c678064287.shtml",
+      "chunk_id": 3,
+      "text": "Domestic cotton spot prices have risen significantly.\nOn July 8th, the weighted average price of national standard grade cotton (3128B grade) was 17910 yuan/ton, an increase of 188 yuan/ton week-on-week, 341 yuan/ton month-on-month, and 2717 yuan/ton year-on-year. Continuous high temperatures in most cotton-producing areas in Xinjiang this week may affect yields, leading to a significant rise in domestic cotton prices. (National Grain and Oils Information Center)\nProduct Fundamentals\nAccording to data from Tonghuashun (300033) iFinD:\nOn July 9th, the spot price of cotton in the national market was quoted at 17912.31 yuan/ton, a premium of 1982.31 yuan/ton over the main futures price (15930.00 yuan/ton).\nGuodu Futures: Cotton shows a bearish trend and is expected to fall; advise a short-term wait-and-see approach.",
+      "highlights": []
+    },
+    "EEAEFCC0297E58F15A5D6756B6D2CD79-1": {
+      "ref_id": 2,
+      "document_id": "EEAEFCC0297E58F15A5D6756B6D2CD79",
+      "headline": "U.S. Market Expected To Lead Multibillion Dollar Investments In LNG",
+      "ts": "2026-07-08T16:08:20",
+      "document_scope": "Unknown",
+      "language": "Unknown",
+      "source_key": "22AC8B",
+      "source_name": "Forbes.com",
+      "source_rank": 1,
+      "url": "https://www.forbes.com/sites/gauravsharma/2026/07/08/us-market-expected-to-lead-multibillion-dollar-investments-in-lng/",
+      "chunk_id": 1,
+      "text": "Global demand for liquified natural gas is surging, primarily driven by the exponential growth of artificial intelligence and hyperscale data centers, which renewable energy sources cannot fully power. The U.S. is at the forefront of this trend, being the world's largest builder of data centers, the top LNG exporter, and the biggest natural gas producer. This confluence is leading to massive multi-billion dollar investments in both data center expansion and natural gas infrastructure. US gas-fired capacity is tripling, and AI data centers could consume over 10% of US electricity by 2030. Foreign investors, including major energy players from Asia and the Middle East, are flocking to secure US LNG supplies, especially given geopolitical disruptions elsewhere.",
+      "highlights": []
+    },
+    "ADC5476783D570856337F7B5CB1246A9-1": {
+      "ref_id": 3,
+      "document_id": "ADC5476783D570856337F7B5CB1246A9",
+      "headline": "Market Chatter: Qatar Reportedly Pauses LNG Output Ramp-up After Tanker Attack in Hormuz",
+      "ts": "2026-07-09T15:38:45",
+      "document_scope": "Unknown",
+      "language": "Unknown",
+      "source_key": "B20A3A",
+      "source_name": "MT Newswires - Global Energy",
+      "source_rank": 1,
+      "url": null,
+      "chunk_id": 1,
+      "text": "11:38 AM EDT, 07/09/2026 (MT Newswires) -- Qatar has paused plans to ramp up production at the Ras Laffan liquefied natural gas complex after one of its LNG tankers was attacked in the Strait of Hormuz, raising concerns that the key shipping route remains unsafe, Bloomberg reported Thursday, citing sources familiar with the matter.\nQatarEnergy has reportedly scaled back operations and reduced the number of vessels scheduled to dock as a precaution.\nThe delay could tighten global LNG supplies and intensify competition between Asia and Europe for cargoes ahead of winter.\nQatar Energy did not immediately respond to requests for comment from MT Newswires\n(Market Chatter news is derived from conversations with market professionals globally. This information is believed to be from reliable sources but may include rumor and speculation. Accuracy is not guaranteed.)",
+      "highlights": []
+    },
+    "003EC22525D12798CD9D81B12BBDF2DC-279": {
+      "ref_id": 6,
+      "document_id": "003EC22525D12798CD9D81B12BBDF2DC",
+      "headline": "Commodity forecast : World",
+      "ts": "2026-07-09T13:10:40",
+      "document_scope": "Unknown",
+      "language": "Unknown",
+      "source_key": "1FBA3D",
+      "source_name": "The Economist",
+      "source_rank": 1,
+      "url": "https://cdn.ravenpack.com/uuid/003EC22525D12798CD9D81B12BBDF2DC/filename/eiu_commodity-forecast_2026-07-09_XA.pdf",
+      "chunk_id": 279,
+      "text": "Supply\nWe forecast that LNG supply will contract by 4.1% in 2026, as extra output from the US, Canada and some other sources will cover only part of Qatar's reduced production. The Iranian missile strike on Qatar's Ras Laffan LNG complex on March 19th was the most serious incident affecting energy infrastructure during the initial phase of the Iran war. It caused serious damage to two of Qatar's 14 LNG trains (S4 and S6) and a gas-to-liquids (GTL) plant. The combined capacity of the two plants was 12.8m t/y, representing 17% of Qatar's total output. QatarEnergy said that repairs would take three to five years. Qatar had already suspended LNG production at the start of March because of concerns about safety and the effective closure of the Strait of Hormuz. Even if a lasting ceasefire is agreed and free passage through the strait is restored, starting up Qatar's remaining LNG trains will take several weeks. In the meantime, QatarEnergy has suspended work on its large-scale expansion programme, which is now unlikely to start up until 2028. We expect that Qatar's LNG exports will fall by more than half from 79m tonnes in 2025 to about 35m tonnes in 2026. Taking into account the risk of lingering technical problems affecting Qatar's LNG industry, it is doubtful whether full capacity will be restored to the 12 surviving trains in 2027, when we forecast exports of about 50m tonnes.",
+      "highlights": []
+    },
+    "94B82B070137384B87E7655759124711-9": {
+      "ref_id": 17,
+      "document_id": "94B82B070137384B87E7655759124711",
+      "headline": "Kinder Morgan Inc (KMI): Natural Gas Tailwinds Strengthening Earnings Visibility, with LNG Demand Driving the Next Growth Phase : What's the Impact, Valuation Outlook & its 5 Key Catalysts ? - Initiation of Coverage: Thesis Major Drivers, 1QF26 Review, Forecasts, DCF, Peer Comps & Risks",
+      "ts": "2026-07-08T21:20:20",
+      "document_scope": "Unknown",
+      "language": "Unknown",
+      "source_key": "D9FF00",
+      "source_name": "Equisights",
+      "source_rank": 1,
+      "url": "https://research.bluematrix.com/docs/pdf/c46b3243-5f0f-41f6-9db7-cf007fd1750f/2735c070-2a0c-434c-84ab-4bdfbce8d5a6",
+      "chunk_id": 9,
+      "text": "Investment Thesis\nKinder Morgan's first quarter establishes a clear step-change in earnings capacity, with adjusted EPS increasing 41% year over year to $0.44 and adjusted EBITDA advancing 18%, while net income rose 36% to $976 million. Every segment expanded versus 1Q25 and exceeded internal budget. We would emphasize that the breadth of outperformance across Natural Gas, Products, Terminals, and CO2 meaningfully de-risks the quality of the beat, particularly as it was supported by both volume growth and contractual rate dynamics rather than financial engineering.\nNatural Gas remains the principal earnings engine. Transport volumes increased 8% and gathering volumes rose 15%, driven by LNG feedgas deliveries on Tennessee Gas Pipeline, Haynesville strength, incremental capacity sales, and winter-driven demand. Utilization across the five largest pipelines now exceeds 90%. Management projects U.S. gas demand to reach 150 Bcf/d by 2031, up 27% from current levels, alongside 153 GW of planned gas-fired generation additions, double prior estimates, and INGAA's projection of 70 Bcf/d of incremental pipeline capacity required by 2050. We view this confluence of LNG expansion, data center-driven power load, and infrastructure scarcity as structurally supportive of throughput and expansion economics, particularly given Kinder Morgan's 78,000- mile footprint in advantaged corridors. Additionally, geopolitical disruptions affecting Qatar and Strait of Hormuz shipping lanes could reinforce preference for U.S.-sourced LNG. In our view, this represents an incremental, externally driven tailwind not embedded in prior long-term assumptions.",
+      "highlights": []
+    },
+    "94B82B070137384B87E7655759124711-15": {
+      "ref_id": 19,
+      "document_id": "94B82B070137384B87E7655759124711",
+      "headline": "Kinder Morgan Inc (KMI): Natural Gas Tailwinds Strengthening Earnings Visibility, with LNG Demand Driving the Next Growth Phase : What's the Impact, Valuation Outlook & its 5 Key Catalysts ? - Initiation of Coverage: Thesis Major Drivers, 1QF26 Review, Forecasts, DCF, Peer Comps & Risks",
+      "ts": "2026-07-08T21:20:20",
+      "document_scope": "Unknown",
+      "language": "Unknown",
+      "source_key": "D9FF00",
+      "source_name": "Equisights",
+      "source_rank": 1,
+      "url": "https://research.bluematrix.com/docs/pdf/c46b3243-5f0f-41f6-9db7-cf007fd1750f/2735c070-2a0c-434c-84ab-4bdfbce8d5a6",
+      "chunk_id": 15,
+      "text": "Natural Gas Demand Growth, Storage Differentiation, and Robust Project Opportunity Set Across the Southern U.S.\nThe company's positioning lies at the intersection of accelerating U.S. natural gas demand and its integrated storage and pipeline footprint across the Southern United States underpins a structurally advantaged platform for sustained growth. U.S. natural gas demand is projected to rise to approximately 150 Bcf per day by 2031, representing roughly 27% growth from current levels, driven primarily by LNG exports and a significant acceleration in gas-fired power generation. Utilities are planning to add 153 gigawatts of new gas-fired capacity, nearly double prior projections, implying construction of approximately 210 new facilities, many tied to data center demand and expected online by 2030, while geopolitical disruptions affecting Middle Eastern liquefaction and shipping lanes are reinforcing structural preference for U.S.-sourced LNG. Operationally, the company's five largest pipelines are operating above 90% utilization, systemwide load factors remain elevated, and first-quarter transport volumes increased 8% year over year driven largely by LNG feedgas, while gathering and processing volumes rose 15%, including a 34% increase at KinderHawk. The development portfolio includes projects serving more than 10 Bcf per day of incremental power demand and over 3 Bcf per day of LNG demand, alongside expansions such as the Trident pipeline with phase one expected in the first quarter of 2027, the GCS expansion, and the Amarillo expansion adding 550 MMcf/d characterized as market-pull driven by power demand, as well as approximately 1 Bcf per day of incremental processing capacity planned later this year.",
+      "highlights": []
+    }
+  }
+}
