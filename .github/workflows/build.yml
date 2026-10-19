@@ -45,7 +45,6 @@ jobs:
         falcon_client_id: ${{ secrets.FALCON_CLIENT_ID }}
         falcon_client_secret: ${{ secrets.FALCON_CLIENT_SECRET }}
         falcon_region: ${{ secrets.FALCON_REGION }}
-        fcs_version: "2.0.2"
     - name: Push Docker image
       uses: docker/build-push-action@v6
       with:
