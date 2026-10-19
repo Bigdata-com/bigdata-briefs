@@ -5,7 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [4.0.0] - Unreleased
+## [4.0.1] - 2026-10-19
+
+### Security
+- Upgraded all locked dependencies to their latest versions to address vulnerabilities reported in the Docker image scan (including `starlette`, `fastapi`, `urllib3`, `aiohttp`, `requests` and `certifi`).
+
+### Fixed
+- Declared `httpx` as a direct dependency; it was previously only available transitively through `openai`.
+- Annotated SQL model datetime fields as `NaiveDatetime` to keep storing naive datetimes, as required by newer `sqlmodel` versions.
+- Fixed entity tickers always being empty: the `ticker` field still used the `metadata_1` alias from the old SDK response, so tickers from the knowledge graph API were discarded and never included in the LLM prompts.
+- Updated the `SentimentFilter` type to the `ranges` format already sent to the search API.
+- Fixed type checking errors in the metrics classes.
+
+### Changed
+- Removed the UI section from the README, as the example frontend is temporarily disabled and `/` redirects to the API documentation at `/docs`.
+- Pinned the `ruff` (0.15.22) and `ty` (0.0.89) versions used by the Makefile, so lint and type checks no longer change behaviour when new tool versions are released.
+
+## [4.0.0] - 2025-11-21
 
 ### Added
 - Added support for the new search API instead of the SDK for retrieval, allowing for more flexible queries and better performance.

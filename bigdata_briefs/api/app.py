@@ -110,11 +110,13 @@ def health_check():
 
 @app.get(
     "/",
-#     summary="Example frontend for testing the thematic screener.",
-#     response_class=HTMLResponse,
+    #     summary="Example frontend for testing the thematic screener.",
+    #     response_class=HTMLResponse,
 )
 async def sample_frontend(_: str = Security(query_scheme)):
     return RedirectResponse(url="/docs")
+
+
 #     # Get example values from the schema for all fields
 #     example_values = get_example_values_from_schema(BriefCreationRequest)
 #     return HTMLResponse(

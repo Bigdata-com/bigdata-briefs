@@ -10,8 +10,14 @@ class EntityFilter(TypedDict):
     any_of: List[str]
 
 
-class SentimentFilter(TypedDict):
-    values: List[Literal["positive", "negative", "neutral"]]
+class SentimentRange(TypedDict):
+    min: float
+    max: float
+
+
+class SentimentFilter(TypedDict, total=False):
+    ranges: List[SentimentRange]
+    values: List[Literal["positive", "negative", "neutral"]]  # Deprecated by the API
 
 
 class SourceFilter(TypedDict):

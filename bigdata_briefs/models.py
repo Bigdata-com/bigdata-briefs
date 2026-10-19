@@ -40,7 +40,7 @@ class Entity(BaseModel):
     id: str
     name: str
     entity_type: str
-    ticker: Annotated[str | None, Field(default=None, validation_alias="metadata_1")]
+    ticker: str | None = None
 
     _raw: Any = None  # Field used to keep the original response from SDK
 
