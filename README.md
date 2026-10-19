@@ -49,7 +49,7 @@ docker run -d \
   ghcr.io/bigdata-com/bigdata-briefs:latest
 ```
 
-This will start the brief service locally on port 8000. You can then access the service @ `http://localhost:8000/` and the documentation for the API @ `http://localhost:8000/docs`.
+This will start the brief service locally on port 8000. You can then access the documentation for the API @ `http://localhost:8000/docs`.
 
 For a custom enterprise-ready solution, please contact us at [support@bigdata.com](mailto:support@bigdata.com)
 
@@ -60,12 +60,6 @@ We perform a pre-release security scan on our container images to detect vulnera
 ## How to use? Generate a brief for your Bigdata.com watchlist
 
 A brief is an executive summary of financially relevant information about a set of companies that form your watchlist.
-
-### Using the UI
-There is a very simple UI available @ `http://localhost:8000/`.
-
-Set your watchlist ID, the relevant dates for your report and whether you want to filter the brief
-only to novel information based on previously generated briefs and click on the "Generate Brief" button.
 
 ### Programmatically
 You can generate a brief by sending a POST request to the `/briefs/create` endpoint with the required parameters.
