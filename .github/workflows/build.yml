@@ -31,7 +31,11 @@ jobs:
         context: .
         file: ./Dockerfile
         push: false
-        cache-from: type=gha
+        # Load the image into the local Docker daemon so the scan uses this build
+        load: true
+        # Always rebuild from the latest base image so OS patches are not served from cache
+        pull: true
+        no-cache: true
         cache-to: type=gha,mode=max
         tags: ghcr.io/bigdata-com/bigdata-briefs:latest,ghcr.io/bigdata-com/bigdata-briefs:${{ github.event.release.tag_name }}
     - name: Run security scan

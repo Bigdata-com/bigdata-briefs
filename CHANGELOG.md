@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 - Upgraded all locked dependencies to their latest versions to address vulnerabilities reported in the Docker image scan (including `starlette`, `fastapi`, `urllib3`, `aiohttp`, `requests` and `certifi`).
+- Rebuilt the Docker image as a multi-stage build on a pinned base image (`python:3.13-alpine3.24`) with the latest Alpine security patches applied. The runtime image no longer includes build tools, `git`, `curl`, `uv`, `pip` or dev dependencies, reducing its size from 569MB to 210MB.
+- The release workflow now builds the image without cache and from the latest base image, and scans the freshly built image before pushing it.
 
 ### Fixed
 - Declared `httpx` as a direct dependency; it was previously only available transitively through `openai`.
