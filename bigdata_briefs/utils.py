@@ -1,4 +1,4 @@
-import random
+import secrets
 import time
 import traceback
 import warnings
@@ -11,6 +11,9 @@ from json_repair import repair_json
 from pydantic import BaseModel, ValidationError
 
 from bigdata_briefs import logger
+
+# CSPRNG, so no predictable random values exist anywhere in the codebase
+_system_random = secrets.SystemRandom()
 
 
 def log_time(func):
@@ -92,7 +95,7 @@ def sleep_with_backoff(*, base: int = 1, attempt: int):
     max_sleep = 20
 
     rnd_upper_bound = min(max_sleep, base * 2**attempt)
-    sleep_time = round(random.uniform(0.5, rnd_upper_bound), 2)
+    sleep_time = round(_system_random.uniform(0.5, rnd_upper_bound), 2)
 
     logger.debug(f"Sleeping for {sleep_time}")
 

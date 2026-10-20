@@ -1,12 +1,15 @@
 ARG PYTHON_IMAGE=python:3.13-alpine3.24
 
+# uv binary, referenced by alias in the build stage
+FROM ghcr.io/astral-sh/uv:0.13.1 AS uv
+
 # ---- Build stage: install the project and its dependencies into a virtualenv ----
 FROM ${PYTHON_IMAGE} AS builder
 
 # Build tools are only needed to compile packages without prebuilt wheels
-RUN apk add --no-cache build-base libffi-dev openssl-dev
+RUN apk add --no-cache build-base~=0.5 libffi-dev~=3.5 openssl-dev~=3.5
 
-COPY --from=ghcr.io/astral-sh/uv:0.13.1 /uv /bin/uv
+COPY --from=uv /uv /bin/uv
 
 # Use the image's Python so the virtualenv also works in the runtime stage
 ENV UV_COMPILE_BYTECODE=1 \
@@ -37,15 +40,15 @@ RUN apk upgrade --no-cache && \
     python -m pip uninstall -y pip && \
     rm -rf /root/.cache
 
-# Create non-root user 'bigdata' and necessary directories
+# Create non-root user 'bigdata' and its writable data directory
 RUN adduser -D bigdata && \
-    mkdir /data && \
-    chown bigdata:bigdata /data
+    install -d -o bigdata -g bigdata -m 0750 /data
 
 # Remove setuid and setgid permissions for extra security
 RUN find / -xdev -perm +6000 -type f -exec chmod a-s {} \; || true
 
-COPY --from=builder --chown=bigdata:bigdata /code/.venv /code/.venv
+# The virtualenv stays root-owned so the runtime user cannot modify installed code
+COPY --from=builder /code/.venv /code/.venv
 
 # Switch to non-root user
 USER bigdata

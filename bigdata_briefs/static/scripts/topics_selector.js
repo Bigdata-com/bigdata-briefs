@@ -9,11 +9,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to render the list of topic_sentences
     const renderSentences = () => {
         // Clear the current list to avoid duplicates
-        listContainer.innerHTML = '';
+        listContainer.replaceChildren();
 
         // If there are no topic_sentences, display a message
         if (topic_sentences.length === 0) {
-            listContainer.innerHTML = `<p class="text-gray-500 text-center p-4">No keyword lines added yet.</p>`;
+            listContainer.replaceChildren(el('p', { className: 'text-gray-500 text-center p-4' }, 'No keyword lines added yet.'));
             return;
         }
 

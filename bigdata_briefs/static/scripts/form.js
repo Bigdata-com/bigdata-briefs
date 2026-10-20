@@ -4,7 +4,7 @@ document.getElementById('briefForm').onsubmit = async function (e) {
     const spinner = document.getElementById('spinner');
     const showJsonBtn = document.getElementById('showJsonBtn');
     const submitBtn = document.querySelector('button[type="submit"]');
-    output.innerHTML = '';
+    output.replaceChildren();
     output.classList.remove('error');
     showJsonBtn.style.display = 'none';
     lastReport = null;
@@ -20,7 +20,7 @@ document.getElementById('briefForm').onsubmit = async function (e) {
         companies = foundWatchlist.id;
     }
     else if (!companies) {
-        output.innerHTML = `<span class="error">❌ Error: Company Universe is required.</span>`;
+        output.replaceChildren(el('span', { className: 'error' }, '❌ Error: Company Universe is required.'));
         output.classList.add('error');
         submitBtn.disabled = false;
         submitBtn.textContent = 'Generate Brief';
@@ -45,8 +45,9 @@ document.getElementById('briefForm').onsubmit = async function (e) {
         // Validate that ALL topics contain the {company} placeholder
         const topicsWithoutPlaceholder = topicsArray.filter(topic => !topic.includes('{company}'));
         if (topicsWithoutPlaceholder.length > 0) {
-            const failingTopicsList = topicsWithoutPlaceholder.map(topic => `• ${escapeHtml(topic)}`).join('<br>');
-            output.innerHTML = `<span class="error">❌ Error: The following topics are missing the {company} placeholder:<br>${failingTopicsList}</span>`;
+            const failingTopicsList = topicsWithoutPlaceholder.map(topic => `• ${topic}`);
+            output.replaceChildren(el('span', { className: 'error' },
+                linesWithBreaks(['❌ Error: The following topics are missing the {company} placeholder:', ...failingTopicsList])));
             output.classList.add('error');
             submitBtn.disabled = false;
             submitBtn.textContent = 'Generate Brief';
@@ -115,14 +116,7 @@ document.getElementById('briefForm').onsubmit = async function (e) {
                     spinner.style.display = 'block';
                     // Render logs if available
                     if (statusData.logs && Array.isArray(statusData.logs)) {
-                        logViewer.innerHTML = statusData.logs.map(line => {
-                            let base = 'mb-1';
-                            let color = '';
-                            if (line.toLowerCase().includes('error')) color = 'text-red-400';
-                            else if (line.toLowerCase().includes('success')) color = 'text-green-400';
-                            else if (line.toLowerCase().includes('info')) color = 'text-sky-400';
-                            return `<div class='${base} ${color}'>${line}</div>`;
-                        }).join('');
+                        logViewer.replaceChildren(...statusData.logs.map(renderLogLine));
                         logViewer.scrollTop = logViewer.scrollHeight;
                     } else if (statusData.log) {
                         logViewer.textContent = statusData.log;
@@ -133,7 +127,7 @@ document.getElementById('briefForm').onsubmit = async function (e) {
                     if (statusData.status === 'completed' || statusData.status === 'failed') {
                         polling = false;
                         if (statusData.status === 'completed') {
-                            output.innerHTML = renderBriefReport(statusData.report)
+                            output.replaceChildren(renderBriefReport(statusData.report));
                             showJsonBtn.style.display = 'inline-block';
                             lastReport = statusData.report;
                         }
@@ -143,7 +137,7 @@ document.getElementById('briefForm').onsubmit = async function (e) {
                         return;
                     }
                 } catch (err) {
-                    logViewer.innerHTML = `<div class=\"log-line log-error\">❌ Status Error: ${err.message}</div>`;
+                    logViewer.replaceChildren(el('div', { className: 'log-line log-error' }, `❌ Status Error: ${err.message}`));
                 }
                 if (polling) {
                     setTimeout(pollStatus, 5000);
@@ -152,7 +146,7 @@ document.getElementById('briefForm').onsubmit = async function (e) {
             pollStatus();
         }
     } catch (err) {
-        output.innerHTML = `<span class="error">❌ Error: ${err.message}</span>`;
+        output.replaceChildren(el('span', { className: 'error' }, `❌ Error: ${err.message}`));
         output.classList.add('error');
         submitBtn.disabled = false;
         submitBtn.textContent = 'Generate Brief';

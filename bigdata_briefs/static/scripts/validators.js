@@ -18,7 +18,7 @@ function calculateMaxDays(frequency) {
 // Validate date range based on frequency
 function validateDateRange(startDate, endDate, frequency) {
     if (!startDate || !endDate || !frequency) {
-        return { isValid: true, message: '' }; // Skip validation if any value is missing
+        return { isValid: true, message: [] }; // Skip validation if any value is missing
     }
 
     const start = new Date(startDate);
@@ -39,11 +39,16 @@ function validateDateRange(startDate, endDate, frequency) {
 
         return {
             isValid: false,
-            message: `Date range exceeds maximum allowed for ${frequencyName} frequency. <br>Maximum: ${maxDays} days.<br>Current range: ${diffDays} days.<br>Use the endpoint directly for full control`
+            message: [
+                `Date range exceeds maximum allowed for ${frequencyName} frequency. `,
+                `Maximum: ${maxDays} days.`,
+                `Current range: ${diffDays} days.`,
+                'Use the endpoint directly for full control',
+            ]
         };
     }
 
-    return { isValid: true, message: '' };
+    return { isValid: true, message: [] };
 }
 
 
@@ -66,7 +71,7 @@ function validateAndShowError() {
         const errorDiv = document.createElement('div');
         errorDiv.id = 'dateRangeError';
         errorDiv.className = 'mb-5 p-3 bg-red-800 text-white rounded-lg border border-red-600';
-        errorDiv.innerHTML = `<strong>⚠️ Date Range Error:</strong> <br> ${validation.message}`;
+        errorDiv.append(el('strong', {}, '⚠️ Date Range Error:'), ' ', el('br'), ' ', ...linesWithBreaks(validation.message));
 
         // Insert after the frequency field
         const frequencyField = document.getElementById('frequency').closest('.mb-5');

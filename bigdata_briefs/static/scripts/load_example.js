@@ -20,14 +20,7 @@ async function loadRequestId(requestId) {
     const statusData = await statusResp.json();
     // Render logs if available
     if (statusData.logs && Array.isArray(statusData.logs)) {
-        logViewer.innerHTML = statusData.logs.map(line => {
-            let base = 'mb-1';
-            let color = '';
-            if (line.toLowerCase().includes('error')) color = 'text-red-400';
-            else if (line.toLowerCase().includes('success')) color = 'text-green-400';
-            else if (line.toLowerCase().includes('info')) color = 'text-sky-400';
-            return `<div class='${base} ${color}'>${line}</div>`;
-        }).join('');
+        logViewer.replaceChildren(...statusData.logs.map(renderLogLine));
         logViewer.scrollTop = logViewer.scrollHeight;
     } else if (statusData.log) {
         logViewer.textContent = statusData.log;
@@ -36,7 +29,7 @@ async function loadRequestId(requestId) {
     }
     // Stop polling if status is 'completed' or 'failed'
     if (statusData.status === 'completed') {
-        output.innerHTML = renderBriefReport(statusData.report)
+        output.replaceChildren(renderBriefReport(statusData.report));
         showJsonBtn.style.display = 'inline-block';
         lastReport = statusData.report;
     }
