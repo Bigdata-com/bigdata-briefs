@@ -188,9 +188,9 @@ uv sync --dev
 
 To run the service, you need an API key from Bigdata.com set on the environment variable `BIGDATA_API_KEY` and additionally provide an API key from a supported LLM provider, for now OpenAI.
 ```bash
-# Set environment variables
-export BIGDATA_API_KEY=<bigdata-api-key-here>
-export OPENAI_API_KEY=<openai-api-key-here>
+# Set environment variables (prompts for each key without echoing it or saving it to shell history)
+read -rs -p "Bigdata.com API key: " BIGDATA_API_KEY && export BIGDATA_API_KEY
+read -rs -p "OpenAI API key: " OPENAI_API_KEY && export OPENAI_API_KEY
 ```
 
 Then, the following command will start the brief service locally on port 8000.

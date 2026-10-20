@@ -1,8 +1,9 @@
 entity_update:
-  model: "gpt-4o-mini"
+  model: "gpt-6-luna"
   model_kwargs:
-    temperature: 0.0
-    max_tokens: 500
+    reasoning:
+      effort: "medium"
+    max_tokens: 8000
   system_prompt: "You are a financial analyst tasked with generating a short market intelligence report."
   user_template: |
     Generate a market-focused update on **{{entity_info}}** based on the recent information below. The following context contains a list of questions and the corresponding news texts that can potentially contain the answer to those questions. Today is {{current_datetime}}.
@@ -21,7 +22,8 @@ entity_update:
     <instructions>
       - Your objective is to analyze and summarize the novel and actionable information from the news texts
       - Your summary must contain specific details (e.g. numbers, dates, etc.)
-      - Each paragraph must be distinct from the others, self-contained, and capture a unique theme. Merge relevant points into a larger paragraph if necessary.
+      - Each paragraph must be distinct from the others, self-contained, and capture a single development. Do NOT merge separate developments (e.g. an earnings preview and a lawsuit, or two different deals) into one paragraph; give each its own paragraph.
+      - Cover every distinct development about {{entity_info}} found in the context as its own paragraph. Write 5 to 8 paragraphs. If fewer than 5 material developments exist within {{start_date}} to {{end_date}}, add the next most relevant {{entity_info}}-specific items from the context (e.g. analyst views, estimates, product, legal or regulatory updates) and score them honestly; never drop a development to keep the list short.
       - Today is {{current_datetime}}. Focus only on actionable, novel information related to {{entity_info}}.
       {% if topics %} - When prioritizing information, give preference to developments that relate to the areas of interest listed above.{% endif %}
       - If there are any reporting dates mentioned in the news text contextualizing some events, only focus on those that occur from {{start_date}} to {{end_date}}.
@@ -49,7 +51,7 @@ entity_update:
       - Subsequent bullets about the same entity should use natural sentence flow without repeating the full name - start with "The <entity type, such as company, person, place..>" or a pronoun, maintaining proper grammar while preserving the dense, information-packed style.
       - All bullets must be complete sentences that read like a professional desk analyst's notes - concise yet grammatically correct.
       - Do NOT use explainers or generic summarizations, present the information and let the reader interpret the context.
-      - Concise and extremely dense, presenting a large volume of information efficiently.
+      - Concise and dense: each paragraph is 1-2 sentences and at most 45 words, keeping only the most decision-relevant figures.
       - Use standard industry abbreviations for brevity and clarity.
       - Make use of financial and industry-specific terminology, assuming familiarity with market concepts (e.g., "FFO," "bp," "yields").
       - Use **bold** to emphasize entity names.
@@ -87,6 +89,7 @@ entity_update:
           • For **events/organizations**: dissolutions, mergers, landmark achievements, sanctions, or major governance changes.
 
       For entity types non mentioned above, apply the same principles of actionability, materiality, and direct impact when assigning relevance scores.
+      Calibration: a development that is specific to {{entity_info}}, falls within {{start_date}} to {{end_date}}, and could affect its financials, operations, legal/regulatory position or investor perception (e.g. earnings previews with estimates, guidance or capex figures, lawsuits and verdicts, regulatory actions, deals, product launches, supply constraints, executive changes) should be scored at least 4. Reserve 3 and below for minor, routine or tangential items.
       Sort the topics by relevance score in descending order. If there are multiple topics with the same relevance score, sort them by the first date mentioned in the text.
     </relevance_score>
 
@@ -95,6 +98,9 @@ entity_update:
       - The citations should be reported for each paragraph where the information is used.
       - For every text used, report the Reference ID. The citation format should be an array constructed as follows: [X,Y,...], where X and Y are the Reference IDs.
       - If there are multiple sources for a particular piece of information, cite ALL the relevant sources in the array.
+      - Every number, date, name and estimate in a paragraph must appear in at least one of the chunks cited for that paragraph. Before finalizing, check each figure against its cited chunks and add the missing Reference ID.
+      - If a figure cannot be traced to a Reference ID in the context, remove that figure from the paragraph.
+      - Attribute estimates and forecasts to whoever made them (e.g. analysts, consensus, a named broker), exactly as stated in the chunk; never present an analyst estimate as company guidance.
     </source_citation>
 
     <response_format>
@@ -170,10 +176,11 @@ entity_update:
 
 
 follow_up_questions:
-  model: "gpt-4o-mini"
+  model: "gpt-6-luna"
   model_kwargs:
-    temperature: 0.0
-    max_tokens: 500
+    reasoning:
+      effort: "medium"
+    max_tokens: 4000
   system_prompt: "You are a top research analyst tasked with generating follow-up questions based on recent news."
   user_template: |
     Today is {{current_datetime}}.
@@ -205,10 +212,11 @@ follow_up_questions:
     </response_format>
 
 intro_section:
-  model: "gpt-4o-mini"
+  model: "gpt-6-luna"
   model_kwargs:
-    temperature: 0.0
-    max_tokens: 500
+    reasoning:
+      effort: "medium"
+    max_tokens: 4000
   system_prompt: "You are a financial analyst tasked with distilling entities developments into concise, actionable bullet points for an executive brief."
   user_template: |
     Today is {{current_datetime}}.
@@ -291,10 +299,11 @@ intro_section:
     </examples>
 
 report_title:
-  model: "gpt-4o-mini"
+  model: "gpt-6-luna"
   model_kwargs:
-    temperature: 0.0
-    max_tokens: 100
+    reasoning:
+      effort: "medium"
+    max_tokens: 1000
   system_prompt: "You are a financial analyst tasked with creating precise, professional titles for executive briefs."
   user_template: |
     Today is {{current_datetime}}.
